@@ -5,207 +5,290 @@
 
 namespace Commercetools\Core\IntegrationTests\Category;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Client\ApiClient;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Category\CategoryReference;
 use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Request\Categories\CategoryByKeyGetRequest;
-use Commercetools\Core\Request\Categories\CategoryQueryRequest;
-use Commercetools\Core\Request\Categories\CategoryCreateRequest;
-use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
-use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
+use Commercetools\Core\Response\PagedQueryResponse;
 
 class CategoryQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @param $name
-     * @param $slug
-     * @return CategoryDraft
-     */
-    protected function getDraft($name, $slug)
-    {
-        $draft = CategoryDraft::ofNameAndSlug(
-            LocalizedString::fromArray(['en' => $name]),
-            LocalizedString::fromArray(['en' => $slug])
-        );
-
-        return $draft;
-    }
-
-    protected function createCategory(CategoryDraft $draft)
-    {
-        $request = CategoryCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $category = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
-            $category->getId(),
-            $category->getVersion()
-        );
-
-        return $category;
-    }
-
     public function testGetById()
     {
-        $category = $this->createCategory($this->getDraft('myCategory', 'my-category'));
+        $client = $this->getApiClient();
 
-        $result = $this->getClient()->execute(CategoryByIdGetRequest::ofId($category->getId()))->toObject();
+        CategoryFixture::withCategory(
+            $client,
+            function (Category $category) use ($client) {
+                $request = RequestBuilder::of()->categories()->getById($category->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($category->getId(), $result->getId());
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($category->getId(), $result->getId());
+            }
+        );
     }
 
     public function testGetByKey()
     {
-        $category = $this->createCategory(
-            $this->getDraft('myCategory', 'my-category')->setKey($this->getTestRun())
+        $client = $this->getApiClient();
+
+        CategoryFixture::withCategory(
+            $client,
+            function (Category $category) use ($client) {
+                $request = RequestBuilder::of()->categories()->getByKey($category->getKey());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Category::class, $result);
+                $this->assertSame($category->getId(), $result->getId());
+                $this->assertSame($category->getKey(), $result->getKey());
+            }
         );
-
-        $result = $this->getClient()->execute(CategoryByKeyGetRequest::ofKey($category->getKey()))->toObject();
-
-        $this->assertInstanceOf(Category::class, $result);
-        $this->assertSame($category->getId(), $result->getId());
     }
 
     public function testQuery()
     {
-        $category = $this->createCategory($this->getDraft('myCategory', 'my-category'));
+        $client = $this->getApiClient();
 
-        $result = $this->getClient()->execute(CategoryQueryRequest::of()->where('name(en="myCategory")'))->toObject();
+        CategoryFixture::withCategory(
+            $client,
+            function (Category $category) use ($client) {
+                $request = RequestBuilder::of()->categories()->query()
+                    ->where('name(en=:name)', ['name' => $category->getName()->en]);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(Category::class, $result->getAt(0));
-        $this->assertSame($category->getId(), $result->getAt(0)->getId());
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Category::class, $result->current());
+                $this->assertSame($category->getId(), $result->current()->getId());
+            }
+        );
     }
 
     public function testQueryByNotName()
     {
-        $this->createCategory($this->getDraft('myCategory', 'my-category'));
+        $client = $this->getApiClient();
 
-        $result = $this->getClient()->execute(
-            CategoryQueryRequest::of()->where('not(name(en="myCategory"))')
-        )->toObject();
+        CategoryFixture::withCategory(
+            $client,
+            function (Category $category) use ($client) {
+                $request = RequestBuilder::of()->categories()->query()
+                    ->where('not(name(en=:name))', ['name' => $category->getName()->en]);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertCount(0, $result);
+                $this->assertCount(0, $result);
+            }
+        );
     }
 
     public function testQueryByExternalId()
     {
-        $category = $this->createCategory($this->getDraft('myCategory', 'my-category')->setExternalId('myExternalId'));
+        $client = $this->getApiClient();
 
-        $result = $this->getClient()->execute(
-            CategoryQueryRequest::of()->where('externalId="myExternalId"')
-        )->toObject();
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setExternalId('myExternalId');
+            },
+            function (Category $category) use ($client) {
+                $request = RequestBuilder::of()->categories()->query()->where('externalId="myExternalId"');
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(Category::class, $result->getAt(0));
-        $this->assertSame($category->getId(), $result->getAt(0)->getId());
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Category::class, $result->current());
+                $this->assertSame($category->getId(), $result->current()->getId());
+            }
+        );
     }
 
     public function testQueryHierarchy()
     {
-        $parent = $this->createCategory($this->getDraft('parentCategory', 'parent-category'));
-        $child = $this->createCategory(
-            $this->getDraft('childCategory', 'child-category')
-                ->setParent(CategoryReference::ofId($parent->getId()))
+        $client = $this->getApiClient();
+
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $parentDraft) {
+                return $parentDraft->setName(LocalizedString::ofLangAndText('en', 'parentCategory'));
+            },
+            function (Category $parent) use ($client) {
+                CategoryFixture::withDraftCategory(
+                    $client,
+                    function (CategoryDraft $childDraft) use ($parent) {
+                        return $childDraft->setParent(CategoryReference::ofId($parent->getId()))
+                            ->setName(LocalizedString::ofLangAndText('en', 'childCategory'));
+                    },
+                    function (Category $child) use ($client, $parent) {
+                        $this->assertSame('childCategory', $child->getName()->en);
+                        $this->assertSame('parentCategory', $parent->getName()->en);
+
+                        $request = RequestBuilder::of()->categories()->query()
+                            ->where('parent(id="'.$parent->getId().'")');
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame($child->getId(), $result->current()->getId());
+
+                        $request = RequestBuilder::of()->categories()->query()->where('parent is defined');
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+                        $this->assertSame($child->getId(), $result->getAt(0)->getId());
+
+                        $request = RequestBuilder::of()->categories()->query()->where('parent is not defined');
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+                        $this->assertSame($parent->getId(), $result->getAt(0)->getId());
+                    }
+                );
+            }
         );
-
-        $this->assertSame('childCategory', $child->getName()->en);
-        $this->assertSame('parentCategory', $parent->getName()->en);
-
-        $result = $this->getClient()->execute(
-            CategoryQueryRequest::of()->where('parent(id="'.$parent->getId().'")')
-        )->toObject();
-
-        $this->assertSame($child->getId(), $result->getAt(0)->getId());
-
-        $result = $this->getClient()->execute(
-            CategoryQueryRequest::of()->where('parent is defined')
-        )->toObject();
-        $this->assertSame($child->getId(), $result->getAt(0)->getId());
-
-        $result = $this->getClient()->execute(
-            CategoryQueryRequest::of()->where('parent is not defined')
-        )->toObject();
-        $this->assertSame($parent->getId(), $result->getAt(0)->getId());
     }
 
     public function testAncestorExpansion()
     {
-        $level1 = $this->createCategory($this->getDraft('level1', 'level1'));
-        $level2 = $this->createCategory(
-            $this->getDraft('level2', 'level2')
-                ->setParent(CategoryReference::ofId($level1->getId()))
-        );
-        $level3 = $this->createCategory(
-            $this->getDraft('level3', 'level3')
-                ->setParent(CategoryReference::ofId($level2->getId()))
-        );
-        $level4 = $this->createCategory(
-            $this->getDraft('level4', 'level4')
-                ->setParent(CategoryReference::ofId($level3->getId()))
-        );
+        $client = $this->getApiClient();
 
-        /**
-         * @var Category $result
-         */
-        $result = $this->getClient()->execute(
-            CategoryByIdGetRequest::ofId($level4->getId())->expand('ancestors[*].ancestors[*]')
-        )->toObject();
-
-        $this->assertCount(3, $result->getAncestors());
-
-        $ancestorIds = $this->map(
-            function ($value) {
-                return $value->getObj()->getId();
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $level1Draft) {
+                return $level1Draft->setName(LocalizedString::ofLangAndText('en', 'level1'));
             },
-            $result->getAncestors()
+            function (Category $level1) use ($client) {
+                CategoryFixture::withDraftCategory(
+                    $client,
+                    function (CategoryDraft $level2Draft) use ($level1) {
+                        return $level2Draft->setParent(CategoryReference::ofId($level1->getId()))
+                            ->setName(LocalizedString::ofLangAndText('en', 'level2'));
+                    },
+                    function (Category $level2) use ($client, $level1) {
+                        CategoryFixture::withDraftCategory(
+                            $client,
+                            function (CategoryDraft $level3Draft) use ($level2) {
+                                return $level3Draft->setParent(CategoryReference::ofId($level2->getId()))
+                                    ->setName(LocalizedString::ofLangAndText('en', 'level3'));
+                            },
+                            function (Category $level3) use ($client, $level2, $level1) {
+                                CategoryFixture::withDraftCategory(
+                                    $client,
+                                    function (CategoryDraft $level4Draft) use ($level3) {
+                                        return $level4Draft->setParent(CategoryReference::ofId($level3->getId()))
+                                            ->setName(LocalizedString::ofLangAndText('en', 'level4'));
+                                    },
+                                    function (Category $level4) use ($client, $level3, $level2, $level1) {
+                                        $request = RequestBuilder::of()
+                                            ->categories()
+                                            ->getById($level4->getId())->expand('ancestors[*].ancestors[*]');
+                                        $response = $this->execute($client, $request);
+                                        $result = $request->mapFromResponse($response);
+
+                                        $this->assertCount(3, $result->getAncestors());
+
+                                        $ancestorIds = $this->map(
+                                            function ($value) {
+                                                return $value->getObj()->getId();
+                                            },
+                                            $result->getAncestors()
+                                        );
+                                        $expectedAncestors = [$level1->getId(), $level2->getId(), $level3->getId()];
+
+                                        $this->assertSame($expectedAncestors, $ancestorIds);
+
+                                        $level3ExpandedAncestor = $result->getAncestors()->getAt(2)->getObj();
+
+                                        $this->assertSame($level3->getId(), $level3ExpandedAncestor->getId());
+                                        $this->assertSame(
+                                            $level1->getId(),
+                                            $level3ExpandedAncestor->getAncestors()->current()->getObj()->getId()
+                                        );
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
         );
-        $expectedAncestors = [$level1->getId(), $level2->getId(), $level3->getId()];
-        $this->assertSame($expectedAncestors, $ancestorIds);
-
-        $level3ExpandedAncestor = $result->getAncestors()->getAt(2)->getObj();
-        $this->assertSame($level3->getId(), $level3ExpandedAncestor->getId());
-
-        $this->assertSame($level1->getId(), $level3ExpandedAncestor->getAncestors()->getAt(0)->getObj()->getId());
     }
 
     public function testParentExpansion()
     {
-        $level1 = $this->createCategory($this->getDraft('level1', 'level1'));
-        $level2 = $this->createCategory(
-            $this->getDraft('level2', 'level2')
-                ->setParent(CategoryReference::ofId($level1->getId()))
+        $client = $this->getApiClient();
+
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $level1Draft) {
+                return $level1Draft->setName(LocalizedString::ofLangAndText('en', 'level1'));
+            },
+            function (Category $level1) use ($client) {
+                CategoryFixture::withDraftCategory(
+                    $client,
+                    function (CategoryDraft $level2Draft) use ($level1) {
+                        return $level2Draft->setParent(CategoryReference::ofId($level1->getId()))
+                            ->setName(LocalizedString::ofLangAndText('en', 'level2'));
+                    },
+                    function (Category $level2) use ($client, $level1) {
+                        $request = RequestBuilder::of()->categories()
+                            ->getById($level2->getId())->expand('parent');
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame($level1->getId(), $result->getParent()->getObj()->getId());
+                    }
+                );
+            }
         );
-
-        /**
-         * @var Category $result
-         */
-        $result = $this->getClient()->execute(
-            CategoryByIdGetRequest::ofId($level2->getId())->expand('parent')
-        )->toObject();
-        $this->assertSame($level1->getId(), $result->getParent()->getObj()->getId());
     }
 
-    protected function predicateTestCase($predicate)
+    public function testPredicates()
     {
-        $this->createCategory($this->getDraft('1', 'test-1'));
-        $draft = $this->getDraft('2', 'test-2');
-        $draft->getName()->add('cn', 'x');
-        $this->createCategory($draft);
-        $this->createCategory($this->getDraft('10', 'test-10'));
+        $client = $this->getApiClient();
 
-        return $this->getClient()->execute(
-            CategoryQueryRequest::of()->where($predicate)->sort('createdAt DESC')
-        )->toObject();
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $level1Draft) {
+                return $level1Draft->setName(LocalizedString::ofLangAndText('en', '1'));
+            },
+            function (Category $level1) use ($client) {
+                CategoryFixture::withDraftCategory(
+                    $client,
+                    function (CategoryDraft $level2Draft) {
+                        return $level2Draft->setName(LocalizedString::ofLangAndText('en', '2')->add('cn', 'x'));
+                    },
+                    function (Category $level2) use ($client) {
+                        CategoryFixture::withDraftCategory(
+                            $client,
+                            function (CategoryDraft $level3Draft) use ($level2) {
+                                return $level3Draft->setName(LocalizedString::ofLangAndText('en', '10'));
+                            },
+                            function (Category $level3) use ($client) {
+                                $this->greaterThanComparison($client);
+                                $this->lesserThanComparison($client);
+                                $this->lesserThanEqualsComparison($client);
+                                $this->greaterThanEqualsComparison($client);
+                                $this->notIn($client);
+                                $this->isDefined($client);
+                                $this->isNotDefined($client);
+                            }
+                        );
+                    }
+                );
+            }
+        );
     }
 
-    public function testGreaterThanComparison()
+    private function queryCategories(ApiClient $client, $predicate)
     {
-        $predicate = 'name(en > "1")';
-        $result = $this->predicateTestCase($predicate);
+        $request = RequestBuilder::of()->categories()
+            ->query()->where($predicate)->sort('createdAt DESC');
+        $response = $this->execute($client, $request);
+        $result = $request->mapFromResponse($response);
 
         $names = array_flip($this->map(
             function ($value) {
@@ -213,108 +296,67 @@ class CategoryQueryRequestTest extends ApiTestCase
             },
             $result
         ));
+
+        return $names;
+    }
+
+    public function greaterThanComparison(ApiClient $client)
+    {
+        $names = $this->queryCategories($client, 'name(en > "1")');
 
         $this->assertArrayHasKey('2', $names);
         $this->assertArrayHasKey('10', $names);
         $this->assertArrayNotHasKey('1', $names);
     }
 
-    public function testLesserThanComparison()
+    public function lesserThanComparison(ApiClient $client)
     {
-        $predicate = 'name(en < "2")';
-        $result = $this->predicateTestCase($predicate);
-
-        $names = array_flip($this->map(
-            function ($value) {
-                return $value->getName()->en;
-            },
-            $result
-        ));
+        $names = $this->queryCategories($client, 'name(en < "2")');
 
         $this->assertArrayHasKey('1', $names);
         $this->assertArrayHasKey('10', $names);
         $this->assertArrayNotHasKey('2', $names);
     }
 
-    public function testLesserThanEqualsComparison()
+    public function lesserThanEqualsComparison(ApiClient $client)
     {
-        $predicate = 'name(en <= "10")';
-        $result = $this->predicateTestCase($predicate);
-
-        $names = array_flip($this->map(
-            function ($value) {
-                return $value->getName()->en;
-            },
-            $result
-        ));
+        $names = $this->queryCategories($client, 'name(en <= "10")');
 
         $this->assertArrayHasKey('1', $names);
         $this->assertArrayHasKey('10', $names);
         $this->assertArrayNotHasKey('2', $names);
     }
 
-    public function testGreaterThanEqualsComparison()
+    public function greaterThanEqualsComparison(ApiClient $client)
     {
-        $predicate = 'name(en >= "10")';
-        $result = $this->predicateTestCase($predicate);
-
-        $names = array_flip($this->map(
-            function ($value) {
-                return $value->getName()->en;
-            },
-            $result
-        ));
+        $names = $this->queryCategories($client, 'name(en >= "10")');
 
         $this->assertArrayHasKey('2', $names);
         $this->assertArrayHasKey('10', $names);
         $this->assertArrayNotHasKey('1', $names);
     }
 
-    public function testNotIn()
+    public function notIn(ApiClient $client)
     {
-        $predicate = 'name(en not in("10", "2"))';
-        $result = $this->predicateTestCase($predicate);
-
-        $names = array_flip($this->map(
-            function ($value) {
-                return $value->getName()->en;
-            },
-            $result
-        ));
+        $names = $this->queryCategories($client, 'name(en not in("10", "2"))');
 
         $this->assertArrayNotHasKey('2', $names);
         $this->assertArrayNotHasKey('10', $names);
         $this->assertArrayHasKey('1', $names);
     }
 
-    public function testIsDefined()
+    public function isDefined(ApiClient $client)
     {
-        $predicate = 'name(cn is defined)';
-        $result = $this->predicateTestCase($predicate);
-
-        $names = array_flip($this->map(
-            function ($value) {
-                return $value->getName()->en;
-            },
-            $result
-        ));
+        $names = $this->queryCategories($client, 'name(cn is defined)');
 
         $this->assertArrayNotHasKey('1', $names);
         $this->assertArrayNotHasKey('10', $names);
         $this->assertArrayHasKey('2', $names);
     }
 
-    public function testIsNotDefined()
+    public function isNotDefined(ApiClient $client)
     {
-        $predicate = 'name(cn is not defined)';
-        $result = $this->predicateTestCase($predicate);
-
-        $names = array_flip($this->map(
-            function ($value) {
-                return $value->getName()->en;
-            },
-            $result
-        ));
+        $names = $this->queryCategories($client, 'name(cn is not defined)');
 
         $this->assertArrayHasKey('1', $names);
         $this->assertArrayHasKey('10', $names);
@@ -323,45 +365,96 @@ class CategoryQueryRequestTest extends ApiTestCase
 
     public function testOverpaging()
     {
-        $this->createCategory($this->getDraft('myCategory', 'my-category'));
-        $result = $this->getClient()->execute(
-            CategoryQueryRequest::of()->offset(10000)
+        $client = $this->getApiClient();
+
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'MyCategory'));
+            },
+            function (Category $draft) use ($client) {
+                $request = RequestBuilder::of()->categories()->query()->offset(10000);
+                $response = $this->execute($client, $request);
+                $pageQueryResponse = new PagedQueryResponse($response, $request);
+
+                $this->assertSame(10000, $pageQueryResponse->getOffset());
+                $this->assertSame(0, $pageQueryResponse->getCount());
+                $this->assertCount(0, $pageQueryResponse->toObject());
+            }
         );
-        $this->assertSame(10000, $result->getOffset());
-        $this->assertSame(0, $result->getCount());
-        $this->assertCount(0, $result->toObject());
+    }
+
+    public function testMinSlugFail()
+    {
+        $client = $this->getApiClient();
+
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidField/");
+
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'min'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', '1'));
+            },
+            function (Category $category) use ($client) {
+            }
+        );
     }
 
     public function testMinSlug()
     {
-        $draft = $this->getDraft('min', '1');
-        $request = CategoryCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
+        $client = $this->getApiClient();
 
-        $category = $request->mapResponse($response);
-        if ($category instanceof Category) {
-            $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
-                $category->getId(),
-                $category->getVersion()
-            );
-        }
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'min'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', '12'));
+            },
+            function (Category $category) use ($client) {
+                $this->assertSame('min', $category->getName()->en);
+                $this->assertSame('12', $category->getSlug()->en);
+            }
+        );
+    }
 
-        $this->assertTrue($response->isError());
+    public function testMaxSlugFail()
+    {
+        $client = $this->getApiClient();
+
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidField/");
+
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'max'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', str_pad('1', 257, '0')));
+            },
+            function (Category $category) use ($client) {
+            }
+        );
     }
 
     public function testMaxSlug()
     {
-        $draft = $this->getDraft('max', str_pad('1', 257, '0'));
-        $request = CategoryCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $category = $request->mapResponse($response);
-        if ($category instanceof Category) {
-            $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
-                $category->getId(),
-                $category->getVersion()
-            );
-        }
+        $client = $this->getApiClient();
 
-        $this->assertTrue($response->isError());
+        $slug = str_pad('1', 256, '0');
+
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $draft) use ($slug) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'max'))
+                    ->setSlug(LocalizedString::ofLangAndText('en', $slug));
+            },
+            function (Category $category) use ($client, $slug) {
+                $this->assertSame('max', $category->getName()->en);
+                $this->assertSame($slug, $category->getSlug()->en);
+            }
+        );
     }
 }
