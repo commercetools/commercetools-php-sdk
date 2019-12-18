@@ -83,6 +83,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(CartDiscount::class, $result);
                 $this->assertSame('2=2', $result->getCartPredicate());
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -106,6 +108,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(CartDiscount::class, $result);
                 $this->assertSame($target->getPredicate(), $result->getTarget()->getPredicate());
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -128,6 +132,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(CartDiscount::class, $result);
                 $this->assertSame(false, $result->getIsActive());
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -151,6 +157,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(CartDiscount::class, $result);
                 $this->assertSame($name->en, $result->getName()->en);
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -174,6 +182,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(CartDiscount::class, $result);
                 $this->assertSame($description->en, $result->getDescription()->en);
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -197,6 +207,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(CartDiscount::class, $result);
                 $this->assertSame($sortOrder, $result->getSortOrder());
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -219,6 +231,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(CartDiscount::class, $result);
                 $this->assertEquals(true, $result->getRequiresDiscountCode());
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -243,6 +257,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $validFrom->setTimezone(new \DateTimeZone('UTC'));
                 $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -267,6 +283,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $validUntil->setTimezone(new \DateTimeZone('UTC'));
                 $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -297,6 +315,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertSame(CartDiscount::MODE_STACKING, $result->getStackingMode());
+
+                return $result;
             }
         );
     }
@@ -328,6 +348,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
                 $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -353,6 +375,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(CartDiscount::class, $result);
                 $this->assertSame('test-' . $this->getTestRun() . '-bar', $result->getKey());
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -382,6 +406,8 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(CartDiscount::class, $result);
                 $this->assertSame('test-' . $this->getTestRun() . '-updated-name', $result->getName()->en);
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }

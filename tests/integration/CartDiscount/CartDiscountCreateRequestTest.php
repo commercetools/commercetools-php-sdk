@@ -31,11 +31,11 @@ class CartDiscountCreateRequestTest extends ApiTestCase
 
                 $this->assertSame($cartDiscount->getName()->en, $result->current()->getName()->en);
                 $this->assertSame(
-                    $result->current()->getValue()->getMoney()->current()->getCentAmount(),
+                    $cartDiscount->getValue()->getMoney()->current()->getCentAmount(),
                     $result->current()->getValue()->getMoney()->current()->getCentAmount()
                 );
                 $this->assertSame(
-                    $result->current()->getValue()->getMoney()->current()->getCurrencyCode(),
+                    $cartDiscount->getValue()->getMoney()->current()->getCurrencyCode(),
                     $result->current()->getValue()->getMoney()->current()->getCurrencyCode()
                 );
                 $this->assertSame($cartDiscount->getCartPredicate(), $result->current()->getCartPredicate());
