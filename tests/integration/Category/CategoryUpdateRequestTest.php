@@ -294,6 +294,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(Category::class, $result);
                 $this->assertSame($description->en, $result->getMetaDescription()->en);
                 $this->assertNotSame($category->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -317,6 +319,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(Category::class, $result);
                 $this->assertSame($title->en, $result->getMetaTitle()->en);
                 $this->assertNotSame($category->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -341,6 +345,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(Category::class, $result);
                 $this->assertSame($keywords->en, $result->getMetaKeywords()->en);
                 $this->assertNotSame($category->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }
@@ -373,6 +379,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     $assetDraft->getSources()->current()->getUri(),
                     $result->getAssets()->current()->getSources()->current()->getUri()
                 );
+
+                return $result;
             }
         );
     }
@@ -397,6 +405,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(Category::class, $result);
                 $this->assertCount(0, $result->getAssets());
+
+                return $result;
             }
         );
     }
@@ -430,6 +440,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     $newName,
                     $result->getAssets()->current()->getName()->en
                 );
+
+                return $result;
             }
         );
     }
@@ -461,6 +473,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     $newDescription,
                     $result->getAssets()->current()->getDescription()->en
                 );
+
+                return $result;
             }
         );
     }
@@ -492,6 +506,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     $newTag,
                     $result->getAssets()->current()->getTags()
                 );
+
+                return $result;
             }
         );
     }
@@ -523,6 +539,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     $newSource->getUri(),
                     $result->getAssets()->current()->getSources()->current()->getUri()
                 );
+
+                return $result;
             }
         );
     }
@@ -556,6 +574,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     $assetKey,
                     $result->getAssets()->current()->getKey()
                 );
+
+                return $result;
             }
         );
     }
@@ -585,6 +605,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     $assetDraft->getSources()->current()->getUri(),
                     $result->getAssets()->current()->getSources()->current()->getUri()
                 );
+
+                return $result;
             }
         );
     }
@@ -610,6 +632,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(Category::class, $result);
                 $this->assertCount(0, $result->getAssets());
+
+                return $result;
             }
         );
     }
@@ -644,6 +668,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     $newName,
                     $result->getAssets()->current()->getName()->en
                 );
+
+                return $result;
             }
         );
     }
@@ -676,6 +702,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     $newDescription,
                     $result->getAssets()->current()->getDescription()->en
                 );
+
+                return $result;
             }
         );
     }
@@ -708,6 +736,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     $newTag,
                     $result->getAssets()->current()->getTags()
                 );
+
+                return $result;
             }
         );
     }
@@ -740,6 +770,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                     $newSource->getUri(),
                     $result->getAssets()->current()->getSources()->current()->getUri()
                 );
+
+                return $result;
             }
         );
     }
