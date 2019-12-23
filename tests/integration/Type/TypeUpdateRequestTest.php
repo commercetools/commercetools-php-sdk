@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Type;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\Enum;
 use Commercetools\Core\Model\Common\EnumCollection;
@@ -13,7 +14,6 @@ use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Type\EnumType;
 use Commercetools\Core\Model\Type\FieldDefinition;
-use Commercetools\Core\Model\Type\FieldDefinitionCollection;
 use Commercetools\Core\Model\Type\LocalizedEnumType;
 use Commercetools\Core\Model\Type\StringType;
 use Commercetools\Core\Model\Type\Type;
@@ -29,391 +29,339 @@ use Commercetools\Core\Request\Types\Command\TypeChangeLocalizedEnumValueLabelAc
 use Commercetools\Core\Request\Types\Command\TypeChangeNameAction;
 use Commercetools\Core\Request\Types\Command\TypeRemoveFieldDefinitionAction;
 use Commercetools\Core\Request\Types\Command\TypeSetDescriptionAction;
-use Commercetools\Core\Request\Types\TypeCreateRequest;
-use Commercetools\Core\Request\Types\TypeDeleteRequest;
-use Commercetools\Core\Request\Types\TypeUpdateByKeyRequest;
-use Commercetools\Core\Request\Types\TypeUpdateRequest;
 
 class TypeUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @return TypeDraft
-     */
-    protected function getDraft($name)
+    private function setFieldDefinition($name, $type)
     {
-        $draft = TypeDraft::ofKeyNameDescriptionAndResourceTypes(
-            'key-' . $this->getTestRun(),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-description'),
-            ['category']
-        );
-        $draft->setFieldDefinitions(
-            FieldDefinitionCollection::of()
-                ->add(
-                    FieldDefinition::of()
-                        ->setName('testField')
-                        ->setLabel(LocalizedString::ofLangAndText('en', 'testField'))
-                        ->setRequired(false)
-                        ->setInputHint('SingleLine')
-                        ->setType(StringType::of())
-                )
-        );
-
-        return $draft;
-    }
-
-    protected function createType(TypeDraft $draft)
-    {
-        /**
-         * @var Type $type
-         */
-        $request = TypeCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-
-        $type = $request->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = TypeDeleteRequest::ofIdAndVersion(
-            $type->getId(),
-            $type->getVersion()
-        );
-
-        return $type;
+        return FieldDefinition::of()
+            ->setName($name)
+            ->setLabel(LocalizedString::ofLangAndText('en', $name))
+            ->setRequired(false)
+            ->setType($type);
     }
 
     public function testChangeByKey()
     {
-        $draft = $this->getDraft('change-by-key');
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $name = $this->getTestRun() . '-new name';
-        $request = TypeUpdateByKeyRequest::ofKeyAndVersion($type->getKey(), $type->getVersion())
-            ->addAction(TypeChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $name)))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        TypeFixture::withUpdateableType(
+            $client,
+            function (Type $type) use ($client) {
+                $name = 'new-name';
+                $request = RequestBuilder::of()->types()->updateByKey($type)
+                    ->addAction(TypeChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $result);
-        $this->assertSame($name, $result->getName()->en);
+                $this->assertInstanceOf(Type::class, $result);
+                $this->assertSame($name, $result->getName()->en);
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeKey()
     {
-        $draft = $this->getDraft('change-key');
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $key = 'new-' . $this->getTestRun();
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(TypeChangeKeyAction::ofKey($key))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        TypeFixture::withUpdateableType(
+            $client,
+            function (Type $type) use ($client) {
+                $key = 'new-key';
+                $request = RequestBuilder::of()->types()->update($type)
+                    ->addAction(TypeChangeKeyAction::ofKey($key));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $result);
-        $this->assertSame($key, $result->getKey());
+                $this->assertInstanceOf(Type::class, $result);
+                $this->assertSame($key, $result->getKey());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeKeyLength()
     {
-        $draft = $this->getDraft('change-key');
-        $draft->setKey(str_pad($draft->getKey(), 256, '0'));
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $key = str_pad('new-' . $this->getTestRun(), 256, '0');
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(TypeChangeKeyAction::ofKey($key))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        TypeFixture::withUpdateableDraftType(
+            $client,
+            function (TypeDraft $draft) {
+                return $draft->setKey(str_pad($draft->getKey(), 256, '0'));
+            },
+            function (Type $type) use ($client) {
+                $key = str_pad('new-' . $this->getTestRun(), 256, '0');
+                $request = RequestBuilder::of()->types()->update($type)
+                    ->addAction(TypeChangeKeyAction::ofKey($key));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $result);
-        $this->assertSame($key, $result->getKey());
+                $this->assertInstanceOf(Type::class, $result);
+                $this->assertSame($key, $result->getKey());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeName()
     {
-        $draft = $this->getDraft('change-name');
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $name = $this->getTestRun() . '-new name';
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(TypeChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $name)))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        TypeFixture::withUpdateableType(
+            $client,
+            function (Type $type) use ($client) {
+                $name = 'new-name';
+                $request = RequestBuilder::of()->types()->update($type)
+                    ->addAction(TypeChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $result);
-        $this->assertSame($name, $result->getName()->en);
+                $this->assertInstanceOf(Type::class, $result);
+                $this->assertSame($name, $result->getName()->en);
+
+                return $result;
+            }
+        );
     }
 
     public function testSetDescription()
     {
-        $draft = $this->getDraft('set-description');
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $description = $this->getTestRun() . '-new description';
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeSetDescriptionAction::of()->setDescription(LocalizedString::ofLangAndText('en', $description))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        TypeFixture::withUpdateableType(
+            $client,
+            function (Type $type) use ($client) {
+                $description = 'new-description';
+                $request = RequestBuilder::of()->types()->update($type)
+                    ->addAction(
+                        TypeSetDescriptionAction::of()
+                            ->setDescription(LocalizedString::ofLangAndText('en', $description))
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $result);
-        $this->assertSame($description, $result->getDescription()->en);
+                $this->assertInstanceOf(Type::class, $result);
+                $this->assertSame($description, $result->getDescription()->en);
+
+                return $result;
+            }
+        );
     }
 
     public function testFieldDefinition()
     {
-        $draft = $this->getDraft('field-definition');
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $fieldDefinition = FieldDefinition::of()
-            ->setName('newField')
-            ->setLabel(LocalizedString::ofLangAndText('en', 'newField'))
-            ->setRequired(false)
-            ->setType(StringType::of())
-        ;
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        TypeFixture::withUpdateableType(
+            $client,
+            function (Type $type) use ($client) {
+                $name = 'newField';
+                $fieldDefinition = $this->setFieldDefinition($name, StringType::of());
+                $request = RequestBuilder::of()->types()->update($type)
+                    ->addAction(
+                        TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $result);
-        $this->assertCount(2, $result->getFieldDefinitions());
-        $this->assertInstanceOf(
-            FieldDefinition::class,
-            $result->getFieldDefinitions()->getByName('newField')
+                $this->assertInstanceOf(Type::class, $result);
+                $this->assertCount(2, $result->getFieldDefinitions());
+                $this->assertInstanceOf(
+                    FieldDefinition::class,
+                    $result->getFieldDefinitions()->getByName('newField')
+                );
+
+                $label = 'new-label';
+                $request = RequestBuilder::of()->types()->update($result)
+                    ->addAction(
+                        TypeChangeLabelAction::ofNameAndLabel('newField', LocalizedString::ofLangAndText('en', $label))
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Type::class, $result);
+                $this->assertSame($label, $result->getFieldDefinitions()->getByName('newField')->getLabel()->en);
+
+                $request = RequestBuilder::of()->types()->update($result)
+                    ->addAction(TypeRemoveFieldDefinitionAction::ofFieldName('newField'));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Type::class, $result);
+                $this->assertCount(1, $result->getFieldDefinitions());
+                $this->assertNull($result->getFieldDefinitions()->getByName('newField'));
+
+                return $result;
+            }
         );
-        $type = $result;
-
-        $label = $this->getTestRun() . ' new label';
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeChangeLabelAction::ofNameAndLabel('newField', LocalizedString::ofLangAndText('en', $label))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Type::class, $result);
-        $this->assertSame($label, $result->getFieldDefinitions()->getByName('newField')->getLabel()->en);
-        $type = $result;
-
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeRemoveFieldDefinitionAction::ofFieldName('newField')
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Type::class, $result);
-        $this->assertCount(1, $result->getFieldDefinitions());
-        $this->assertNull($result->getFieldDefinitions()->getByName('newField'));
     }
 
     public function testAddEnumValue()
     {
-        $draft = $this->getDraft('add-enum');
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $fieldDefinition = FieldDefinition::of()
-            ->setName('newEnumField')
-            ->setLabel(LocalizedString::ofLangAndText('en', 'newEnumField'))
-            ->setRequired(false)
-            ->setType(
-                EnumType::of()
-                    ->setValues(EnumCollection::of())
-            )
-        ;
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-        $type = $result;
+        TypeFixture::withUpdateableType(
+            $client,
+            function (Type $type) use ($client) {
+                $name = 'newEnumField';
+                $enumType = EnumType::of()->setValues(EnumCollection::of());
+                $fieldDefinition = $this->setFieldDefinition($name, $enumType);
+                $request = RequestBuilder::of()->types()->update($type)
+                    ->addAction(TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $enum = Enum::of()->setKey('test')->setLabel('test');
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeAddEnumValueAction::ofNameAndEnum('newEnumField', $enum)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $enum = Enum::of()->setKey('test')->setLabel('test');
+                $request = RequestBuilder::of()->types()->update($result)
+                    ->addAction(TypeAddEnumValueAction::ofNameAndEnum('newEnumField', $enum));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $result);
-        /**
-         * @var EnumType $fieldType
-         */
-        $fieldType = $result->getFieldDefinitions()->getByName('newEnumField')->getType();
-        $this->assertSame($enum->getKey(), $fieldType->getValues()->current()->getKey());
+                $this->assertInstanceOf(Type::class, $result);
+                /**
+                 * @var EnumType $fieldType
+                 */
+                $fieldType = $result->getFieldDefinitions()->getByName('newEnumField')->getType();
+                $this->assertSame($enum->getKey(), $fieldType->getValues()->current()->getKey());
+
+                return $result;
+            }
+        );
     }
 
     public function testAddLocalizedEnumValue()
     {
-        $draft = $this->getDraft('add-localized-enum');
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $fieldDefinition = FieldDefinition::of()
-            ->setName('newLEnumField')
-            ->setLabel(LocalizedString::ofLangAndText('en', 'newLEnumField'))
-            ->setRequired(false)
-            ->setType(
-                LocalizedEnumType::of()
-                    ->setValues(LocalizedEnumCollection::of())
-            )
-        ;
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-        $type = $result;
+        TypeFixture::withUpdateableType(
+            $client,
+            function (Type $type) use ($client) {
+                $name = 'newLEnumField';
+                $enumType = LocalizedEnumType::of()
+                    ->setValues(LocalizedEnumCollection::of());
+                $fieldDefinition = $this->setFieldDefinition($name, $enumType);
+                $request = RequestBuilder::of()->types()->update($type)
+                    ->addAction(TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $enum = LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'));
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeAddLocalizedEnumValueAction::ofNameAndEnum('newLEnumField', $enum)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $enum = LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'));
+                $request = RequestBuilder::of()->types()->update($result)
+                    ->addAction(TypeAddLocalizedEnumValueAction::ofNameAndEnum('newLEnumField', $enum));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $result);
-        /**
-         * @var LocalizedEnumType $fieldType
-         */
-        $fieldType = $result->getFieldDefinitions()->getByName('newLEnumField')->getType();
-        $this->assertSame($enum->getKey(), $fieldType->getValues()->current()->getKey());
+                $this->assertInstanceOf(Type::class, $result);
+                /**
+                 * @var LocalizedEnumType $fieldType
+                 */
+                $fieldType = $result->getFieldDefinitions()->getByName('newLEnumField')->getType();
+                $this->assertSame($enum->getKey(), $fieldType->getValues()->current()->getKey());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeEnumValueLabel()
     {
-        $draft = $this->getDraft('change-enum-value-label');
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $fieldDefinition = FieldDefinition::of()
-            ->setName('newEnumField')
-            ->setLabel(LocalizedString::ofLangAndText('en', 'newEnumField'))
-            ->setRequired(false)
-            ->setType(
-                EnumType::of()
-                    ->setValues(EnumCollection::of()->add(Enum::of()->setKey('test')->setLabel('test')))
-            )
-        ;
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-        $type = $result;
+        TypeFixture::withUpdateableType(
+            $client,
+            function (Type $type) use ($client) {
+                $name = 'newEnumField';
+                $enumType = EnumType::of()
+                    ->setValues(EnumCollection::of()->add(Enum::of()->setKey('test')->setLabel('test')));
+                $fieldDefinition = $this->setFieldDefinition($name, $enumType);
+                $request = RequestBuilder::of()->types()->update($type)
+                    ->addAction(TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $enum = Enum::of()->setKey('test')->setLabel('new-label');
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeChangeEnumValueLabelAction::ofNameAndEnum('newEnumField', $enum)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $enum = Enum::of()->setKey('test')->setLabel('new-label');
+                $request = RequestBuilder::of()->types()->update($result)
+                    ->addAction(TypeChangeEnumValueLabelAction::ofNameAndEnum('newEnumField', $enum));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $result);
-        /**
-         * @var EnumType $fieldType
-         */
-        $fieldType = $result->getFieldDefinitions()->getByName('newEnumField')->getType();
-        $this->assertSame($enum->getLabel(), $fieldType->getValues()->current()->getLabel());
+                $this->assertInstanceOf(Type::class, $result);
+                /**
+                 * @var EnumType $fieldType
+                 */
+                $fieldType = $result->getFieldDefinitions()->getByName('newEnumField')->getType();
+                $this->assertSame($enum->getLabel(), $fieldType->getValues()->current()->getLabel());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeLocalizedEnumValueLabel()
     {
-        $draft = $this->getDraft('change-localized-enum-value-label');
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $fieldDefinition = FieldDefinition::of()
-            ->setName('newEnumField')
-            ->setLabel(LocalizedString::ofLangAndText('en', 'newEnumField'))
-            ->setRequired(false)
-            ->setType(
-                LocalizedEnumType::of()
+        TypeFixture::withUpdateableType(
+            $client,
+            function (Type $type) use ($client) {
+                $name = 'newEnumField';
+                $enumType = LocalizedEnumType::of()
                     ->setValues(
                         LocalizedEnumCollection::of()->add(
                             LocalizedEnum::of()->setKey('test')
                                 ->setLabel(LocalizedString::ofLangAndText('en', 'test'))
                         )
-                    )
-            )
-        ;
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-        $type = $result;
+                    );
+                $fieldDefinition = $this->setFieldDefinition($name, $enumType);
+                $request = RequestBuilder::of()->types()->update($type)
+                    ->addAction(TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $enum = LocalizedEnum::of()->setKey('test')
-            ->setLabel(LocalizedString::ofLangAndText('en', 'new-label'));
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeChangeLocalizedEnumValueLabelAction::ofNameAndEnum('newEnumField', $enum)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $enum = LocalizedEnum::of()->setKey('test')
+                    ->setLabel(LocalizedString::ofLangAndText('en', 'new-label'));
+                $request = RequestBuilder::of()->types()->update($result)
+                    ->addAction(
+                        TypeChangeLocalizedEnumValueLabelAction::ofNameAndEnum('newEnumField', $enum)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $result);
-        /**
-         * @var LocalizedEnumType $fieldType
-         */
-        $fieldType = $result->getFieldDefinitions()->getByName('newEnumField')->getType();
-        $this->assertSame($enum->getLabel()->en, $fieldType->getValues()->current()->getLabel()->en);
+                $this->assertInstanceOf(Type::class, $result);
+                /**
+                 * @var LocalizedEnumType $fieldType
+                 */
+                $fieldType = $result->getFieldDefinitions()->getByName('newEnumField')->getType();
+                $this->assertSame($enum->getLabel()->en, $fieldType->getValues()->current()->getLabel()->en);
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeInputHint()
     {
-        $draft = $this->getDraft('change-input-hint');
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $inputHint = 'MultiLine';
-        $request = TypeUpdateRequest::ofIdAndVersion($type->getId(), $type->getVersion())
-            ->addAction(
-                TypeChangeInputHintAction::ofNameAndInputHint('testField', $inputHint)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        TypeFixture::withUpdateableType(
+            $client,
+            function (Type $type) use ($client) {
+                $inputHint = 'MultiLine';
+                $request = RequestBuilder::of()->types()->update($type)
+                    ->addAction(TypeChangeInputHintAction::ofNameAndInputHint('testField', $inputHint));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $result);
-        $field = $result->getFieldDefinitions()->getByName('testField');
-        $this->assertSame($inputHint, $field->getInputHint());
+                $this->assertInstanceOf(Type::class, $result);
+                $field = $result->getFieldDefinitions()->getByName('testField');
+                $this->assertSame($inputHint, $field->getInputHint());
+
+                return $result;
+            }
+        );
     }
 }
