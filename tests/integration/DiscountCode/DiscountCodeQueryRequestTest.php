@@ -3,7 +3,6 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\DiscountCode;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
