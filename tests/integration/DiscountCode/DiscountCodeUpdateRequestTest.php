@@ -201,261 +201,281 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
 
     public function testChangeCartDiscountsAction()
     {
-        $draft = $this->getDraft('change-cart-discount');
-        $discountCode = $this->createDiscountCode($draft);
+        $client = $this->getApiClient();
 
-        $cartDiscountDraft = $this->getCartDiscountDraft('new-cart-discount');
-        $cartDiscount = $this->createCartDiscount($cartDiscountDraft);
+        CartDiscountFixture::withDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $cartDiscountDraft) {
+                return $cartDiscountDraft
+                    ->setName(LocalizedString::ofLangAndText('en', 'new-cart-discount'))
+                    ->setRequiresDiscountCode(true);
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                DiscountCodeFixture::withUpdateableDiscountCode(
+                    $client,
+                    function (DiscountCode $discountCode) use ($client, $cartDiscount) {
+                        $discounts = $discountCode->getCartDiscounts()->add($cartDiscount->getReference());
+                        $expectedIds = [];
+                        foreach ($discounts as $discount) {
+                            $expectedIds[] = $discount->getId();
+                        }
+                        $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                            ->addAction(
+                                DiscountCodeChangeCartDiscountsAction::ofCartDiscountReferences($discounts)
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $discounts = $discountCode->getCartDiscounts()->add($cartDiscount->getReference());
-        $expectedIds = [];
-        foreach ($discounts as $discount) {
-            $expectedIds[] = $discount->getId();
-        }
-        $request = DiscountCodeUpdateRequest::ofIdAndVersion($discountCode->getId(), $discountCode->getVersion())
-            ->addAction(DiscountCodeChangeCartDiscountsAction::ofCartDiscountReferences($discounts))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                        $this->assertInstanceOf(DiscountCode::class, $result);
+                        $this->assertCount(2, $result->getCartDiscounts());
+                        $ids = [];
+                        foreach ($result->getCartDiscounts() as $discount) {
+                            $ids[] = $discount->getId();
+                        }
+                        $this->assertSame($expectedIds, $ids);
+                        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(DiscountCode::class, $result);
-        $this->assertCount(2, $result->getCartDiscounts());
-        $ids = [];
-        foreach ($result->getCartDiscounts() as $discount) {
-            $ids[] = $discount->getId();
-        }
-        $this->assertSame($expectedIds, $ids);
-        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
-
-        $this->deleteRequest->setVersion($result->getVersion());
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSetDescription()
     {
-        $draft = $this->getDraft('set-description');
-        $discountCode = $this->createDiscountCode($draft);
+        $client = $this->getApiClient();
 
+        DiscountCodeFixture::withUpdateableDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                $description = 'new description';
+                $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                    ->addAction(DiscountCodeSetDescriptionAction::of()->setDescription(
+                        LocalizedString::ofLangAndText('en', $description)
+                    ));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $description = $this->getTestRun() . '-new description';
-        $request = DiscountCodeUpdateRequest::ofIdAndVersion($discountCode->getId(), $discountCode->getVersion())
-            ->addAction(
-                DiscountCodeSetDescriptionAction::of()->setDescription(
-                    LocalizedString::ofLangAndText('en', $description)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $this->assertInstanceOf(DiscountCode::class, $result);
+                $this->assertSame($description, $result->getDescription()->en);
+                $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(DiscountCode::class, $result);
-        $this->assertSame($description, $result->getDescription()->en);
-        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
-
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testChangeIsActive()
     {
-        $draft = $this->getDraft('change-is-active');
-        $discountCode = $this->createDiscountCode($draft);
+        $client = $this->getApiClient();
 
+        DiscountCodeFixture::withUpdateableDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                $isActive = true;
+                $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                    ->addAction(DiscountCodeChangeIsActiveAction::of()->setIsActive($isActive));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $isActive = true;
-        $request = DiscountCodeUpdateRequest::ofIdAndVersion($discountCode->getId(), $discountCode->getVersion())
-            ->addAction(
-                DiscountCodeChangeIsActiveAction::of()->setIsActive($isActive)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $this->assertInstanceOf(DiscountCode::class, $result);
+                $this->assertSame($isActive, $result->getIsActive());
+                $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(DiscountCode::class, $result);
-        $this->assertSame($isActive, $result->getIsActive());
-        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
-
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testChangeGroups()
     {
-        $draft = $this->getDraft('change-groups');
-        $draft->setGroups(['test']);
-        $discountCode = $this->createDiscountCode($draft);
-        $this->assertSame('test', current($discountCode->getGroups()));
+        $client = $this->getApiClient();
 
+        DiscountCodeFixture::withUpdateableDraftDiscountCode(
+            $client,
+            function (DiscountCodeDraft $draft) {
+                return $draft->setGroups(['test']);
+            },
+            function (DiscountCode $discountCode) use ($client) {
+                $this->assertSame('test', current($discountCode->getGroups()));
 
-        $request = DiscountCodeUpdateRequest::ofIdAndVersion($discountCode->getId(), $discountCode->getVersion())
-            ->addAction(
-                DiscountCodeChangeGroupsAction::of()->setGroups(['test2'])
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                    ->addAction(DiscountCodeChangeGroupsAction::of()->setGroups(['test2']));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(DiscountCode::class, $result);
-        $this->assertSame('test2', current($result->getGroups()));
-        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(DiscountCode::class, $result);
+                $this->assertSame('test2', current($result->getGroups()));
+                $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetCartPredicate()
     {
-        $draft = $this->getDraft('set-cart-predicate');
-        $discountCode = $this->createDiscountCode($draft);
+        $client = $this->getApiClient();
 
+        DiscountCodeFixture::withUpdateableDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                $cartPredicate = '2=2';
+                $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                    ->addAction(DiscountCodeSetCartPredicateAction::of()->setCartPredicate($cartPredicate));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $cartPredicate = '2=2';
-        $request = DiscountCodeUpdateRequest::ofIdAndVersion($discountCode->getId(), $discountCode->getVersion())
-            ->addAction(
-                DiscountCodeSetCartPredicateAction::of()->setCartPredicate($cartPredicate)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $this->assertInstanceOf(DiscountCode::class, $result);
+                $this->assertSame($cartPredicate, $result->getCartPredicate());
+                $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(DiscountCode::class, $result);
-        $this->assertSame($cartPredicate, $result->getCartPredicate());
-        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
-
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testSetMaxApplications()
     {
-        $draft = $this->getDraft('set-max-applications');
-        $discountCode = $this->createDiscountCode($draft);
+        $client = $this->getApiClient();
 
+        DiscountCodeFixture::withUpdateableDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                $maxApplications = mt_rand(1, 10);
+                $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                    ->addAction(DiscountCodeSetMaxApplicationsAction::of()->setMaxApplications($maxApplications));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $maxApplications = mt_rand(1, 10);
-        $request = DiscountCodeUpdateRequest::ofIdAndVersion($discountCode->getId(), $discountCode->getVersion())
-            ->addAction(
-                DiscountCodeSetMaxApplicationsAction::of()->setMaxApplications($maxApplications)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $this->assertInstanceOf(DiscountCode::class, $result);
+                $this->assertSame($maxApplications, $result->getMaxApplications());
+                $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(DiscountCode::class, $result);
-        $this->assertSame($maxApplications, $result->getMaxApplications());
-        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
-
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testSetMaxApplicationsPerCustomer()
     {
-        $draft = $this->getDraft('set-max-applications-per-customer');
-        $discountCode = $this->createDiscountCode($draft);
+        $client = $this->getApiClient();
 
+        DiscountCodeFixture::withUpdateableDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                $maxApplicationsPerCustomer = mt_rand(1, 10);
+                $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                    ->addAction(DiscountCodeSetMaxApplicationsPerCustomerAction::of()
+                        ->setMaxApplicationsPerCustomer($maxApplicationsPerCustomer));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $maxApplicationsPerCustomer = mt_rand(1, 10);
-        $request = DiscountCodeUpdateRequest::ofIdAndVersion($discountCode->getId(), $discountCode->getVersion())
-            ->addAction(
-                DiscountCodeSetMaxApplicationsPerCustomerAction::of()
-                    ->setMaxApplicationsPerCustomer($maxApplicationsPerCustomer)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $this->assertInstanceOf(DiscountCode::class, $result);
+                $this->assertSame($maxApplicationsPerCustomer, $result->getMaxApplicationsPerCustomer());
+                $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(DiscountCode::class, $result);
-        $this->assertSame($maxApplicationsPerCustomer, $result->getMaxApplicationsPerCustomer());
-        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
-
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testSetName()
     {
-        $draft = $this->getDraft('set-name');
-        $discountCode = $this->createDiscountCode($draft);
+        $client = $this->getApiClient();
 
+        DiscountCodeFixture::withUpdateableDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                $name = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-name');
+                $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                    ->addAction(DiscountCodeSetNameAction::of()->setName($name));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $name = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-name');
-        $request = DiscountCodeUpdateRequest::ofIdAndVersion($discountCode->getId(), $discountCode->getVersion())
-            ->addAction(
-                DiscountCodeSetNameAction::of()
-                    ->setName($name)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $this->assertInstanceOf(DiscountCode::class, $result);
+                $this->assertSame($name->en, $result->getName()->en);
+                $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(DiscountCode::class, $result);
-        $this->assertSame($name->en, $result->getName()->en);
-        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
-
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testSetValidFrom()
     {
-        $draft = $this->getDraft('set-valid-from');
-        $discountCode = $this->createDiscountCode($draft);
+        $client = $this->getApiClient();
 
+        DiscountCodeFixture::withUpdateableDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                $validFrom = new \DateTime();
+                $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                    ->addAction(DiscountCodeSetValidFromAction::of()->setValidFrom($validFrom));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $validFrom = new \DateTime();
-        $request = DiscountCodeUpdateRequest::ofIdAndVersion(
-            $discountCode->getId(),
-            $discountCode->getVersion()
-        )
-            ->addAction(DiscountCodeSetValidFromAction::of()->setValidFrom($validFrom))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(DiscountCode::class, $result);
+                $validFrom->setTimezone(new \DateTimeZone('UTC'));
+                $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
+                $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(DiscountCode::class, $result);
-        $validFrom->setTimezone(new \DateTimeZone('UTC'));
-        $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
-        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testValidUntilFrom()
     {
-        $draft = $this->getDraft('set-valid-until');
-        $discountCode = $this->createDiscountCode($draft);
+        $client = $this->getApiClient();
 
+        DiscountCodeFixture::withUpdateableDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                $validUntil = new \DateTime();
+                $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                    ->addAction(DiscountCodeSetValidUntilAction::of()->setValidUntil($validUntil));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $validUntil = new \DateTime();
-        $request = DiscountCodeUpdateRequest::ofIdAndVersion(
-            $discountCode->getId(),
-            $discountCode->getVersion()
-        )
-            ->addAction(DiscountCodeSetValidUntilAction::of()->setValidUntil($validUntil))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(DiscountCode::class, $result);
+                $validUntil->setTimezone(new \DateTimeZone('UTC'));
+                $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
+                $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(DiscountCode::class, $result);
-        $validUntil->setTimezone(new \DateTimeZone('UTC'));
-        $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
-        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testSetValidFromAndUntil()
     {
-        $draft = $this->getDraft('set-valid-until');
-        $discountCode = $this->createDiscountCode($draft);
+        $client = $this->getApiClient();
 
-        $validFrom = new \DateTime();
-        $validUntil = new \DateTime('+1 second');
-        $request = DiscountCodeUpdateRequest::ofIdAndVersion(
-            $discountCode->getId(),
-            $discountCode->getVersion()
-        )
-            ->addAction(DiscountCodeSetValidFromAndUntilAction::of()->setValidFrom($validFrom)->setValidUntil($validUntil))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        DiscountCodeFixture::withUpdateableDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                $validFrom = new \DateTime();
+                $validUntil = new \DateTime('+1 second');
+                $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                    ->addAction(
+                        DiscountCodeSetValidFromAndUntilAction::of()
+                            ->setValidFrom($validFrom)
+                            ->setValidUntil($validUntil)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(DiscountCode::class, $result);
-        $validUntil->setTimezone(new \DateTimeZone('UTC'));
-        $validFrom->setTimezone(new \DateTimeZone('UTC'));
-        $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
-        $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
-        $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(DiscountCode::class, $result);
+                $validUntil->setTimezone(new \DateTimeZone('UTC'));
+                $validFrom->setTimezone(new \DateTimeZone('UTC'));
+                $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
+                $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
+                $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 }
