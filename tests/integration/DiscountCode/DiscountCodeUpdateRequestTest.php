@@ -8,22 +8,13 @@ namespace Commercetools\Core\IntegrationTests\DiscountCode;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\CartDiscount\CartDiscountFixture;
-use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountReference;
-use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
-use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
-use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
-use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\Common\MoneyCollection;
+use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
-use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\Type\Type;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction;
@@ -37,68 +28,9 @@ use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetNameAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidFromAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidFromAndUntilAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeSetValidUntilAction;
-use Commercetools\Core\Request\DiscountCodes\DiscountCodeCreateRequest;
-use Commercetools\Core\Request\DiscountCodes\DiscountCodeDeleteRequest;
-use Commercetools\Core\Request\DiscountCodes\DiscountCodeUpdateRequest;
 
 class DiscountCodeUpdateRequestTest extends ApiTestCase
 {
-    private $discountDeleteRequests = [];
-
-    protected function cleanup()
-    {
-        parent::cleanup();
-        $this->deleteCartDiscount();
-    }
-
-    protected function createCartDiscount($draft)
-    {
-        $request = CartDiscountCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $cartDiscount = $request->mapResponse($response);
-
-        $this->discountDeleteRequests[] = $this->discountDeleteRequest = CartDiscountDeleteRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        );
-
-        return $cartDiscount;
-    }
-
-    protected function deleteCartDiscount()
-    {
-        if (count($this->discountDeleteRequests) > 0) {
-            foreach ($this->discountDeleteRequests as $request) {
-                $this->getClient()->addBatchRequest($request);
-            }
-            $this->getClient()->executeBatch();
-            $this->discountDeleteRequests = [];
-            $this->cartDiscount = null;
-        }
-    }
-
-    /**
-     * @param $code
-     * @return DiscountCodeDraft
-     */
-    protected function getDraft($code)
-    {
-        return $this->getDiscountCodeDraft($code)->setIsActive(false);
-    }
-
-    protected function createDiscountCode(DiscountCodeDraft $draft)
-    {
-        $request = DiscountCodeCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $discountCode = $request->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = DiscountCodeDeleteRequest::ofIdAndVersion(
-            $discountCode->getId(),
-            $discountCode->getVersion()
-        );
-
-        return $discountCode;
-    }
-
     public function testCustomTypeCreate()
     {
         $client = $this->getApiClient();
