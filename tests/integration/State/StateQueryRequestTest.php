@@ -3,70 +3,58 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\State;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Model\State\StateDraft;
-use Commercetools\Core\Request\States\StateByIdGetRequest;
-use Commercetools\Core\Request\States\StateCreateRequest;
-use Commercetools\Core\Request\States\StateDeleteRequest;
-use Commercetools\Core\Request\States\StateQueryRequest;
 
 class StateQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @return StateDraft
-     */
-    protected function getDraft()
-    {
-        $draft = StateDraft::ofKeyAndType(
-            'test-' . $this->getTestRun() . '-key',
-            'ProductState'
-        );
-
-        return $draft;
-    }
-
-    protected function createState(StateDraft $draft)
-    {
-        $request = StateCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $state = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = StateDeleteRequest::ofIdAndVersion(
-            $state->getId(),
-            $state->getVersion()
-        );
-
-        return $state;
-    }
+    const PRODUCT_STATE = 'ProductState';
 
     public function testQuery()
     {
-        $draft = $this->getDraft();
-        $state = $this->createState($draft);
+        $client = $this->getApiClient();
 
-        $request = StateQueryRequest::of()->where('key="' . $draft->getKey() . '"');
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        StateFixture::withDraftState(
+            $client,
+            function (StateDraft $draft) {
+                return $draft->setType(self::PRODUCT_STATE);
+            },
+            function (State $state) use ($client) {
+                $request = RequestBuilder::of()->states()->query()
+                ->where('key=:key', ['key' => $state->getKey()]);
 
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(State::class, $result->getAt(0));
-        $this->assertSame($state->getId(), $result->getAt(0)->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(State::class, $result->current());
+                $this->assertSame($state->getId(), $result->current()->getId());
+            }
+        );
     }
 
     public function testGetById()
     {
-        $draft = $this->getDraft();
-        $state = $this->createState($draft);
+        $client = $this->getApiClient();
 
-        $request = StateByIdGetRequest::ofId($state->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        StateFixture::withDraftState(
+            $client,
+            function (StateDraft $draft) {
+                return $draft->setType(self::PRODUCT_STATE);
+            },
+            function (State $state) use ($client) {
+                $request = RequestBuilder::of()->states()->getById($state->getId());
 
-        $this->assertInstanceOf(State::class, $state);
-        $this->assertSame($state->getId(), $result->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(State::class, $result);
+                $this->assertSame($state->getId(), $result->getId());
+            }
+        );
     }
 }

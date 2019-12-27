@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\IntegrationTests\State;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\State\State;
@@ -26,6 +27,8 @@ use Commercetools\Core\Request\States\StateUpdateRequest;
 
 class StateUpdateRequestTest extends ApiTestCase
 {
+    const REVIEW_STATE = 'ReviewState';
+
     /**
      * @param $key
      * @return StateDraft
@@ -56,141 +59,137 @@ class StateUpdateRequestTest extends ApiTestCase
 
     public function testSetDescription()
     {
-        $draft = $this->getDraft('set-description');
-        $state = $this->createState($draft);
+        $client = $this->getApiClient();
 
+        StateFixture::withDraftState(
+            $client,
+            function (StateDraft $draft) {
+                return $draft->setType(self::REVIEW_STATE)->setInitial(false);
+            },
+            function (State $state) use ($client) {
+                $description = LocalizedString::ofLangAndText('en', 'new-description');
+                $request = RequestBuilder::of()->states()->update($state)
+                    ->addAction(StateSetDescriptionAction::ofDescription($description));
 
-        $description = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-description');
-        $request = StateUpdateRequest::ofIdAndVersion(
-            $state->getId(),
-            $state->getVersion()
-        )
-            ->addAction(StateSetDescriptionAction::ofDescription($description))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(State::class, $result);
-        $this->assertSame($description->en, $result->getDescription()->en);
-        $this->assertNotSame($state->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(State::class, $result);
+                $this->assertInstanceOf(State::class, $result);
+                $this->assertSame($description->en, $result->getDescription()->en);
+                $this->assertNotSame($state->getVersion(), $result->getVersion());
+            }
+        );
     }
 
     public function testChangeKey()
     {
-        $draft = $this->getDraft('change-key');
-        $state = $this->createState($draft);
+        $client = $this->getApiClient();
 
+        StateFixture::withDraftState(
+            $client,
+            function (StateDraft $draft) {
+                return $draft->setType(self::REVIEW_STATE)->setInitial(false);
+            },
+            function (State $state) use ($client) {
+                $key = 'new-key';
+                $request = RequestBuilder::of()->states()->update($state)
+                    ->addAction(StateChangeKeyAction::ofKey($key));
 
-        $key = $this->getTestRun() . '-new-key';
-        $request = StateUpdateRequest::ofIdAndVersion(
-            $state->getId(),
-            $state->getVersion()
-        )
-            ->addAction(StateChangeKeyAction::ofKey($key))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(State::class, $result);
-        $this->assertSame($key, $result->getKey());
-        $this->assertNotSame($state->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(State::class, $result);
+                $this->assertInstanceOf(State::class, $result);
+                $this->assertSame($key, $result->getKey());
+                $this->assertNotSame($state->getVersion(), $result->getVersion());
+            }
+        );
     }
 
     public function testSetStateName()
     {
-        $draft = $this->getDraft('set-name');
-        $state = $this->createState($draft);
+        $client = $this->getApiClient();
 
+        StateFixture::withDraftState(
+            $client,
+            function (StateDraft $draft) {
+                return $draft->setType(self::REVIEW_STATE)->setInitial(false);
+            },
+            function (State $state) use ($client) {
+                $name = LocalizedString::ofLangAndText('en', 'new-name');
+                $request = RequestBuilder::of()->states()->update($state)
+                    ->addAction(StateSetNameAction::ofName($name));
 
-        $name = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-name');
-        $request = StateUpdateRequest::ofIdAndVersion(
-            $state->getId(),
-            $state->getVersion()
-        )
-            ->addAction(StateSetNameAction::ofName($name))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(State::class, $result);
-        $this->assertSame($name->en, $result->getName()->en);
-        $this->assertNotSame($state->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(State::class, $result);
+                $this->assertInstanceOf(State::class, $result);
+                $this->assertSame($name->en, $result->getName()->en);
+                $this->assertNotSame($state->getVersion(), $result->getVersion());
+            }
+        );
     }
 
     public function testChangeType()
     {
-        $draft = $this->getDraft('change-type');
-        $state = $this->createState($draft);
+        $client = $this->getApiClient();
 
+        StateFixture::withDraftState(
+            $client,
+            function (StateDraft $draft) {
+                return $draft->setType(self::REVIEW_STATE)->setInitial(false);
+            },
+            function (State $state) use ($client) {
+                $type = 'ProductState';
+                $request = RequestBuilder::of()->states()->update($state)
+                    ->addAction(StateChangeTypeAction::ofType($type));
 
-        $type = 'ProductState';
-        $request = StateUpdateRequest::ofIdAndVersion(
-            $state->getId(),
-            $state->getVersion()
-        )
-            ->addAction(StateChangeTypeAction::ofType($type))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(State::class, $result);
-        $this->assertSame($type, $result->getType());
-        $this->assertNotSame($state->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(State::class, $result);
+                $this->assertInstanceOf(State::class, $result);
+                $this->assertSame($type, $result->getType());
+                $this->assertNotSame($state->getVersion(), $result->getVersion());
+            }
+        );
     }
 
     public function testChangeInitial()
     {
-        $draft = $this->getDraft('change-initial');
-        $state = $this->createState($draft);
+        $client = $this->getApiClient();
 
+        StateFixture::withDraftState(
+            $client,
+            function (StateDraft $draft) {
+                return $draft->setType(self::REVIEW_STATE)->setInitial(false);
+            },
+            function (State $state) use ($client) {
+                $initial = true;
+                $request = RequestBuilder::of()->states()->update($state)
+                    ->addAction(StateChangeInitialAction::ofInitial($initial));
 
-        $initial = true;
-        $request = StateUpdateRequest::ofIdAndVersion(
-            $state->getId(),
-            $state->getVersion()
-        )
-            ->addAction(StateChangeInitialAction::ofInitial($initial))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(State::class, $result);
-        $this->assertSame($initial, $result->getInitial());
-        $this->assertNotSame($state->getVersion(), $result->getVersion());
-
-        $deleteRequest = array_pop($this->cleanupRequests);
-        $deleteRequest->setVersion($result->getVersion());
-        $result = $this->getClient()->execute($deleteRequest)->toObject();
-
-        $this->assertInstanceOf(State::class, $result);
+                $this->assertInstanceOf(State::class, $result);
+                $this->assertSame($initial, $result->getInitial());
+                $this->assertNotSame($state->getVersion(), $result->getVersion());
+            }
+        );
     }
 
     public function testSetTransition()
     {
+        $client = $this->getApiClient();
+
+        StateFixture::withDraftState(
+            $client,
+            function (StateDraft $draft) {
+                return $draft->setKey('set-transition-1')->setType(self::REVIEW_STATE)->setInitial(false);
+            },
+            function (State $state) use ($client) {
+            }
+        );
+
         $draft = $this->getDraft('set-transition-1');
         $state = $this->createState($draft);
 
