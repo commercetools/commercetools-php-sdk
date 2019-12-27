@@ -38,7 +38,6 @@ class StateUpdateRequestTest extends ApiTestCase
                 $description = LocalizedString::ofLangAndText('en', 'new-description');
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateSetDescriptionAction::ofDescription($description));
-
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -64,7 +63,6 @@ class StateUpdateRequestTest extends ApiTestCase
                 $key = 'new-key';
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateChangeKeyAction::ofKey($key));
-
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -90,7 +88,6 @@ class StateUpdateRequestTest extends ApiTestCase
                 $name = LocalizedString::ofLangAndText('en', 'new-name');
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateSetNameAction::ofName($name));
-
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -116,7 +113,6 @@ class StateUpdateRequestTest extends ApiTestCase
                 $type = 'ProductState';
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateChangeTypeAction::ofType($type));
-
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -142,7 +138,6 @@ class StateUpdateRequestTest extends ApiTestCase
                 $initial = true;
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateChangeInitialAction::ofInitial($initial));
-
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -202,7 +197,6 @@ class StateUpdateRequestTest extends ApiTestCase
                 $roles = ['ReviewIncludedInStatistics'];
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateSetRolesAction::ofRoles($roles));
-
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
