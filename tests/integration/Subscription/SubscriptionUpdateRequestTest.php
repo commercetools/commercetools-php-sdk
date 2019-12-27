@@ -25,61 +25,76 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
             $this->markTestSkipped('Message Queue URL not configured');
         }
     }
+
     public function testUpdateByKey()
     {
         $client = $this->getApiClient();
+
         SubscriptionFixture::withUpdateableSubscription(
             $client,
             function (Subscription $subscription) use ($client) {
                 $request = RequestBuilder::of()->subscriptions()->updateByKey($subscription);
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertInstanceOf(Subscription::class, $result);
                 $this->assertSame($subscription->getId(), $result->getId());
                 $this->assertNotSame($subscription->getVersion(), $result->getVersion());
+
                 return $result;
             }
         );
     }
+
     public function testUpdateById()
     {
         $client = $this->getApiClient();
+
         SubscriptionFixture::withUpdateableSubscription(
             $client,
             function (Subscription $subscription) use ($client) {
                 $request = RequestBuilder::of()->subscriptions()->update($subscription);
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertInstanceOf(Subscription::class, $result);
                 $this->assertSame($subscription->getId(), $result->getId());
                 $this->assertNotSame($subscription->getVersion(), $result->getVersion());
+
                 return $result;
             }
         );
     }
+
     public function testUpdateKey()
     {
         $client = $this->getApiClient();
+
         SubscriptionFixture::withUpdateableSubscription(
             $client,
             function (Subscription $subscription) use ($client) {
                 $request = RequestBuilder::of()->subscriptions()->update($subscription);
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
+
                 $key = $this->getTestRun() . '-new';
                 $request = RequestBuilder::of()->subscriptions()->update($subscription)
                     ->addAction(SubscriptionSetKeyAction::of()->setKey($key));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertInstanceOf(Subscription::class, $result);
                 $this->assertSame($key, $result->getKey());
+
                 return $result;
             }
         );
     }
+
     public function testUpdateMessages()
     {
         $client = $this->getApiClient();
+
         SubscriptionFixture::withUpdateableSubscription(
             $client,
             function (Subscription $subscription) use ($client) {
@@ -93,16 +108,20 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
                     );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertInstanceOf(Subscription::class, $result);
                 $this->assertCount(1, $result->getMessages());
                 $this->assertSame('order', $result->getMessages()->current()->getResourceTypeId());
+
                 return $result;
             }
         );
     }
+
     public function testUpdateChanges()
     {
         $client = $this->getApiClient();
+
         SubscriptionFixture::withUpdateableSubscription(
             $client,
             function (Subscription $subscription) use ($client) {
@@ -116,9 +135,11 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
                     );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertInstanceOf(Subscription::class, $result);
                 $this->assertCount(1, $result->getMessages());
                 $this->assertSame('product', $result->getChanges()->current()->getResourceTypeId());
+
                 return $result;
             }
         );

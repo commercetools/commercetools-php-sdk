@@ -18,9 +18,11 @@ class SubscriptionQueryRequestTest extends ApiTestCase
             $this->markTestSkipped('Message Queue URL not configured');
         }
     }
+
     public function testQuery()
     {
         $client = $this->getApiClient();
+
         SubscriptionFixture::withSubscription(
             $client,
             function (Subscription $subscription) use ($client) {
@@ -28,35 +30,42 @@ class SubscriptionQueryRequestTest extends ApiTestCase
                     ->where('key=:key', ['key' => $subscription->getKey()]);
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertCount(1, $result);
                 $this->assertInstanceOf(Subscription::class, $result->current());
                 $this->assertSame($subscription->getId(), $result->current()->getId());
             }
         );
     }
+
     public function testGetById()
     {
         $client = $this->getApiClient();
+
         SubscriptionFixture::withSubscription(
             $client,
             function (Subscription $subscription) use ($client) {
                 $request = RequestBuilder::of()->subscriptions()->getById($subscription->getId());
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertInstanceOf(Subscription::class, $result);
                 $this->assertSame($subscription->getId(), $result->getId());
             }
         );
     }
+
     public function testGetByKey()
     {
         $client = $this->getApiClient();
+
         SubscriptionFixture::withSubscription(
             $client,
             function (Subscription $subscription) use ($client) {
                 $request = RequestBuilder::of()->subscriptions()->getByKey($subscription->getKey());
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertInstanceOf(Subscription::class, $result);
                 $this->assertSame($subscription->getId(), $result->getId());
                 $this->assertSame($subscription->getKey(), $result->getKey());

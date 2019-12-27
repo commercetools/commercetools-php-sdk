@@ -5,14 +5,9 @@
 
 namespace Commercetools\Core\IntegrationTests\Subscription;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\Model\Subscription\IronMQDestination;
-use Commercetools\Core\Model\Subscription\MessageSubscription;
-use Commercetools\Core\Model\Subscription\MessageSubscriptionCollection;
-use Commercetools\Core\Model\Subscription\SubscriptionDraft;
-use Commercetools\Core\Request\Subscriptions\SubscriptionCreateRequest;
-use Commercetools\Core\Request\Subscriptions\SubscriptionDeleteByKeyRequest;
-use Commercetools\Core\Request\Subscriptions\SubscriptionDeleteRequest;
+use Commercetools\Core\Model\Subscription\Subscription;
 
 class SubscriptionDeleteRequestTest extends ApiTestCase
 {
@@ -23,15 +18,18 @@ class SubscriptionDeleteRequestTest extends ApiTestCase
             $this->markTestSkipped('Message Queue URL not configured');
         }
     }
+
     public function testDeleteById()
     {
         $client = $this->getApiClient();
+
         SubscriptionFixture::withSubscription(
             $client,
             function (Subscription $subscription) use ($client) {
                 $request = RequestBuilder::of()->subscriptions()->delete($subscription);
                 $response = $client->execute($request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertSame($subscription->getId(), $result->getId());
             }
         );
@@ -39,12 +37,14 @@ class SubscriptionDeleteRequestTest extends ApiTestCase
     public function testDeleteByKey()
     {
         $client = $this->getApiClient();
+
         SubscriptionFixture::withSubscription(
             $client,
             function (Subscription $subscription) use ($client) {
                 $request = RequestBuilder::of()->subscriptions()->deleteByKey($subscription);
                 $response = $client->execute($request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertSame($subscription->getId(), $result->getId());
             }
         );
