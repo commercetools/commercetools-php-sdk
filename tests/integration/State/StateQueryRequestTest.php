@@ -17,16 +17,15 @@ class StateQueryRequestTest extends ApiTestCase
     public function testQuery()
     {
         $client = $this->getApiClient();
-        StateFixture::withDraftState(
+
+        StateFixture::withState(
             $client,
-            function (StateDraft $draft) {
-                return $draft->setType(self::PRODUCT_STATE);
-            },
             function (State $state) use ($client) {
                 $request = RequestBuilder::of()->states()->query()
                     ->where('key=:key', ['key' => $state->getKey()]);
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertCount(1, $result);
                 $this->assertInstanceOf(State::class, $result->current());
                 $this->assertSame($state->getId(), $result->current()->getId());
@@ -37,15 +36,14 @@ class StateQueryRequestTest extends ApiTestCase
     public function testGetById()
     {
         $client = $this->getApiClient();
-        StateFixture::withDraftState(
+
+        StateFixture::withState(
             $client,
-            function (StateDraft $draft) {
-                return $draft->setType(self::PRODUCT_STATE);
-            },
             function (State $state) use ($client) {
                 $request = RequestBuilder::of()->states()->getById($state->getId());
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertInstanceOf(State::class, $result);
                 $this->assertSame($state->getId(), $result->getId());
             }

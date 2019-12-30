@@ -69,6 +69,7 @@ class StateUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(State::class, $result);
                 $this->assertSame($key, $result->getKey());
                 $this->assertNotSame($state->getVersion(), $result->getVersion());
+
                 return $result;
             }
         );
@@ -156,13 +157,15 @@ class StateUpdateRequestTest extends ApiTestCase
         StateFixture::withDraftState(
             $client,
             function (StateDraft $state2Draft) {
-                return $state2Draft->setKey('set-transition2')->setType(self::REVIEW_STATE)->setInitial(false);
+                return $state2Draft->setKey('set-transition2')
+                    ->setType(self::REVIEW_STATE)->setInitial(false);
             },
             function (State $state) use ($client) {
                 StateFixture::withUpdateableDraftState(
                     $client,
                     function (StateDraft $state1Draft) {
-                        return $state1Draft->setKey('set-transition1')->setType(self::REVIEW_STATE)->setInitial(false);
+                        return $state1Draft->setKey('set-transition1')
+                            ->setType(self::REVIEW_STATE)->setInitial(false);
                     },
                     function (State $state1) use ($client, $state) {
                         $request = RequestBuilder::of()->states()->update($state1)
@@ -215,7 +218,8 @@ class StateUpdateRequestTest extends ApiTestCase
         StateFixture::withDraftState(
             $client,
             function (StateDraft $draft) {
-                return $draft->setType(self::REVIEW_STATE)->setInitial(false)->setRoles(['ReviewIncludedInStatistics']);
+                return $draft->setType(self::REVIEW_STATE)
+                    ->setInitial(false)->setRoles(['ReviewIncludedInStatistics']);
             },
             function (State $state) use ($client) {
                 $this->assertInstanceOf(State::class, $state);

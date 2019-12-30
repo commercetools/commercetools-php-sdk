@@ -14,6 +14,8 @@ class StateFixture extends ResourceFixture
 {
     const CREATE_REQUEST_TYPE = StateCreateRequest::class;
     const DELETE_REQUEST_TYPE = StateDeleteRequest::class;
+    const PRODUCT_STATE = 'ProductState';
+
     final public static function uniqueStateString()
     {
         return 'test-' . Uuid::uuidv4();
@@ -21,7 +23,8 @@ class StateFixture extends ResourceFixture
     final public static function defaultStateDraftFunction()
     {
         $uniqueStateString = self::uniqueStateString();
-        $draft = StateDraft::ofKey('test-' . $uniqueStateString . '-key');
+        $draft = StateDraft::ofKeyAndType('test-' . $uniqueStateString . '-key', self::PRODUCT_STATE);
+
         return $draft;
     }
     final public static function defaultStateDraftBuilderFunction(StateDraft $draft)
