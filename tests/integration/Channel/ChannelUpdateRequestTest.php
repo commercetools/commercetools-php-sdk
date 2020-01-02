@@ -7,6 +7,7 @@ namespace Commercetools\Core\IntegrationTests\Channel;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Channel\ChannelRole;
@@ -15,9 +16,8 @@ use Commercetools\Core\Model\Common\GeoPoint;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
-use Commercetools\Core\Request\Channels\ChannelCreateRequest;
-use Commercetools\Core\Request\Channels\ChannelDeleteRequest;
-use Commercetools\Core\Request\Channels\ChannelUpdateRequest;
+use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Request\Channels\Command\ChannelAddRolesAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeDescriptionAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction;
@@ -31,33 +31,6 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 
 class ChannelUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @param $key
-     * @return ChannelDraft
-     */
-    protected function getDraft($key)
-    {
-        $draft = ChannelDraft::ofKey(
-            'test-' . $this->getTestRun() . '-' . $key
-        );
-
-        return $draft;
-    }
-
-    protected function createChannel(ChannelDraft $draft)
-    {
-        $request = ChannelCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $channel = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = ChannelDeleteRequest::ofIdAndVersion(
-            $channel->getId(),
-            $channel->getVersion()
-        );
-
-        return $channel;
-    }
-
     public function testChangeName()
     {
         $client = $this->getApiClient();
@@ -66,6 +39,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
             $client,
             function (Channel $channel) use ($client) {
                 $name = $this->getTestRun() . '-new name';
+
                 $request = RequestBuilder::of()->channels()->update($channel)->addAction(
                     ChannelChangeNameAction::ofName(
                         LocalizedString::ofLangAndText('en', $name)
@@ -91,6 +65,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
             $client,
             function (Channel $channel) use ($client) {
                 $description = $this->getTestRun() . '-new description';
+
                 $request = RequestBuilder::of()->channels()->update($channel)->addAction(
                     ChannelChangeDescriptionAction::ofDescription(
                         LocalizedString::ofLangAndText('en', $description)
@@ -116,6 +91,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
             $client,
             function (Channel $channel) use ($client) {
                 $key = $this->getTestRun() . '-new key';
+
                 $request = RequestBuilder::of()->channels()->update($channel)->addAction(
                     ChannelChangeKeyAction::ofKey($key)
                 );
@@ -167,6 +143,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
             $client,
             function (Channel $channel) use ($client) {
                 $roles = [ChannelRole::PRIMARY];
+
                 $request = RequestBuilder::of()->channels()->update($channel)->addAction(
                     ChannelAddRolesAction::ofRoles($roles)
                 );
@@ -193,6 +170,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
             },
             function (Channel $channel) use ($client) {
                 $roles = [ChannelRole::INVENTORY_SUPPLY];
+
                 $request = RequestBuilder::of()->channels()->update($channel)->addAction(
                     ChannelRemoveRolesAction::ofRoles($roles)
                 );
@@ -218,6 +196,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
                 $this->assertSame([ChannelRole::INVENTORY_SUPPLY], $channel->getRoles());
 
                 $roles = [ChannelRole::PRIMARY, ChannelRole::PRODUCT_DISTRIBUTION];
+
                 $request = RequestBuilder::of()->channels()->update($channel)->addAction(
                     ChannelSetRolesAction::ofRoles($roles)
                 );
@@ -233,48 +212,62 @@ class ChannelUpdateRequestTest extends ApiTestCase
         );
     }
 
-//    TODO to migrate: depends of Type
     public function testChannelCustom()
     {
-        $customType = $this->getType('channel_custom', 'channel');
+        $client = $this->getApiClient();
 
-        $draft = $this->getDraft('channel-custom');
-        $draft->setCustom(
-            CustomFieldObjectDraft::ofTypeKeyAndFields(
-                'channel_custom',
-                FieldContainer::of()->setTestField('value')
-            )
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $TypeDraft) {
+                return $TypeDraft
+                    ->setkey('channel_custom_test')
+                    ->setResourceTypeIds(['channel']);
+            },
+            function (Type $Type) use ($client) {
+                ChannelFixture::withUpdateableDraftChannel(
+                    $client,
+                    function (ChannelDraft $channelDraft) {
+                        return $channelDraft->setCustom(
+                            CustomFieldObjectDraft::ofTypeKeyAndFields(
+                                'channel_custom_test',
+                                FieldContainer::of()->set('testField', 'value')
+                            )
+                        );
+                    },
+                    function (Channel $channel) use ($client, $Type) {
+                        $this->assertInstanceOf(Channel::class, $channel);
+                        $this->assertSame('value', $channel->getCustom()->getFields()->getTestField());
+
+                        $request = RequestBuilder::of()->channels()->update($channel)
+                            ->addAction(
+                                SetCustomTypeAction::ofTypeKey('channel_custom_test')
+                                    ->setFields(
+                                        FieldContainer::of()
+                                            ->set('testField', 'new value')
+                                    )
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Channel::class, $result);
+                        $this->assertSame('new value', $result->getCustom()->getFields()->getTestField());
+
+                        $request = RequestBuilder::of()->channels()->update($result)
+                            ->addAction(
+                                SetCustomFieldAction::ofName('testField')
+                                    ->setValue('new value 2')
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Channel::class, $result);
+                        $this->assertSame('new value 2', $result->getCustom()->getFields()->getTestField());
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $channel = $this->createChannel($draft);
-
-        $this->assertInstanceOf(Channel::class, $channel);
-        $this->assertSame('value', $channel->getCustom()->getFields()->getTestField());
-
-        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
-            ->addAction(
-                SetCustomTypeAction::ofTypeKey('channel_custom')
-                    ->setFields(
-                        FieldContainer::of()
-                            ->set('testField', 'new value')
-                    )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $channel = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($channel->getVersion());
-
-        $this->assertInstanceOf(Channel::class, $channel);
-        $this->assertSame('new value', $channel->getCustom()->getFields()->getTestField());
-
-        $request = ChannelUpdateRequest::ofIdAndVersion($channel->getId(), $channel->getVersion())
-            ->addAction(SetCustomFieldAction::ofName('testField')->setValue('new value 2'))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $channel = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($channel->getVersion());
-
-        $this->assertInstanceOf(Channel::class, $channel);
-        $this->assertSame('new value 2', $channel->getCustom()->getFields()->getTestField());
     }
 
     public function testSetGeoLocation()
