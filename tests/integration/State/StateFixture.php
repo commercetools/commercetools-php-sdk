@@ -20,6 +20,7 @@ class StateFixture extends ResourceFixture
     {
         return 'test-' . Uuid::uuidv4();
     }
+
     final public static function defaultStateDraftFunction()
     {
         $uniqueStateString = self::uniqueStateString();
@@ -27,18 +28,22 @@ class StateFixture extends ResourceFixture
 
         return $draft;
     }
+
     final public static function defaultStateDraftBuilderFunction(StateDraft $draft)
     {
         return $draft;
     }
+
     final public static function defaultStateCreateFunction(ApiClient $client, StateDraft $draft)
     {
         return parent::defaultCreateFunction($client, self::CREATE_REQUEST_TYPE, $draft);
     }
+
     final public static function defaultStateDeleteFunction(ApiClient $client, State $resource)
     {
         return parent::defaultDeleteFunction($client, self::DELETE_REQUEST_TYPE, $resource);
     }
+
     final public static function withUpdateableDraftState(
         ApiClient $client,
         callable $draftBuilderFunction,
@@ -56,6 +61,7 @@ class StateFixture extends ResourceFixture
         if ($deleteFunction == null) {
             $deleteFunction = [__CLASS__, 'defaultStateDeleteFunction'];
         }
+
         parent::withUpdateableDraftResource(
             $client,
             $draftBuilderFunction,
@@ -65,6 +71,7 @@ class StateFixture extends ResourceFixture
             $draftFunction
         );
     }
+
     final public static function withDraftState(
         ApiClient $client,
         callable $draftBuilderFunction,
@@ -82,6 +89,7 @@ class StateFixture extends ResourceFixture
         if ($deleteFunction == null) {
             $deleteFunction = [__CLASS__, 'defaultStateDeleteFunction'];
         }
+
         parent::withDraftResource(
             $client,
             $draftBuilderFunction,
@@ -91,6 +99,7 @@ class StateFixture extends ResourceFixture
             $draftFunction
         );
     }
+
     final public static function withState(
         ApiClient $client,
         callable $assertFunction,
@@ -107,6 +116,7 @@ class StateFixture extends ResourceFixture
             $draftFunction
         );
     }
+
     final public static function withUpdateableState(
         ApiClient $client,
         callable $assertFunction,

@@ -28,6 +28,7 @@ class StoreFixture extends ResourceFixture
             'key-' . $uniqueStoreString,
             LocalizedString::ofLangAndText('en', 'test-' . $uniqueStoreString . '-' . 'store-name')
         );
+
         return $draft;
     }
 
@@ -63,6 +64,7 @@ class StoreFixture extends ResourceFixture
         if ($deleteFunction == null) {
             $deleteFunction = [__CLASS__, 'defaultStoreDeleteFunction'];
         }
+
         parent::withUpdateableDraftResource(
             $client,
             $draftBuilderFunction,
@@ -90,6 +92,7 @@ class StoreFixture extends ResourceFixture
         if ($deleteFunction == null) {
             $deleteFunction = [__CLASS__, 'defaultStoreDeleteFunction'];
         }
+
         parent::withDraftResource(
             $client,
             $draftBuilderFunction,

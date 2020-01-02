@@ -11,12 +11,14 @@ class StoreDeleteRequestTest extends ApiTestCase
     public function testDeleteByKey()
     {
         $client = $this->getApiClient();
+
         StoreFixture::withStore(
             $client,
             function (Store $store) use ($client) {
                 $request = RequestBuilder::of()->stores()->deleteByKey($store);
                 $response = $client->execute($request);
                 $result = $request->mapFromResponse($response);
+
                 $this->assertSame($store->getId(), $result->getId());
             }
         );

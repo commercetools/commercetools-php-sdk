@@ -36,6 +36,7 @@ class StateUpdateRequestTest extends ApiTestCase
             },
             function (State $state) use ($client) {
                 $description = LocalizedString::ofLangAndText('en', 'new-description');
+
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateSetDescriptionAction::ofDescription($description));
                 $response = $this->execute($client, $request);
@@ -61,6 +62,7 @@ class StateUpdateRequestTest extends ApiTestCase
             },
             function (State $state) use ($client) {
                 $key = 'new-key';
+
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateChangeKeyAction::ofKey($key));
                 $response = $this->execute($client, $request);
@@ -86,6 +88,7 @@ class StateUpdateRequestTest extends ApiTestCase
             },
             function (State $state) use ($client) {
                 $name = LocalizedString::ofLangAndText('en', 'new-name');
+
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateSetNameAction::ofName($name));
                 $response = $this->execute($client, $request);
@@ -111,6 +114,7 @@ class StateUpdateRequestTest extends ApiTestCase
             },
             function (State $state) use ($client) {
                 $type = 'ProductState';
+
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateChangeTypeAction::ofType($type));
                 $response = $this->execute($client, $request);
@@ -136,6 +140,7 @@ class StateUpdateRequestTest extends ApiTestCase
             },
             function (State $state) use ($client) {
                 $initial = true;
+
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateChangeInitialAction::ofInitial($initial));
                 $response = $this->execute($client, $request);
@@ -197,6 +202,7 @@ class StateUpdateRequestTest extends ApiTestCase
             },
             function (State $state) use ($client) {
                 $roles = ['ReviewIncludedInStatistics'];
+
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateSetRolesAction::ofRoles($roles));
                 $response = $this->execute($client, $request);
@@ -239,6 +245,7 @@ class StateUpdateRequestTest extends ApiTestCase
             },
             function (State $state) use ($client) {
                 $roles = ['ReviewIncludedInStatistics'];
+
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateAddRolesAction::ofRoles($roles));
                 $response = $this->execute($client, $request);
@@ -249,6 +256,7 @@ class StateUpdateRequestTest extends ApiTestCase
                 $this->assertNotSame($state->getVersion(), $result->getVersion());
 
                 $actualVersion = $result->getVersion();
+
                 $request = RequestBuilder::of()->states()->update($result)
                     ->addAction(StateRemoveRolesAction::ofRoles($roles));
                 $response = $this->execute($client, $request);

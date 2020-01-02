@@ -8,7 +8,6 @@ namespace Commercetools\Core\IntegrationTests\State;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\State\State;
-use Commercetools\Core\Model\State\StateDraft;
 
 class StateQueryRequestTest extends ApiTestCase
 {
