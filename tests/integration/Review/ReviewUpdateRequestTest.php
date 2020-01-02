@@ -100,7 +100,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         );
     }
 
-//todo it will be adapted for customer
+//todo migration for Customer is missing
     public function testSetCustomer()
     {
         $client = $this->getApiClient();
@@ -145,7 +145,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         );
     }
 
-    //todo it will be adapted for product
+    //todo migration for Product is missing
     public function testSetTargetProduct()
     {
         $client = $this->getApiClient();
@@ -378,7 +378,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
             }
         );
     }
-//todo to update for customer
+//todo migration for Customer is missing
     public function testReferenceExpansion()
     {
         $client = $this->getApiClient();
