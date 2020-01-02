@@ -223,24 +223,24 @@ class ChannelUpdateRequestTest extends ApiTestCase
                     ->setkey('channel_custom_test')
                     ->setResourceTypeIds(['channel']);
             },
-            function (Type $Type) use ($client) {
+            function (Type $type) use ($client) {
                 ChannelFixture::withUpdateableDraftChannel(
                     $client,
-                    function (ChannelDraft $channelDraft) {
+                    function (ChannelDraft $channelDraft) use ($type) {
                         return $channelDraft->setCustom(
                             CustomFieldObjectDraft::ofTypeKeyAndFields(
-                                'channel_custom_test',
+                                $type->getKey(),
                                 FieldContainer::of()->set('testField', 'value')
                             )
                         );
                     },
-                    function (Channel $channel) use ($client, $Type) {
+                    function (Channel $channel) use ($client, $type) {
                         $this->assertInstanceOf(Channel::class, $channel);
                         $this->assertSame('value', $channel->getCustom()->getFields()->getTestField());
 
                         $request = RequestBuilder::of()->channels()->update($channel)
                             ->addAction(
-                                SetCustomTypeAction::ofTypeKey('channel_custom_test')
+                                SetCustomTypeAction::ofTypeKey($type->getKey())
                                     ->setFields(
                                         FieldContainer::of()
                                             ->set('testField', 'new value')

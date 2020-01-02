@@ -8,6 +8,7 @@ namespace Commercetools\Core\IntegrationTests\DiscountCode;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\CartDiscount\CartDiscountFixture;
+use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountReference;
@@ -15,6 +16,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
+use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction;
@@ -50,48 +53,62 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
     public function testCustomTypeUpdate()
     {
         $client = $this->getApiClient();
-        // ToDo: use TypeFixture when available
-        $type = $this->getType($this->getTestRun() . '-discount-type', 'discount-code');
-
-        DiscountCodeFixture::withUpdateableDraftDiscountCode(
+        TypeFixture::withDraftType(
             $client,
-            function (DiscountCodeDraft $draft) use ($type) {
-                return $draft->setCustom(CustomFieldObjectDraft::ofTypeKey($type->getKey()));
+            function (TypeDraft $TypeDraft) {
+                return $TypeDraft
+                    ->setkey('discount-type')
+                    ->setResourceTypeIds(['discount-code']);
             },
-            function (DiscountCode $discountCode) use ($client, $type) {
-                $request = RequestBuilder::of()->discountCodes()->update($discountCode)
-                    ->addAction(SetCustomTypeAction::ofTypeKey($type->getKey()));
-                $response = $this->execute($client, $request);
-                $result = $request->mapFromResponse($response);
+            function (Type $type) use ($client) {
+                DiscountCodeFixture::withUpdateableDraftDiscountCode(
+                    $client,
+                    function (DiscountCodeDraft $draft) use ($type) {
+                        return $draft->setCustom(CustomFieldObjectDraft::ofTypeKey($type->getKey()));
+                    },
+                    function (DiscountCode $discountCode) use ($client, $type) {
+                        $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                            ->addAction(SetCustomTypeAction::ofTypeKey($type->getKey()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-                $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
+                        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
 
-                return $result;
+                        return $result;
+                    }
+                );
             }
         );
     }
 
     public function testCustomFieldUpdate()
     {
-        // ToDo: use TypeFixture when available
         $client = $this->getApiClient();
-        $type = $this->getType($this->getTestRun() . '-discount-type', 'discount-code');
-
-        DiscountCodeFixture::withUpdateableDraftDiscountCode(
+        TypeFixture::withDraftType(
             $client,
-            function (DiscountCodeDraft $draft) use ($type) {
-                return $draft->setCustom(CustomFieldObjectDraft::ofTypeKey($type->getKey()));
+            function (TypeDraft $TypeDraft) {
+                return $TypeDraft
+                    ->setkey('discount-type')
+                    ->setResourceTypeIds(['discount-code']);
             },
-            function (DiscountCode $discountCode) use ($client, $type) {
-                $newValue = $this->getTestRun() . '-value';
-                $request = RequestBuilder::of()->discountCodes()->update($discountCode)
-                    ->addAction(SetCustomFieldAction::ofName('testField')->setValue($newValue));
-                $response = $this->execute($client, $request);
-                $result = $request->mapFromResponse($response);
+            function (Type $type) use ($client) {
+                DiscountCodeFixture::withUpdateableDraftDiscountCode(
+                    $client,
+                    function (DiscountCodeDraft $draft) use ($type) {
+                        return $draft->setCustom(CustomFieldObjectDraft::ofTypeKey($type->getKey()));
+                    },
+                    function (DiscountCode $discountCode) use ($client, $type) {
+                        $newValue = $this->getTestRun() . '-value';
+                        $request = RequestBuilder::of()->discountCodes()->update($discountCode)
+                            ->addAction(SetCustomFieldAction::ofName('testField')->setValue($newValue));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-                $this->assertSame($newValue, $result->getCustom()->getFields()->getTestField());
+                        $this->assertSame($newValue, $result->getCustom()->getFields()->getTestField());
 
-                return $result;
+                        return $result;
+                    }
+                );
             }
         );
     }
