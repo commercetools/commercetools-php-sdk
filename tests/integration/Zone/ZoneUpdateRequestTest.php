@@ -29,6 +29,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
             },
             function (Zone $zone) use ($client) {
                 $description = 'new-description';
+
                 $request = RequestBuilder::of()->zones()->update($zone)
                     ->addAction(ZoneSetDescriptionAction::of()->setDescription($description));
                 $response = $this->execute($client, $request);
@@ -54,6 +55,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
             },
             function (Zone $zone) use ($client) {
                 $name = 'new-name';
+
                 $request = RequestBuilder::of()->zones()->update($zone)
                     ->addAction(ZoneChangeNameAction::ofName($name));
                 $response = $this->execute($client, $request);
@@ -76,6 +78,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
             $client,
             function (Zone $zone) use ($client) {
                 $location = Location::of()->setCountry('DE')->setState('new-' . $this->getRegion());
+
                 $request = RequestBuilder::of()->zones()->update($zone)
                     ->addAction(ZoneAddLocationAction::ofLocation($location));
                 $response = $this->execute($client, $request);
@@ -107,6 +110,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
             $client,
             function (Zone $zone) use ($client) {
                 $key = 'new-key';
+
                 $request = RequestBuilder::of()->zones()->update($zone)
                     ->addAction(ZoneSetKeyAction::ofKey($key));
                 $response = $this->execute($client, $request);

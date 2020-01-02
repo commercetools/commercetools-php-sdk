@@ -49,6 +49,7 @@ class TypeUpdateRequestTest extends ApiTestCase
             $client,
             function (Type $type) use ($client) {
                 $name = 'new-name';
+
                 $request = RequestBuilder::of()->types()->updateByKey($type)
                     ->addAction(TypeChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
                 $response = $this->execute($client, $request);
@@ -70,6 +71,7 @@ class TypeUpdateRequestTest extends ApiTestCase
             $client,
             function (Type $type) use ($client) {
                 $key = 'new-key';
+
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(TypeChangeKeyAction::ofKey($key));
                 $response = $this->execute($client, $request);
@@ -94,6 +96,7 @@ class TypeUpdateRequestTest extends ApiTestCase
             },
             function (Type $type) use ($client) {
                 $key = str_pad('new-' . $this->getTestRun(), 256, '0');
+
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(TypeChangeKeyAction::ofKey($key));
                 $response = $this->execute($client, $request);
@@ -115,6 +118,7 @@ class TypeUpdateRequestTest extends ApiTestCase
             $client,
             function (Type $type) use ($client) {
                 $name = 'new-name';
+
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(TypeChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
                 $response = $this->execute($client, $request);
@@ -136,6 +140,7 @@ class TypeUpdateRequestTest extends ApiTestCase
             $client,
             function (Type $type) use ($client) {
                 $description = 'new-description';
+
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(
                         TypeSetDescriptionAction::of()
@@ -161,6 +166,7 @@ class TypeUpdateRequestTest extends ApiTestCase
             function (Type $type) use ($client) {
                 $name = 'newField';
                 $fieldDefinition = $this->setFieldDefinition($name, StringType::of());
+
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(
                         TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition)
@@ -172,28 +178,29 @@ class TypeUpdateRequestTest extends ApiTestCase
                 $this->assertCount(2, $result->getFieldDefinitions());
                 $this->assertInstanceOf(
                     FieldDefinition::class,
-                    $result->getFieldDefinitions()->getByName('newField')
+                    $result->getFieldDefinitions()->getByName($name)
                 );
 
                 $label = 'new-label';
+
                 $request = RequestBuilder::of()->types()->update($result)
                     ->addAction(
-                        TypeChangeLabelAction::ofNameAndLabel('newField', LocalizedString::ofLangAndText('en', $label))
+                        TypeChangeLabelAction::ofNameAndLabel($name, LocalizedString::ofLangAndText('en', $label))
                     );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Type::class, $result);
-                $this->assertSame($label, $result->getFieldDefinitions()->getByName('newField')->getLabel()->en);
+                $this->assertSame($label, $result->getFieldDefinitions()->getByName($name)->getLabel()->en);
 
                 $request = RequestBuilder::of()->types()->update($result)
-                    ->addAction(TypeRemoveFieldDefinitionAction::ofFieldName('newField'));
+                    ->addAction(TypeRemoveFieldDefinitionAction::ofFieldName($name));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Type::class, $result);
                 $this->assertCount(1, $result->getFieldDefinitions());
-                $this->assertNull($result->getFieldDefinitions()->getByName('newField'));
+                $this->assertNull($result->getFieldDefinitions()->getByName($name));
 
                 return $result;
             }
@@ -210,14 +217,16 @@ class TypeUpdateRequestTest extends ApiTestCase
                 $name = 'newEnumField';
                 $enumType = EnumType::of()->setValues(EnumCollection::of());
                 $fieldDefinition = $this->setFieldDefinition($name, $enumType);
+
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $enum = Enum::of()->setKey('test')->setLabel('test');
+
                 $request = RequestBuilder::of()->types()->update($result)
-                    ->addAction(TypeAddEnumValueAction::ofNameAndEnum('newEnumField', $enum));
+                    ->addAction(TypeAddEnumValueAction::ofNameAndEnum($name, $enum));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -225,7 +234,7 @@ class TypeUpdateRequestTest extends ApiTestCase
                 /**
                  * @var EnumType $fieldType
                  */
-                $fieldType = $result->getFieldDefinitions()->getByName('newEnumField')->getType();
+                $fieldType = $result->getFieldDefinitions()->getByName($name)->getType();
                 $this->assertSame($enum->getKey(), $fieldType->getValues()->current()->getKey());
 
                 return $result;
@@ -244,14 +253,16 @@ class TypeUpdateRequestTest extends ApiTestCase
                 $enumType = LocalizedEnumType::of()
                     ->setValues(LocalizedEnumCollection::of());
                 $fieldDefinition = $this->setFieldDefinition($name, $enumType);
+
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $enum = LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'));
+
                 $request = RequestBuilder::of()->types()->update($result)
-                    ->addAction(TypeAddLocalizedEnumValueAction::ofNameAndEnum('newLEnumField', $enum));
+                    ->addAction(TypeAddLocalizedEnumValueAction::ofNameAndEnum($name, $enum));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -259,7 +270,7 @@ class TypeUpdateRequestTest extends ApiTestCase
                 /**
                  * @var LocalizedEnumType $fieldType
                  */
-                $fieldType = $result->getFieldDefinitions()->getByName('newLEnumField')->getType();
+                $fieldType = $result->getFieldDefinitions()->getByName($name)->getType();
                 $this->assertSame($enum->getKey(), $fieldType->getValues()->current()->getKey());
 
                 return $result;
@@ -278,14 +289,16 @@ class TypeUpdateRequestTest extends ApiTestCase
                 $enumType = EnumType::of()
                     ->setValues(EnumCollection::of()->add(Enum::of()->setKey('test')->setLabel('test')));
                 $fieldDefinition = $this->setFieldDefinition($name, $enumType);
+
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $enum = Enum::of()->setKey('test')->setLabel('new-label');
+
                 $request = RequestBuilder::of()->types()->update($result)
-                    ->addAction(TypeChangeEnumValueLabelAction::ofNameAndEnum('newEnumField', $enum));
+                    ->addAction(TypeChangeEnumValueLabelAction::ofNameAndEnum($name, $enum));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -293,7 +306,7 @@ class TypeUpdateRequestTest extends ApiTestCase
                 /**
                  * @var EnumType $fieldType
                  */
-                $fieldType = $result->getFieldDefinitions()->getByName('newEnumField')->getType();
+                $fieldType = $result->getFieldDefinitions()->getByName($name)->getType();
                 $this->assertSame($enum->getLabel(), $fieldType->getValues()->current()->getLabel());
 
                 return $result;
@@ -317,6 +330,7 @@ class TypeUpdateRequestTest extends ApiTestCase
                         )
                     );
                 $fieldDefinition = $this->setFieldDefinition($name, $enumType);
+
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(TypeAddFieldDefinitionAction::ofFieldDefinition($fieldDefinition));
                 $response = $this->execute($client, $request);
@@ -324,9 +338,10 @@ class TypeUpdateRequestTest extends ApiTestCase
 
                 $enum = LocalizedEnum::of()->setKey('test')
                     ->setLabel(LocalizedString::ofLangAndText('en', 'new-label'));
+
                 $request = RequestBuilder::of()->types()->update($result)
                     ->addAction(
-                        TypeChangeLocalizedEnumValueLabelAction::ofNameAndEnum('newEnumField', $enum)
+                        TypeChangeLocalizedEnumValueLabelAction::ofNameAndEnum($name, $enum)
                     );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
@@ -335,7 +350,7 @@ class TypeUpdateRequestTest extends ApiTestCase
                 /**
                  * @var LocalizedEnumType $fieldType
                  */
-                $fieldType = $result->getFieldDefinitions()->getByName('newEnumField')->getType();
+                $fieldType = $result->getFieldDefinitions()->getByName($name)->getType();
                 $this->assertSame($enum->getLabel()->en, $fieldType->getValues()->current()->getLabel()->en);
 
                 return $result;
@@ -351,13 +366,15 @@ class TypeUpdateRequestTest extends ApiTestCase
             $client,
             function (Type $type) use ($client) {
                 $inputHint = 'MultiLine';
+                $name = 'testField';
+
                 $request = RequestBuilder::of()->types()->update($type)
-                    ->addAction(TypeChangeInputHintAction::ofNameAndInputHint('testField', $inputHint));
+                    ->addAction(TypeChangeInputHintAction::ofNameAndInputHint($name, $inputHint));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Type::class, $result);
-                $field = $result->getFieldDefinitions()->getByName('testField');
+                $field = $result->getFieldDefinitions()->getByName($name);
                 $this->assertSame($inputHint, $field->getInputHint());
 
                 return $result;

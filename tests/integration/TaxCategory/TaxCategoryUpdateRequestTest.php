@@ -40,6 +40,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
             },
             function (TaxCategory $taxCategory) use ($client) {
                 $name = 'new-name';
+
                 $request = RequestBuilder::of()->taxCategories()->update($taxCategory)
                     ->addAction(TaxCategoryChangeNameAction::ofName($name));
                 $response = $this->execute($client, $request);
@@ -61,10 +62,11 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
         TaxCategoryFixture::withUpdateableDraftTaxCategory(
             $client,
             function (TaxCategoryDraft $draft) {
-                return $draft->setName('update name')->setKey('set-key');
+                return $draft->setName('update name')->setKey('set-test-key');
             },
             function (TaxCategory $taxCategory) use ($client) {
-                $name = 'new-name';
+                $name = 'new-test-name';
+
                 $request = RequestBuilder::of()->taxCategories()->update($taxCategory)
                     ->addAction(TaxCategoryChangeNameAction::ofName($name));
                 $response = $this->execute($client, $request);
@@ -86,17 +88,18 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
         TaxCategoryFixture::withUpdateableDraftTaxCategory(
             $client,
             function (TaxCategoryDraft $draft) {
-                return $draft->setKey('set-key');
+                return $draft->setKey('set-test-key');
             },
             function (TaxCategory $taxCategory) use ($client) {
-                $key = 'new-key';
+                $key = 'new-test-key';
+
                 $request = RequestBuilder::of()->taxCategories()->update($taxCategory)
                     ->addAction(TaxCategorySetKeyAction::ofKey($key));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(TaxCategory::class, $result);
-                $this->assertNotSame($key, 'set-key');
+                $this->assertNotSame($key, 'set-test-key');
                 $this->assertSame($key, $result->getKey());
                 $this->assertNotSame($taxCategory->getVersion(), $result->getVersion());
 
@@ -116,6 +119,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
             },
             function (TaxCategory $taxCategory) use ($client) {
                 $description = 'new-description';
+
                 $request = RequestBuilder::of()->taxCategories()->update($taxCategory)
                     ->addAction(TaxCategorySetDescriptionAction::of()->setDescription($description));
                 $response = $this->execute($client, $request);
@@ -138,6 +142,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
             $client,
             function (TaxCategory $taxCategory) use ($client) {
                 $taxRate = $this->getTaxRate();
+
                 $request = RequestBuilder::of()->taxCategories()->update($taxCategory)
                     ->addAction(TaxCategoryAddTaxRateAction::ofTaxRate($taxRate));
                 $response = $this->execute($client, $request);
@@ -170,6 +175,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
             $client,
             function (TaxCategory $taxCategory) use ($client) {
                 $taxRate = $this->getTaxRate();
+
                 $request = RequestBuilder::of()->taxCategories()->update($taxCategory)
                     ->addAction(TaxCategoryReplaceTaxRateAction::ofTaxRateIdAndTaxRate(
                         $taxCategory->getRates()->current()->getId(),

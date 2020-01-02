@@ -64,7 +64,7 @@ class ZoneQueryRequestTest extends ApiTestCase
             }
         );
     }
-    //TODO for Consistancy: should I change the place of this test? in other part it's in createRequestTest or in Update
+
     public function testDeleteByKey()
     {
         $client = $this->getApiClient();
