@@ -6,81 +6,63 @@
 
 namespace Commercetools\Core\IntegrationTests\ProductType;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\ProductType\ProductType;
-use Commercetools\Core\Model\ProductType\ProductTypeDraft;
-use Commercetools\Core\Request\ProductTypes\ProductTypeByIdGetRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeByKeyGetRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeQueryRequest;
 
 class ProductTypeQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @return ProductTypeDraft
-     */
-    protected function getDraft()
-    {
-        $draft = ProductTypeDraft::ofNameAndDescription(
-            'test-' . $this->getTestRun() . '-name',
-            'test-' . $this->getTestRun() . '-description'
-        );
-        $draft->setKey('key-' . $this->getTestRun());
-
-        return $draft;
-    }
-
-    protected function createProductType(ProductTypeDraft $draft)
-    {
-        $request = ProductTypeCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $productType = $request->mapResponse($response);
-        $this->cleanupRequests[] = ProductTypeDeleteRequest::ofIdAndVersion(
-            $productType->getId(),
-            $productType->getVersion()
-        );
-
-        return $productType;
-    }
-
     public function testQuery()
     {
-        $draft = $this->getDraft();
-        $productType = $this->createProductType($draft);
+        $client = $this->getApiClient();
 
-        $request = ProductTypeQueryRequest::of()->where('name="' . $draft->getName() . '"');
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ProductTypeFixture::withProductType(
+            $client,
+            function (ProductType $productType) use ($client) {
+                $request = RequestBuilder::of()->productTypes()->query()
+                    ->where('name=:name', ['name' => $productType->getName()]);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(ProductType::class, $result->getAt(0));
-        $this->assertSame($productType->getId(), $result->getAt(0)->getId());
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(ProductType::class, $result->current());
+                $this->assertSame($productType->getId(), $result->current()->getId());
+            }
+        );
     }
 
     public function testGetById()
     {
-        $draft = $this->getDraft();
-        $productType = $this->createProductType($draft);
+        $client = $this->getApiClient();
 
-        $request = ProductTypeByIdGetRequest::ofId($productType->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ProductTypeFixture::withProductType(
+            $client,
+            function (ProductType $productType) use ($client) {
+                $request = RequestBuilder::of()->productTypes()->getById($productType->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(ProductType::class, $productType);
-        $this->assertSame($productType->getId(), $result->getId());
+                $this->assertInstanceOf(ProductType::class, $productType);
+                $this->assertSame($productType->getId(), $result->getId());
+            }
+        );
     }
 
     public function testGetByKey()
     {
-        $draft = $this->getDraft();
-        $productType = $this->createProductType($draft);
+        $client = $this->getApiClient();
 
-        $request = ProductTypeByKeyGetRequest::ofKey($productType->getKey());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ProductTypeFixture::withProductType(
+            $client,
+            function (ProductType $productType) use ($client) {
+                $request = RequestBuilder::of()->productTypes()->getByKey($productType->getKey());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(ProductType::class, $productType);
-        $this->assertSame($productType->getId(), $result->getId());
+                $this->assertInstanceOf(ProductType::class, $productType);
+                $this->assertSame($productType->getId(), $result->getId());
+                $this->assertSame($productType->getKey(), $result->getKey());
+            }
+        );
     }
 }
