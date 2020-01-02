@@ -99,6 +99,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
                     },
                     function (DiscountCode $discountCode) use ($client, $type) {
                         $newValue = $this->getTestRun() . '-value';
+
                         $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                             ->addAction(SetCustomFieldAction::ofName('testField')->setValue($newValue));
                         $response = $this->execute($client, $request);
@@ -130,6 +131,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
                     $client,
                     function (DiscountCode $discountCode) use ($client, $cartDiscount) {
                         $cartDiscountReference = CartDiscountReference::ofId($cartDiscount->getId());
+
                         $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                             ->addAction(
                                 DiscountCodeChangeCartDiscountsAction::ofCartDiscountReference($cartDiscountReference)
@@ -168,6 +170,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
                         foreach ($discounts as $discount) {
                             $expectedIds[] = $discount->getId();
                         }
+
                         $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                             ->addAction(
                                 DiscountCodeChangeCartDiscountsAction::ofCartDiscountReferences($discounts)
@@ -177,6 +180,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
 
                         $this->assertInstanceOf(DiscountCode::class, $result);
                         $this->assertCount(2, $result->getCartDiscounts());
+
                         $ids = [];
                         foreach ($result->getCartDiscounts() as $discount) {
                             $ids[] = $discount->getId();
@@ -199,6 +203,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
             $client,
             function (DiscountCode $discountCode) use ($client) {
                 $description = 'new description';
+
                 $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                     ->addAction(DiscountCodeSetDescriptionAction::of()->setDescription(
                         LocalizedString::ofLangAndText('en', $description)
@@ -223,6 +228,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
             $client,
             function (DiscountCode $discountCode) use ($client) {
                 $isActive = true;
+
                 $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                     ->addAction(DiscountCodeChangeIsActiveAction::of()->setIsActive($isActive));
                 $response = $this->execute($client, $request);
@@ -271,6 +277,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
             $client,
             function (DiscountCode $discountCode) use ($client) {
                 $cartPredicate = '2=2';
+
                 $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                     ->addAction(DiscountCodeSetCartPredicateAction::of()->setCartPredicate($cartPredicate));
                 $response = $this->execute($client, $request);
@@ -293,6 +300,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
             $client,
             function (DiscountCode $discountCode) use ($client) {
                 $maxApplications = mt_rand(1, 10);
+
                 $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                     ->addAction(DiscountCodeSetMaxApplicationsAction::of()->setMaxApplications($maxApplications));
                 $response = $this->execute($client, $request);
@@ -315,6 +323,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
             $client,
             function (DiscountCode $discountCode) use ($client) {
                 $maxApplicationsPerCustomer = mt_rand(1, 10);
+
                 $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                     ->addAction(DiscountCodeSetMaxApplicationsPerCustomerAction::of()
                         ->setMaxApplicationsPerCustomer($maxApplicationsPerCustomer));
@@ -338,6 +347,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
             $client,
             function (DiscountCode $discountCode) use ($client) {
                 $name = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-name');
+
                 $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                     ->addAction(DiscountCodeSetNameAction::of()->setName($name));
                 $response = $this->execute($client, $request);
@@ -360,6 +370,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
             $client,
             function (DiscountCode $discountCode) use ($client) {
                 $validFrom = new \DateTime();
+
                 $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                     ->addAction(DiscountCodeSetValidFromAction::of()->setValidFrom($validFrom));
                 $response = $this->execute($client, $request);
@@ -383,6 +394,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
             $client,
             function (DiscountCode $discountCode) use ($client) {
                 $validUntil = new \DateTime();
+
                 $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                     ->addAction(DiscountCodeSetValidUntilAction::of()->setValidUntil($validUntil));
                 $response = $this->execute($client, $request);
@@ -407,6 +419,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
             function (DiscountCode $discountCode) use ($client) {
                 $validFrom = new \DateTime();
                 $validUntil = new \DateTime('+1 second');
+
                 $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                     ->addAction(
                         DiscountCodeSetValidFromAndUntilAction::of()
