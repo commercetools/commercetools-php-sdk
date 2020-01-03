@@ -17,14 +17,16 @@ class StoreUpdateRequestTest extends ApiTestCase
         StoreFixture::withUpdateableStore(
             $client,
             function (Store $store) use ($client) {
+                $name = 'new-name';
+
                 $request = RequestBuilder::of()->stores()->update($store)
-                    ->addAction(StoreSetNameAction::ofName(LocalizedString::ofLangAndText('en', 'new-name')));
+                    ->addAction(StoreSetNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Store::class, $result);
                 $this->assertSame($store->getId(), $result->getId());
-                $this->assertSame('new-name', $result->getName()->en);
+                $this->assertSame($name, $result->getName()->en);
                 $this->assertNotSame($store->getVersion(), $result->getVersion());
 
                 return $result;
@@ -39,14 +41,16 @@ class StoreUpdateRequestTest extends ApiTestCase
         StoreFixture::withUpdateableStore(
             $client,
             function (Store $store) use ($client) {
+                $name = 'new-name';
+
                 $request = RequestBuilder::of()->stores()->updateByKey($store)
-                    ->addAction(StoreSetNameAction::ofName(LocalizedString::ofLangAndText('en', 'new-name')));
+                    ->addAction(StoreSetNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Store::class, $result);
                 $this->assertSame($store->getId(), $result->getId());
-                $this->assertSame('new-name', $result->getName()->en);
+                $this->assertSame($name, $result->getName()->en);
                 $this->assertNotSame($store->getVersion(), $result->getVersion());
 
                 return $result;
