@@ -5,7 +5,10 @@
 
 namespace Commercetools\Core\IntegrationTests\Inventory;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
+use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
 use Commercetools\Core\Model\Inventory\InventoryEntry;
@@ -60,131 +63,157 @@ class InventoryUpdateRequestTest extends ApiTestCase
 
     public function testAddQuantity()
     {
-        $draft = $this->getDraft('add-quantity');
-        $inventory = $this->createInventory($draft);
+        $client = $this->getApiClient();
 
-        $quantity = mt_rand(1, 100);
-        $request = InventoryUpdateRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion())
-            ->addAction(
-                InventoryAddQuantityAction::ofQuantity($quantity)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        InventoryFixture::withUpdateableDraftInventory(
+            $client,
+            function (InventoryDraft $draft) {
+                return $draft->setQuantityOnStock(0);
+            },
+            function (InventoryEntry $inventoryEntry) use ($client) {
+                $quantity = mt_rand(1, 100);
 
-        $this->assertInstanceOf(InventoryEntry::class, $result);
-        $this->assertSame($quantity, $result->getQuantityOnStock());
-        $this->assertNotSame($inventory->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->inventory()->update($inventoryEntry)
+                    ->addAction(InventoryAddQuantityAction::ofQuantity($quantity));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(InventoryEntry::class, $result);
+                $this->assertSame($quantity, $result->getQuantityOnStock());
+                $this->assertNotSame($inventoryEntry->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeQuantity()
     {
-        $draft = $this->getDraft('change-quantity');
-        $inventory = $this->createInventory($draft);
+        $client = $this->getApiClient();
 
-        $quantity = mt_rand(1, 100);
-        $request = InventoryUpdateRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion())
-            ->addAction(
-                InventoryChangeQuantityAction::ofQuantity($quantity)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        InventoryFixture::withUpdateableInventory(
+            $client,
+            function (InventoryEntry $inventoryEntry) use ($client) {
+                $quantity = mt_rand(1, 100);
 
-        $this->assertInstanceOf(InventoryEntry::class, $result);
-        $this->assertSame($quantity, $result->getQuantityOnStock());
-        $this->assertNotSame($inventory->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->inventory()->update($inventoryEntry)
+                    ->addAction(InventoryChangeQuantityAction::ofQuantity($quantity));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(InventoryEntry::class, $result);
+                $this->assertSame($quantity, $result->getQuantityOnStock());
+                $this->assertNotSame($inventoryEntry->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testRemoveQuantity()
     {
-        $draft = $this->getDraft('remove-quantity', 1000);
-        $inventory = $this->createInventory($draft);
+        $client = $this->getApiClient();
 
-        $quantity = mt_rand(1, 100);
-        $request = InventoryUpdateRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion())
-            ->addAction(
-                InventoryRemoveQuantityAction::ofQuantity($quantity)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        InventoryFixture::withUpdateableDraftInventory(
+            $client,
+            function (InventoryDraft $draft) {
+                return $draft->setSku('remove-quantity')->setQuantityOnStock(1000);
+            },
+            function (InventoryEntry $inventoryEntry) use ($client) {
+                $quantity = mt_rand(1, 100);
 
-        $this->assertInstanceOf(InventoryEntry::class, $result);
-        $this->assertSame(1000 - $quantity, $result->getQuantityOnStock());
-        $this->assertNotSame($inventory->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->inventory()->update($inventoryEntry)
+                    ->addAction(InventoryRemoveQuantityAction::ofQuantity($quantity));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(InventoryEntry::class, $result);
+                $this->assertSame(1000 - $quantity, $result->getQuantityOnStock());
+                $this->assertNotSame($inventoryEntry->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetExpectedDelivery()
     {
-        $draft = $this->getDraft('expected-delivery');
-        $inventory = $this->createInventory($draft);
+        $client = $this->getApiClient();
 
-        $expectedDelivery = new \DateTime('+ 1 day');
-        $request = InventoryUpdateRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion())
-            ->addAction(
-                InventorySetExpectedDeliveryAction::of()->setExpectedDelivery($expectedDelivery)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        InventoryFixture::withUpdateableInventory(
+            $client,
+            function (InventoryEntry $inventoryEntry) use ($client) {
+                $expectedDelivery = new \DateTime('+ 1 day');
 
-        $this->assertInstanceOf(InventoryEntry::class, $result);
-        $expectedDelivery->setTimezone(new \DateTimeZone('UTC'));
-        $this->assertEquals($expectedDelivery->format('c'), $result->getExpectedDelivery()->getDateTime()->format('c'));
-        $this->assertNotSame($inventory->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->inventory()->update($inventoryEntry)
+                    ->addAction(InventorySetExpectedDeliveryAction::of()->setExpectedDelivery($expectedDelivery));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(InventoryEntry::class, $result);
+                $expectedDelivery->setTimezone(new \DateTimeZone('UTC'));
+                $this->assertEquals(
+                    $expectedDelivery->format('c'),
+                    $result->getExpectedDelivery()->getDateTime()->format('c')
+                );
+                $this->assertNotSame($inventoryEntry->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetRestockableInDays()
     {
-        $draft = $this->getDraft('restockable-in-days');
-        $inventory = $this->createInventory($draft);
+        $client = $this->getApiClient();
 
-        $restockableInDays = mt_rand(1, 10);
-        $request = InventoryUpdateRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion())
-            ->addAction(
-                InventorySetRestockableInDaysAction::of()->setRestockableInDays($restockableInDays)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        InventoryFixture::withUpdateableInventory(
+            $client,
+            function (InventoryEntry $inventoryEntry) use ($client) {
+                $restockableInDays = mt_rand(1, 10);
 
-        $this->assertInstanceOf(InventoryEntry::class, $result);
-        $this->assertSame($restockableInDays, $result->getRestockableInDays());
-        $this->assertNotSame($inventory->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->inventory()->update($inventoryEntry)
+                    ->addAction(InventorySetRestockableInDaysAction::of()->setRestockableInDays($restockableInDays));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(InventoryEntry::class, $result);
+                $this->assertSame($restockableInDays, $result->getRestockableInDays());
+                $this->assertNotSame($inventoryEntry->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetSupplyChannel()
     {
-        $draft = $this->getDraft('set-supply-channel');
-        $inventory = $this->createInventory($draft);
+        $client = $this->getApiClient();
 
-        $channel = $this->getChannel();
-        $request = InventoryUpdateRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion())
-            ->addAction(
-                InventorySetSupplyChannelAction::of()->setSupplyChannel($channel->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ChannelFixture::withChannel(
+            $client,
+            function (Channel $channel) use ($client) {
+                InventoryFixture::withUpdateableInventory(
+                    $client,
+                    function (InventoryEntry $inventoryEntry) use ($client, $channel) {
+                        $request = RequestBuilder::of()->inventory()->update($inventoryEntry)
+                            ->addAction(
+                                InventorySetSupplyChannelAction::of()->setSupplyChannel($channel->getReference())
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(InventoryEntry::class, $result);
-        $this->assertSame($channel->getId(), $result->getSupplyChannel()->getId());
-        $this->assertNotSame($inventory->getVersion(), $result->getVersion());
+                        $this->assertInstanceOf(InventoryEntry::class, $result);
+                        $this->assertSame($channel->getId(), $result->getSupplyChannel()->getId());
+                        $this->assertNotSame($inventoryEntry->getVersion(), $result->getVersion());
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                        return $result;
+                    }
+                );
+            }
+        );
     }
-
+//todo migrate Product
     public function testQueryChannels()
     {
         $channel = $this->getChannel();

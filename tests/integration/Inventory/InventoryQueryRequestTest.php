@@ -3,70 +3,48 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\Inventory;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\Model\Inventory\InventoryDraft;
 use Commercetools\Core\Model\Inventory\InventoryEntry;
-use Commercetools\Core\Request\Inventory\InventoryByIdGetRequest;
-use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
-use Commercetools\Core\Request\Inventory\InventoryDeleteRequest;
-use Commercetools\Core\Request\Inventory\InventoryQueryRequest;
 
 class InventoryQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @return InventoryDraft
-     */
-    protected function getDraft()
-    {
-        $draft = InventoryDraft::ofSkuAndQuantityOnStock(
-            'test-' . $this->getTestRun() . '-sku',
-            1
-        );
-
-        return $draft;
-    }
-
-    protected function createInventory(InventoryDraft $draft)
-    {
-        $request = InventoryCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $inventory = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = InventoryDeleteRequest::ofIdAndVersion(
-            $inventory->getId(),
-            $inventory->getVersion()
-        );
-
-        return $inventory;
-    }
-
     public function testQuery()
     {
-        $draft = $this->getDraft();
-        $inventory = $this->createInventory($draft);
+        $client = $this->getApiClient();
 
-        $request = InventoryQueryRequest::of()->where('sku="' . $draft->getSku() . '"');
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        InventoryFixture::withInventory(
+            $client,
+            function (InventoryEntry $inventory) use ($client) {
+                $request = RequestBuilder::of()->inventory()->query()
+                    ->where('sku=:sku', ['sku' => $inventory->getSku()]);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(InventoryEntry::class, $result->getAt(0));
-        $this->assertSame($inventory->getId(), $result->getAt(0)->getId());
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(InventoryEntry::class, $result->current());
+                $this->assertSame($inventory->getId(), $result->current()->getId());
+            }
+        );
     }
 
     public function testGetById()
     {
-        $draft = $this->getDraft();
-        $inventory = $this->createInventory($draft);
+        $client = $this->getApiClient();
 
-        $request = InventoryByIdGetRequest::ofId($inventory->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        InventoryFixture::withInventory(
+            $client,
+            function (InventoryEntry $inventory) use ($client) {
+                $request = RequestBuilder::of()->inventory()->getById($inventory->getId());
 
-        $this->assertInstanceOf(InventoryEntry::class, $inventory);
-        $this->assertSame($inventory->getId(), $result->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(InventoryEntry::class, $inventory);
+                $this->assertSame($inventory->getId(), $result->getId());
+            }
+        );
     }
 }

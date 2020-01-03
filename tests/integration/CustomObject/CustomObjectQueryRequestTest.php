@@ -6,6 +6,8 @@
 
 namespace Commercetools\Core\IntegrationTests\CustomObject;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Error\ConcurrentModificationError;
 use Commercetools\Core\Model\CustomObject\CustomObject;
@@ -127,64 +129,84 @@ class CustomObjectQueryRequestTest extends ApiTestCase
 
     public function testQuery()
     {
-        $draft = $this->getDraft();
-        $customObject = $this->createCustomObject($draft);
+        $client = $this->getApiClient();
 
-        $request = CustomObjectQueryRequest::of()->where(
-            'container="' . $draft->getContainer() . '" and key="' . $draft->getKey() . '"'
+        CustomObjectFixture::withCustomObject(
+            $client,
+            function (CustomObject $draft) use ($client) {
+                $request = RequestBuilder::of()->customObjects()->query()
+                    ->where('container=:container', ['container' => $draft->getContainer()])
+                    ->where('key=:key', ['key' => $draft->getKey()]);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(CustomObject::class, $result->current());
+                $this->assertSame($draft->getId(), $result->current()->getId());
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(CustomObject::class, $result->getAt(0));
-        $this->assertSame($customObject->getId(), $result->getAt(0)->getId());
     }
 
     public function testGetByContainerAndKey()
     {
-        $draft = $this->getDraft();
-        $customObject = $this->createCustomObject($draft);
+        $client = $this->getApiClient();
 
-        $request = CustomObjectByKeyGetRequest::ofContainerAndKey(
-            $customObject->getContainer(),
-            $customObject->getKey()
+        CustomObjectFixture::withCustomObject(
+            $client,
+            function (CustomObject $draft) use ($client) {
+                $request = RequestBuilder::of()->customObjects()->getByContainerAndKey(
+                    $draft->getContainer(),
+                    $draft->getKey()
+                );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(CustomObject::class, $draft);
+                $this->assertSame($draft->getId(), $result->getId());
+                $this->assertSame($draft->getKey(), $result->getKey());
+                $this->assertSame($draft->getContainer(), $result->getContainer());
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertInstanceOf(CustomObject::class, $customObject);
-        $this->assertSame($customObject->getId(), $result->getId());
     }
 
     public function testGetById()
     {
-        $draft = $this->getDraft();
-        $customObject = $this->createCustomObject($draft);
+        $client = $this->getApiClient();
 
-        $request = CustomObjectByIdGetRequest::ofId(
-            $customObject->getId()
+        CustomObjectFixture::withCustomObject(
+            $client,
+            function (CustomObject $draft) use ($client) {
+                $request = RequestBuilder::of()->customObjects()->getById($draft->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(CustomObject::class, $draft);
+                $this->assertSame($draft->getId(), $result->getId());
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertInstanceOf(CustomObject::class, $customObject);
-        $this->assertSame($customObject->getId(), $result->getId());
     }
 
     public function testDeleteByKey()
     {
-        $draft = $this->getDraft();
+        $client = $this->getApiClient();
 
-        $request = CustomObjectCreateRequest::ofObject($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $customObject = $request->mapResponse($response);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(404);
 
-        $deleteRequest = CustomObjectDeleteByKeyRequest::ofContainerAndKey(
-            $customObject->getContainer(),
-            $customObject->getKey()
+        CustomObjectFixture::withCustomObject(
+            $client,
+            function (CustomObject $draft) use ($client) {
+                $request = RequestBuilder::of()->customObjects()->deleteByContainerAndKey($draft);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $request = RequestBuilder::of()->customObjects()->getByContainerAndKey(
+                    $result->getContainer(),
+                    $result->getId()
+                );
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
+            }
         );
-        $response = $deleteRequest->executeWithClient($this->getClient());
-        $this->assertSame(200, $response->getStatusCode());
     }
 }
