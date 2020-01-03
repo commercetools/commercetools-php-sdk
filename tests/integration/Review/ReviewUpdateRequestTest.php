@@ -43,6 +43,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
             $client,
             function (Review $review) use ($client) {
                 $text = 'test-' . $this->getTestRun() . '-new text';
+
                 $request = RequestBuilder::of()->reviews()->updateByKey($review)
                     ->addAction(ReviewSetTextAction::of()->setText($text));
                 $response = $this->execute($client, $request);
@@ -64,6 +65,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
             $client,
             function (Review $review) use ($client) {
                 $key = 'new-' . $this->getTestRun();
+
                 $request = RequestBuilder::of()->reviews()->update($review)
                     ->addAction(ReviewSetKeyAction::of()->setKey($key));
                 $response = $this->execute($client, $request);
@@ -86,6 +88,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
             $client,
             function (Review $review) use ($client) {
                 $author = 'new-' . $this->getTestRun();
+
                 $request = RequestBuilder::of()->reviews()->update($review)
                     ->addAction(ReviewSetAuthorNameAction::of()->setAuthorName($author));
                 $response = $this->execute($client, $request);
@@ -109,6 +112,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
             $client,
             function (Review $review) use ($client) {
                 $customer = $this->getCustomer();
+
                 $request = RequestBuilder::of()->reviews()->update($review)
                     ->addAction(ReviewSetCustomerAction::of()->setCustomer($customer->getReference()));
                 $response = $this->execute($client, $request);
@@ -131,6 +135,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
             $client,
             function (Review $review) use ($client) {
                 $rating = mt_rand(1, 100);
+
                 $request = RequestBuilder::of()->reviews()->update($review)
                     ->addAction(ReviewSetRatingAction::of()->setRating($rating));
                 $response = $this->execute($client, $request);
@@ -154,6 +159,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
             $client,
             function (Review $review) use ($client) {
                 $target = $this->getProduct();
+
                 $request = RequestBuilder::of()->reviews()->update($review)
                     ->addAction(ReviewSetTargetAction::of()->setTarget($target->getReference()));
                 $response = $this->execute($client, $request);
@@ -204,6 +210,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
             $client,
             function (Review $review) use ($client) {
                 $text = 'test-' . $this->getTestRun() . '-new text';
+
                 $request = RequestBuilder::of()->reviews()->update($review)
                     ->addAction(ReviewSetTextAction::of()->setText($text));
                 $response = $this->execute($client, $request);
@@ -226,6 +233,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
             $client,
             function (Review $review) use ($client) {
                 $title = 'test-' . $this->getTestRun() . '-new title';
+
                 $request = RequestBuilder::of()->reviews()->update($review)
                     ->addAction(ReviewSetTitleAction::of()->setTitle($title));
                 $response = $this->execute($client, $request);
@@ -248,6 +256,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
             $client,
             function (Review $review) use ($client) {
                 $locale = 'de_DE';
+
                 $request = RequestBuilder::of()->reviews()->update($review)
                     ->addAction(ReviewSetLocaleAction::of()->setLocale($locale));
                 $response = $this->execute($client, $request);
@@ -363,6 +372,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
 
                         $review = $result;
                         $value = 'new-value';
+
                         $request = RequestBuilder::of()->reviews()->update($review)
                             ->addAction(SetCustomFieldAction::ofName('testField')->setValue($value));
                         $response = $this->execute($client, $request);
@@ -378,6 +388,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
             }
         );
     }
+
 //todo migration for Customer is missing
     public function testReferenceExpansion()
     {

@@ -80,6 +80,17 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         return $productType;
     }
 
+    protected function getAttributeDefinition($name, $type)
+    {
+        $definition = AttributeDefinition::of()
+            ->setName($name)
+            ->setLabel(LocalizedString::ofLangAndText('en', $name))
+            ->setIsRequired(false)
+            ->setType($type);
+
+        return $definition;
+    }
+
     public function testUpdateByKey()
     {
         $client = $this->getApiClient();
@@ -88,6 +99,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
             $client,
             function (ProductType $productType) use ($client) {
                 $name = 'test-' . $this->getTestRun() . '-new name';
+
                 $request = RequestBuilder::of()->productTypes()->updateByKey($productType)
                     ->addAction(ProductTypeChangeNameAction::ofName($name));
                 $response = $this->execute($client, $request);
@@ -109,6 +121,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
             $client,
             function (ProductType $productType) use ($client) {
                 $key = 'new-' . $this->getTestRun();
+
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeSetKeyAction::ofKey($key));
                 $response = $this->execute($client, $request);
@@ -134,6 +147,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
             },
             function (ProductType $productType) use ($client) {
                 $key = str_pad('new-' . $this->getTestRun(), 256, '0');
+
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeSetKeyAction::ofKey($key));
                 $response = $this->execute($client, $request);
@@ -159,6 +173,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
             },
             function (ProductType $productType) use ($client) {
                 $name = 'test-' . $this->getTestRun() . '-new name';
+
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeChangeNameAction::ofName($name));
                 $response = $this->execute($client, $request);
@@ -181,6 +196,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
             $client,
             function (ProductType $productType) use ($client) {
                 $description = 'test-' . $this->getTestRun() . '-new description';
+
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeChangeDescriptionAction::ofDescription($description));
                 $response = $this->execute($client, $request);
@@ -202,11 +218,10 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableProductType(
             $client,
             function (ProductType $productType) use ($client) {
-                $definition = AttributeDefinition::of()
-                    ->setName('testField')
-                    ->setLabel(LocalizedString::ofLangAndText('en', 'testField'))
-                    ->setIsRequired(false)
-                    ->setType(StringType::of());
+                $name = 'testField';
+                $type = StringType::of();
+                $definition = $this->getAttributeDefinition($name, $type);
+
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeAddAttributeDefinitionAction::ofAttribute($definition));
                 $response = $this->execute($client, $request);
@@ -218,10 +233,11 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
 
                 $productType = $result;
                 $label = 'new label';
+
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(
                         ProductTypeChangeLabelAction::ofAttributeNameAndLabel(
-                            'testField',
+                            $name,
                             LocalizedString::ofLangAndText('en', $label)
                         )
                     );
@@ -234,10 +250,11 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
 
                 $productType = $result;
                 $inputTip = 'new tip';
+
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(
                         ProductTypeSetInputTipAction::ofAttributeName(
-                            'testField'
+                            $name
                         )->setInputTip(LocalizedString::ofLangAndText('en', $inputTip))
                     );
                 $response = $this->execute($client, $request);
@@ -258,11 +275,9 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableProductType(
             $client,
             function (ProductType $productType) use ($client) {
-                $definition = AttributeDefinition::of()
-                    ->setName('testEnumField')
-                    ->setLabel(LocalizedString::ofLangAndText('en', 'testEnumField'))
-                    ->setIsRequired(false)
-                    ->setType(EnumType::of()->setValues(EnumCollection::of()));
+                $name = 'testEnumField';
+                $type = EnumType::of()->setValues(EnumCollection::of());
+                $definition = $this->getAttributeDefinition($name, $type);
 
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeAddAttributeDefinitionAction::ofAttribute($definition));
@@ -274,7 +289,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
 
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(
-                        ProductTypeAddPlainEnumValueAction::ofAttributeNameAndValue('testEnumField', $enum)
+                        ProductTypeAddPlainEnumValueAction::ofAttributeNameAndValue($name, $enum)
                     );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
@@ -297,12 +312,10 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
     {
         $draft = $this->getDraft('reference-attribute-definition');
         $productType = $this->createProductType($draft);
+        $name = 'testCustomObject';
+        $type = ReferenceType::of()->setReferenceTypeId(CustomObjectReference::TYPE_CUSTOM_OBJECT);
+        $definition = $this->getAttributeDefinition($name, $type);
 
-        $definition = AttributeDefinition::of()
-            ->setName('testCustomObject')
-            ->setLabel(LocalizedString::ofLangAndText('en', 'testCustomObject'))
-            ->setIsRequired(false)
-            ->setType(ReferenceType::of()->setReferenceTypeId(CustomObjectReference::TYPE_CUSTOM_OBJECT));
         $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
             ->addAction(
                 ProductTypeAddAttributeDefinitionAction::ofAttribute($definition)
@@ -329,7 +342,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
                 AttributeCollection::of()
                     ->add(
                         Attribute::of()
-                            ->setName('testCustomObject')
+                            ->setName($name)
                             ->setValue(
                                 $customObject->getReference()
                             )
@@ -351,15 +364,15 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         $variant = $product->getMasterVariant();
         $this->assertSame(
             $customObject->getId(),
-            $variant->getAttributes()->getByName('testCustomObject')->getValue()->getId()
+            $variant->getAttributes()->getByName($name)->getValue()->getId()
         );
         $this->assertInstanceOf(
             CustomObject::class,
-            $variant->getAttributes()->getByName('testCustomObject')->getValue()->getObj()
+            $variant->getAttributes()->getByName($name)->getValue()->getObj()
         );
         $this->assertSame(
             $customObjectDraft->getValue(),
-            $variant->getAttributes()->getByName('testCustomObject')->getValue()->getObj()->getValue()
+            $variant->getAttributes()->getByName($name)->getValue()->getObj()->getValue()
         );
 
         $request = ProductDeleteRequest::ofIdAndVersion($product->getId(), $product->getVersion());
@@ -380,11 +393,9 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableProductType(
             $client,
             function (ProductType $productType) use ($client) {
-                $definition = AttributeDefinition::of()
-                    ->setName('testLocalizedEnumField')
-                    ->setLabel(LocalizedString::ofLangAndText('en', 'testLocalizedEnumField'))
-                    ->setIsRequired(false)
-                    ->setType(LocalizedEnumType::of()->setValues(LocalizedEnumCollection::of()));
+                $name = 'testLocalizedEnumField';
+                $type = LocalizedEnumType::of()->setValues(LocalizedEnumCollection::of());
+                $definition = $this->getAttributeDefinition($name, $type);
 
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeAddAttributeDefinitionAction::ofAttribute($definition));
@@ -396,7 +407,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
 
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeAddLocalizedEnumValueAction::ofAttributeNameAndValue(
-                        'testLocalizedEnumField',
+                        $name,
                         $enum
                     ));
                 $response = $this->execute($client, $request);
@@ -422,17 +433,16 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableDraftProductType(
             $client,
             function (ProductTypeDraft $draft) {
-                $definition = AttributeDefinition::of()
-                    ->setName('testLocalizedEnumField')
-                    ->setLabel(LocalizedString::ofLangAndText('en', 'testLocalizedEnumField'))
-                    ->setIsRequired(false)
-                    ->setType(LocalizedEnumType::of()
-                        ->setValues(
-                            LocalizedEnumCollection::of()->add(
-                                LocalizedEnum::of()->setKey('test')
-                                    ->setLabel(LocalizedString::ofLangAndText('en', 'test'))
-                            )
-                        ));
+                $name = 'testLocalizedEnumField';
+                $type = LocalizedEnumType::of()
+                    ->setValues(
+                        LocalizedEnumCollection::of()->add(
+                            LocalizedEnum::of()->setKey('test')
+                                ->setLabel(LocalizedString::ofLangAndText('en', 'test'))
+                        )
+                    );
+                $definition = $this->getAttributeDefinition($name, $type);
+
                 return $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
             },
             function (ProductType $productType) use ($client) {

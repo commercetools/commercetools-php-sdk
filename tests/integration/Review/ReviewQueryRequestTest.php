@@ -11,7 +11,6 @@ use Commercetools\Core\Model\Review\Review;
 
 class ReviewQueryRequestTest extends ApiTestCase
 {
-
     public function testQuery()
     {
         $client = $this->getApiClient();
