@@ -8,6 +8,7 @@ namespace Commercetools\Core\IntegrationTests\Inventory;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
+use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
@@ -15,6 +16,8 @@ use Commercetools\Core\Model\Inventory\InventoryEntry;
 use Commercetools\Core\Model\Message\InventoryEntryDeletedMessage;
 use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Product\Search\Filter;
+use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Model\Type\TypeReference;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
@@ -213,7 +216,8 @@ class InventoryUpdateRequestTest extends ApiTestCase
             }
         );
     }
-//todo migrate Product
+
+// TODO migrate Product
     public function testQueryChannels()
     {
         $channel = $this->getChannel();
@@ -271,83 +275,118 @@ class InventoryUpdateRequestTest extends ApiTestCase
      */
     public function testInventoryDeleteMessage()
     {
-        $channel = $this->getChannel();
-        $draft = $this->getDraft('delete-message');
-        $draft->setSupplyChannel($channel->getReference());
-        $inventory = $this->createInventory($draft);
+        $client = $this->getApiClient();
 
-        $request = InventoryDeleteRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ChannelFixture::withChannel(
+            $client,
+            function (Channel $channel) use ($client) {
+                InventoryFixture::withDraftInventory(
+                    $client,
+                    function (InventoryDraft $inventoryDraft) use ($channel) {
+                        return $inventoryDraft->setSupplyChannel($channel->getReference());
+                    },
+                    function (InventoryEntry $inventoryEntry) use ($client, $channel) {
+                        $request = RequestBuilder::of()->inventory()->delete($inventoryEntry);
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(InventoryEntry::class, $result);
-        array_pop($this->cleanupRequests);
+                        $this->assertInstanceOf(InventoryEntry::class, $result);
 
-        $retries = 0;
-        do {
-            $retries++;
-            sleep(1);
-            $request = MessageQueryRequest::of()
-                ->where('type = "InventoryEntryDeleted"')
-                ->where('resource(id = "' . $inventory->getId() . '")');
-            $response = $request->executeWithClient($this->getClient());
-            $result = $request->mapResponse($response);
-        } while (is_null($result) && $retries <= 9);
+                        $retries = 0;
+                        do {
+                            $retries++;
+                            sleep(1);
+                            $request = MessageQueryRequest::of()
+                                ->where('type = "InventoryEntryDeleted"')
+                                ->where('resource(id = "' . $inventoryEntry->getId() . '")');
+                            $response = $this->execute($client, $request);
+                            $result = $request->mapFromResponse($response);
+                        } while (is_null($result) && $retries <= 9);
 
-        /**
-         * @var InventoryEntryDeletedMessage $message
-         */
-        $message = $result->current();
-        $this->assertInstanceOf(InventoryEntryDeletedMessage::class, $message);
-        $this->assertSame($inventory->getId(), $message->getResource()->getId());
-        $this->assertSame($inventory->getSku(), $message->getSku());
+                        /**
+                         * @var InventoryEntryDeletedMessage $message
+                         */
+                        $message = $result->current();
+
+                        $this->assertInstanceOf(InventoryEntryDeletedMessage::class, $message);
+                        $this->assertSame($inventoryEntry->getId(), $message->getResource()->getId());
+                        $this->assertSame($inventoryEntry->getSku(), $message->getSku());
+                    }
+                );
+            }
+        );
     }
 
     public function testSetCustomType()
     {
-        $draft = $this->getDraft('set-custom-type');
-        $inventory = $this->createInventory($draft);
+        $client = $this->getApiClient();
 
-        $typeKey = 'type-' . $this->getTestRun();
-        $type = $this->getType($typeKey, 'inventory-entry');
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $draft) {
+                $typeKey = 'type-' . $this->getTestRun();
 
-        $request = InventoryUpdateRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion())
-            ->addAction(
-                SetCustomTypeAction::ofTypeKey($typeKey)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                return $draft->setKey($typeKey)->setResourceTypeIds(['inventory-entry']);
+            },
+            function (Type $type) use ($client) {
+                InventoryFixture::withUpdateableInventory(
+                    $client,
+                    function (InventoryEntry $inventoryEntry) use ($client, $type) {
+                        $request = RequestBuilder::of()->inventory()->update($inventoryEntry)
+                            ->addAction(SetCustomTypeAction::ofTypeKey($type->getKey()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(InventoryEntry::class, $result);
-        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
-        $this->assertNotSame($inventory->getVersion(), $result->getVersion());
+                        $this->assertInstanceOf(InventoryEntry::class, $result);
+                        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
+                        $this->assertNotSame($inventoryEntry->getVersion(), $result->getVersion());
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSetCustomField()
     {
-        $typeKey = 'type-' . $this->getTestRun();
-        $type = $this->getType($typeKey, 'inventory-entry');
+        $client = $this->getApiClient();
 
-        $draft = $this->getDraft('set-custom-field');
-        $draft->setCustom(CustomFieldObject::of()->setType(TypeReference::ofKey($typeKey)));
-        $inventory = $this->createInventory($draft);
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $draft) {
+                $typeKey = 'type-' . $this->getTestRun();
 
-        $request = InventoryUpdateRequest::ofIdAndVersion($inventory->getId(), $inventory->getVersion())
-            ->addAction(
-                SetCustomFieldAction::ofName('testField')->setValue((string)$this->getTestRun())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                return $draft->setKey($typeKey)->setResourceTypeIds(['inventory-entry']);
+            },
+            function (Type $type) use ($client) {
+                InventoryFixture::withUpdateableDraftInventory(
+                    $client,
+                    function (InventoryDraft $draft) use ($type) {
+                        $draft->setCustom(CustomFieldObject::of()->setType(TypeReference::ofKey($type->getKey())));
 
-        $this->assertInstanceOf(InventoryEntry::class, $result);
-        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
-        $this->assertSame((string)$this->getTestRun(), $result->getCustom()->getFields()->getTestField());
-        $this->assertNotSame($inventory->getVersion(), $result->getVersion());
+                        return $draft;
+                    },
+                    function (InventoryEntry $inventoryEntry) use ($client, $type) {
+                        $request = RequestBuilder::of()->inventory()->update($inventoryEntry)
+                            ->addAction(
+                                SetCustomFieldAction::ofName('testField')->setValue((string)$this->getTestRun())
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                        $this->assertInstanceOf(InventoryEntry::class, $result);
+                        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
+                        $this->assertSame(
+                            (string)$this->getTestRun(),
+                            $result->getCustom()->getFields()->getTestField()
+                        );
+                        $this->assertNotSame($inventoryEntry->getVersion(), $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 }
