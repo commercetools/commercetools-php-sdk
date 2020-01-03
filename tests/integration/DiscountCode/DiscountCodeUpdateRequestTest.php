@@ -255,13 +255,15 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
             function (DiscountCode $discountCode) use ($client) {
                 $this->assertSame('test', current($discountCode->getGroups()));
 
+                $groups = 'test2';
+
                 $request = RequestBuilder::of()->discountCodes()->update($discountCode)
-                    ->addAction(DiscountCodeChangeGroupsAction::of()->setGroups(['test2']));
+                    ->addAction(DiscountCodeChangeGroupsAction::of()->setGroups([$groups]));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(DiscountCode::class, $result);
-                $this->assertSame('test2', current($result->getGroups()));
+                $this->assertSame($groups, current($result->getGroups()));
                 $this->assertNotSame($discountCode->getVersion(), $result->getVersion());
 
                 return $result;

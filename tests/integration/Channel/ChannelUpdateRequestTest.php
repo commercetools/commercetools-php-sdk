@@ -238,30 +238,35 @@ class ChannelUpdateRequestTest extends ApiTestCase
                         $this->assertInstanceOf(Channel::class, $channel);
                         $this->assertSame('value', $channel->getCustom()->getFields()->getTestField());
 
+                        $field = 'testField';
+                        $newValue = 'new value';
+
                         $request = RequestBuilder::of()->channels()->update($channel)
                             ->addAction(
                                 SetCustomTypeAction::ofTypeKey($type->getKey())
                                     ->setFields(
                                         FieldContainer::of()
-                                            ->set('testField', 'new value')
+                                            ->set($field, $newValue)
                                     )
                             );
                         $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(Channel::class, $result);
-                        $this->assertSame('new value', $result->getCustom()->getFields()->getTestField());
+                        $this->assertSame($newValue, $result->getCustom()->getFields()->getTestField());
+
+                        $newValue2 = 'new value 2';
 
                         $request = RequestBuilder::of()->channels()->update($result)
                             ->addAction(
-                                SetCustomFieldAction::ofName('testField')
-                                    ->setValue('new value 2')
+                                SetCustomFieldAction::ofName($field)
+                                    ->setValue('' . $newValue2 . '')
                             );
                         $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(Channel::class, $result);
-                        $this->assertSame('new value 2', $result->getCustom()->getFields()->getTestField());
+                        $this->assertSame($newValue2, $result->getCustom()->getFields()->getTestField());
 
                         return $result;
                     }
