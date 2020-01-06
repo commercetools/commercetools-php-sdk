@@ -77,7 +77,7 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
-                $key = $this->getTestRun() . '-new';
+                $key = 'new' . SubscriptionFixture::uniqueSubscriptionString();
 
                 $request = RequestBuilder::of()->subscriptions()->update($subscription)
                     ->addAction(SubscriptionSetKeyAction::of()->setKey($key));
