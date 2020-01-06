@@ -14,7 +14,6 @@ use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
 use Commercetools\Core\Model\Inventory\InventoryEntry;
 use Commercetools\Core\Model\Message\InventoryEntryDeletedMessage;
-use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Product\Search\Filter;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
@@ -29,7 +28,6 @@ use Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAc
 use Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction;
 use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
 use Commercetools\Core\Request\Inventory\InventoryDeleteRequest;
-use Commercetools\Core\Request\Inventory\InventoryUpdateRequest;
 use Commercetools\Core\Request\Messages\MessageQueryRequest;
 use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
 
