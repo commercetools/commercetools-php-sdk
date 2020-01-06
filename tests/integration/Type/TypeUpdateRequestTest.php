@@ -48,7 +48,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         TypeFixture::withUpdateableType(
             $client,
             function (Type $type) use ($client) {
-                $name = 'new-name';
+                $name = 'new-name' . TypeFixture::uniqueTypeString();
 
                 $request = RequestBuilder::of()->types()->updateByKey($type)
                     ->addAction(TypeChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
@@ -70,7 +70,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         TypeFixture::withUpdateableType(
             $client,
             function (Type $type) use ($client) {
-                $key = 'new-key';
+                $key = 'new-key' . TypeFixture::uniqueTypeString();
 
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(TypeChangeKeyAction::ofKey($key));
@@ -95,7 +95,7 @@ class TypeUpdateRequestTest extends ApiTestCase
                 return $draft->setKey(str_pad($draft->getKey(), 256, '0'));
             },
             function (Type $type) use ($client) {
-                $key = str_pad('new-' . $this->getTestRun(), 256, '0');
+                $key = str_pad('new-' . TypeFixture::uniqueTypeString(), 256, '0');
 
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(TypeChangeKeyAction::ofKey($key));
@@ -117,7 +117,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         TypeFixture::withUpdateableType(
             $client,
             function (Type $type) use ($client) {
-                $name = 'new-name';
+                $name = 'new-name' . TypeFixture::uniqueTypeString();
 
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(TypeChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
@@ -139,7 +139,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         TypeFixture::withUpdateableType(
             $client,
             function (Type $type) use ($client) {
-                $description = 'new-description';
+                $description = 'new-description' . TypeFixture::uniqueTypeString();
 
                 $request = RequestBuilder::of()->types()->update($type)
                     ->addAction(
@@ -164,7 +164,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         TypeFixture::withUpdateableType(
             $client,
             function (Type $type) use ($client) {
-                $name = 'newField';
+                $name = 'newField' . TypeFixture::uniqueTypeString();
                 $fieldDefinition = $this->setFieldDefinition($name, StringType::of());
 
                 $request = RequestBuilder::of()->types()->update($type)
@@ -181,7 +181,7 @@ class TypeUpdateRequestTest extends ApiTestCase
                     $result->getFieldDefinitions()->getByName($name)
                 );
 
-                $label = 'new-label';
+                $label = 'new-label' . TypeFixture::uniqueTypeString();
 
                 $request = RequestBuilder::of()->types()->update($result)
                     ->addAction(
@@ -214,7 +214,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         TypeFixture::withUpdateableType(
             $client,
             function (Type $type) use ($client) {
-                $name = 'newEnumField';
+                $name = 'newEnumField' . TypeFixture::uniqueTypeString();
                 $enumType = EnumType::of()->setValues(EnumCollection::of());
                 $fieldDefinition = $this->setFieldDefinition($name, $enumType);
 
@@ -249,7 +249,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         TypeFixture::withUpdateableType(
             $client,
             function (Type $type) use ($client) {
-                $name = 'newLEnumField';
+                $name = 'newLEnumField' . TypeFixture::uniqueTypeString();
                 $enumType = LocalizedEnumType::of()
                     ->setValues(LocalizedEnumCollection::of());
                 $fieldDefinition = $this->setFieldDefinition($name, $enumType);
@@ -285,7 +285,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         TypeFixture::withUpdateableType(
             $client,
             function (Type $type) use ($client) {
-                $name = 'newEnumField';
+                $name = 'newEnumField' . TypeFixture::uniqueTypeString();
                 $enumType = EnumType::of()
                     ->setValues(EnumCollection::of()->add(Enum::of()->setKey('test')->setLabel('test')));
                 $fieldDefinition = $this->setFieldDefinition($name, $enumType);
@@ -321,7 +321,7 @@ class TypeUpdateRequestTest extends ApiTestCase
         TypeFixture::withUpdateableType(
             $client,
             function (Type $type) use ($client) {
-                $name = 'newEnumField';
+                $name = 'newEnumField' . TypeFixture::uniqueTypeString();
                 $enumType = LocalizedEnumType::of()
                     ->setValues(
                         LocalizedEnumCollection::of()->add(

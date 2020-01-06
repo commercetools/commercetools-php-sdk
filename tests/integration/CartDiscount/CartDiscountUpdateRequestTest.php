@@ -173,7 +173,10 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 return $draft->setDescription(LocalizedString::ofLangAndText('en', 'set-description'));
             },
             function (CartDiscount $cartDiscount) use ($client) {
-                $description = LocalizedString::ofLangAndText('en', 'new-description');
+                $description = LocalizedString::ofLangAndText(
+                    'en',
+                    'new-description' . CartDiscountFixture::uniqueCartDiscountString()
+                );
                 $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
                     ->addAction(CartDiscountSetDescriptionAction::of()->setDescription($description));
                 $response = $this->execute($client, $request);
