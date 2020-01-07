@@ -6,6 +6,7 @@
 namespace Commercetools\Core\IntegrationTests\Zone;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Zone\Zone;
 
@@ -68,6 +69,8 @@ class ZoneQueryRequestTest extends ApiTestCase
     public function testDeleteByKey()
     {
         $client = $this->getApiClient();
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(404);
 
         ZoneFixture::withZone(
             $client,
@@ -77,6 +80,11 @@ class ZoneQueryRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertSame($zone->getId(), $result->getId());
+                $this->assertInstanceOf(Zone::class, $result);
+
+                $request = RequestBuilder::of()->zones()->getByKey($result->getKey());
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
             }
         );
     }

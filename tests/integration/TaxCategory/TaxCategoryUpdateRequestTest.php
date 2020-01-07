@@ -22,7 +22,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
 
     private function getTaxRate()
     {
-        return TaxRate::of()->setName('test-' . $this->getTestRun() . '-rate2')
+        return TaxRate::of()->setName('test-' . TaxCategoryFixture::uniqueTaxCategoryString() . '-rate2')
             ->setAmount(0.3)
             ->setIncludedInPrice(true)
             ->setCountry('DE')
