@@ -7,6 +7,8 @@
 namespace Commercetools\Core\IntegrationTests\ProductType;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Error\InvalidOperationError;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\Attribute;
 use Commercetools\Core\Model\Common\AttributeCollection;
@@ -36,10 +38,18 @@ use Commercetools\Core\Request\Products\ProductProjectionByIdGetRequest;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeConstraintAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeNameAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeAttributeOrderByNameAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeDescriptionAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeEnumKeyAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeInputHintAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeIsSearchableAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLabelAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeLocalizedEnumLabelAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangeNameAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangePlainEnumLabelAction;
+use Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveEnumValuesAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction;
 use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
@@ -98,7 +108,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableProductType(
             $client,
             function (ProductType $productType) use ($client) {
-                $name = 'test-' . $this->getTestRun() . '-new name';
+                $name = 'test-' . ProductTypeFixture::uniqueProductTypeString() . '-new name';
 
                 $request = RequestBuilder::of()->productTypes()->updateByKey($productType)
                     ->addAction(ProductTypeChangeNameAction::ofName($name));
@@ -120,7 +130,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableProductType(
             $client,
             function (ProductType $productType) use ($client) {
-                $key = 'new-' . $this->getTestRun();
+                $key = 'new-' . ProductTypeFixture::uniqueProductTypeString();
 
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeSetKeyAction::ofKey($key));
@@ -146,7 +156,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
                 return $draft->setKey(str_pad($draft->getKey(), 256, '0'));
             },
             function (ProductType $productType) use ($client) {
-                $key = str_pad('new-' . $this->getTestRun(), 256, '0');
+                $key = str_pad('new-' . ProductTypeFixture::uniqueProductTypeString(), 256, '0');
 
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeSetKeyAction::ofKey($key));
@@ -166,13 +176,13 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductTypeFixture::withUpdateabledraftProductType(
+        ProductTypeFixture::withUpdateableDraftProductType(
             $client,
             function (ProductTypeDraft $draft) {
                 return $draft->setKey(str_pad($draft->getKey(), 256, '0'));
             },
             function (ProductType $productType) use ($client) {
-                $name = 'test-' . $this->getTestRun() . '-new name';
+                $name = 'test-' . ProductTypeFixture::uniqueProductTypeString() . '-new name';
 
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeChangeNameAction::ofName($name));
@@ -195,7 +205,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableProductType(
             $client,
             function (ProductType $productType) use ($client) {
-                $description = 'test-' . $this->getTestRun() . '-new description';
+                $description = 'test-' . ProductTypeFixture::uniqueProductTypeString() . '-new description';
 
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeChangeDescriptionAction::ofDescription($description));
@@ -429,11 +439,11 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
     public function testLocalizedEnumChangeLabel()
     {
         $client = $this->getApiClient();
+        $name = 'testLocalizedEnumField';
 
         ProductTypeFixture::withUpdateableDraftProductType(
             $client,
-            function (ProductTypeDraft $draft) {
-                $name = 'testLocalizedEnumField';
+            function (ProductTypeDraft $draft) use ($name) {
                 $type = LocalizedEnumType::of()
                     ->setValues(
                         LocalizedEnumCollection::of()->add(
@@ -445,10 +455,10 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
 
                 return $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
             },
-            function (ProductType $productType) use ($client) {
+            function (ProductType $productType) use ($client, $name) {
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(ProductTypeChangeLocalizedEnumLabelAction::ofAttributeNameAndEnumValue(
-                        'testLocalizedEnumField',
+                        $name,
                         LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'new-test'))
                     ));
                 $response = $this->execute($client, $request);
@@ -456,11 +466,419 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(ProductType::class, $result);
                 $this->assertNotSame($productType->getVersion(), $result->getVersion());
-
                 $this->assertSame(
                     'new-test',
                     $result->getAttributes()->current()->getType()->getValues()->current()->getLabel()->en
                 );
+
+                return $result;
+            }
+        );
+    }
+//commented just for the commit to talk with Jens
+//    public function testLocalizedEnumDontChangeLabel()
+//    {
+//        $client = $this->getApiClient();
+//        $name = 'testLocalizedEnumField';
+//        $this->expectException(FixtureException::class);
+//        $this->expectExceptionCode(400);
+//
+//        ProductTypeFixture::withUpdateableDraftProductType(
+//            $client,
+//            function (ProductTypeDraft $draft) use ($name) {
+//                $type = LocalizedEnumType::of()
+//                    ->setValues(
+//                        LocalizedEnumCollection::of()->add(
+//                            LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'))
+//                        )
+//                    );
+//                $definition = $this->getAttributeDefinition($name, $type)->setIsRequired(false);
+//
+//                return $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+//            },
+//            function (ProductType $productType) use ($client, $name) {
+//                $request = RequestBuilder::of()->productTypes()->update($productType)
+//                    ->addAction(
+//                        ProductTypeChangeLocalizedEnumLabelAction::ofAttributeNameAndEnumValue(
+//                            'testLocalizedEnumField',
+//                            LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'))
+//                        )
+//                    );
+//                $response = $this->execute($client, $request);
+//
+//                return $request->mapFromResponse($response);
+//            }
+//        );
+//    }
+
+    public function testPlainEnumChangeLabel()
+    {
+        $client = $this->getApiClient();
+        $name = 'testPlainEnumField';
+
+        ProductTypeFixture::withUpdateableDraftProductType(
+            $client,
+            function (ProductTypeDraft $draft) use ($name) {
+                $type = EnumType::of()
+                    ->setValues(
+                        EnumCollection::of()->add(
+                            Enum::of()->setKey('test')->setLabel('test')
+                        )
+                    );
+                $definition = $this->getAttributeDefinition($name, $type);
+
+                return $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+            },
+            function (ProductType $productType) use ($client, $name) {
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeChangePlainEnumLabelAction::ofAttributeNameAndEnumValue(
+                            $name,
+                            Enum::of()->setKey('test')->setLabel('new-test')
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductType::class, $result);
+                $this->assertNotSame($productType->getVersion(), $result->getVersion());
+                $this->assertSame(
+                    'new-test',
+                    $result->getAttributes()->current()->getType()->getValues()->current()->getLabel()
+                );
+
+                return $result;
+            }
+        );
+    }
+//commented just for the commit to talk with Jens
+//    public function testPlainEnumDontChangeLabel()
+//    {
+//        $client = $this->getApiClient();
+//        $name = 'testPlainEnumField';
+//        $this->expectException(FixtureException::class);
+//        $this->expectExceptionCode(400);
+//
+//        ProductTypeFixture::withUpdateableDraftProductType(
+//            $client,
+//            function (ProductTypeDraft $draft) use ($name) {
+//                $type = EnumType::of()
+//                    ->setValues(
+//                        EnumCollection::of()->add(
+//                            Enum::of()->setKey('test')->setLabel('test')
+//                        )
+//                    );
+//                $definition = $this->getAttributeDefinition($name, $type)->setIsRequired(false);
+//
+//                return $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+//            },
+//            function (ProductType $productType) use ($client, $name) {
+//                $request = RequestBuilder::of()->productTypes()->update($productType)
+//                    ->addAction(
+//                        ProductTypeChangePlainEnumLabelAction::ofAttributeNameAndEnumValue(
+//                            $name,
+//                            Enum::of()->setKey('test')->setLabel('test')
+//                        )
+//                    );
+//                $response = $this->execute($client, $request);
+//
+//                return $request->mapFromResponse($response);
+//            }
+//        );
+//    }
+
+    public function testChangeSearchable()
+    {
+        $client = $this->getApiClient();
+
+        ProductTypeFixture::withUpdateableProductType(
+            $client,
+            function (ProductType $productType) use ($client) {
+                $name = 'testField';
+                $type = StringType::of();
+                $definition = $this->getAttributeDefinition($name, $type)->setIsSearchable(false);
+
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(ProductTypeAddAttributeDefinitionAction::ofAttribute($definition));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductType::class, $result);
+                $this->assertSame($definition->getName(), $result->getAttributes()->current()->getName());
+                $this->assertNotSame($productType->getVersion(), $result->getVersion());
+
+                $productType = $result;
+                $searchable = true;
+
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeChangeIsSearchableAction::ofAttributeNameAndIsSearchable($name, $searchable)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductType::class, $result);
+                $this->assertSame($searchable, $result->getAttributes()->current()->getIsSearchable());
+                $this->assertNotSame($productType->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testChangeInputHint()
+    {
+        $client = $this->getApiClient();
+
+        ProductTypeFixture::withUpdateableProductType(
+            $client,
+            function (ProductType $productType) use ($client) {
+                $name = 'testField';
+                $type = StringType::of();
+                $definition = $this->getAttributeDefinition($name, $type)
+                    ->setIsSearchable(false)->setInputHint('SingleLine');
+
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(ProductTypeAddAttributeDefinitionAction::ofAttribute($definition));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductType::class, $result);
+                $this->assertSame($definition->getName(), $result->getAttributes()->current()->getName());
+                $this->assertNotSame($productType->getVersion(), $result->getVersion());
+
+                $productType = $result;
+                $inputHint = 'MultiLine';
+
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeChangeInputHintAction::ofAttributeNameAndInputHint($name, $inputHint)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductType::class, $result);
+                $this->assertSame($inputHint, $result->getAttributes()->current()->getInputHint());
+                $this->assertNotSame($productType->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testChangeConstraint()
+    {
+        $client = $this->getApiClient();
+
+        ProductTypeFixture::withUpdateableProductType(
+            $client,
+            function (ProductType $productType) use ($client) {
+                $name = 'testConstraintField';
+                $type = StringType::of();
+                $definition = $this->getAttributeDefinition($name, $type)
+                    ->setIsSearchable(false)->setAttributeConstraint('SameForAll');
+
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(ProductTypeAddAttributeDefinitionAction::ofAttribute($definition));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductType::class, $result);
+                $this->assertSame($definition->getName(), $result->getAttributes()->current()->getName());
+                $this->assertSame('SameForAll', $result->getAttributes()->current()->getAttributeConstraint());
+                $this->assertNotSame($productType->getVersion(), $result->getVersion());
+
+                $productType = $result;
+                $constraint = 'None';
+
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeChangeAttributeConstraintAction::ofAttributeNameAndAttributeConstraint(
+                            $name,
+                            $constraint
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductType::class, $result);
+                $this->assertSame($constraint, $result->getAttributes()->current()->getAttributeConstraint());
+                $this->assertNotSame($productType->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testRemoveEnumValues()
+    {
+        $client = $this->getApiClient();
+        $name = 'testEnumField';
+
+        ProductTypeFixture::withUpdateableDraftProductType(
+            $client,
+            function (ProductTypeDraft $draft) use ($name) {
+                $type = EnumType::of()->setValues(
+                    EnumCollection::of()
+                        ->add(Enum::of()->setKey('foo')->setLabel('foo'))
+                        ->add(Enum::of()->setKey('bar')->setLabel('bar'))
+                );
+                $definition = $this->getAttributeDefinition($name, $type);
+
+                return $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+            },
+            function (ProductType $productType) use ($client, $name) {
+                $this->assertInstanceOf(ProductType::class, $productType);
+                /**
+                 * @var EnumType $attributeType
+                 */
+                $attributeType = $productType->getAttributes()->current()->getType();
+                $this->assertCount(2, $attributeType->getValues());
+
+
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeRemoveEnumValuesAction::ofAttributeNameAndKeys($name, ['foo'])
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductType::class, $result);
+                /**
+                 * @var EnumType $type
+                 */
+                $type = $result->getAttributes()->current()->getType();
+                $this->assertCount(1, $type->getValues());
+                $this->assertSame('bar', $type->getValues()->current()->getKey());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testChangeAttributeName()
+    {
+        $client = $this->getApiClient();
+        $name = 'testNameField' . ProductTypeFixture::uniqueProductTypeString();
+
+        ProductTypeFixture::withUpdateableDraftProductType(
+            $client,
+            function (ProductTypeDraft $draft) use ($name) {
+                $type = StringType::of();
+                $definition = $this->getAttributeDefinition($name, $type)->setIsSearchable(false);
+
+                return $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+            },
+            function (ProductType $productType) use ($client, $name) {
+                $this->assertInstanceOf(ProductType::class, $productType);
+                $this->assertSame($name, $productType->getAttributes()->getByName($name)->getName());
+
+                $newAttributeName = 'new' . ucfirst($name);
+
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeChangeAttributeNameAction::ofAttributeName(
+                            $productType->getAttributes()->getByName($name)->getName(),
+                            $newAttributeName
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductType::class, $result);
+                $this->assertSame($newAttributeName, $result->getAttributes()->current()->getName());
+                $this->assertSame($newAttributeName, $result->getAttributes()->getByName($newAttributeName)->getName());
+                $this->assertNull($result->getAttributes()->getByName($name));
+
+                return $result;
+            }
+        );
+    }
+
+    public function testChangeAttributeOrderByName()
+    {
+        $client = $this->getApiClient();
+        $name = 'testNameField-1-' . ProductTypeFixture::uniqueProductTypeString();
+        $name2 = 'testNameField-2-' . ProductTypeFixture::uniqueProductTypeString();
+
+        ProductTypeFixture::withUpdateableDraftProductType(
+            $client,
+            function (ProductTypeDraft $draft) use ($name, $name2) {
+                $type = StringType::of();
+                $definition = $this->getAttributeDefinition($name, $type)->setIsSearchable(false);
+                $definition2 = $this->getAttributeDefinition($name2, $type)->setIsSearchable(false);
+
+                $attributeCollection = AttributeDefinitionCollection::of()->add($definition)->add($definition2);
+
+                return $draft->setAttributes($attributeCollection);
+            },
+            function (ProductType $productType) use ($client, $name, $name2) {
+                $this->assertInstanceOf(ProductType::class, $productType);
+                $this->assertSame($name, $productType->getAttributes()->current()->getName());
+                $this->assertSame($name2, $productType->getAttributes()->getAt(1)->getName());
+
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeChangeAttributeOrderByNameAction::ofAttributeNames([$name2, $name])
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductType::class, $result);
+                $this->assertSame($name2, $result->getAttributes()->current()->getName());
+                $this->assertSame($name, $result->getAttributes()->getAt(1)->getName());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testChangeEnumKey()
+    {
+        $client = $this->getApiClient();
+        $name = 'testNameField' . ProductTypeFixture::uniqueProductTypeString();
+        $keyName = 'foo';
+
+        ProductTypeFixture::withUpdateableDraftProductType(
+            $client,
+            function (ProductTypeDraft $draft) use ($name) {
+                $keyName = 'foo';
+                $type = EnumType::of()->setValues(
+                    EnumCollection::of()
+                        ->add(Enum::of()->setKey('foo')->setLabel('foo'))
+                );
+                $definition = $this->getAttributeDefinition($name, $type)->setIsSearchable(false);
+
+                return $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+            },
+            function (ProductType $productType) use ($client, $name, $keyName) {
+                $this->assertInstanceOf(ProductType::class, $productType);
+                /**
+                 * @var EnumType $enumType
+                 */
+                $enumType = $productType->getAttributes()->getByName($name)->getType();
+                $this->assertSame($keyName, $enumType->getValues()->getByKey($keyName)->getKey());
+
+                $newKeyName = 'new-foo';
+
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeChangeEnumKeyAction::ofAttributeNameAndEnumKey(
+                            $productType->getAttributes()->getByName($name)->getName(),
+                            $keyName,
+                            $newKeyName
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductType::class, $result);
+                /**
+                 * @var EnumType $enumType
+                 */
+                $enumType = $result->getAttributes()->getByName($name)->getType();
+                $this->assertSame($newKeyName, $enumType->getValues()->getByKey($newKeyName)->getKey());
+                $this->assertNull($enumType->getValues()->getByKey($keyName));
 
                 return $result;
             }

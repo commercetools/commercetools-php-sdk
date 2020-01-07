@@ -42,7 +42,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         ReviewFixture::withUpdateableReview(
             $client,
             function (Review $review) use ($client) {
-                $text = 'test-' . $this->getTestRun() . '-new text';
+                $text = 'test-' . ReviewFixture::uniqueReviewString() . '-new text';
 
                 $request = RequestBuilder::of()->reviews()->updateByKey($review)
                     ->addAction(ReviewSetTextAction::of()->setText($text));
@@ -64,7 +64,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         ReviewFixture::withUpdateableReview(
             $client,
             function (Review $review) use ($client) {
-                $key = 'new-' . $this->getTestRun();
+                $key = 'new-' . ReviewFixture::uniqueReviewString();
 
                 $request = RequestBuilder::of()->reviews()->update($review)
                     ->addAction(ReviewSetKeyAction::of()->setKey($key));
@@ -87,7 +87,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         ReviewFixture::withUpdateableReview(
             $client,
             function (Review $review) use ($client) {
-                $author = 'new-' . $this->getTestRun();
+                $author = 'new-' . ReviewFixture::uniqueReviewString();
 
                 $request = RequestBuilder::of()->reviews()->update($review)
                     ->addAction(ReviewSetAuthorNameAction::of()->setAuthorName($author));
@@ -209,7 +209,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         ReviewFixture::withUpdateableReview(
             $client,
             function (Review $review) use ($client) {
-                $text = 'test-' . $this->getTestRun() . '-new text';
+                $text = 'test-' . ReviewFixture::uniqueReviewString() . '-new text';
 
                 $request = RequestBuilder::of()->reviews()->update($review)
                     ->addAction(ReviewSetTextAction::of()->setText($text));
@@ -232,7 +232,7 @@ class ReviewUpdateRequestTest extends ApiTestCase
         ReviewFixture::withUpdateableReview(
             $client,
             function (Review $review) use ($client) {
-                $title = 'test-' . $this->getTestRun() . '-new title';
+                $title = 'test-' . ReviewFixture::uniqueReviewString() . '-new title';
 
                 $request = RequestBuilder::of()->reviews()->update($review)
                     ->addAction(ReviewSetTitleAction::of()->setTitle($title));
