@@ -38,7 +38,6 @@ class ReviewQueryRequestTest extends ApiTestCase
             $client,
             function (Review $review) use ($client) {
                 $request = RequestBuilder::of()->reviews()->getById($review->getId());
-
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 

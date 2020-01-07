@@ -7,8 +7,6 @@
 namespace Commercetools\Core\IntegrationTests\ProductType;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
-use Commercetools\Core\Error\InvalidOperationError;
-use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\Attribute;
 use Commercetools\Core\Model\Common\AttributeCollection;
