@@ -37,7 +37,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
     public function testCustomTypeCreate()
     {
         $client = $this->getApiClient();
-        $type = $this->getType($this->getTestRun() . '-discount-type', 'discount-code');
+        $type = $this->getType('discount-type-' . DiscountCodeFixture::uniqueDiscountCodeString(), 'discount-code');
 
         DiscountCodeFixture::withDraftDiscountCode(
             $client,
@@ -53,6 +53,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
     public function testCustomTypeUpdate()
     {
         $client = $this->getApiClient();
+
         TypeFixture::withDraftType(
             $client,
             function (TypeDraft $TypeDraft) {
@@ -84,6 +85,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
     public function testCustomFieldUpdate()
     {
         $client = $this->getApiClient();
+
         TypeFixture::withDraftType(
             $client,
             function (TypeDraft $TypeDraft) {
@@ -348,7 +350,10 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         DiscountCodeFixture::withUpdateableDiscountCode(
             $client,
             function (DiscountCode $discountCode) use ($client) {
-                $name = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-name');
+                $name = LocalizedString::ofLangAndText(
+                    'en',
+                    'new-name-' . DiscountCodeFixture::uniqueDiscountCodeString()
+                );
 
                 $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                     ->addAction(DiscountCodeSetNameAction::of()->setName($name));

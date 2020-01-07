@@ -38,7 +38,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         ChannelFixture::withUpdateableChannel(
             $client,
             function (Channel $channel) use ($client) {
-                $name = $this->getTestRun() . '-new name';
+                $name = 'new name-' . ChannelFixture::uniqueChannelString();
 
                 $request = RequestBuilder::of()->channels()->update($channel)->addAction(
                     ChannelChangeNameAction::ofName(
@@ -64,7 +64,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         ChannelFixture::withUpdateableChannel(
             $client,
             function (Channel $channel) use ($client) {
-                $description = $this->getTestRun() . '-new description';
+                $description = 'new description' . ChannelFixture::uniqueChannelString();
 
                 $request = RequestBuilder::of()->channels()->update($channel)->addAction(
                     ChannelChangeDescriptionAction::ofDescription(
@@ -90,7 +90,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
         ChannelFixture::withUpdateableChannel(
             $client,
             function (Channel $channel) use ($client) {
-                $key = $this->getTestRun() . '-new key';
+                $key = 'new key-' . ChannelFixture::uniqueChannelString();
 
                 $request = RequestBuilder::of()->channels()->update($channel)->addAction(
                     ChannelChangeKeyAction::ofKey($key)
@@ -120,6 +120,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
                 $this->assertSame('US', $channel->getAddress()->getCountry());
 
                 $address = Address::of()->setCountry('DE');
+
                 $request = RequestBuilder::of()->channels()->update($channel)->addAction(
                     ChannelSetAddressAction::of()->setAddress($address)
                 );
@@ -171,9 +172,10 @@ class ChannelUpdateRequestTest extends ApiTestCase
             function (Channel $channel) use ($client) {
                 $roles = [ChannelRole::INVENTORY_SUPPLY];
 
-                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
-                    ChannelRemoveRolesAction::ofRoles($roles)
-                );
+                $request = RequestBuilder::of()->channels()->update($channel)
+                    ->addAction(
+                        ChannelRemoveRolesAction::ofRoles($roles)
+                    );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -197,9 +199,10 @@ class ChannelUpdateRequestTest extends ApiTestCase
 
                 $roles = [ChannelRole::PRIMARY, ChannelRole::PRODUCT_DISTRIBUTION];
 
-                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
-                    ChannelSetRolesAction::ofRoles($roles)
-                );
+                $request = RequestBuilder::of()->channels()->update($channel)
+                    ->addAction(
+                        ChannelSetRolesAction::ofRoles($roles)
+                    );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -220,7 +223,7 @@ class ChannelUpdateRequestTest extends ApiTestCase
             $client,
             function (TypeDraft $TypeDraft) {
                 return $TypeDraft
-                    ->setkey('channel_custom_test')
+                    ->setKey('channel_custom_test')
                     ->setResourceTypeIds(['channel']);
             },
             function (Type $type) use ($client) {

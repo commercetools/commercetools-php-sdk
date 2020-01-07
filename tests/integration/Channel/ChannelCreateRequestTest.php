@@ -23,7 +23,7 @@ class ChannelCreateRequestTest extends ApiTestCase
             },
             function (Channel $channel) use ($client) {
                 $request = RequestBuilder::of()->channels()->query()
-                    ->where('key="' . $channel->getKey() . '"');
+                    ->where('key=:key', ['key' => $channel->getKey()]);
                 $response = $client->execute($request);
                 $result = $request->mapFromResponse($response);
 
