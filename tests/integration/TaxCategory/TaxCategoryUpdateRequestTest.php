@@ -19,7 +19,6 @@ use Commercetools\Core\Request\TaxCategories\Command\TaxCategorySetKeyAction;
 
 class TaxCategoryUpdateRequestTest extends ApiTestCase
 {
-
     private function getTaxRate()
     {
         return TaxRate::of()->setName('test-' . TaxCategoryFixture::uniqueTaxCategoryString() . '-rate2')
@@ -39,7 +38,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
                 return $draft->setName('change-name');
             },
             function (TaxCategory $taxCategory) use ($client) {
-                $name = 'new-name' . TaxCategoryFixture::uniqueTaxCategoryString();
+                $name = 'new-name-' . TaxCategoryFixture::uniqueTaxCategoryString();
 
                 $request = RequestBuilder::of()->taxCategories()->update($taxCategory)
                     ->addAction(TaxCategoryChangeNameAction::ofName($name));
@@ -65,7 +64,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
                 return $draft->setName('update name')->setKey('set-test-key');
             },
             function (TaxCategory $taxCategory) use ($client) {
-                $name = 'new-name' . TaxCategoryFixture::uniqueTaxCategoryString();
+                $name = 'new-name-' . TaxCategoryFixture::uniqueTaxCategoryString();
 
                 $request = RequestBuilder::of()->taxCategories()->update($taxCategory)
                     ->addAction(TaxCategoryChangeNameAction::ofName($name));
@@ -91,7 +90,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
                 return $draft->setKey('set-test-key');
             },
             function (TaxCategory $taxCategory) use ($client) {
-                $key = 'new-key' . TaxCategoryFixture::uniqueTaxCategoryString();
+                $key = 'new-key-' . TaxCategoryFixture::uniqueTaxCategoryString();
 
                 $request = RequestBuilder::of()->taxCategories()->update($taxCategory)
                     ->addAction(TaxCategorySetKeyAction::ofKey($key));
@@ -118,7 +117,7 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
                 return $draft->setDescription('set-description');
             },
             function (TaxCategory $taxCategory) use ($client) {
-                $description = 'new-description' . TaxCategoryFixture::uniqueTaxCategoryString();
+                $description = 'new-description-' . TaxCategoryFixture::uniqueTaxCategoryString();
 
                 $request = RequestBuilder::of()->taxCategories()->update($taxCategory)
                     ->addAction(TaxCategorySetDescriptionAction::of()->setDescription($description));

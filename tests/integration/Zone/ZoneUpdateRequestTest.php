@@ -28,7 +28,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
                 return $draft->setDescription('set-description');
             },
             function (Zone $zone) use ($client) {
-                $description = 'new-description' . ZoneFixture::uniqueZoneString();
+                $description = 'new-description-' . ZoneFixture::uniqueZoneString();
 
                 $request = RequestBuilder::of()->zones()->update($zone)
                     ->addAction(ZoneSetDescriptionAction::of()->setDescription($description));
@@ -54,7 +54,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
                 return $draft->setName('change-name');
             },
             function (Zone $zone) use ($client) {
-                $name = 'new-name' . ZoneFixture::uniqueZoneString();
+                $name = 'new-name-' . ZoneFixture::uniqueZoneString();
 
                 $request = RequestBuilder::of()->zones()->update($zone)
                     ->addAction(ZoneChangeNameAction::ofName($name));
@@ -109,7 +109,7 @@ class ZoneUpdateRequestTest extends ApiTestCase
         ZoneFixture::withUpdateableZone(
             $client,
             function (Zone $zone) use ($client) {
-                $key = 'new-key' . ZoneFixture::uniqueZoneString();
+                $key = 'new-key-' . ZoneFixture::uniqueZoneString();
 
                 $request = RequestBuilder::of()->zones()->update($zone)
                     ->addAction(ZoneSetKeyAction::ofKey($key));
