@@ -3,10 +3,10 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\ProductType;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\Attribute;
 use Commercetools\Core\Model\Common\AttributeCollection;
@@ -473,41 +473,41 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
             }
         );
     }
-//commented just for the commit to talk with Jens
-//    public function testLocalizedEnumDontChangeLabel()
-//    {
-//        $client = $this->getApiClient();
-//        $name = 'testLocalizedEnumField';
-//        $this->expectException(FixtureException::class);
-//        $this->expectExceptionCode(400);
-//
-//        ProductTypeFixture::withUpdateableDraftProductType(
-//            $client,
-//            function (ProductTypeDraft $draft) use ($name) {
-//                $type = LocalizedEnumType::of()
-//                    ->setValues(
-//                        LocalizedEnumCollection::of()->add(
-//                            LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'))
-//                        )
-//                    );
-//                $definition = $this->getAttributeDefinition($name, $type)->setIsRequired(false);
-//
-//                return $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
-//            },
-//            function (ProductType $productType) use ($client, $name) {
-//                $request = RequestBuilder::of()->productTypes()->update($productType)
-//                    ->addAction(
-//                        ProductTypeChangeLocalizedEnumLabelAction::ofAttributeNameAndEnumValue(
-//                            'testLocalizedEnumField',
-//                            LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'))
-//                        )
-//                    );
-//                $response = $this->execute($client, $request);
-//
-//                return $request->mapFromResponse($response);
-//            }
-//        );
-//    }
+
+    public function testLocalizedEnumDontChangeLabel()
+    {
+        $client = $this->getApiClient();
+        $name = 'testLocalizedEnumField';
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+
+        ProductTypeFixture::withUpdateableDraftProductType(
+            $client,
+            function (ProductTypeDraft $draft) use ($name) {
+                $type = LocalizedEnumType::of()
+                    ->setValues(
+                        LocalizedEnumCollection::of()->add(
+                            LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'))
+                        )
+                    );
+                $definition = $this->getAttributeDefinition($name, $type)->setIsRequired(false);
+
+                return $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+            },
+            function (ProductType $productType) use ($client, $name) {
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeChangeLocalizedEnumLabelAction::ofAttributeNameAndEnumValue(
+                            'testLocalizedEnumField',
+                            LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'))
+                        )
+                    );
+                $response = $this->execute($client, $request);
+
+                return $request->mapFromResponse($response);
+            }
+        );
+    }
 
     public function testPlainEnumChangeLabel()
     {
@@ -549,41 +549,41 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
             }
         );
     }
-//commented just for the commit to talk with Jens
-//    public function testPlainEnumDontChangeLabel()
-//    {
-//        $client = $this->getApiClient();
-//        $name = 'testPlainEnumField';
-//        $this->expectException(FixtureException::class);
-//        $this->expectExceptionCode(400);
-//
-//        ProductTypeFixture::withUpdateableDraftProductType(
-//            $client,
-//            function (ProductTypeDraft $draft) use ($name) {
-//                $type = EnumType::of()
-//                    ->setValues(
-//                        EnumCollection::of()->add(
-//                            Enum::of()->setKey('test')->setLabel('test')
-//                        )
-//                    );
-//                $definition = $this->getAttributeDefinition($name, $type)->setIsRequired(false);
-//
-//                return $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
-//            },
-//            function (ProductType $productType) use ($client, $name) {
-//                $request = RequestBuilder::of()->productTypes()->update($productType)
-//                    ->addAction(
-//                        ProductTypeChangePlainEnumLabelAction::ofAttributeNameAndEnumValue(
-//                            $name,
-//                            Enum::of()->setKey('test')->setLabel('test')
-//                        )
-//                    );
-//                $response = $this->execute($client, $request);
-//
-//                return $request->mapFromResponse($response);
-//            }
-//        );
-//    }
+
+    public function testPlainEnumDontChangeLabel()
+    {
+        $client = $this->getApiClient();
+        $name = 'testPlainEnumField';
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+
+        ProductTypeFixture::withUpdateableDraftProductType(
+            $client,
+            function (ProductTypeDraft $draft) use ($name) {
+                $type = EnumType::of()
+                    ->setValues(
+                        EnumCollection::of()->add(
+                            Enum::of()->setKey('test')->setLabel('test')
+                        )
+                    );
+                $definition = $this->getAttributeDefinition($name, $type)->setIsRequired(false);
+
+                return $draft->setAttributes(AttributeDefinitionCollection::of()->add($definition));
+            },
+            function (ProductType $productType) use ($client, $name) {
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeChangePlainEnumLabelAction::ofAttributeNameAndEnumValue(
+                            $name,
+                            Enum::of()->setKey('test')->setLabel('test')
+                        )
+                    );
+                $response = $this->execute($client, $request);
+
+                return $request->mapFromResponse($response);
+            }
+        );
+    }
 
     public function testChangeSearchable()
     {
