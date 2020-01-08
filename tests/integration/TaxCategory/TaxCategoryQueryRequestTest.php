@@ -6,6 +6,7 @@
 namespace Commercetools\Core\IntegrationTests\TaxCategory;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
@@ -73,6 +74,8 @@ class TaxCategoryQueryRequestTest extends ApiTestCase
     public function testDeleteByKey()
     {
         $client = $this->getApiClient();
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(404);
 
         TaxCategoryFixture::withDraftTaxCategory(
             $client,
@@ -85,6 +88,11 @@ class TaxCategoryQueryRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertSame($taxCategory->getId(), $result->getId());
+                $this->assertInstanceOf(TaxCategory::class, $result);
+
+                $request = RequestBuilder::of()->taxCategories()->getByKey($result->getKey());
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
             }
         );
     }
