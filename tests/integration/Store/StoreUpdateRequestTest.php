@@ -17,7 +17,7 @@ class StoreUpdateRequestTest extends ApiTestCase
         StoreFixture::withUpdateableStore(
             $client,
             function (Store $store) use ($client) {
-                $name = 'new-name';
+                $name = 'new-name' . StoreFixture::uniqueStoreString();
 
                 $request = RequestBuilder::of()->stores()->update($store)
                     ->addAction(StoreSetNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
@@ -41,7 +41,7 @@ class StoreUpdateRequestTest extends ApiTestCase
         StoreFixture::withUpdateableStore(
             $client,
             function (Store $store) use ($client) {
-                $name = 'new-name';
+                $name = 'new-name' . StoreFixture::uniqueStoreString();
 
                 $request = RequestBuilder::of()->stores()->updateByKey($store)
                     ->addAction(StoreSetNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));

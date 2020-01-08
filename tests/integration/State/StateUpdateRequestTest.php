@@ -61,7 +61,7 @@ class StateUpdateRequestTest extends ApiTestCase
                 return $draft->setType(self::REVIEW_STATE)->setInitial(false);
             },
             function (State $state) use ($client) {
-                $key = 'new-key';
+                $key = 'new-key' . StateFixture::uniqueStateString();
 
                 $request = RequestBuilder::of()->states()->update($state)
                     ->addAction(StateChangeKeyAction::ofKey($key));
