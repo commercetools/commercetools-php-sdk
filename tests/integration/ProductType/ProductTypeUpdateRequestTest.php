@@ -88,7 +88,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         return $productType;
     }
 
-    protected function getAttributeDefinition($name, $type)
+    private function getAttributeDefinition($name, $type)
     {
         $definition = AttributeDefinition::of()
             ->setName($name)
@@ -226,7 +226,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableProductType(
             $client,
             function (ProductType $productType) use ($client) {
-                $name = 'testField';
+                $name = 'testField-' . ProductTypeFixture::uniqueProductTypeString();
                 $type = StringType::of();
                 $definition = $this->getAttributeDefinition($name, $type);
 
@@ -283,7 +283,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableProductType(
             $client,
             function (ProductType $productType) use ($client) {
-                $name = 'testEnumField';
+                $name = 'testEnumField-' . ProductTypeFixture::uniqueProductTypeString();
                 $type = EnumType::of()->setValues(EnumCollection::of());
                 $definition = $this->getAttributeDefinition($name, $type);
 
@@ -320,7 +320,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
     {
         $draft = $this->getDraft('reference-attribute-definition');
         $productType = $this->createProductType($draft);
-        $name = 'testCustomObject';
+        $name = 'testCustomObject-' . ProductTypeFixture::uniqueProductTypeString();
         $type = ReferenceType::of()->setReferenceTypeId(CustomObjectReference::TYPE_CUSTOM_OBJECT);
         $definition = $this->getAttributeDefinition($name, $type);
 
@@ -401,7 +401,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableProductType(
             $client,
             function (ProductType $productType) use ($client) {
-                $name = 'testLocalizedEnumField';
+                $name = 'testLocalizedEnumField-' . ProductTypeFixture::uniqueProductTypeString();
                 $type = LocalizedEnumType::of()->setValues(LocalizedEnumCollection::of());
                 $definition = $this->getAttributeDefinition($name, $type);
 
@@ -437,7 +437,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
     public function testLocalizedEnumChangeLabel()
     {
         $client = $this->getApiClient();
-        $name = 'testLocalizedEnumField';
+        $name = 'testLocalizedEnumField-' . ProductTypeFixture::uniqueProductTypeString();
 
         ProductTypeFixture::withUpdateableDraftProductType(
             $client,
@@ -477,7 +477,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
     public function testLocalizedEnumDontChangeLabel()
     {
         $client = $this->getApiClient();
-        $name = 'testLocalizedEnumField';
+        $name = 'testLocalizedEnumField-' . ProductTypeFixture::uniqueProductTypeString();
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
 
@@ -512,7 +512,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
     public function testPlainEnumChangeLabel()
     {
         $client = $this->getApiClient();
-        $name = 'testPlainEnumField';
+        $name = 'testPlainEnumField-' . ProductTypeFixture::uniqueProductTypeString();
 
         ProductTypeFixture::withUpdateableDraftProductType(
             $client,
@@ -553,7 +553,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
     public function testPlainEnumDontChangeLabel()
     {
         $client = $this->getApiClient();
-        $name = 'testPlainEnumField';
+        $name = 'testPlainEnumField-' . ProductTypeFixture::uniqueProductTypeString();
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
 
@@ -592,7 +592,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableProductType(
             $client,
             function (ProductType $productType) use ($client) {
-                $name = 'testField';
+                $name = 'testField-' . ProductTypeFixture::uniqueProductTypeString();
                 $type = StringType::of();
                 $definition = $this->getAttributeDefinition($name, $type)->setIsSearchable(false);
 
@@ -631,7 +631,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableProductType(
             $client,
             function (ProductType $productType) use ($client) {
-                $name = 'testField';
+                $name = 'testField-' . ProductTypeFixture::uniqueProductTypeString();
                 $type = StringType::of();
                 $definition = $this->getAttributeDefinition($name, $type)
                     ->setIsSearchable(false)->setInputHint('SingleLine');
@@ -671,7 +671,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         ProductTypeFixture::withUpdateableProductType(
             $client,
             function (ProductType $productType) use ($client) {
-                $name = 'testConstraintField';
+                $name = 'testConstraintField-' . ProductTypeFixture::uniqueProductTypeString();
                 $type = StringType::of();
                 $definition = $this->getAttributeDefinition($name, $type)
                     ->setIsSearchable(false)->setAttributeConstraint('SameForAll');
@@ -711,7 +711,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
     public function testRemoveEnumValues()
     {
         $client = $this->getApiClient();
-        $name = 'testEnumField';
+        $name = 'testEnumField' . ProductTypeFixture::uniqueProductTypeString();
 
         ProductTypeFixture::withUpdateableDraftProductType(
             $client,
@@ -757,7 +757,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
     public function testChangeAttributeName()
     {
         $client = $this->getApiClient();
-        $name = 'testNameField' . ProductTypeFixture::uniqueProductTypeString();
+        $name = 'testNameField-' . ProductTypeFixture::uniqueProductTypeString();
 
         ProductTypeFixture::withUpdateableDraftProductType(
             $client,
