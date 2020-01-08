@@ -64,13 +64,14 @@ class ChannelUpdateRequestTest extends ApiTestCase
         ChannelFixture::withUpdateableChannel(
             $client,
             function (Channel $channel) use ($client) {
-                $description = 'new description' . ChannelFixture::uniqueChannelString();
+                $description = 'new description-' . ChannelFixture::uniqueChannelString();
 
-                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
-                    ChannelChangeDescriptionAction::ofDescription(
-                        LocalizedString::ofLangAndText('en', $description)
-                    )
-                );
+                $request = RequestBuilder::of()->channels()->update($channel)
+                    ->addAction(
+                        ChannelChangeDescriptionAction::ofDescription(
+                            LocalizedString::ofLangAndText('en', $description)
+                        )
+                    );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -92,9 +93,10 @@ class ChannelUpdateRequestTest extends ApiTestCase
             function (Channel $channel) use ($client) {
                 $key = 'new key-' . ChannelFixture::uniqueChannelString();
 
-                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
-                    ChannelChangeKeyAction::ofKey($key)
-                );
+                $request = RequestBuilder::of()->channels()->update($channel)
+                    ->addAction(
+                        ChannelChangeKeyAction::ofKey($key)
+                    );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -121,9 +123,10 @@ class ChannelUpdateRequestTest extends ApiTestCase
 
                 $address = Address::of()->setCountry('DE');
 
-                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
-                    ChannelSetAddressAction::of()->setAddress($address)
-                );
+                $request = RequestBuilder::of()->channels()->update($channel)
+                    ->addAction(
+                        ChannelSetAddressAction::of()->setAddress($address)
+                    );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -145,9 +148,10 @@ class ChannelUpdateRequestTest extends ApiTestCase
             function (Channel $channel) use ($client) {
                 $roles = [ChannelRole::PRIMARY];
 
-                $request = RequestBuilder::of()->channels()->update($channel)->addAction(
-                    ChannelAddRolesAction::ofRoles($roles)
-                );
+                $request = RequestBuilder::of()->channels()->update($channel)
+                    ->addAction(
+                        ChannelAddRolesAction::ofRoles($roles)
+                    );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 

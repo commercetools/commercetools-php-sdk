@@ -204,7 +204,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
         DiscountCodeFixture::withUpdateableDiscountCode(
             $client,
             function (DiscountCode $discountCode) use ($client) {
-                $description = 'new description';
+                $description = 'new-description-' . DiscountCodeFixture::uniqueDiscountCodeString();
 
                 $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                     ->addAction(DiscountCodeSetDescriptionAction::of()->setDescription(
