@@ -3,7 +3,6 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\CartDiscount;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
@@ -26,6 +25,7 @@ class CartDiscountCreateRequestTest extends ApiTestCase
             function (CartDiscount $cartDiscount) use ($client) {
                 $request = RequestBuilder::of()->cartDiscounts()->query()
                     ->where('name(en=:name)', ['name' => $cartDiscount->getName()->en]);
+
                 $response = $client->execute($request);
                 $result = $request->mapFromResponse($response);
 

@@ -15,6 +15,7 @@ class CategoryFixture extends ResourceFixture
 {
     const CREATE_REQUEST_TYPE = CategoryCreateRequest::class;
     const DELETE_REQUEST_TYPE = CategoryDeleteRequest::class;
+    const RAND_MAX = 10000;
 
     final public static function uniqueCategoryString()
     {

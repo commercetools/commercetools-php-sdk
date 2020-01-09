@@ -6,6 +6,7 @@
 namespace Commercetools\Core\IntegrationTests\Category;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
@@ -20,8 +21,9 @@ class CategoryCreateRequestTest extends ApiTestCase
         CategoryFixture::withDraftCategory(
             $client,
             function (CategoryDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'myCategory'))
-                    ->setSlug(LocalizedString::ofLangAndText('en', 'my-category'));
+                $nameAndSlug = LocalizedString::ofLangAndText('en', 'myCategory');
+
+                return $draft->setName($nameAndSlug)->setSlug($nameAndSlug);
             },
             function (Category $category) use ($client) {
                 $request = RequestBuilder::of()->categories()->query()
@@ -40,12 +42,14 @@ class CategoryCreateRequestTest extends ApiTestCase
     public function testDeleteByKey()
     {
         $client = $this->getApiClient();
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(404);
 
         CategoryFixture::withDraftCategory(
             $client,
             function (CategoryDraft $draft) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'myCategory'))
-                    ->setKey($this->getTestRun());
+                    ->setKey(CategoryFixture::uniqueCategoryString());
             },
             function (Category $category) use ($client) {
                 $request = RequestBuilder::of()->categories()->deleteByKey($category);
@@ -53,6 +57,11 @@ class CategoryCreateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertSame($category->getId(), $result->getId());
+                $this->assertInstanceOf(Category::class, $result);
+
+                $request = RequestBuilder::of()->categories()->getByKey($result->getKey());
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
             }
         );
     }

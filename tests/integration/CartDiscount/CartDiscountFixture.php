@@ -20,6 +20,7 @@ class CartDiscountFixture extends ResourceFixture
 {
     const CREATE_REQUEST_TYPE = CartDiscountCreateRequest::class;
     const DELETE_REQUEST_TYPE = CartDiscountDeleteRequest::class;
+    const RAND_MAX = 10000;
 
     final public static function uniqueCartDiscountString()
     {
@@ -31,8 +32,8 @@ class CartDiscountFixture extends ResourceFixture
         $value = AbsoluteCartDiscountValue::of()->setMoney(
             MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
         );
-        $draft = CartDiscountDraft::of();
         $uniqueCartDiscountString = self::uniqueCartDiscountString();
+        $draft = CartDiscountDraft::of();
         $draft->setName(LocalizedString::ofLangAndText('en', 'test-' . $uniqueCartDiscountString . '-discount'))
             ->setValue($value)->setCartPredicate('1=1')
             ->setTarget(CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'))
