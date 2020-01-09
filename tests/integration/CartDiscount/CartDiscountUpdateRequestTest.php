@@ -170,10 +170,13 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         CartDiscountFixture::withUpdateableDraftCartDiscount(
             $client,
             function (CartDiscountDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'set-description'));
+                return $draft->setDescription(LocalizedString::ofLangAndText('en', 'set-description'));
             },
             function (CartDiscount $cartDiscount) use ($client) {
-                $description = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-description');
+                $description = LocalizedString::ofLangAndText(
+                    'en',
+                    'new-description' . CartDiscountFixture::uniqueCartDiscountString()
+                );
                 $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
                     ->addAction(CartDiscountSetDescriptionAction::of()->setDescription($description));
                 $response = $this->execute($client, $request);
@@ -408,32 +411,6 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
                 return $result;
-            }
-        );
-    }
-
-    public function testDeleteByKey()
-    {
-        $client = $this->getApiClient();
-
-        $this->expectException(FixtureException::class);
-        $this->expectExceptionCode(404);
-
-        CartDiscountFixture::withDraftCartDiscount(
-            $client,
-            function (CartDiscountDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'delete-by-key'))
-                    ->setKey('test-' . $this->getTestRun() . '-delete');
-            },
-            function (CartDiscount $cartDiscount) use ($client) {
-                $request = RequestBuilder::of()->cartDiscounts()->deleteByKey($cartDiscount);
-                $response = $this->execute($client, $request);
-                $result = $request->mapFromResponse($response);
-                $this->assertInstanceOf(CartDiscount::class, $result);
-
-                $request = RequestBuilder::of()->cartDiscounts()->getByKey($result->getKey());
-                $response = $this->execute($client, $request);
-                $request->mapFromResponse($response);
             }
         );
     }

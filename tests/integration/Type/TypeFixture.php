@@ -27,6 +27,7 @@ class TypeFixture extends ResourceFixture
     final public static function defaultTypeDraftFunction()
     {
         $uniqueTypeString = self::uniqueTypeString();
+        $name = 'testField';
         $draft = TypeDraft::ofKeyNameDescriptionAndResourceTypes(
             'key-' . $uniqueTypeString,
             LocalizedString::ofLangAndText('en', 'test-' . $uniqueTypeString . '-name'),
