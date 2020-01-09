@@ -65,16 +65,17 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'update name'));
             },
             function (Category $draft) use ($client) {
+                $name = $this->getTestRun() . '-new name';
                 $request = RequestBuilder::of()->categories()->updateByKey($draft)->addAction(
                     CategoryChangeNameAction::ofName(
-                        LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
+                        LocalizedString::ofLangAndText('en', $name)
                     )
                 );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Category::class, $result);
-                $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en);
+                $this->assertSame($name, $result->getName()->en);
                 $this->assertNotSame($draft->getVersion(), $result->getVersion());
 
                 return $result;
@@ -93,9 +94,10 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'update name'));
             },
             function (Category $draft) use ($client) {
+                $name = $this->getTestRun() . '-new name';
                 $request = RequestBuilder::of()->categories()->update($draft)->addAction(
                     CategoryChangeNameAction::ofName(
-                        LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
+                        LocalizedString::ofLangAndText('en', $name)
                     )
                 );
 
@@ -103,7 +105,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Category::class, $result);
-                $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en);
+                $this->assertSame($name, $result->getName()->en);
                 $this->assertNotSame($draft->getVersion(), $result->getVersion());
 
                 return $result;
@@ -121,10 +123,11 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'update name'));
             },
             function (Category $draft) use ($client) {
+                $name = $this->getTestRun() . '-new name';
                 $request = RequestBuilder::of()->categories()->update($draft)->addAction(
                     CategoryChangeNameAction::ofName(
-                        LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new name')
-                            ->add('en-US', $this->getTestRun() . '-new name')
+                        LocalizedString::ofLangAndText('en', $name)
+                            ->add('en-US', $name)
                     )
                 );
 
@@ -132,8 +135,8 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Category::class, $result);
-                $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en);
-                $this->assertSame($this->getTestRun() . '-new name', $result->getName()->en_US);
+                $this->assertSame($name, $result->getName()->en);
+                $this->assertSame($name, $result->getName()->en_US);
                 $this->assertNotSame($draft->getVersion(), $result->getVersion());
 
                 return $result;

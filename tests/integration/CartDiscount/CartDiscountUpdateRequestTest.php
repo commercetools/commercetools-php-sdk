@@ -360,23 +360,25 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
     public function testSetKey()
     {
         $client = $this->getApiClient();
+        $key = 'test-' . $this->getTestRun() . '-foo';
 
         CartDiscountFixture::withUpdateableDraftCartDiscount(
             $client,
-            function (CartDiscountDraft $draft) {
+            function (CartDiscountDraft $draft) use ($key) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'set-key'))
-                    ->setKey('test-' . $this->getTestRun() . '-foo');
+                    ->setKey($key);
             },
-            function (CartDiscount $cartDiscount) use ($client) {
-                $this->assertSame('test-' . $this->getTestRun() . '-foo', $cartDiscount->getKey());
+            function (CartDiscount $cartDiscount) use ($client, $key) {
+                $this->assertSame($key, $cartDiscount->getKey());
 
+                $keyChanged = 'test-' . $this->getTestRun() . '-bar';
                 $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
-                    ->addAction(CartDiscountSetKeyAction::ofKey('test-' . $this->getTestRun() . '-bar'));
+                    ->addAction(CartDiscountSetKeyAction::ofKey($keyChanged));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(CartDiscount::class, $result);
-                $this->assertSame('test-' . $this->getTestRun() . '-bar', $result->getKey());
+                $this->assertSame($keyChanged, $result->getKey());
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
                 return $result;
@@ -397,17 +399,18 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
             function (CartDiscount $cartDiscount) use ($client) {
                 $this->assertSame('update-by-key', $cartDiscount->getName()->en);
 
+                $updatedName = 'test-' . $this->getTestRun() . '-updated-name';
                 $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
                     ->addAction(
                         CartDiscountChangeNameAction::ofName(
-                            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-updated-name')
+                            LocalizedString::ofLangAndText('en', $updatedName)
                         )
                     );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(CartDiscount::class, $result);
-                $this->assertSame('test-' . $this->getTestRun() . '-updated-name', $result->getName()->en);
+                $this->assertSame($updatedName, $result->getName()->en);
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
                 return $result;

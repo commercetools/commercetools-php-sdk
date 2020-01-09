@@ -26,6 +26,7 @@ class ChannelFixture extends ResourceFixture
         $draft = ChannelDraft::ofKey(
             'test-' . $uniqueChannelString . '-key'
         );
+
         return $draft;
     }
 
