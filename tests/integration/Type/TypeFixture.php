@@ -1,4 +1,5 @@
 <?php
+
 namespace Commercetools\Core\IntegrationTests\Type;
 
 use Commercetools\Core\Client\ApiClient;
@@ -79,6 +80,7 @@ class TypeFixture extends ResourceFixture
         if ($deleteFunction == null) {
             $deleteFunction = [__CLASS__, 'defaultTypeDeleteFunction'];
         }
+
         parent::withUpdateableDraftResource(
             $client,
             $draftBuilderFunction,
@@ -106,6 +108,7 @@ class TypeFixture extends ResourceFixture
         if ($deleteFunction == null) {
             $deleteFunction = [__CLASS__, 'defaultTypeDeleteFunction'];
         }
+
         parent::withDraftResource(
             $client,
             $draftBuilderFunction,
