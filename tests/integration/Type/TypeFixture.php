@@ -38,8 +38,8 @@ class TypeFixture extends ResourceFixture
             FieldDefinitionCollection::of()
                 ->add(
                     FieldDefinition::of()
-                        ->setName('testField')
-                        ->setLabel(LocalizedString::ofLangAndText('en', 'testField'))
+                        ->setName($name)
+                        ->setLabel(LocalizedString::ofLangAndText('en', $name))
                         ->setRequired(false)
                         ->setInputHint('SingleLine')
                         ->setType(StringType::of())
