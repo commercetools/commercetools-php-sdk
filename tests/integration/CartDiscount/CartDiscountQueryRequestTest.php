@@ -3,7 +3,6 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\CartDiscount;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
@@ -43,7 +42,7 @@ class CartDiscountQueryRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(CartDiscount::class, $result);
-                $this->assertSame($cartDiscount->getId(), $result->getId());
+                $this->assertSame($cartDiscount->getKey(), $result->getKey());
             }
         );
     }

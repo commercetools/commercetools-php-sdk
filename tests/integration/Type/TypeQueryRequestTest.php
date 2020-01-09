@@ -3,91 +3,65 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\Type;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Type\Type;
-use Commercetools\Core\Model\Type\TypeDraft;
-use Commercetools\Core\Request\Types\TypeByIdGetRequest;
-use Commercetools\Core\Request\Types\TypeByKeyGetRequest;
-use Commercetools\Core\Request\Types\TypeCreateRequest;
-use Commercetools\Core\Request\Types\TypeDeleteRequest;
-use Commercetools\Core\Request\Types\TypeQueryRequest;
 
 class TypeQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @return TypeDraft
-     */
-    protected function getDraft()
-    {
-        $draft = TypeDraft::ofKeyNameDescriptionAndResourceTypes(
-            'key-' . $this->getTestRun(),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-name'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-description'),
-            ['category']
-        );
-
-        return $draft;
-    }
-
-    protected function createType(TypeDraft $draft)
-    {
-        /**
-         * @var Type $type
-         */
-        $request = TypeCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-
-        $type = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = TypeDeleteRequest::ofIdAndVersion(
-            $type->getId(),
-            $type->getVersion()
-        );
-
-        return $type;
-    }
-
     public function testQuery()
     {
-        $draft = $this->getDraft();
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $request = TypeQueryRequest::of()->where('key="' . $draft->getKey() . '"');
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        TypeFixture::withType(
+            $client,
+            function (Type $type) use ($client) {
+                $request = RequestBuilder::of()->types()->query()
+                    ->where('key=:key', ['key' => $type->getKey()]);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(Type::class, $result->getAt(0));
-        $this->assertSame($type->getId(), $result->getAt(0)->getId());
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Type::class, $result->current());
+                $this->assertSame($type->getId(), $result->current()->getId());
+            }
+        );
     }
 
     public function testGetById()
     {
-        $draft = $this->getDraft();
-        $type = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $request = TypeByIdGetRequest::ofId($type->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        TypeFixture::withType(
+            $client,
+            function (Type $type) use ($client) {
+                $request = RequestBuilder::of()->types()->getById($type->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $type);
-        $this->assertSame($type->getId(), $result->getId());
+                $this->assertInstanceOf(Type::class, $type);
+                $this->assertSame($type->getId(), $result->getId());
+            }
+        );
     }
 
     public function testGetByKey()
     {
-        $draft = $this->getDraft();
-        $productType = $this->createType($draft);
+        $client = $this->getApiClient();
 
-        $request = TypeByKeyGetRequest::ofKey($productType->getKey());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        TypeFixture::withType(
+            $client,
+            function (Type $type) use ($client) {
+                $request = RequestBuilder::of()->types()->getByKey($type->getKey());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Type::class, $productType);
-        $this->assertSame($productType->getId(), $result->getId());
+                $this->assertInstanceOf(Type::class, $type);
+                $this->assertSame($type->getId(), $result->getId());
+                $this->assertSame($type->getKey(), $result->getKey());
+            }
+        );
     }
 }
