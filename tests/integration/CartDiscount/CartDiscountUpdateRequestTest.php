@@ -43,9 +43,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
             function (CartDiscount $cartDiscount) use ($client) {
                 $value = AbsoluteCartDiscountValue::of()->setMoney(
                     MoneyCollection::of()
-                        ->add(
-                            Money::ofCurrencyAndAmount('EUR', 200)
-                        )
+                        ->add(Money::ofCurrencyAndAmount('EUR', 200))
                 );
 
                 $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)

@@ -5,7 +5,6 @@ namespace Commercetools\Core\IntegrationTests\CartDiscount;
 use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\ResourceFixture;
-use Commercetools\Core\IntegrationTests\TestHelper;
 use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
@@ -33,11 +32,12 @@ class CartDiscountFixture extends ResourceFixture
             MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
         );
         $uniqueCartDiscountString = self::uniqueCartDiscountString();
+
         $draft = CartDiscountDraft::of();
         $draft->setName(LocalizedString::ofLangAndText('en', 'test-' . $uniqueCartDiscountString . '-discount'))
             ->setValue($value)->setCartPredicate('1=1')
             ->setTarget(CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'))
-            ->setSortOrder('0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'))
+            ->setSortOrder('0.9' . trim((string)mt_rand(1, self::RAND_MAX), '0'))
             ->setIsActive(true)->setRequiresDiscountCode(false)
             ->setKey($uniqueCartDiscountString);
 
