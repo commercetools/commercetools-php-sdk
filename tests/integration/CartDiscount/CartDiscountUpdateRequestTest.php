@@ -414,30 +414,4 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
             }
         );
     }
-
-    public function testDeleteByKey()
-    {
-        $client = $this->getApiClient();
-
-        $this->expectException(FixtureException::class);
-        $this->expectExceptionCode(404);
-
-        CartDiscountFixture::withDraftCartDiscount(
-            $client,
-            function (CartDiscountDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'delete-by-key'))
-                    ->setKey('test-' . $this->getTestRun() . '-delete');
-            },
-            function (CartDiscount $cartDiscount) use ($client) {
-                $request = RequestBuilder::of()->cartDiscounts()->deleteByKey($cartDiscount);
-                $response = $this->execute($client, $request);
-                $result = $request->mapFromResponse($response);
-                $this->assertInstanceOf(CartDiscount::class, $result);
-
-                $request = RequestBuilder::of()->cartDiscounts()->getByKey($result->getKey());
-                $response = $this->execute($client, $request);
-                $request->mapFromResponse($response);
-            }
-        );
-    }
 }
