@@ -173,7 +173,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         CartDiscountFixture::withUpdateableDraftCartDiscount(
             $client,
             function (CartDiscountDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'set-description'));
+                return $draft->setDescription(LocalizedString::ofLangAndText('en', 'set-description'));
             },
             function (CartDiscount $cartDiscount) use ($client) {
                 $description = LocalizedString::ofLangAndText(
