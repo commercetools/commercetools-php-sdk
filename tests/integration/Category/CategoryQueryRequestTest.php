@@ -130,7 +130,7 @@ class CategoryQueryRequestTest extends ApiTestCase
                         $this->assertSame('parentCategory', $parent->getName()->en);
 
                         $request = RequestBuilder::of()->categories()->query()
-                            ->where('parent(id="'.$parent->getId().'")');
+                            ->where('parent(id=:id)', ['id' => $parent->getId()]);
                         $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
