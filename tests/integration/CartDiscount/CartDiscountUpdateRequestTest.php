@@ -8,6 +8,7 @@ namespace Commercetools\Core\IntegrationTests\CartDiscount;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\TestHelper;
 use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
@@ -98,7 +99,6 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
             },
             function (CartDiscount $cartDiscount) use ($client) {
                 $target = CartDiscountTarget::of()->setType('lineItems')->setPredicate('2=2');
-
                 $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
                    ->addAction(CartDiscountChangeTargetAction::ofTarget($target));
                 $response = $this->execute($client, $request);
@@ -386,7 +386,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(CartDiscount::class, $result);
-                $this->assertSame($keyBar, $result->getKey());
+                $this->assertSame('test-' . $this->getTestRun() . '-bar', $result->getKey());
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
                 return $result;
