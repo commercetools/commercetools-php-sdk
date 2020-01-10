@@ -38,8 +38,6 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Subscription::class, $result);
-                $this->assertSame($subscription->getId(), $result->getId());
-                $this->assertNotSame($subscription->getVersion(), $result->getVersion());
 
                 return $result;
             }
@@ -58,8 +56,6 @@ class SubscriptionUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Subscription::class, $result);
-                $this->assertSame($subscription->getId(), $result->getId());
-                $this->assertNotSame($subscription->getVersion(), $result->getVersion());
 
                 return $result;
             }
