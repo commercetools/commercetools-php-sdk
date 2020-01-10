@@ -6,8 +6,6 @@ use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\ResourceFixture;
 use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\ShoppingList\Location;
-use Commercetools\Core\Model\ShoppingList\LocationCollection;
 use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListCreateRequest;
@@ -17,7 +15,6 @@ class ShoppingListFixture extends ResourceFixture
 {
     const CREATE_REQUEST_TYPE = ShoppingListCreateRequest::class;
     const DELETE_REQUEST_TYPE = ShoppingListDeleteRequest::class;
-    const RAND_MAX = 10000;
 
     final public static function uniqueShoppingListString()
     {
