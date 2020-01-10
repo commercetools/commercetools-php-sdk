@@ -6,6 +6,7 @@ use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\ResourceFixture;
 use Commercetools\Core\Model\Subscription\Destination;
+use Commercetools\Core\Model\Subscription\IronMQDestination;
 use Commercetools\Core\Model\Subscription\MessageSubscription;
 use Commercetools\Core\Model\Subscription\MessageSubscriptionCollection;
 use Commercetools\Core\Model\Subscription\Subscription;
@@ -27,7 +28,7 @@ class SubscriptionFixture extends ResourceFixture
     {
         $uniqueSubscriptionString = self::uniqueSubscriptionString();
         $uri = getenv('IRONMQ_URI');
-        $destination = Destination::ofUri($uri);
+        $destination = IronMQDestination::ofUri($uri);
         $messages = MessageSubscriptionCollection::of()
             ->add(MessageSubscription::of()->setResourceTypeId('product'));
         $key = 'test-' . $uniqueSubscriptionString;
@@ -123,7 +124,7 @@ class SubscriptionFixture extends ResourceFixture
             $draftFunction
         );
     }
-    
+
     final public static function withUpdateableSubscription(
         ApiClient $client,
         callable $assertFunction,
