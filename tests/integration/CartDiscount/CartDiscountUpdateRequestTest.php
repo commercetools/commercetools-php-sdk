@@ -386,7 +386,7 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(CartDiscount::class, $result);
-                $this->assertSame('test-' . $this->getTestRun() . '-bar', $result->getKey());
+                $this->assertSame($keyBar, $result->getKey());
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
                 return $result;
