@@ -11,6 +11,7 @@ use Commercetools\Core\Client\ProviderFactory;
 use Commercetools\Core\Client\OAuth\AnonymousIdProvider;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiServiceException;
+use Commercetools\Core\Error\ServiceUnavailableException;
 use Commercetools\Core\Fixtures\InstanceTokenStorage;
 use Commercetools\Core\Fixtures\ManuelActivationStrategy;
 use Commercetools\Core\Fixtures\ProfilerMiddleware;
@@ -39,6 +40,8 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfiguratio
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
+use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Middleware;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Monolog\Handler\ErrorLogHandler;
@@ -46,6 +49,8 @@ use Monolog\Handler\FingersCrossedHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Yaml\Yaml;
@@ -223,7 +228,30 @@ class ApiTestCase extends TestCase
             $config->setThrowExceptions(true);
             $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '15']);
 
-            $clientOptions =['verify' => $this->getVerifySSL(), 'timeout' => '15'];
+            $clientOptions = [
+                'verify' => $this->getVerifySSL(),
+                'timeout' => '15',
+                'middlewares' => [
+                    'retry' => Middleware::retry(function ($retries, RequestInterface $request, ResponseInterface $response = null, $error = null) {
+                        if ($response instanceof ResponseInterface && $response->getStatusCode() < 500) {
+                            return false;
+                        }
+                        if ($retries > 2) {
+                            return false;
+                        }
+                        if ($error instanceof ServiceUnavailableException) {
+                            return true;
+                        }
+                        if ($error instanceof ServerException && $error->getCode() == 503) {
+                            return true;
+                        }
+                        if ($response instanceof ResponseInterface && $response->getStatusCode() == 503) {
+                            return true;
+                        }
+                        return false;
+                    })
+                ]
+            ];
             $enableProfiler = getenv('PHP_SDK_PROFILE');
             if ($enableProfiler === 'true') {
                 $clientOptions['middlewares'][] = $this->getProfiler();
