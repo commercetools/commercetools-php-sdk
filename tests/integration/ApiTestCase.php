@@ -228,15 +228,16 @@ class ApiTestCase extends TestCase
             $config->setThrowExceptions(true);
             $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '15']);
 
+            $maxRetries = 3;
             $clientOptions = [
                 'verify' => $this->getVerifySSL(),
                 'timeout' => '15',
                 'middlewares' => [
-                    'retry' => Middleware::retry(function ($retries, RequestInterface $request, ResponseInterface $response = null, $error = null) {
+                    'retry' => Middleware::retry(function ($retries, RequestInterface $request, ResponseInterface $response = null, $error = null) use ($maxRetries) {
                         if ($response instanceof ResponseInterface && $response->getStatusCode() < 500) {
                             return false;
                         }
-                        if ($retries > 2) {
+                        if ($retries > $maxRetries) {
                             return false;
                         }
                         if ($error instanceof ServiceUnavailableException) {
