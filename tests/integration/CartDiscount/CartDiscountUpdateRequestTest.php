@@ -170,10 +170,13 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
         CartDiscountFixture::withUpdateableDraftCartDiscount(
             $client,
             function (CartDiscountDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'set-description'));
+                return $draft->setDescription(LocalizedString::ofLangAndText('en', 'set-description'));
             },
             function (CartDiscount $cartDiscount) use ($client) {
-                $description = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-description');
+                $description = LocalizedString::ofLangAndText(
+                    'en',
+                    'new-description' . CartDiscountFixture::uniqueCartDiscountString()
+                );
                 $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
                     ->addAction(CartDiscountSetDescriptionAction::of()->setDescription($description));
                 $response = $this->execute($client, $request);
@@ -357,23 +360,25 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
     public function testSetKey()
     {
         $client = $this->getApiClient();
+        $key = 'test-' . $this->getTestRun() . '-foo';
 
         CartDiscountFixture::withUpdateableDraftCartDiscount(
             $client,
-            function (CartDiscountDraft $draft) {
+            function (CartDiscountDraft $draft) use ($key) {
                 return $draft->setName(LocalizedString::ofLangAndText('en', 'set-key'))
-                    ->setKey('test-' . $this->getTestRun() . '-foo');
+                    ->setKey($key);
             },
-            function (CartDiscount $cartDiscount) use ($client) {
-                $this->assertSame('test-' . $this->getTestRun() . '-foo', $cartDiscount->getKey());
+            function (CartDiscount $cartDiscount) use ($client, $key) {
+                $this->assertSame($key, $cartDiscount->getKey());
 
+                $keyChanged = 'test-' . $this->getTestRun() . '-bar';
                 $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
-                    ->addAction(CartDiscountSetKeyAction::ofKey('test-' . $this->getTestRun() . '-bar'));
+                    ->addAction(CartDiscountSetKeyAction::ofKey($keyChanged));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(CartDiscount::class, $result);
-                $this->assertSame('test-' . $this->getTestRun() . '-bar', $result->getKey());
+                $this->assertSame($keyChanged, $result->getKey());
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
                 return $result;
@@ -394,46 +399,21 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
             function (CartDiscount $cartDiscount) use ($client) {
                 $this->assertSame('update-by-key', $cartDiscount->getName()->en);
 
+                $updatedName = 'test-' . $this->getTestRun() . '-updated-name';
                 $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
                     ->addAction(
                         CartDiscountChangeNameAction::ofName(
-                            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-updated-name')
+                            LocalizedString::ofLangAndText('en', $updatedName)
                         )
                     );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(CartDiscount::class, $result);
-                $this->assertSame('test-' . $this->getTestRun() . '-updated-name', $result->getName()->en);
+                $this->assertSame($updatedName, $result->getName()->en);
                 $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
                 return $result;
-            }
-        );
-    }
-
-    public function testDeleteByKey()
-    {
-        $client = $this->getApiClient();
-
-        $this->expectException(FixtureException::class);
-        $this->expectExceptionCode(404);
-
-        CartDiscountFixture::withDraftCartDiscount(
-            $client,
-            function (CartDiscountDraft $draft) {
-                return $draft->setName(LocalizedString::ofLangAndText('en', 'delete-by-key'))
-                    ->setKey('test-' . $this->getTestRun() . '-delete');
-            },
-            function (CartDiscount $cartDiscount) use ($client) {
-                $request = RequestBuilder::of()->cartDiscounts()->deleteByKey($cartDiscount);
-                $response = $this->execute($client, $request);
-                $result = $request->mapFromResponse($response);
-                $this->assertInstanceOf(CartDiscount::class, $result);
-
-                $request = RequestBuilder::of()->cartDiscounts()->getByKey($result->getKey());
-                $response = $this->execute($client, $request);
-                $request->mapFromResponse($response);
             }
         );
     }

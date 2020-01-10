@@ -1,51 +1,50 @@
 <?php
 
-namespace Commercetools\Core\IntegrationTests\Channel;
+namespace Commercetools\Core\IntegrationTests\State;
 
 use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\ResourceFixture;
-use Commercetools\Core\Model\Channel\Channel;
-use Commercetools\Core\Model\Channel\ChannelDraft;
-use Commercetools\Core\Request\Channels\ChannelCreateRequest;
-use Commercetools\Core\Request\Channels\ChannelDeleteRequest;
+use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\State\StateDraft;
+use Commercetools\Core\Request\States\StateCreateRequest;
+use Commercetools\Core\Request\States\StateDeleteRequest;
 
-class ChannelFixture extends ResourceFixture
+class StateFixture extends ResourceFixture
 {
-    const CREATE_REQUEST_TYPE = ChannelCreateRequest::class;
-    const DELETE_REQUEST_TYPE = ChannelDeleteRequest::class;
+    const CREATE_REQUEST_TYPE = StateCreateRequest::class;
+    const DELETE_REQUEST_TYPE = StateDeleteRequest::class;
+    const PRODUCT_STATE = 'ProductState';
 
-    final public static function uniqueChannelString()
+    final public static function uniqueStateString()
     {
         return 'test-' . Uuid::uuidv4();
     }
 
-    final public static function defaultChannelDraftFunction()
+    final public static function defaultStateDraftFunction()
     {
-        $uniqueChannelString = self::uniqueChannelString();
-        $draft = ChannelDraft::ofKey(
-            'test-' . $uniqueChannelString . '-key'
-        );
+        $uniqueStateString = self::uniqueStateString();
+        $draft = StateDraft::ofKeyAndType('test-' . $uniqueStateString . '-key', self::PRODUCT_STATE);
 
         return $draft;
     }
 
-    final public static function defaultChannelDraftBuilderFunction(ChannelDraft $draft)
+    final public static function defaultStateDraftBuilderFunction(StateDraft $draft)
     {
         return $draft;
     }
 
-    final public static function defaultChannelCreateFunction(ApiClient $client, ChannelDraft $draft)
+    final public static function defaultStateCreateFunction(ApiClient $client, StateDraft $draft)
     {
         return parent::defaultCreateFunction($client, self::CREATE_REQUEST_TYPE, $draft);
     }
 
-    final public static function defaultChannelDeleteFunction(ApiClient $client, Channel $resource)
+    final public static function defaultStateDeleteFunction(ApiClient $client, State $resource)
     {
         return parent::defaultDeleteFunction($client, self::DELETE_REQUEST_TYPE, $resource);
     }
 
-    final public static function withUpdateableDraftChannel(
+    final public static function withUpdateableDraftState(
         ApiClient $client,
         callable $draftBuilderFunction,
         callable $assertFunction,
@@ -54,13 +53,13 @@ class ChannelFixture extends ResourceFixture
         callable $draftFunction = null
     ) {
         if ($draftFunction == null) {
-            $draftFunction = [__CLASS__, 'defaultChannelDraftFunction'];
+            $draftFunction = [__CLASS__, 'defaultStateDraftFunction'];
         }
         if ($createFunction == null) {
-            $createFunction = [__CLASS__, 'defaultChannelCreateFunction'];
+            $createFunction = [__CLASS__, 'defaultStateCreateFunction'];
         }
         if ($deleteFunction == null) {
-            $deleteFunction = [__CLASS__, 'defaultChannelDeleteFunction'];
+            $deleteFunction = [__CLASS__, 'defaultStateDeleteFunction'];
         }
 
         parent::withUpdateableDraftResource(
@@ -73,7 +72,7 @@ class ChannelFixture extends ResourceFixture
         );
     }
 
-    final public static function withDraftChannel(
+    final public static function withDraftState(
         ApiClient $client,
         callable $draftBuilderFunction,
         callable $assertFunction,
@@ -82,13 +81,13 @@ class ChannelFixture extends ResourceFixture
         callable $draftFunction = null
     ) {
         if ($draftFunction == null) {
-            $draftFunction = [__CLASS__, 'defaultChannelDraftFunction'];
+            $draftFunction = [__CLASS__, 'defaultStateDraftFunction'];
         }
         if ($createFunction == null) {
-            $createFunction = [__CLASS__, 'defaultChannelCreateFunction'];
+            $createFunction = [__CLASS__, 'defaultStateCreateFunction'];
         }
         if ($deleteFunction == null) {
-            $deleteFunction = [__CLASS__, 'defaultChannelDeleteFunction'];
+            $deleteFunction = [__CLASS__, 'defaultStateDeleteFunction'];
         }
 
         parent::withDraftResource(
@@ -101,16 +100,16 @@ class ChannelFixture extends ResourceFixture
         );
     }
 
-    final public static function withChannel(
+    final public static function withState(
         ApiClient $client,
         callable $assertFunction,
         callable $createFunction = null,
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        self::withDraftChannel(
+        self::withDraftState(
             $client,
-            [__CLASS__, 'defaultChannelDraftBuilderFunction'],
+            [__CLASS__, 'defaultStateDraftBuilderFunction'],
             $assertFunction,
             $createFunction,
             $deleteFunction,
@@ -118,16 +117,16 @@ class ChannelFixture extends ResourceFixture
         );
     }
 
-    final public static function withUpdateableChannel(
+    final public static function withUpdateableState(
         ApiClient $client,
         callable $assertFunction,
         callable $createFunction = null,
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        self::withUpdateableDraftChannel(
+        self::withUpdateableDraftState(
             $client,
-            [__CLASS__, 'defaultChannelDraftBuilderFunction'],
+            [__CLASS__, 'defaultStateDraftBuilderFunction'],
             $assertFunction,
             $createFunction,
             $deleteFunction,

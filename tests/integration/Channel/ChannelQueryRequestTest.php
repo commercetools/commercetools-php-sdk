@@ -3,107 +3,99 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\Channel;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Common\GeoPoint;
-use Commercetools\Core\Request\Channels\ChannelByIdGetRequest;
-use Commercetools\Core\Request\Channels\ChannelCreateRequest;
-use Commercetools\Core\Request\Channels\ChannelDeleteRequest;
-use Commercetools\Core\Request\Channels\ChannelQueryRequest;
 
 class ChannelQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @return ChannelDraft
-     */
-    protected function getDraft()
-    {
-        $draft = ChannelDraft::ofKey(
-            'test-' . $this->getTestRun() . '-key'
-        );
-
-        return $draft;
-    }
-
-    protected function createChannel(ChannelDraft $draft)
-    {
-        $request = ChannelCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $channel = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = ChannelDeleteRequest::ofIdAndVersion(
-            $channel->getId(),
-            $channel->getVersion()
-        );
-
-        return $channel;
-    }
-
     public function testQuery()
     {
-        $draft = $this->getDraft();
-        $channel = $this->createChannel($draft);
+        $client = $this->getApiClient();
 
-        $request = ChannelQueryRequest::of()->where('key="' . $draft->getKey() . '"');
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ChannelFixture::withChannel(
+            $client,
+            function (Channel $channel) use ($client) {
+                $request = RequestBuilder::of()->channels()->query()
+                    ->where('key=:key', ['key' => $channel->getKey()]);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(Channel::class, $result->getAt(0));
-        $this->assertSame($channel->getId(), $result->getAt(0)->getId());
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Channel::class, $result->current());
+                $this->assertSame($channel->getId(), $result->current()->getId());
+            }
+        );
     }
 
     public function testGetById()
     {
-        $draft = $this->getDraft();
-        $channel = $this->createChannel($draft);
+        $client = $this->getApiClient();
 
-        $request = ChannelByIdGetRequest::ofId($channel->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ChannelFixture::withChannel(
+            $client,
+            function (Channel $channel) use ($client) {
+                $request = RequestBuilder::of()->channels()->getById($channel->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Channel::class, $channel);
-        $this->assertSame($channel->getId(), $result->getId());
+                $this->assertInstanceOf(Channel::class, $result);
+                $this->assertSame($channel->getId(), $result->getId());
+            }
+        );
     }
 
     public function testQueryByLocation()
     {
+        $client = $this->getApiClient();
         $friedrichstadtPalast = [13.38881, 52.52394];
         $brandenburgerTor = [13.37770, 52.51627];
 
-        $draft = $this->getDraft();
-        $draft->setGeoLocation(GeoPoint::of()->setCoordinates($friedrichstadtPalast));
-        $channel = $this->createChannel($draft);
+        ChannelFixture::withDraftChannel(
+            $client,
+            function (ChannelDraft $draft) use ($friedrichstadtPalast) {
+                return $draft->setGeoLocation(GeoPoint::of()->setCoordinates($friedrichstadtPalast));
+            },
+            function (Channel $channel) use ($client, $brandenburgerTor) {
+                $request = RequestBuilder::of()->channels()->query()
+                    ->where(
+                        sprintf('geoLocation within circle(%s, %s, 1150)', $brandenburgerTor[0], $brandenburgerTor[1])
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $request = ChannelQueryRequest::of()->where(
-            sprintf('geoLocation within circle(%s, %s, 1150)', $brandenburgerTor[0], $brandenburgerTor[1])
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Channel::class, $result->current());
+                $this->assertSame($channel->getId(), $result->current()->getId());
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(Channel::class, $result->current());
-        $this->assertSame($channel->getId(), $result->current()->getId());
     }
 
     public function testQueryByLocationNotWithin()
     {
+        $client = $this->getApiClient();
         $friedrichstadtPalast = [13.38881, 52.52394];
         $brandenburgerTor = [13.37770, 52.51627];
 
-        $draft = $this->getDraft();
-        $draft->setGeoLocation(GeoPoint::of()->setCoordinates($friedrichstadtPalast));
-        $channel = $this->createChannel($draft);
+        ChannelFixture::withDraftChannel(
+            $client,
+            function (ChannelDraft $draft) use ($friedrichstadtPalast) {
+                return $draft->setGeoLocation(GeoPoint::of()->setCoordinates($friedrichstadtPalast));
+            },
+            function (Channel $channel) use ($client, $brandenburgerTor) {
+                $request = RequestBuilder::of()->channels()->query()
+                    ->where(
+                        sprintf('geoLocation within circle(%s, %s, 1000)', $brandenburgerTor[0], $brandenburgerTor[1])
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $request = ChannelQueryRequest::of()->where(
-            sprintf('geoLocation within circle(%s, %s, 1000)', $brandenburgerTor[0], $brandenburgerTor[1])
+                $this->assertCount(0, $result);
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertCount(0, $result);
     }
 }

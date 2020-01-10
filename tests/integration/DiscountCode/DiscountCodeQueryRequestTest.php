@@ -3,65 +3,47 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\DiscountCode;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\DiscountCode\DiscountCode;
-use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
-use Commercetools\Core\Request\DiscountCodes\DiscountCodeByIdGetRequest;
-use Commercetools\Core\Request\DiscountCodes\DiscountCodeCreateRequest;
-use Commercetools\Core\Request\DiscountCodes\DiscountCodeDeleteRequest;
-use Commercetools\Core\Request\DiscountCodes\DiscountCodeQueryRequest;
 
 class DiscountCodeQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @return DiscountCodeDraft
-     */
-    protected function getDraft()
-    {
-        return $this->getDiscountCodeDraft()->setIsActive(false);
-    }
-
-    protected function createDiscountCode(DiscountCodeDraft $draft)
-    {
-        $request = DiscountCodeCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $discountCode = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = DiscountCodeDeleteRequest::ofIdAndVersion(
-            $discountCode->getId(),
-            $discountCode->getVersion()
-        );
-
-        return $discountCode;
-    }
-
     public function testQuery()
     {
-        $draft = $this->getDraft();
-        $discountCode = $this->createDiscountCode($draft);
+        $client = $this->getApiClient();
 
-        $request = DiscountCodeQueryRequest::of()->where('code="' . $draft->getCode() . '"');
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        DiscountCodeFixture::withDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                $request = RequestBuilder::of()->discountCodes()->query()
+                    ->where('code=:code', ['code' => $discountCode->getCode()]);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(DiscountCode::class, $result->getAt(0));
-        $this->assertSame($discountCode->getId(), $result->getAt(0)->getId());
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(DiscountCode::class, $result->current());
+                $this->assertSame($discountCode->getId(), $result->current()->getId());
+            }
+        );
     }
 
     public function testGetById()
     {
-        $draft = $this->getDraft();
-        $discountCode = $this->createDiscountCode($draft);
+        $client = $this->getApiClient();
 
-        $request = DiscountCodeByIdGetRequest::ofId($discountCode->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        DiscountCodeFixture::withDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                $request = RequestBuilder::of()->discountCodes()->getById($discountCode->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(DiscountCode::class, $result);
-        $this->assertSame($discountCode->getId(), $result->getId());
+                $this->assertInstanceOf(DiscountCode::class, $result);
+                $this->assertSame($discountCode->getId(), $result->getId());
+            }
+        );
     }
 }

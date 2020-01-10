@@ -3,14 +3,22 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\Review;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
+use Commercetools\Core\IntegrationTests\State\StateFixture;
+use Commercetools\Core\IntegrationTests\Type\TypeFixture;
+use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\Review\ReviewDraft;
 use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\State\StateDraft;
+use Commercetools\Core\Model\State\StateReferenceCollection;
+use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetAuthorNameAction;
@@ -22,344 +30,387 @@ use Commercetools\Core\Request\Reviews\Command\ReviewSetTargetAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetTitleAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewTransitionStateAction;
-use Commercetools\Core\Request\Reviews\ReviewCreateRequest;
-use Commercetools\Core\Request\Reviews\ReviewDeleteRequest;
-use Commercetools\Core\Request\Reviews\ReviewUpdateByKeyRequest;
-use Commercetools\Core\Request\Reviews\ReviewUpdateRequest;
 
 class ReviewUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @param $name
-     * @return ReviewDraft
-     */
-    protected function getDraft($name)
-    {
-        $draft = ReviewDraft::ofTitle(
-            'test-' . $this->getTestRun() . '-' . $name
-        )->setKey('test-' . $this->getTestRun() . '-' . $name);
-
-        return $draft;
-    }
-
-    protected function createReview(ReviewDraft $draft)
-    {
-        $request = ReviewCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $review = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = ReviewDeleteRequest::ofIdAndVersion(
-            $review->getId(),
-            $review->getVersion()
-        );
-
-        return $review;
-    }
+    const REVIEW_STATE = 'ReviewState';
 
     public function testUpdateByKey()
     {
-        $draft = $this->getDraft('update-by-key');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $text = 'test-' . $this->getTestRun() . '-new text';
-        $request = ReviewUpdateByKeyRequest::ofKeyAndVersion($review->getKey(), $review->getVersion())
-            ->addAction(
-                ReviewSetTextAction::of()->setText($text)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ReviewFixture::withUpdateableReview(
+            $client,
+            function (Review $review) use ($client) {
+                $text = 'test-' . ReviewFixture::uniqueReviewString() . '-new text';
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($text, $result->getText());
+                $request = RequestBuilder::of()->reviews()->updateByKey($review)
+                    ->addAction(ReviewSetTextAction::of()->setText($text));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Review::class, $result);
+                $this->assertSame($text, $result->getText());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetKey()
     {
-        $draft = $this->getDraft('set-key');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $key = 'new-' . $this->getTestRun();
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                ReviewSetKeyAction::of()->setKey($key)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ReviewFixture::withUpdateableReview(
+            $client,
+            function (Review $review) use ($client) {
+                $key = 'new-' . ReviewFixture::uniqueReviewString();
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($key, $result->getKey());
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->reviews()->update($review)
+                    ->addAction(ReviewSetKeyAction::of()->setKey($key));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Review::class, $result);
+                $this->assertSame($key, $result->getKey());
+                $this->assertNotSame($review->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetAuthorName()
     {
-        $draft = $this->getDraft('set-author-name');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $author = 'new-' . $this->getTestRun();
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                ReviewSetAuthorNameAction::of()->setAuthorName($author)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ReviewFixture::withUpdateableReview(
+            $client,
+            function (Review $review) use ($client) {
+                $author = 'new-' . ReviewFixture::uniqueReviewString();
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($author, $result->getAuthorName());
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->reviews()->update($review)
+                    ->addAction(ReviewSetAuthorNameAction::of()->setAuthorName($author));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Review::class, $result);
+                $this->assertSame($author, $result->getAuthorName());
+                $this->assertNotSame($review->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
+//todo migration for Customer is missing
     public function testSetCustomer()
     {
-        $draft = $this->getDraft('set-author-name');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $customer = $this->getCustomer();
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                ReviewSetCustomerAction::of()->setCustomer($customer->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ReviewFixture::withUpdateableReview(
+            $client,
+            function (Review $review) use ($client) {
+                $customer = $this->getCustomer();
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->reviews()->update($review)
+                    ->addAction(ReviewSetCustomerAction::of()->setCustomer($customer->getReference()));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Review::class, $result);
+                $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+                $this->assertNotSame($review->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetRating()
     {
-        $draft = $this->getDraft('set-rating');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $rating = mt_rand(1, 100);
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                ReviewSetRatingAction::of()->setRating($rating)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ReviewFixture::withUpdateableReview(
+            $client,
+            function (Review $review) use ($client) {
+                $rating = mt_rand(1, 100);
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($rating, $result->getRating());
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->reviews()->update($review)
+                    ->addAction(ReviewSetRatingAction::of()->setRating($rating));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Review::class, $result);
+                $this->assertSame($rating, $result->getRating());
+                $this->assertNotSame($review->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
+    //todo migration for Product is missing
     public function testSetTargetProduct()
     {
-        $draft = $this->getDraft('set-target-product');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $target = $this->getProduct();
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                ReviewSetTargetAction::of()->setTarget($target->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ReviewFixture::withUpdateableReview(
+            $client,
+            function (Review $review) use ($client) {
+                $target = $this->getProduct();
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($target->getId(), $result->getTarget()->getId());
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->reviews()->update($review)
+                    ->addAction(ReviewSetTargetAction::of()->setTarget($target->getReference()));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Review::class, $result);
+                $this->assertSame($target->getId(), $result->getTarget()->getId());
+                $this->assertNotSame($review->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetTargetChannel()
     {
-        $draft = $this->getDraft('set-target-channel');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $target = $this->getChannel();
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                ReviewSetTargetAction::of()->setTarget($target->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ChannelFixture::withChannel(
+            $client,
+            function (Channel $channel) use ($client) {
+                ReviewFixture::withUpdateableReview(
+                    $client,
+                    function (Review $review) use ($client, $channel) {
+                        $request = RequestBuilder::of()->reviews()->update($review)
+                            ->addAction(
+                                ReviewSetTargetAction::of()->setTarget($channel->getReference())
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($target->getId(), $result->getTarget()->getId());
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
+                        $this->assertInstanceOf(Review::class, $result);
+                        $this->assertSame($channel->getId(), $result->getTarget()->getId());
+                        $this->assertNotSame($review->getVersion(), $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSetText()
     {
-        $draft = $this->getDraft('set-text');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $text = 'test-' . $this->getTestRun() . '-new text';
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                ReviewSetTextAction::of()->setText($text)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ReviewFixture::withUpdateableReview(
+            $client,
+            function (Review $review) use ($client) {
+                $text = 'test-' . ReviewFixture::uniqueReviewString() . '-new text';
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($text, $result->getText());
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->reviews()->update($review)
+                    ->addAction(ReviewSetTextAction::of()->setText($text));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Review::class, $result);
+                $this->assertSame($text, $result->getText());
+                $this->assertNotSame($review->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetTitle()
     {
-        $draft = $this->getDraft('set-title');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $title = 'test-' . $this->getTestRun() . '-new title';
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                ReviewSetTitleAction::of()->setTitle($title)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ReviewFixture::withUpdateableReview(
+            $client,
+            function (Review $review) use ($client) {
+                $title = 'test-' . ReviewFixture::uniqueReviewString() . '-new title';
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($title, $result->getTitle());
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->reviews()->update($review)
+                    ->addAction(ReviewSetTitleAction::of()->setTitle($title));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Review::class, $result);
+                $this->assertSame($title, $result->getTitle());
+                $this->assertNotSame($review->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetLocale()
     {
-        $draft = $this->getDraft('set-locale');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $locale = 'de_DE';
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                ReviewSetLocaleAction::of()->setLocale($locale)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ReviewFixture::withUpdateableReview(
+            $client,
+            function (Review $review) use ($client) {
+                $locale = 'de_DE';
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($locale, \Locale::canonicalize($result->getLocale()));
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->reviews()->update($review)
+                    ->addAction(ReviewSetLocaleAction::of()->setLocale($locale));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Review::class, $result);
+                $this->assertSame($locale, \Locale::canonicalize($result->getLocale()));
+                $this->assertNotSame($review->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testTransitionState()
     {
-        $draft = $this->getDraft('transition-state');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        /**
-         * @var State $state1
-         * @var State $state2
-         */
-        list($state1, $state2) = $this->createStates('ReviewState');
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                ReviewTransitionStateAction::of()->setState($state1->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        StateFixture::withDraftState(
+            $client,
+            function (StateDraft $state1Draft) {
+                return $state1Draft->setType(self::REVIEW_STATE)->setInitial(true);
+            },
+            function (State $state1) use ($client) {
+                StateFixture::withDraftState(
+                    $client,
+                    function (StateDraft $state2Draft) use ($state1) {
+                        return $state2Draft->setType(self::REVIEW_STATE)
+                            ->setTransitions(StateReferenceCollection::of()->add($state1->getReference()));
+                    },
+                    function (State $state2) use ($client, $state1) {
+                        ReviewFixture::withUpdateableReview(
+                            $client,
+                            function (Review $review) use ($client, $state1, $state2) {
+                                $request = RequestBuilder::of()->reviews()->update($review)
+                                    ->addAction(
+                                        ReviewTransitionStateAction::of()->setState($state1->getReference())
+                                    );
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($state1->getId(), $result->getState()->getId());
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
-        $review = $result;
+                                $this->assertInstanceOf(Review::class, $result);
+                                $this->assertSame($state1->getId(), $result->getState()->getId());
+                                $this->assertNotSame($review->getVersion(), $result->getVersion());
 
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                ReviewTransitionStateAction::of()->setState($state2->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                                $review = $result;
+                                $request = RequestBuilder::of()->reviews()->update($review)
+                                    ->addAction(
+                                        ReviewTransitionStateAction::of()->setState($state2->getReference())
+                                    );
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($state2->getId(), $result->getState()->getId());
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
+                                $this->assertInstanceOf(Review::class, $result);
+                                $this->assertSame($state2->getId(), $result->getState()->getId());
+                                $this->assertNotSame($review->getVersion(), $result->getVersion());
+
+                                return $result;
+                            }
+                        );
+                    }
+                );
+            }
+        );
     }
 
     public function testCustomType()
     {
-        $draft = $this->getDraft('custom-type');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $type = $this->getType($this->getTestRun().'-key', 'review');
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                SetCustomTypeAction::of()
-                    ->setType($type->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setResourceTypeIds(['review']);
+            },
+            function (Type $type) use ($client) {
+                ReviewFixture::withUpdateableReview(
+                    $client,
+                    function (Review $review) use ($client, $type) {
+                        $request = RequestBuilder::of()->reviews()->update($review)
+                            ->addAction(SetCustomTypeAction::of()->setType($type->getReference()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
+                        $this->assertInstanceOf(Review::class, $result);
+                        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
+                        $this->assertNotSame($review->getVersion(), $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testCustomField()
     {
-        $draft = $this->getDraft('custom-field');
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $type = $this->getType($this->getTestRun().'-key', 'review');
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                SetCustomTypeAction::of()
-                    ->setType($type->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-        $review = $result;
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setResourceTypeIds(['review']);
+            },
+            function (Type $type) use ($client) {
+                ReviewFixture::withUpdateableReview(
+                    $client,
+                    function (Review $review) use ($client, $type) {
+                        $request = RequestBuilder::of()->reviews()->update($review)
+                            ->addAction(SetCustomTypeAction::of()->setType($type->getReference()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $value = $this->getTestRun() . '-value';
-        $request = ReviewUpdateRequest::ofIdAndVersion($review->getId(), $review->getVersion())
-            ->addAction(
-                SetCustomFieldAction::ofName('testField')
-                    ->setValue($value)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                        $review = $result;
+                        $value = 'new-value';
 
-        $this->assertInstanceOf(Review::class, $result);
-        $this->assertSame($value, $result->getCustom()->getFields()->getTestField());
-        $this->assertNotSame($review->getVersion(), $result->getVersion());
+                        $request = RequestBuilder::of()->reviews()->update($review)
+                            ->addAction(SetCustomFieldAction::ofName('testField')->setValue($value));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Review::class, $result);
+                        $this->assertSame($value, $result->getCustom()->getFields()->getTestField());
+                        $this->assertNotSame($review->getVersion(), $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
+//todo migration for Customer is missing
     public function testReferenceExpansion()
     {
-        $customer = $this->getCustomer();
-        $draft = $this->getDraft('update-reference-expansion');
-        $draft->setCustomer($customer->getReference());
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $request = ReviewUpdateByKeyRequest::ofKeyAndVersion($review->getKey(), $review->getVersion());
-        $request->expand('customer.id');
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ReviewFixture::withUpdateableDraftReview(
+            $client,
+            function (ReviewDraft $reviewDraft) {
+                $customer = $this->getCustomer();
 
-        $this->assertInstanceOf(Customer::class, $result->getCustomer()->getObj());
+                return $reviewDraft->setCustomer($customer->getReference());
+            },
+            function (Review $review) use ($client) {
+                $request = RequestBuilder::of()->reviews()->update($review);
+                $request->expand('customer.id');
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Customer::class, $result->getCustomer()->getObj());
+
+                return $result;
+            }
+        );
     }
 }

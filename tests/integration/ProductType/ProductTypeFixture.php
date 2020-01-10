@@ -1,51 +1,53 @@
 <?php
 
-namespace Commercetools\Core\IntegrationTests\Channel;
+namespace Commercetools\Core\IntegrationTests\ProductType;
 
 use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\ResourceFixture;
-use Commercetools\Core\Model\Channel\Channel;
-use Commercetools\Core\Model\Channel\ChannelDraft;
-use Commercetools\Core\Request\Channels\ChannelCreateRequest;
-use Commercetools\Core\Request\Channels\ChannelDeleteRequest;
+use Commercetools\Core\Model\ProductType\ProductType;
+use Commercetools\Core\Model\ProductType\ProductTypeDraft;
+use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
+use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
 
-class ChannelFixture extends ResourceFixture
+class ProductTypeFixture extends ResourceFixture
 {
-    const CREATE_REQUEST_TYPE = ChannelCreateRequest::class;
-    const DELETE_REQUEST_TYPE = ChannelDeleteRequest::class;
+    const CREATE_REQUEST_TYPE = ProductTypeCreateRequest::class;
+    const DELETE_REQUEST_TYPE = ProductTypeDeleteRequest::class;
 
-    final public static function uniqueChannelString()
+    final public static function uniqueProductTypeString()
     {
         return 'test-' . Uuid::uuidv4();
     }
 
-    final public static function defaultChannelDraftFunction()
+    final public static function defaultProductTypeDraftFunction()
     {
-        $uniqueChannelString = self::uniqueChannelString();
-        $draft = ChannelDraft::ofKey(
-            'test-' . $uniqueChannelString . '-key'
+        $uniqueProductTypeString = self::uniqueProductTypeString();
+        $draft = ProductTypeDraft::ofNameAndDescription(
+            'test-' . $uniqueProductTypeString . '-name',
+            'test-' . $uniqueProductTypeString . '-description'
         );
+        $draft->setKey('key-' . $uniqueProductTypeString);
 
         return $draft;
     }
 
-    final public static function defaultChannelDraftBuilderFunction(ChannelDraft $draft)
+    final public static function defaultProductTypeDraftBuilderFunction(ProductTypeDraft $draft)
     {
         return $draft;
     }
 
-    final public static function defaultChannelCreateFunction(ApiClient $client, ChannelDraft $draft)
+    final public static function defaultProductTypeCreateFunction(ApiClient $client, ProductTypeDraft $draft)
     {
         return parent::defaultCreateFunction($client, self::CREATE_REQUEST_TYPE, $draft);
     }
 
-    final public static function defaultChannelDeleteFunction(ApiClient $client, Channel $resource)
+    final public static function defaultProductTypeDeleteFunction(ApiClient $client, ProductType $resource)
     {
         return parent::defaultDeleteFunction($client, self::DELETE_REQUEST_TYPE, $resource);
     }
 
-    final public static function withUpdateableDraftChannel(
+    final public static function withUpdateableDraftProductType(
         ApiClient $client,
         callable $draftBuilderFunction,
         callable $assertFunction,
@@ -54,13 +56,13 @@ class ChannelFixture extends ResourceFixture
         callable $draftFunction = null
     ) {
         if ($draftFunction == null) {
-            $draftFunction = [__CLASS__, 'defaultChannelDraftFunction'];
+            $draftFunction = [__CLASS__, 'defaultProductTypeDraftFunction'];
         }
         if ($createFunction == null) {
-            $createFunction = [__CLASS__, 'defaultChannelCreateFunction'];
+            $createFunction = [__CLASS__, 'defaultProductTypeCreateFunction'];
         }
         if ($deleteFunction == null) {
-            $deleteFunction = [__CLASS__, 'defaultChannelDeleteFunction'];
+            $deleteFunction = [__CLASS__, 'defaultProductTypeDeleteFunction'];
         }
 
         parent::withUpdateableDraftResource(
@@ -73,7 +75,7 @@ class ChannelFixture extends ResourceFixture
         );
     }
 
-    final public static function withDraftChannel(
+    final public static function withDraftProductType(
         ApiClient $client,
         callable $draftBuilderFunction,
         callable $assertFunction,
@@ -82,13 +84,13 @@ class ChannelFixture extends ResourceFixture
         callable $draftFunction = null
     ) {
         if ($draftFunction == null) {
-            $draftFunction = [__CLASS__, 'defaultChannelDraftFunction'];
+            $draftFunction = [__CLASS__, 'defaultProductTypeDraftFunction'];
         }
         if ($createFunction == null) {
-            $createFunction = [__CLASS__, 'defaultChannelCreateFunction'];
+            $createFunction = [__CLASS__, 'defaultProductTypeCreateFunction'];
         }
         if ($deleteFunction == null) {
-            $deleteFunction = [__CLASS__, 'defaultChannelDeleteFunction'];
+            $deleteFunction = [__CLASS__, 'defaultProductTypeDeleteFunction'];
         }
 
         parent::withDraftResource(
@@ -101,16 +103,16 @@ class ChannelFixture extends ResourceFixture
         );
     }
 
-    final public static function withChannel(
+    final public static function withProductType(
         ApiClient $client,
         callable $assertFunction,
         callable $createFunction = null,
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        self::withDraftChannel(
+        self::withDraftProductType(
             $client,
-            [__CLASS__, 'defaultChannelDraftBuilderFunction'],
+            [__CLASS__, 'defaultProductTypeDraftBuilderFunction'],
             $assertFunction,
             $createFunction,
             $deleteFunction,
@@ -118,16 +120,16 @@ class ChannelFixture extends ResourceFixture
         );
     }
 
-    final public static function withUpdateableChannel(
+    final public static function withUpdateableProductType(
         ApiClient $client,
         callable $assertFunction,
         callable $createFunction = null,
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        self::withUpdateableDraftChannel(
+        self::withUpdateableDraftProductType(
             $client,
-            [__CLASS__, 'defaultChannelDraftBuilderFunction'],
+            [__CLASS__, 'defaultProductTypeDraftBuilderFunction'],
             $assertFunction,
             $createFunction,
             $deleteFunction,

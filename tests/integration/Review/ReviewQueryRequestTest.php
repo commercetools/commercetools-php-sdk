@@ -3,69 +3,47 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\Review;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Review\Review;
-use Commercetools\Core\Model\Review\ReviewDraft;
-use Commercetools\Core\Request\Reviews\ReviewByIdGetRequest;
-use Commercetools\Core\Request\Reviews\ReviewCreateRequest;
-use Commercetools\Core\Request\Reviews\ReviewDeleteRequest;
-use Commercetools\Core\Request\Reviews\ReviewQueryRequest;
 
 class ReviewQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @return ReviewDraft
-     */
-    protected function getDraft()
-    {
-        $draft = ReviewDraft::ofTitle(
-            'test-' . $this->getTestRun() . '-title'
-        );
-
-        return $draft;
-    }
-
-    protected function createReview(ReviewDraft $draft)
-    {
-        $request = ReviewCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $review = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = ReviewDeleteRequest::ofIdAndVersion(
-            $review->getId(),
-            $review->getVersion()
-        );
-
-        return $review;
-    }
-
     public function testQuery()
     {
-        $draft = $this->getDraft();
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $request = ReviewQueryRequest::of()->where('title="' . $draft->getTitle() . '"');
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ReviewFixture::withReview(
+            $client,
+            function (Review $review) use ($client) {
+                $request = RequestBuilder::of()->reviews()->query()
+                    ->where('title=:title', ['title' => $review->getTitle()]);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(Review::class, $result->getAt(0));
-        $this->assertSame($review->getId(), $result->getAt(0)->getId());
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Review::class, $result->current());
+                $this->assertSame($review->getId(), $result->current()->getId());
+            }
+        );
     }
 
     public function testGetById()
     {
-        $draft = $this->getDraft();
-        $review = $this->createReview($draft);
+        $client = $this->getApiClient();
 
-        $request = ReviewByIdGetRequest::ofId($review->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ReviewFixture::withReview(
+            $client,
+            function (Review $review) use ($client) {
+                $request = RequestBuilder::of()->reviews()->getById($review->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Review::class, $review);
-        $this->assertSame($review->getId(), $result->getId());
+                $this->assertInstanceOf(Review::class, $result);
+                $this->assertSame($review->getId(), $result->getId());
+            }
+        );
     }
 }

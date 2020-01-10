@@ -27,6 +27,7 @@ class TypeFixture extends ResourceFixture
     final public static function defaultTypeDraftFunction()
     {
         $uniqueTypeString = self::uniqueTypeString();
+        $name = 'testField';
         $draft = TypeDraft::ofKeyNameDescriptionAndResourceTypes(
             'key-' . $uniqueTypeString,
             LocalizedString::ofLangAndText('en', 'test-' . $uniqueTypeString . '-name'),
@@ -37,13 +38,14 @@ class TypeFixture extends ResourceFixture
             FieldDefinitionCollection::of()
                 ->add(
                     FieldDefinition::of()
-                        ->setName('testField')
-                        ->setLabel(LocalizedString::ofLangAndText('en', 'testField'))
+                        ->setName($name)
+                        ->setLabel(LocalizedString::ofLangAndText('en', $name))
                         ->setRequired(false)
                         ->setInputHint('SingleLine')
                         ->setType(StringType::of())
                 )
         );
+
         return $draft;
     }
 
@@ -79,6 +81,7 @@ class TypeFixture extends ResourceFixture
         if ($deleteFunction == null) {
             $deleteFunction = [__CLASS__, 'defaultTypeDeleteFunction'];
         }
+
         parent::withUpdateableDraftResource(
             $client,
             $draftBuilderFunction,
@@ -106,6 +109,7 @@ class TypeFixture extends ResourceFixture
         if ($deleteFunction == null) {
             $deleteFunction = [__CLASS__, 'defaultTypeDeleteFunction'];
         }
+
         parent::withDraftResource(
             $client,
             $draftBuilderFunction,

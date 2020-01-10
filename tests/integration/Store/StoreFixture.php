@@ -1,51 +1,53 @@
 <?php
 
-namespace Commercetools\Core\IntegrationTests\Channel;
+namespace Commercetools\Core\IntegrationTests\Store;
 
 use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\ResourceFixture;
-use Commercetools\Core\Model\Channel\Channel;
-use Commercetools\Core\Model\Channel\ChannelDraft;
-use Commercetools\Core\Request\Channels\ChannelCreateRequest;
-use Commercetools\Core\Request\Channels\ChannelDeleteRequest;
+use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Store\Store;
+use Commercetools\Core\Model\Store\StoreDraft;
+use Commercetools\Core\Request\Stores\StoreCreateRequest;
+use Commercetools\Core\Request\Stores\StoreDeleteRequest;
 
-class ChannelFixture extends ResourceFixture
+class StoreFixture extends ResourceFixture
 {
-    const CREATE_REQUEST_TYPE = ChannelCreateRequest::class;
-    const DELETE_REQUEST_TYPE = ChannelDeleteRequest::class;
+    const CREATE_REQUEST_TYPE = StoreCreateRequest::class;
+    const DELETE_REQUEST_TYPE = StoreDeleteRequest::class;
 
-    final public static function uniqueChannelString()
+    final public static function uniqueStoreString()
     {
         return 'test-' . Uuid::uuidv4();
     }
 
-    final public static function defaultChannelDraftFunction()
+    final public static function defaultStoreDraftFunction()
     {
-        $uniqueChannelString = self::uniqueChannelString();
-        $draft = ChannelDraft::ofKey(
-            'test-' . $uniqueChannelString . '-key'
+        $uniqueStoreString = self::uniqueStoreString();
+        $draft = StoreDraft::ofKeyAndName(
+            'key-' . $uniqueStoreString,
+            LocalizedString::ofLangAndText('en', 'test-' . $uniqueStoreString . '-' . 'store-name')
         );
 
         return $draft;
     }
 
-    final public static function defaultChannelDraftBuilderFunction(ChannelDraft $draft)
+    final public static function defaultStoreDraftBuilderFunction(StoreDraft $draft)
     {
         return $draft;
     }
 
-    final public static function defaultChannelCreateFunction(ApiClient $client, ChannelDraft $draft)
+    final public static function defaultStoreCreateFunction(ApiClient $client, StoreDraft $draft)
     {
         return parent::defaultCreateFunction($client, self::CREATE_REQUEST_TYPE, $draft);
     }
 
-    final public static function defaultChannelDeleteFunction(ApiClient $client, Channel $resource)
+    final public static function defaultStoreDeleteFunction(ApiClient $client, Store $resource)
     {
         return parent::defaultDeleteFunction($client, self::DELETE_REQUEST_TYPE, $resource);
     }
 
-    final public static function withUpdateableDraftChannel(
+    final public static function withUpdateableDraftStore(
         ApiClient $client,
         callable $draftBuilderFunction,
         callable $assertFunction,
@@ -54,13 +56,13 @@ class ChannelFixture extends ResourceFixture
         callable $draftFunction = null
     ) {
         if ($draftFunction == null) {
-            $draftFunction = [__CLASS__, 'defaultChannelDraftFunction'];
+            $draftFunction = [__CLASS__, 'defaultStoreDraftFunction'];
         }
         if ($createFunction == null) {
-            $createFunction = [__CLASS__, 'defaultChannelCreateFunction'];
+            $createFunction = [__CLASS__, 'defaultStoreCreateFunction'];
         }
         if ($deleteFunction == null) {
-            $deleteFunction = [__CLASS__, 'defaultChannelDeleteFunction'];
+            $deleteFunction = [__CLASS__, 'defaultStoreDeleteFunction'];
         }
 
         parent::withUpdateableDraftResource(
@@ -73,7 +75,7 @@ class ChannelFixture extends ResourceFixture
         );
     }
 
-    final public static function withDraftChannel(
+    final public static function withDraftStore(
         ApiClient $client,
         callable $draftBuilderFunction,
         callable $assertFunction,
@@ -82,13 +84,13 @@ class ChannelFixture extends ResourceFixture
         callable $draftFunction = null
     ) {
         if ($draftFunction == null) {
-            $draftFunction = [__CLASS__, 'defaultChannelDraftFunction'];
+            $draftFunction = [__CLASS__, 'defaultStoreDraftFunction'];
         }
         if ($createFunction == null) {
-            $createFunction = [__CLASS__, 'defaultChannelCreateFunction'];
+            $createFunction = [__CLASS__, 'defaultStoreCreateFunction'];
         }
         if ($deleteFunction == null) {
-            $deleteFunction = [__CLASS__, 'defaultChannelDeleteFunction'];
+            $deleteFunction = [__CLASS__, 'defaultStoreDeleteFunction'];
         }
 
         parent::withDraftResource(
@@ -101,16 +103,16 @@ class ChannelFixture extends ResourceFixture
         );
     }
 
-    final public static function withChannel(
+    final public static function withStore(
         ApiClient $client,
         callable $assertFunction,
         callable $createFunction = null,
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        self::withDraftChannel(
+        self::withDraftStore(
             $client,
-            [__CLASS__, 'defaultChannelDraftBuilderFunction'],
+            [__CLASS__, 'defaultStoreDraftBuilderFunction'],
             $assertFunction,
             $createFunction,
             $deleteFunction,
@@ -118,16 +120,16 @@ class ChannelFixture extends ResourceFixture
         );
     }
 
-    final public static function withUpdateableChannel(
+    final public static function withUpdateableStore(
         ApiClient $client,
         callable $assertFunction,
         callable $createFunction = null,
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        self::withUpdateableDraftChannel(
+        self::withUpdateableDraftStore(
             $client,
-            [__CLASS__, 'defaultChannelDraftBuilderFunction'],
+            [__CLASS__, 'defaultStoreDraftBuilderFunction'],
             $assertFunction,
             $createFunction,
             $deleteFunction,
