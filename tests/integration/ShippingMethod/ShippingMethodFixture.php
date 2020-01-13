@@ -99,7 +99,7 @@ class ShippingMethodFixture extends ResourceFixture
                         $draftFunction
                     ) {
                         $taxCategoryReference = TaxCategoryReference::ofId($taxCategory->getId());
-                        $zoneReference = ZoneReference::ofId($zone->getId());
+                        $zoneReference = ZoneReference::of()->getObj($zone);
                         if ($draftFunction == null) {
                             $draftFunction = function () use ($taxCategoryReference, $zoneReference) {
                                 return call_user_func(
@@ -126,7 +126,8 @@ class ShippingMethodFixture extends ResourceFixture
                             $assertFunction,
                             $createFunction,
                             $deleteFunction,
-                            $draftFunction
+                            $draftFunction,
+                            [$zone, $taxCategory]
                         );
                     }
                 );
@@ -191,7 +192,8 @@ class ShippingMethodFixture extends ResourceFixture
                             $assertFunction,
                             $createFunction,
                             $deleteFunction,
-                            $draftFunction
+                            $draftFunction,
+                            [$zone, $taxCategory]
                         );
                     }
                 );

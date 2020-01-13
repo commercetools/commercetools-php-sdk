@@ -19,13 +19,13 @@ use Commercetools\Core\Model\ShippingMethod\ShippingRateCollection;
 use Commercetools\Core\Model\ShippingMethod\ZoneRate;
 use Commercetools\Core\Model\ShippingMethod\ZoneRateCollection;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Model\Zone\Location as Location;
 use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByIdGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByLocationGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest;
-use phpDocumentor\Reflection\Location;
 
 class ShippingMethodQueryRequestTest extends ApiTestCase
 {
@@ -107,28 +107,21 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
 
         ShippingMethodFixture::withShippingMethod(
             $client,
-            function (ShippingMethod $shippingMethod) use ($client) {
-                $location =
-                $request = RequestBuilder::of()->shippingMethods()->getByLocation($shippingMethod);
-                $response = $this->execute($client, $request);
+            function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
+                $request = RequestBuilder::of()->shippingMethods()->getByLocation($zone->getLocations()->current());
+                $request->expand('taxCategory.id');
+
+                $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
+
                 $result = $request->mapFromResponse($response);
 
-                $this->assertInstanceOf(ShippingMethod::class, $shippingMethod);
-                $this->assertSame($shippingMethod->getId(), $result->getId());
+                $this->assertTrue(
+                    $result->current()->getZoneRates()->current()->getShippingRates()->current()->getIsMatching()
+                );
+                $this->assertInstanceOf(ShippingMethodCollection::class, $result);
+                $this->assertSame($shippingMethod->getId(), $result->current()->getId());
+                $this->assertInstanceOf(TaxCategory::class, $result->current()->getTaxCategory()->getObj());
             }
         );
-
-        $draft = $this->getDraft();
-        $shippingMethod = $this->createShippingMethod($draft);
-
-        $request = ShippingMethodByLocationGetRequest::ofCountry('DE')->withState($this->getRegion());
-        $request->expand('taxCategory.id');
-        $response = $request->executeWithClient($this->getClient(), ['X-Vrap-Disable-Validation' => 'response']);
-        $result = $request->mapResponse($response);
-
-        $this->assertTrue($result->current()->getZoneRates()->current()->getShippingRates()->current()->getIsMatching());
-        $this->assertInstanceOf(ShippingMethodCollection::class, $result);
-        $this->assertSame($shippingMethod->getId(), $result->current()->getId());
-        $this->assertInstanceOf(TaxCategory::class, $result->current()->getTaxCategory()->getObj());
     }
 }

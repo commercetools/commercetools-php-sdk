@@ -74,7 +74,8 @@ abstract class ResourceFixture
         callable $assertFunction,
         callable $createFunction,
         callable $deleteFunction,
-        callable $draftFunction
+        callable $draftFunction,
+        array $additionalResources = []
     ) {
         $resourceDraft = call_user_func($draftFunction);
 
@@ -84,7 +85,7 @@ abstract class ResourceFixture
 
         $updatedResource = null;
         try {
-            $updatedResource = call_user_func($assertFunction, $resource);
+            $updatedResource = call_user_func($assertFunction, $resource, $additionalResources);
         } finally {
             call_user_func($deleteFunction, $client, $updatedResource != null ? $updatedResource : $resource);
         }
@@ -96,7 +97,8 @@ abstract class ResourceFixture
         callable $assertFunction,
         callable $createFunction,
         callable $deleteFunction,
-        callable $draftFunction
+        callable $draftFunction,
+        array $additionalResources = []
     ) {
         $initialDraft = call_user_func($draftFunction);
 
@@ -105,7 +107,7 @@ abstract class ResourceFixture
         $resource = call_user_func($createFunction, $client, $resourceDraft);
 
         try {
-            call_user_func($assertFunction, $resource);
+            call_user_func($assertFunction, $resource, ...$additionalResources);
         } finally {
             call_user_func($deleteFunction, $client, $resource);
         }
