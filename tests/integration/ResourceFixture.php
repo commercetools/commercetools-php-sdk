@@ -85,7 +85,7 @@ abstract class ResourceFixture
 
         $updatedResource = null;
         try {
-            $updatedResource = call_user_func($assertFunction, $resource, $additionalResources);
+            $updatedResource = call_user_func($assertFunction, $resource, ...$additionalResources);
         } finally {
             call_user_func($deleteFunction, $client, $updatedResource != null ? $updatedResource : $resource);
         }
