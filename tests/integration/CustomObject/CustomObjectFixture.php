@@ -1,55 +1,53 @@
 <?php
 
-namespace Commercetools\Core\IntegrationTests\Category;
+namespace Commercetools\Core\IntegrationTests\CustomObject;
 
 use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\ResourceFixture;
-use Commercetools\Core\Model\Category\Category;
-use Commercetools\Core\Model\Category\CategoryDraft;
-use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Request\Categories\CategoryCreateRequest;
-use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
+use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
+use Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest;
+use Commercetools\Core\Request\CustomObjects\CustomObjectDeleteRequest;
 
-class CategoryFixture extends ResourceFixture
+class CustomObjectFixture extends ResourceFixture
 {
-    const CREATE_REQUEST_TYPE = CategoryCreateRequest::class;
-    const DELETE_REQUEST_TYPE = CategoryDeleteRequest::class;
-    const RAND_MAX = 10000;
+    const CREATE_REQUEST_TYPE = CustomObjectCreateRequest::class;
+    const DELETE_REQUEST_TYPE = CustomObjectDeleteRequest::class;
 
-    final public static function uniqueCategoryString()
+    final public static function uniqueCustomObjectString()
     {
         return 'test-' . Uuid::uuidv4();
     }
 
-    final public static function defaultCategoryDraftFunction()
+    final public static function defaultCustomObjectDraftFunction()
     {
-        $draft = CategoryDraft::of();
-
-        $uniqueCategoryString = self::uniqueCategoryString();
-        $draft->setName(LocalizedString::ofLangAndText('en', $uniqueCategoryString))
-            ->setSlug(LocalizedString::ofLangAndText('en', $uniqueCategoryString))
-            ->setKey($uniqueCategoryString);
+        $uniqueCustomObjectString = self::uniqueCustomObjectString();
+        $draft = CustomObjectDraft::ofContainerKeyAndValue(
+            'test-' . $uniqueCustomObjectString . '-container',
+            'test-' . $uniqueCustomObjectString . '-key',
+            'test-' . $uniqueCustomObjectString . '-value'
+        );
 
         return $draft;
     }
 
-    final public static function defaultCategoryDraftBuilderFunction(CategoryDraft $draft)
+    final public static function defaultCustomObjectDraftBuilderFunction(CustomObjectDraft $draft)
     {
         return $draft;
     }
 
-    final public static function defaultCategoryCreateFunction(ApiClient $client, CategoryDraft $draft)
+    final public static function defaultCustomObjectCreateFunction(ApiClient $client, CustomObjectDraft $draft)
     {
         return parent::defaultCreateFunction($client, self::CREATE_REQUEST_TYPE, $draft);
     }
 
-    final public static function defaultCategoryDeleteFunction(ApiClient $client, Category $resource)
+    final public static function defaultCustomObjectDeleteFunction(ApiClient $client, CustomObject $resource)
     {
         return parent::defaultDeleteFunction($client, self::DELETE_REQUEST_TYPE, $resource);
     }
 
-    final public static function withUpdateableDraftCategory(
+    final public static function withUpdateableDraftCustomObject(
         ApiClient $client,
         callable $draftBuilderFunction,
         callable $assertFunction,
@@ -58,13 +56,13 @@ class CategoryFixture extends ResourceFixture
         callable $draftFunction = null
     ) {
         if ($draftFunction == null) {
-            $draftFunction = [__CLASS__, 'defaultCategoryDraftFunction'];
+            $draftFunction = [__CLASS__, 'defaultCustomObjectDraftFunction'];
         }
         if ($createFunction == null) {
-            $createFunction = [__CLASS__, 'defaultCategoryCreateFunction'];
+            $createFunction = [__CLASS__, 'defaultCustomObjectCreateFunction'];
         }
         if ($deleteFunction == null) {
-            $deleteFunction = [__CLASS__, 'defaultCategoryDeleteFunction'];
+            $deleteFunction = [__CLASS__, 'defaultCustomObjectDeleteFunction'];
         }
 
         parent::withUpdateableDraftResource(
@@ -77,7 +75,7 @@ class CategoryFixture extends ResourceFixture
         );
     }
 
-    final public static function withDraftCategory(
+    final public static function withDraftCustomObject(
         ApiClient $client,
         callable $draftBuilderFunction,
         callable $assertFunction,
@@ -86,13 +84,13 @@ class CategoryFixture extends ResourceFixture
         callable $draftFunction = null
     ) {
         if ($draftFunction == null) {
-            $draftFunction = [__CLASS__, 'defaultCategoryDraftFunction'];
+            $draftFunction = [__CLASS__, 'defaultCustomObjectDraftFunction'];
         }
         if ($createFunction == null) {
-            $createFunction = [__CLASS__, 'defaultCategoryCreateFunction'];
+            $createFunction = [__CLASS__, 'defaultCustomObjectCreateFunction'];
         }
         if ($deleteFunction == null) {
-            $deleteFunction = [__CLASS__, 'defaultCategoryDeleteFunction'];
+            $deleteFunction = [__CLASS__, 'defaultCustomObjectDeleteFunction'];
         }
 
         parent::withDraftResource(
@@ -105,16 +103,16 @@ class CategoryFixture extends ResourceFixture
         );
     }
 
-    final public static function withCategory(
+    final public static function withCustomObject(
         ApiClient $client,
         callable $assertFunction,
         callable $createFunction = null,
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        self::withDraftCategory(
+        self::withDraftCustomObject(
             $client,
-            [__CLASS__, 'defaultCategoryDraftBuilderFunction'],
+            [__CLASS__, 'defaultCustomObjectDraftBuilderFunction'],
             $assertFunction,
             $createFunction,
             $deleteFunction,
@@ -122,16 +120,16 @@ class CategoryFixture extends ResourceFixture
         );
     }
 
-    final public static function withUpdateableCategory(
+    final public static function withUpdateableCustomObject(
         ApiClient $client,
         callable $assertFunction,
         callable $createFunction = null,
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        self::withUpdateableDraftCategory(
+        self::withUpdateableDraftCustomObject(
             $client,
-            [__CLASS__, 'defaultCategoryDraftBuilderFunction'],
+            [__CLASS__, 'defaultCustomObjectDraftBuilderFunction'],
             $assertFunction,
             $createFunction,
             $deleteFunction,

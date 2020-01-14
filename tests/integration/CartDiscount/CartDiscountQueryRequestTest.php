@@ -19,7 +19,6 @@ class CartDiscountQueryRequestTest extends ApiTestCase
             $client,
             function (CartDiscount $cartDiscount) use ($client) {
                 $request = RequestBuilder::of()->cartDiscounts()->getById($cartDiscount->getId());
-
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -37,11 +36,11 @@ class CartDiscountQueryRequestTest extends ApiTestCase
             $client,
             function (CartDiscount $cartDiscount) use ($client) {
                 $request = RequestBuilder::of()->cartDiscounts()->getByKey($cartDiscount->getKey());
-
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(CartDiscount::class, $result);
+                $this->assertSame($cartDiscount->getId(), $result->getId());
                 $this->assertSame($cartDiscount->getKey(), $result->getKey());
             }
         );

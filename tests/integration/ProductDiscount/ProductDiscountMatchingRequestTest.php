@@ -17,6 +17,7 @@ use Commercetools\Core\Request\ProductDiscounts\ProductDiscountMatchingRequest;
 
 class ProductDiscountMatchingRequestTest extends ApiTestCase
 {
+//    todo missing migration of Product
     public function testMatchingProductDiscount()
     {
         $productDraft = $this->getProductDraft();

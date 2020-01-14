@@ -590,11 +590,19 @@ EOF;
                     $draftParam = current($params);
                     $type = $draftParam->getClass();
                     $uses[] = 'use ' . $type->getName() . ';';
-                    $methodParams[] = [
-                        self::PARAM_TYPE => $type->getShortName(),
-                        self::PARAM_NAME => '$' . $draftParam->getName()
-                    ];
-                    $factoryCall = 'ofDraft($' . $draftParam->getName() . ');';
+                    if ($domain == 'CustomObjects') {
+                        $methodParams[] = [
+                            self::PARAM_DOC_TYPE => 'CustomObjectDraft|CustomObject',
+                            self::PARAM_NAME => '$' . $draftParam->getName()
+                        ];
+                        $factoryCall = 'ofObject($' . $draftParam->getName() . ');';
+                    } else {
+                        $methodParams[] = [
+                            self::PARAM_TYPE => $type->getShortName(),
+                            self::PARAM_NAME => '$' . $draftParam->getName()
+                        ];
+                        $factoryCall = 'ofDraft($' . $draftParam->getName() . ');';
+                    }
                     break;
                 case 'createFromCart':
                     $uses[] = 'use ' . Cart::class . ';';
