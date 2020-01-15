@@ -61,6 +61,7 @@ use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 
 class ShippingMethodUpdateRequestTest extends ApiTestCase
 {
+//    todo Project migration missing
     public function tearDown(): void
     {
         parent::tearDown();
@@ -282,25 +283,25 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
 
     public function testChangeIsDefault()
     {
-        $draft = $this->getDraft('change-is-default');
-        $shippingMethod = $this->createShippingMethod($draft);
+        $client = $this->getApiClient();
 
+        ShippingMethodFixture::withUpdateableShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
+                $isDefault = true;
 
-        $isDefault = true;
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $shippingMethod->getVersion()
-        )
-            ->addAction(ShippingMethodChangeIsDefaultAction::ofIsDefault($isDefault))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                    ->addAction(ShippingMethodChangeIsDefaultAction::ofIsDefault($isDefault));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(ShippingMethod::class, $result);
+                $this->assertInstanceOf(ShippingMethod::class, $result);
+                $this->assertSame($isDefault, $result->getIsDefault());
+                $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
 
-        $this->assertSame($isDefault, $result->getIsDefault());
-        $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testAddRemoveShippingRate()
