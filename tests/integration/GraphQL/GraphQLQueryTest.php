@@ -11,6 +11,7 @@ use Commercetools\Core\Request\GraphQL\GraphQLQueryRequest;
 
 class GraphQLQueryTest extends ApiTestCase
 {
+//    todo migrate Product first
     public function testGraphQLEndpoint()
     {
         $product = $this->getProduct();
