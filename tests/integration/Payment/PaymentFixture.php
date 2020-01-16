@@ -26,13 +26,11 @@ class PaymentFixture extends ResourceFixture
     {
         $uniquePaymentString = self::uniquePaymentString();
         $externalId = 'test-' . $uniquePaymentString . '-payment';
-        $draft = PaymentDraft::ofKeyExternalIdAmountPlannedAndPaymentMethodInfo(
+
+        $draft = PaymentDraft::ofKeyExternalIdAndAmountPlanned(
             $externalId,
             $externalId,
-            Money::ofCurrencyAndAmount('EUR', 100),
-            PaymentMethodInfo::of()
-                ->setPaymentInterface('Test')
-                ->setMethod('CreditCard')
+            Money::ofCurrencyAndAmount('EUR', 100)
         );
 
         return $draft;
