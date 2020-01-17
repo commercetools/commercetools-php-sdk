@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Product;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
@@ -56,117 +57,169 @@ class ProductQueryRequestTest extends ApiTestCase
         return $product;
     }
 
+    protected function getProductVariantDraft()
+    {
+        return ProductVariantDraft::ofSkuAndPrices(
+            'sku' . uniqid(),
+            PriceDraftCollection::of()->add(
+                PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
+            )
+        );
+    }
     public function testQuery()
     {
-        $draft = $this->getDraft();
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $request = ProductQueryRequest::of()->where('masterData(current(name(en=:name)))', ['name' => $draft->getName()->en]);
+        ProductFixture::withProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $request = RequestBuilder::of()->products()->query()
+                    ->where(
+                        'masterData(current(name(en=:name)))',
+                        ['name' => $product->getMasterData()->getCurrent()->getName()->en]
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(Product::class, $result->getAt(0));
-        $this->assertSame($product->getId(), $result->getAt(0)->getId());
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Product::class, $result->current());
+                $this->assertSame($product->getId(), $result->current()->getId());
+            }
+        );
     }
 
     public function testGetById()
     {
-        $draft = $this->getDraft();
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $request = ProductByIdGetRequest::ofId($product->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ProductFixture::withProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $request = RequestBuilder::of()->products()->getById($product->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertSame($product->getId(), $result->getId());
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertSame($product->getId(), $result->getId());
+            }
+        );
     }
 
     public function testGetByKey()
     {
-        $draft = $this->getDraft();
-        $draft->setKey($this->getTestRun());
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $request = ProductByKeyGetRequest::ofKey($product->getKey());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setKey(ProductFixture::uniqueProductString());
+            },
+            function (Product $product) use ($client) {
+                $request = RequestBuilder::of()->products()->getByKey($product->getKey());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertSame($product->getKey(), $result->getKey());
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertSame($product->getId(), $result->getId());
+                $this->assertSame($product->getKey(), $result->getKey());
+            }
+        );
     }
 
     public function testGetProjectionByKey()
     {
-        $draft = $this->getDraft();
-        $draft->setKey($this->getTestRun());
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $request = ProductProjectionByKeyGetRequest::ofKey($product->getKey())->staged(true);
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setKey(ProductFixture::uniqueProductString());
+            },
+            function (Product $product) use ($client) {
+                $request = RequestBuilder::of()->productProjections()->getByKey($product->getKey())->staged(true);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(ProductProjection::class, $result);
-        $this->assertSame($product->getKey(), $result->getKey());
-        $this->assertSame($product->getId(), $result->getId());
+                $this->assertInstanceOf(ProductProjection::class, $result);
+                $this->assertSame($product->getKey(), $result->getKey());
+                $this->assertSame($product->getId(), $result->getId());
+            }
+        );
     }
 
     public function testPriceSelectProductQuery()
     {
-        $draft = $this->getDraft();
-        $draft->setMasterVariant(
-            ProductVariantDraft::ofSkuAndPrices(
-                'sku' . uniqid(),
-                PriceDraftCollection::of()->add(
-                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                )
-            )
+        $client = $this->getApiClient();
+
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setMasterVariant($this->getProductVariantDraft());
+            },
+            function (Product $product) use ($client) {
+                $request = RequestBuilder::of()->products()->query()
+                    ->where(
+                        'masterData(current(name(en=:name)))',
+                        ['name' => $product->getMasterData()->getCurrent()->getName()->en]
+                    )->currency('EUR');
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Product::class, $result->getAt(0));
+                $this->assertEmpty(
+                    $result->current()->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getCountry()
+                );
+                $this->assertEmpty(
+                    $result->current()->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getChannel()
+                );
+                $this->assertEmpty(
+                    $result->current()->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getCustomerGroup()
+                );
+                $this->assertSame(
+                    'EUR',
+                    $result->current()->getMasterData()->getStaged()
+                        ->getMasterVariant()->getPrice()->getValue()->getCurrencyCode()
+                );
+                $this->assertSame(
+                    100,
+                    $result->current()->getMasterData()->getStaged()
+                        ->getMasterVariant()->getPrice()->getValue()->getCentAmount()
+                );
+            }
         );
-        $this->createProduct($draft);
-
-        $request = ProductQueryRequest::of()
-            ->where('masterData(current(name(en=:name)))', ['name' => $draft->getName()->en])
-            ->currency('EUR')
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(Product::class, $result->getAt(0));
-        $this->assertEmpty($result->current()->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getCountry());
-        $this->assertEmpty($result->current()->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getChannel());
-        $this->assertEmpty($result->current()->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getCustomerGroup());
-        $this->assertSame('EUR', $result->current()->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getValue()->getCurrencyCode());
-        $this->assertSame(100, $result->current()->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getValue()->getCentAmount());
     }
 
     public function testPriceSelectProductById()
     {
-        $draft = $this->getDraft();
-        $draft->setMasterVariant(
-            ProductVariantDraft::ofSkuAndPrices(
-                'sku' . uniqid(),
-                PriceDraftCollection::of()->add(
-                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                )
-            )
+        $client = $this->getApiClient();
+
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setMasterVariant($this->getProductVariantDraft());
+            },
+            function (Product $product) use ($client) {
+                $request = RequestBuilder::of()->products()->getById($product->getId())->currency('EUR');
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getCountry());
+                $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getChannel());
+                $this->assertEmpty(
+                    $result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getCustomerGroup()
+                );
+                $this->assertSame(
+                    'EUR',
+                    $result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getValue()->getCurrencyCode()
+                );
+                $this->assertSame(
+                    100,
+                    $result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getValue()->getCentAmount()
+                );
+            }
         );
-        $product = $this->createProduct($draft);
-
-        $request = ProductByIdGetRequest::ofId($product->getId())
-            ->currency('EUR')
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getCountry());
-        $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getChannel());
-        $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getCustomerGroup());
-        $this->assertSame('EUR', $result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getValue()->getCurrencyCode());
-        $this->assertSame(100, $result->getMasterData()->getStaged()->getMasterVariant()->getPrice()->getValue()->getCentAmount());
     }
 
     public function testPriceSelectProductProjectionQuery()
