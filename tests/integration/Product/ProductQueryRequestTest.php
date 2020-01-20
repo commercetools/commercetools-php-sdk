@@ -224,115 +224,123 @@ class ProductQueryRequestTest extends ApiTestCase
 
     public function testPriceSelectProductProjectionQuery()
     {
-        $draft = $this->getDraft();
-        $draft->setMasterVariant(
-            ProductVariantDraft::ofSkuAndPrices(
-                'sku' . uniqid(),
-                PriceDraftCollection::of()->add(
-                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                )
-            )
+        $client = $this->getApiClient();
+
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setMasterVariant($this->getProductVariantDraft());
+            },
+            function (Product $product) use ($client) {
+                $request = RequestBuilder::of()->productProjections()->query()
+                    ->where('name(en=:name)', ['name' => $product->getMasterData()->getCurrent()->getName()->en])
+                    ->currency('EUR')
+                    ->staged(true);
+
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(ProductProjection::class, $result->current());
+                $this->assertEmpty($result->current()->getMasterVariant()->getPrice()->getCountry());
+                $this->assertEmpty($result->current()->getMasterVariant()->getPrice()->getChannel());
+                $this->assertEmpty($result->current()->getMasterVariant()->getPrice()->getCustomerGroup());
+                $this->assertSame(
+                    'EUR',
+                    $result->current()->getMasterVariant()->getPrice()->getValue()->getCurrencyCode()
+                );
+                $this->assertSame(100, $result->current()->getMasterVariant()->getPrice()->getValue()->getCentAmount());
+            }
         );
-        $this->createProduct($draft);
-
-        $request = ProductProjectionQueryRequest::of()
-            ->where('name(en="' . $draft->getName()->en . '")')
-            ->currency('EUR')
-            ->staged(true)
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(ProductProjection::class, $result->getAt(0));
-        $this->assertEmpty($result->current()->getMasterVariant()->getPrice()->getCountry());
-        $this->assertEmpty($result->current()->getMasterVariant()->getPrice()->getChannel());
-        $this->assertEmpty($result->current()->getMasterVariant()->getPrice()->getCustomerGroup());
-        $this->assertSame('EUR', $result->current()->getMasterVariant()->getPrice()->getValue()->getCurrencyCode());
-        $this->assertSame(100, $result->current()->getMasterVariant()->getPrice()->getValue()->getCentAmount());
     }
 
     public function testSkuParametrized()
     {
-        $draft = $this->getDraft();
+        $client = $this->getApiClient();
         $sku1 = 'sku1' . uniqid();
         $sku2 = 'sku2' . uniqid();
-        $draft->setMasterVariant(ProductVariantDraft::ofSku($sku1));
-        $draft->setVariants(ProductVariantDraftCollection::of()->add(ProductVariantDraft::ofSku($sku2)));
-        $this->createProduct($draft);
 
-        $request = ProductProjectionQueryRequest::of()
-            ->where(
-                'masterVariant(sku in (:skus1, :skus2)) or variants(sku in (:skus1, :skus2))',
-                [
-                    'skus1' => 'whatever',
-                    'skus2' => $sku2
-                ]
-            )
-            ->staged(true)
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(ProductProjection::class, $result->getAt(0));
-        $this->assertSame($sku1, $result->current()->getMasterVariant()->getSku());
-        $this->assertSame($sku2, $result->current()->getVariants()->current()->getSku());
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $draft) use ($sku1, $sku2) {
+                return $draft->setMasterVariant(ProductVariantDraft::ofSku($sku1))
+                    ->setVariants(ProductVariantDraftCollection::of()->add(ProductVariantDraft::ofSku($sku2)));
+            },
+            function (Product $product) use ($client, $sku1, $sku2) {
+                $request = RequestBuilder::of()->productProjections()->query()
+                    ->where(
+                        'masterVariant(sku in (:skus1, :skus2)) or variants(sku in (:skus1, :skus2))',
+                        [
+                            'skus1' => 'whatever',
+                            'skus2' => $sku2
+                        ]
+                    )
+                    ->staged(true);
+
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(ProductProjection::class, $result->current());
+                $this->assertSame($sku1, $result->current()->getMasterVariant()->getSku());
+                $this->assertSame($sku2, $result->current()->getVariants()->current()->getSku());
+            }
+        );
     }
 
     public function testPriceSelectProductProjectionById()
     {
-        $draft = $this->getDraft();
-        $draft->setMasterVariant(
-            ProductVariantDraft::ofSkuAndPrices(
-                'sku' . uniqid(),
-                PriceDraftCollection::of()->add(
-                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                )
-            )
+        $client = $this->getApiClient();
+
+
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setMasterVariant($this->getProductVariantDraft());
+            },
+            function (Product $product) use ($client) {
+                $request = RequestBuilder::of()->productProjections()->getById($product->getId())
+                    ->currency('EUR')
+                    ->staged(true);
+
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductProjection::class, $result);
+                $this->assertEmpty($result->getMasterVariant()->getPrice()->getCountry());
+                $this->assertEmpty($result->getMasterVariant()->getPrice()->getChannel());
+                $this->assertEmpty($result->getMasterVariant()->getPrice()->getCustomerGroup());
+                $this->assertSame('EUR', $result->getMasterVariant()->getPrice()->getValue()->getCurrencyCode());
+                $this->assertSame(100, $result->getMasterVariant()->getPrice()->getValue()->getCentAmount());
+            }
         );
-        $product = $this->createProduct($draft);
-
-        $request = ProductProjectionByIdGetRequest::ofId($product->getId())
-            ->currency('EUR')
-            ->staged(true)
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertInstanceOf(ProductProjection::class, $result);
-        $this->assertEmpty($result->getMasterVariant()->getPrice()->getCountry());
-        $this->assertEmpty($result->getMasterVariant()->getPrice()->getChannel());
-        $this->assertEmpty($result->getMasterVariant()->getPrice()->getCustomerGroup());
-        $this->assertSame('EUR', $result->getMasterVariant()->getPrice()->getValue()->getCurrencyCode());
-        $this->assertSame(100, $result->getMasterVariant()->getPrice()->getValue()->getCentAmount());
     }
 
     public function testPriceSelectProductProjectionBySlug()
     {
-        $draft = $this->getDraft();
-        $draft->setMasterVariant(
-            ProductVariantDraft::ofSkuAndPrices(
-                'sku' . uniqid(),
-                PriceDraftCollection::of()->add(
-                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                )
-            )
+        $client = $this->getApiClient();
+
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setMasterVariant($this->getProductVariantDraft());
+            },
+            function (Product $product) use ($client) {
+                $request = RequestBuilder::of()->productProjections()
+                    ->getBySlug($product->getMasterData()->getCurrent()->getSlug(), ['en'], true)
+                    ->currency('EUR')
+                    ->country('DE');
+
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductProjection::class, $result);
+                $this->assertEmpty($result->getMasterVariant()->getPrice()->getCountry());
+                $this->assertEmpty($result->getMasterVariant()->getPrice()->getChannel());
+                $this->assertEmpty($result->getMasterVariant()->getPrice()->getCustomerGroup());
+                $this->assertSame('EUR', $result->getMasterVariant()->getPrice()->getValue()->getCurrencyCode());
+                $this->assertSame(100, $result->getMasterVariant()->getPrice()->getValue()->getCentAmount());
+            }
         );
-        $product = $this->createProduct($draft);
-
-        $request = ProductProjectionBySlugGetRequest::ofSlugAndContext($draft->getSlug()->en, $this->getClient()->getConfig()->getContext())
-            ->currency('EUR')
-            ->country('DE')
-            ->staged(true)
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertInstanceOf(ProductProjection::class, $result);
-        $this->assertEmpty($result->getMasterVariant()->getPrice()->getCountry());
-        $this->assertEmpty($result->getMasterVariant()->getPrice()->getChannel());
-        $this->assertEmpty($result->getMasterVariant()->getPrice()->getCustomerGroup());
-        $this->assertSame('EUR', $result->getMasterVariant()->getPrice()->getValue()->getCurrencyCode());
-        $this->assertSame(100, $result->getMasterVariant()->getPrice()->getValue()->getCentAmount());
     }
 }

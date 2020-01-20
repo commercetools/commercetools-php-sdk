@@ -51,7 +51,7 @@ class ProductFixture extends ResourceFixture
         $draft = ProductDraft::ofTypeNameAndSlug(
             $productTypeReference,
             LocalizedString::ofLangAndText('en', 'test-' . $uniqueProductString . '-name'),
-            LocalizedString::ofLangAndText('en', 'test-' . $uniqueProductString . '-name')
+            LocalizedString::ofLangAndText('en', 'test-' . $uniqueProductString . '-slug')
         );
 
         return $draft;
