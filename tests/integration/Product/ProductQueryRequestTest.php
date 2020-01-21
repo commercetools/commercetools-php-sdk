@@ -8,7 +8,6 @@ namespace Commercetools\Core\IntegrationTests\Product;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
@@ -17,46 +16,9 @@ use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraftCollection;
-use Commercetools\Core\Request\Products\ProductByIdGetRequest;
-use Commercetools\Core\Request\Products\ProductByKeyGetRequest;
-use Commercetools\Core\Request\Products\ProductCreateRequest;
-use Commercetools\Core\Request\Products\ProductDeleteRequest;
-use Commercetools\Core\Request\Products\ProductProjectionByIdGetRequest;
-use Commercetools\Core\Request\Products\ProductProjectionByKeyGetRequest;
-use Commercetools\Core\Request\Products\ProductProjectionBySlugGetRequest;
-use Commercetools\Core\Request\Products\ProductProjectionQueryRequest;
-use Commercetools\Core\Request\Products\ProductQueryRequest;
 
 class ProductQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @return ProductDraft
-     */
-    protected function getDraft()
-    {
-        $draft = ProductDraft::ofTypeNameAndSlug(
-            $this->getProductType()->getReference(),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product')
-        );
-
-        return $draft;
-    }
-
-    protected function createProduct(ProductDraft $draft)
-    {
-        $request = ProductCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $product = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = ProductDeleteRequest::ofIdAndVersion(
-            $product->getId(),
-            $product->getVersion()
-        );
-
-        return $product;
-    }
-
     protected function getProductVariantDraft()
     {
         return ProductVariantDraft::ofSkuAndPrices(

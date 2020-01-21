@@ -6,15 +6,25 @@ use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\ProductType\ProductTypeFixture;
 use Commercetools\Core\IntegrationTests\ResourceFixture;
+use Commercetools\Core\IntegrationTests\TaxCategory\TaxCategoryFixture;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Common\PriceDraft;
+use Commercetools\Core\Model\Common\PriceDraftCollection;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
+use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
 use Commercetools\Core\Model\ProductType\StringType;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Model\Type\TypeReference;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
 
@@ -45,13 +55,22 @@ class ProductFixture extends ResourceFixture
         return 'test-' . Uuid::uuidv4();
     }
 
-    final public static function defaultProductDraftFunction($productTypeReference)
+    final public static function defaultProductDraftFunction($productTypeReference, $taxCategoryReference)
     {
         $uniqueProductString = self::uniqueProductString();
-        $draft = ProductDraft::ofTypeNameAndSlug(
+        $sku = "SKU" . ProductFixture::uniqueProductString();
+
+        $draft = ProductDraft::ofTypeNameSlugMasterVariantAndTaxCategory(
             $productTypeReference,
             LocalizedString::ofLangAndText('en', 'test-' . $uniqueProductString . '-name'),
-            LocalizedString::ofLangAndText('en', 'test-' . $uniqueProductString . '-slug')
+            LocalizedString::ofLangAndText('en', 'test-' . $uniqueProductString . '-slug'),
+            ProductVariantDraft::ofSkuAndPrices(
+                $sku,
+                PriceDraftCollection::of()->add(
+                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                )
+            ),
+            $taxCategoryReference
         );
 
         return $draft;
@@ -95,30 +114,53 @@ class ProductFixture extends ResourceFixture
                 $deleteFunction,
                 $draftFunction
             ) {
-                $productTypeReference = ProductTypeReference::ofId($productType->getId());
-                if ($draftFunction == null) {
-                    $draftFunction = function () use ($productTypeReference) {
-                        return call_user_func([__CLASS__, 'defaultProductDraftFunction'], $productTypeReference);
-                    };
-                } else {
-                    $draftFunction = function () use ($productTypeReference, $draftFunction) {
-                        return call_user_func($draftFunction, $productTypeReference);
-                    };
-                }
-                if ($createFunction == null) {
-                    $createFunction = [__CLASS__, 'defaultProductCreateFunction'];
-                }
-                if ($deleteFunction == null) {
-                    $deleteFunction = [__CLASS__, 'defaultProductDeleteFunction'];
-                }
-
-                parent::withUpdateableDraftResource(
+                TaxCategoryFixture::withTaxCategory(
                     $client,
-                    $draftBuilderFunction,
-                    $assertFunction,
-                    $createFunction,
-                    $deleteFunction,
-                    $draftFunction
+                    function (TaxCategory $taxCategory) use (
+                        $client,
+                        $productType,
+                        $draftBuilderFunction,
+                        $assertFunction,
+                        $createFunction,
+                        $deleteFunction,
+                        $draftFunction
+                    ) {
+                        $taxCategoryReference = TaxCategoryReference::ofId($taxCategory->getId());
+                        $productTypeReference = ProductTypeReference::ofId($productType->getId());
+                        if ($draftFunction == null) {
+                            $draftFunction = function () use ($productTypeReference, $taxCategoryReference) {
+                                return call_user_func(
+                                    [__CLASS__, 'defaultProductDraftFunction'],
+                                    $productTypeReference,
+                                    $taxCategoryReference
+                                );
+                            };
+                        } else {
+                            $draftFunction = function () use (
+                                $productTypeReference,
+                                $taxCategoryReference,
+                                $draftFunction
+                            ) {
+                                return call_user_func($draftFunction, $taxCategoryReference, $productTypeReference);
+                            };
+                        }
+                        if ($createFunction == null) {
+                            $createFunction = [__CLASS__, 'defaultProductCreateFunction'];
+                        }
+                        if ($deleteFunction == null) {
+                            $deleteFunction = [__CLASS__, 'defaultProductDeleteFunction'];
+                        }
+
+                        parent::withUpdateableDraftResource(
+                            $client,
+                            $draftBuilderFunction,
+                            $assertFunction,
+                            $createFunction,
+                            $deleteFunction,
+                            $draftFunction,
+                            [$productType, $taxCategory]
+                        );
+                    }
                 );
             }
         );
@@ -148,30 +190,53 @@ class ProductFixture extends ResourceFixture
                 $deleteFunction,
                 $draftFunction
             ) {
-                $productTypeReference = ProductTypeReference::ofId($productType->getId());
-                if ($draftFunction == null) {
-                    $draftFunction = function () use ($productTypeReference) {
-                        return call_user_func([__CLASS__, 'defaultProductDraftFunction'], $productTypeReference);
-                    };
-                } else {
-                    $draftFunction = function () use ($productTypeReference, $draftFunction) {
-                        return call_user_func($draftFunction, $productTypeReference);
-                    };
-                }
-                if ($createFunction == null) {
-                    $createFunction = [__CLASS__, 'defaultProductCreateFunction'];
-                }
-                if ($deleteFunction == null) {
-                    $deleteFunction = [__CLASS__, 'defaultProductDeleteFunction'];
-                }
-
-                parent::withDraftResource(
+                TaxCategoryFixture::withTaxCategory(
                     $client,
-                    $draftBuilderFunction,
-                    $assertFunction,
-                    $createFunction,
-                    $deleteFunction,
-                    $draftFunction
+                    function (TaxCategory $taxCategory) use (
+                        $client,
+                        $productType,
+                        $draftBuilderFunction,
+                        $assertFunction,
+                        $createFunction,
+                        $deleteFunction,
+                        $draftFunction
+                    ) {
+                        $taxCategoryReference = TaxCategoryReference::ofId($taxCategory->getId());
+                        $productTypeReference = ProductTypeReference::ofId($productType->getId());
+                        if ($draftFunction == null) {
+                            $draftFunction = function () use ($productTypeReference, $taxCategoryReference) {
+                                return call_user_func(
+                                    [__CLASS__, 'defaultProductDraftFunction'],
+                                    $productTypeReference,
+                                    $taxCategoryReference
+                                );
+                            };
+                        } else {
+                            $draftFunction = function () use (
+                                $productTypeReference,
+                                $taxCategoryReference,
+                                $draftFunction
+                            ) {
+                                return call_user_func($draftFunction, $productTypeReference, $taxCategoryReference);
+                            };
+                        }
+                        if ($createFunction == null) {
+                            $createFunction = [__CLASS__, 'defaultProductCreateFunction'];
+                        }
+                        if ($deleteFunction == null) {
+                            $deleteFunction = [__CLASS__, 'defaultProductDeleteFunction'];
+                        }
+
+                        parent::withDraftResource(
+                            $client,
+                            $draftBuilderFunction,
+                            $assertFunction,
+                            $createFunction,
+                            $deleteFunction,
+                            $draftFunction,
+                            [$productType, $taxCategory]
+                        );
+                    }
                 );
             }
         );
