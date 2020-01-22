@@ -6,10 +6,14 @@
 
 namespace Commercetools\Core\IntegrationTests\Product;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Error\DuplicateFieldError;
+use Commercetools\Core\IntegrationTests\Category\CategoryFixture;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
+use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Common\Asset;
 use Commercetools\Core\Model\Common\AssetDraft;
 use Commercetools\Core\Model\Common\AssetSource;
@@ -30,6 +34,7 @@ use Commercetools\Core\Model\Product\SearchKeywords;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Request\Products\Command\ProductAddAssetAction;
 use Commercetools\Core\Request\Products\Command\ProductAddExternalImageAction;
 use Commercetools\Core\Request\Products\Command\ProductAddPriceAction;
@@ -80,639 +85,709 @@ class ProductUpdateRequestTest extends ApiTestCase
 {
     private $productId;
 
-    public function tearDown(): void
-    {
-        $request = ProductUpdateRequest::ofIdAndVersion($this->productId, $this->deleteRequest->getVersion())
-            ->addAction(ProductUnpublishAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        if (!$response->isError()) {
-            $result = $request->mapResponse($response);
-            $this->deleteRequest->setVersion($result->getVersion());
-        }
+//    public function tearDown(): void
+//    {
+//        $request = ProductUpdateRequest::ofIdAndVersion($this->productId, $this->deleteRequest->getVersion())
+//            ->addAction(ProductUnpublishAction::of())
+//        ;
+//        $response = $request->executeWithClient($this->getClient());
+//        if (!$response->isError()) {
+//            $result = $request->mapResponse($response);
+//            $this->deleteRequest->setVersion($result->getVersion());
+//        }
+//
+//        parent::tearDown();
+//    }
 
-        parent::tearDown();
+    /**
+     * @param Product $result
+     * @return \Commercetools\Core\Model\Common\PriceCollection
+     */
+    protected function getCurrentPrices(Product $result)
+    {
+        return $result->getMasterData()->getCurrent()->getMasterVariant()->getPrices();
     }
+
 
     public function testCreatePublish()
     {
-        $draft = $this->getDraft('create-publish');
-        $draft->setPublish(true);
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $this->assertTrue($product->getMasterData()->getPublished());
+        ProductFixture::withUpdateableDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setPublish(true);
+            },
+            function (Product $product) use ($client) {
+                $this->assertTrue($product->getMasterData()->getPublished());
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(ProductUnpublishAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->products()->update($product)->addAction(ProductUnpublishAction::of());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeName()
     {
-        $draft = $this->getDraft('change-name');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $name = $this->getTestRun() . '-new name';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductChangeNameAction::ofName(
-                    LocalizedString::ofLangAndText('en', $name)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $name = 'new name-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertNotSame($name, $result->getMasterData()->getCurrent()->getName()->en);
-        $this->assertSame($name, $result->getMasterData()->getStaged()->getName()->en);
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductChangeNameAction::ofName(
+                            LocalizedString::ofLangAndText('en', $name)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertNotSame($name, $result->getMasterData()->getCurrent()->getName()->en);
+                $this->assertSame($name, $result->getMasterData()->getStaged()->getName()->en);
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testExternalImage()
     {
-        $draft = $this->getDraft('external-image');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductAddExternalImageAction::ofVariantIdAndImage(
-                    $variant->getId(),
-                    Image::of()
-                        ->setLabel('testLabel')
-                        ->setUrl('testUri#test1')
-                        ->setDimensions(ImageDimension::of()->setW(60)->setH(60))
-                )
-            )
-            ->addAction(
-                ProductAddExternalImageAction::ofVariantIdAndImage(
-                    $variant->getId(),
-                    Image::of()
-                        ->setLabel('testLabel')
-                        ->setUrl('testUri#test2')
-                        ->setDimensions(ImageDimension::of()->setW(60)->setH(60))
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertCount(0, $result->getMasterData()->getCurrent()->getMasterVariant()->getImages());
-        $this->assertCount(2, $result->getMasterData()->getStaged()->getMasterVariant()->getImages());
-        $this->assertSame(
-            'testUri#test1',
-            $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->getAt(0)->getUrl()
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductAddExternalImageAction::ofVariantIdAndImage(
+                            $variant->getId(),
+                            Image::of()
+                                ->setLabel('testLabel')
+                                ->setUrl('testUri#test1')
+                                ->setDimensions(ImageDimension::of()->setW(60)->setH(60))
+                        )
+                    )
+                    ->addAction(
+                        ProductAddExternalImageAction::ofVariantIdAndImage(
+                            $variant->getId(),
+                            Image::of()
+                                ->setLabel('testLabel')
+                                ->setUrl('testUri#test2')
+                                ->setDimensions(ImageDimension::of()->setW(60)->setH(60))
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertCount(0, $result->getMasterData()->getCurrent()->getMasterVariant()->getImages());
+                $this->assertCount(2, $result->getMasterData()->getStaged()->getMasterVariant()->getImages());
+                $this->assertSame(
+                    'testUri#test1',
+                    $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->getAt(0)->getUrl()
+                );
+                $this->assertSame(
+                    'testUri#test2',
+                    $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->getAt(1)->getUrl()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $this->assertSame(
-            'testUri#test2',
-            $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->getAt(1)->getUrl()
-        );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testSetDescription()
     {
-        $draft = $this->getDraft('set-description');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $description = $this->getTestRun() . '-new description';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetDescriptionAction::ofDescription(
-                    LocalizedString::ofLangAndText('en', $description)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $description = 'new description-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertSame($description, $result->getMasterData()->getStaged()->getDescription()->en);
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetDescriptionAction::ofDescription(
+                            LocalizedString::ofLangAndText('en', $description)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertSame($description, $result->getMasterData()->getStaged()->getDescription()->en);
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeSlug()
     {
-        $draft = $this->getDraft('change-slug');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $slug = $this->getTestRun() . '-new-slug';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductChangeSlugAction::ofSlug(
-                    LocalizedString::ofLangAndText('en', $slug)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $slug = 'new-slug-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertNotSame($slug, $result->getMasterData()->getCurrent()->getSlug()->en);
-        $this->assertSame($slug, $result->getMasterData()->getStaged()->getSlug()->en);
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductChangeSlugAction::ofSlug(
+                            LocalizedString::ofLangAndText('en', $slug)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertNotSame($slug, $result->getMasterData()->getCurrent()->getSlug()->en);
+                $this->assertSame($slug, $result->getMasterData()->getStaged()->getSlug()->en);
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testVariants()
     {
-        $draft = $this->getDraft('add-variant');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $sku = $this->getTestRun() . '-sku';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductAddVariantAction::of()->setSku($sku)->setKey($sku)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $sku = 'sku-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
-        $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
-        $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getKey());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductAddVariantAction::of()->setSku($sku)->setKey($sku)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductRemoveVariantAction::ofVariantId(
-                    $result->getMasterData()->getStaged()->getVariants()->current()->getId()
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
+                $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
+                $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getKey());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
-        $this->assertEmpty($result->getMasterData()->getStaged()->getVariants());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
+                $product = $result;
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductRemoveVariantAction::ofVariantId(
+                            $result->getMasterData()->getStaged()->getVariants()->current()->getId()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
+                $this->assertEmpty($result->getMasterData()->getStaged()->getVariants());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeMasterVariant()
     {
-        $draft = $this->getDraft('change-master-variant');
-        $draft->setMasterVariant(ProductVariantDraft::ofSku($this->getTestRun() . '-master-sku'));
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $sku = $this->getTestRun() . '-sku';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductAddVariantAction::of()->setSku($sku)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setMasterVariant(
+                    ProductVariantDraft::ofSku('master-sku-' . ProductFixture::uniqueProductString())
+                );
+            },
+            function (Product $product) use ($client) {
+                $sku = 'sku-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
-        $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductAddVariantAction::of()->setSku($sku)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $masterVariantSku =  $result->getMasterData()->getStaged()->getMasterVariant()->getSku();
-        $variantSku =  $result->getMasterData()->getStaged()->getVariants()->current()->getSku();
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
+                $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductChangeMasterVariantAction::ofVariantId(
-                    $result->getMasterData()->getStaged()->getVariants()->current()->getId()
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $product = $result;
+                $masterVariantSku =  $result->getMasterData()->getStaged()->getMasterVariant()->getSku();
+                $variantSku =  $result->getMasterData()->getStaged()->getVariants()->current()->getSku();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
-        $this->assertSame($masterVariantSku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
-        $this->assertSame($variantSku, $result->getMasterData()->getStaged()->getMasterVariant()->getSku());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductChangeMasterVariantAction::ofVariantId(
+                            $result->getMasterData()->getStaged()->getVariants()->current()->getId()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductChangeMasterVariantAction::ofSku(
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
+                $this->assertSame(
+                    $masterVariantSku,
                     $result->getMasterData()->getStaged()->getVariants()->current()->getSku()
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                );
+                $this->assertSame($variantSku, $result->getMasterData()->getStaged()->getMasterVariant()->getSku());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
-        $this->assertSame($variantSku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
-        $this->assertSame($masterVariantSku, $result->getMasterData()->getStaged()->getMasterVariant()->getSku());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
+                $product = $result;
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductChangeMasterVariantAction::ofSku(
+                            $result->getMasterData()->getStaged()->getVariants()->current()->getSku()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
+                $this->assertSame(
+                    $variantSku,
+                    $result->getMasterData()->getStaged()->getVariants()->current()->getSku()
+                );
+                $this->assertSame(
+                    $masterVariantSku,
+                    $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testVariantsWithSku()
     {
-        $draft = $this->getDraft('add-variant');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $sku = $this->getTestRun() . '-sku';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductAddVariantAction::of()->setSku($sku)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $sku = 'sku-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
-        $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductAddVariantAction::of()->setSku($sku)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductRemoveVariantAction::ofSku(
-                    $result->getMasterData()->getStaged()->getVariants()->current()->getSku()
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
+                $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getSku());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
-        $this->assertEmpty($result->getMasterData()->getStaged()->getVariants());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
+                $product = $result;
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductRemoveVariantAction::ofSku(
+                            $result->getMasterData()->getStaged()->getVariants()->current()->getSku()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
+                $this->assertEmpty($result->getMasterData()->getStaged()->getVariants());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testPrices()
     {
-        $draft = $this->getDraft('add-price');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100));
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductAddPriceAction::ofVariantIdAndPrice(
-                    $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
-                    $price
-                )
-            )
-        ;
-        $request->currency('EUR');
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                $draft->getMasterVariant()->setPrices(PriceDraftCollection::of());
 
-        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertSame(
-            $price->getValue()->getCentAmount(),
-            $variant->getPrices()->current()->getValue()->getCentAmount()
+                return $draft;
+            },
+            function (Product $product) use ($client) {
+                $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('USD', 300));
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductAddPriceAction::ofVariantIdAndPrice(
+                            $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
+                            $price
+                        )
+                    )->currency('USD');
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertSame(
+                    $price->getValue()->getCentAmount(),
+                    $variant->getPrices()->current()->getValue()->getCentAmount()
+                );
+
+                $this->assertEmpty($variant->getPrice()->getCountry());
+                $this->assertEmpty($variant->getPrice()->getChannel());
+                $this->assertEmpty($variant->getPrice()->getCustomerGroup());
+                $this->assertSame('USD', $variant->getPrice()->getValue()->getCurrencyCode());
+                $this->assertSame(300, $variant->getPrice()->getValue()->getCentAmount());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+                $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('USD', 400));
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductChangePriceAction::ofPriceIdAndPrice(
+                            $variant->getPrices()->current()->getId(),
+                            $price
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertSame(
+                    $price->getValue()->getCentAmount(),
+                    $variant->getPrices()->current()->getValue()->getCentAmount()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductRemovePriceAction::ofPriceId(
+                            $variant->getPrices()->current()->getId()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-
-        $this->assertEmpty($variant->getPrice()->getCountry());
-        $this->assertEmpty($variant->getPrice()->getChannel());
-        $this->assertEmpty($variant->getPrice()->getCustomerGroup());
-        $this->assertSame('EUR', $variant->getPrice()->getValue()->getCurrencyCode());
-        $this->assertSame(100, $variant->getPrice()->getValue()->getCentAmount());
-
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 200));
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductChangePriceAction::ofPriceIdAndPrice(
-                    $variant->getPrices()->current()->getId(),
-                    $price
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertSame(
-            $price->getValue()->getCentAmount(),
-            $variant->getPrices()->current()->getValue()->getCentAmount()
-        );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 300));
-        $prices = PriceDraftCollection::of()->add($price);
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetPricesAction::ofVariantIdAndPrices(
-                    $variant->getId(),
-                    $prices
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertSame(
-            $price->getValue()->getCentAmount(),
-            $variant->getPrices()->current()->getValue()->getCentAmount()
-        );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductRemovePriceAction::ofPriceId(
-                    $variant->getPrices()->current()->getId()
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testPricesWithSku()
     {
-        $draft = $this->getDraft('add-price');
-        $draft->setMasterVariant(ProductVariantDraft::ofSku($this->getTestRun()));
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100));
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductAddPriceAction::ofSkuAndPrice(
-                    $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
-                    $price
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setMasterVariant(ProductVariantDraft::ofSku(ProductFixture::uniqueProductString()));
+            },
+            function (Product $product) use ($client) {
+                $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100));
 
-        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertSame(
-            $price->getValue()->getCentAmount(),
-            $variant->getPrices()->current()->getValue()->getCentAmount()
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductAddPriceAction::ofSkuAndPrice(
+                            $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+                            $price
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertSame(
+                    $price->getValue()->getCentAmount(),
+                    $variant->getPrices()->current()->getValue()->getCentAmount()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+                $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 200));
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductChangePriceAction::ofPriceIdAndPrice(
+                            $variant->getPrices()->current()->getId(),
+                            $price
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertSame(
+                    $price->getValue()->getCentAmount(),
+                    $variant->getPrices()->current()->getValue()->getCentAmount()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+                $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 300));
+                $prices = PriceDraftCollection::of()->add($price);
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetPricesAction::ofSkuAndPrices(
+                            $variant->getSku(),
+                            $prices
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertSame(
+                    $price->getValue()->getCentAmount(),
+                    $variant->getPrices()->current()->getValue()->getCentAmount()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductRemovePriceAction::ofPriceId(
+                            $variant->getPrices()->current()->getId()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 200));
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductChangePriceAction::ofPriceIdAndPrice(
-                    $variant->getPrices()->current()->getId(),
-                    $price
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertSame(
-            $price->getValue()->getCentAmount(),
-            $variant->getPrices()->current()->getValue()->getCentAmount()
-        );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $price = PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 300));
-        $prices = PriceDraftCollection::of()->add($price);
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetPricesAction::ofSkuAndPrices(
-                    $variant->getSku(),
-                    $prices
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertSame(
-            $price->getValue()->getCentAmount(),
-            $variant->getPrices()->current()->getValue()->getCentAmount()
-        );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductRemovePriceAction::ofPriceId(
-                    $variant->getPrices()->current()->getId()
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testAttribute()
     {
-        $draft = $this->getDraft('attribute');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $attributeValue = $this->getTestRun() . '-new value';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetAttributeAction::ofVariantIdAndName(
-                    $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
-                    'testField'
-                )->setValue($attributeValue)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                $draft->getMasterVariant()->setPrices(PriceDraftCollection::of());
 
-        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertSame(
-            $attributeValue,
-            $variant->getAttributes()->getByName('testField')->getValue()
+                return $draft;
+            },
+            function (Product $product, ProductType $productType) use ($client) {
+                $attributeValue = 'new value-' . ProductFixture::uniqueProductString();
+                $name = 'testField';
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetAttributeAction::ofVariantIdAndName(
+                            $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
+                            $name
+                        )->setValue($attributeValue)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+                $variant->getAttributes()->setAttributeDefinitions($productType->getAttributes());
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertSame(
+                    $attributeValue,
+                    $variant->getAttributes()->getByName($name)->getValue()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+                $attributeValue = 'new all value-' . ProductFixture::uniqueProductString();
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetAttributeInAllVariantsAction::ofName(
+                            $name
+                        )->setValue($attributeValue)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+                $variant->getAttributes()->setAttributeDefinitions($productType->getAttributes());
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertSame(
+                    $attributeValue,
+                    $variant->getAttributes()->getByName($name)->getValue()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $attributeValue = $this->getTestRun() . '-new all value';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetAttributeInAllVariantsAction::ofName(
-                    'testField'
-                )->setValue($attributeValue)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertSame(
-            $attributeValue,
-            $variant->getAttributes()->getByName('testField')->getValue()
-        );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testAttributeWithSKu()
     {
-        $draft = $this->getDraft('attribute');
-        $draft->setMasterVariant(ProductVariantDraft::ofSku($this->getTestRun()));
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $attributeValue = $this->getTestRun() . '-new value';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetAttributeAction::ofSkuAndName(
-                    $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
-                    'testField'
-                )->setValue($attributeValue)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setMasterVariant(ProductVariantDraft::ofSku(ProductFixture::uniqueProductString()));
+            },
+            function (Product $product, ProductType $productType) use ($client) {
+                $attributeValue = 'new value-' . ProductFixture::uniqueProductString();
+                $name = 'testField';
 
-        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertSame(
-            $attributeValue,
-            $variant->getAttributes()->getByName('testField')->getValue()
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetAttributeAction::ofSkuAndName(
+                            $product->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
+                            $name
+                        )->setValue($attributeValue)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+                $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertSame(
+                    $attributeValue,
+                    $variant->getAttributes()->getByName($name)->getValue()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+                $attributeValue = 'new all value-' . ProductFixture::uniqueProductString();
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetAttributeInAllVariantsAction::ofName(
+                            $name
+                        )->setValue($attributeValue)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $variant = $result->getMasterData()->getStaged()->getMasterVariant();
+                $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertSame(
+                    $attributeValue,
+                    $variant->getAttributes()->getByName($name)->getValue()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $attributeValue = $this->getTestRun() . '-new all value';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetAttributeInAllVariantsAction::ofName(
-                    'testField'
-                )->setValue($attributeValue)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $variant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $variant->getAttributes()->setAttributeDefinitions($this->getProductType()->getAttributes());
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertSame(
-            $attributeValue,
-            $variant->getAttributes()->getByName('testField')->getValue()
-        );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testCategory()
     {
-        $draft = $this->getDraft('category');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $category = $this->getCategory();
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(ProductAddToCategoryAction::ofCategory($category->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CategoryFixture::withCategory(
+            $client,
+            function (Category $category) use ($client) {
+                ProductFixture::withUpdateableProduct(
+                    $client,
+                    function (Product $product) use ($client, $category) {
+                        $request = RequestBuilder::of()->products()->update($product)
+                            ->addAction(ProductAddToCategoryAction::ofCategory($category->getReference()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($product->getMasterData()->getCurrent()->getCategories());
-        $this->assertSame(
-            $category->getId(),
-            $result->getMasterData()->getStaged()->getCategories()->current()->getId()
+                        $this->assertInstanceOf(Product::class, $result);
+                        $this->assertEmpty($product->getMasterData()->getCurrent()->getCategories());
+                        $this->assertSame(
+                            $category->getId(),
+                            $result->getMasterData()->getStaged()->getCategories()->current()->getId()
+                        );
+                        $this->assertNotSame($product->getVersion(), $result->getVersion());
+                        $product = $result;
+
+                        $orderHint = '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0');
+
+                        $request = RequestBuilder::of()->products()->update($product)
+                            ->addAction(
+                                ProductSetCategoryOrderHintAction::ofCategoryId(
+                                    $category->getId()
+                                )->setOrderHint($orderHint)
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Product::class, $result);
+                        $this->assertEmpty($product->getMasterData()->getCurrent()->getCategoryOrderHints());
+                        $this->assertSame(
+                            $orderHint,
+                            $result->getMasterData()->getStaged()->getCategoryOrderHints()[$category->getId()]
+                        );
+                        $this->assertNotSame($product->getVersion(), $result->getVersion());
+                        $product = $result;
+
+                        $request = RequestBuilder::of()->products()->update($product)
+                            ->addAction(
+                                ProductRemoveFromCategoryAction::ofCategory($category->getReference())
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Product::class, $result);
+                        $this->assertEmpty($result->getMasterData()->getCurrent()->getCategories());
+                        $this->assertEmpty($result->getMasterData()->getStaged()->getCategories());
+                        $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $orderHint = '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0');
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(ProductSetCategoryOrderHintAction::ofCategoryId($category->getId())->setOrderHint($orderHint))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($product->getMasterData()->getCurrent()->getCategoryOrderHints());
-        $this->assertSame(
-            $orderHint,
-            $result->getMasterData()->getStaged()->getCategoryOrderHints()[$category->getId()]
-        );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $category = $this->getCategory();
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(ProductRemoveFromCategoryAction::ofCategory($category->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getCategories());
-        $this->assertEmpty($result->getMasterData()->getStaged()->getCategories());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
-
+//todo to migrate
     public function testTaxCategory()
     {
         $draft = $this->getDraft('tax-category');
@@ -736,473 +811,498 @@ class ProductUpdateRequestTest extends ApiTestCase
 
     public function testSkuStaged()
     {
-        $draft = $this->getDraft('sku-staged');
-        $product = $this->createProduct($draft);
-        $sku = $this->getTestRun() . 'sku';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetSkuAction::ofVariantId(
-                    $product->getMasterData()->getCurrent()->getMasterVariant()->getId()
-                )->setSku($sku)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        $client = $this->getApiClient();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertSame(
-            $sku,
-            $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
-        );
-        $this->assertNull(
-            $result->getMasterData()->getCurrent()->getMasterVariant()->getSku()
-        );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $sku = 'sku-' . ProductFixture::uniqueProductString();
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductPublishAction::of()
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetSkuAction::ofVariantId(
+                            $product->getMasterData()->getCurrent()->getMasterVariant()->getId()
+                        )->setSku($sku)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertSame(
-            $sku,
-            $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
-        );
-        $this->assertSame(
-            $sku,
-            $result->getMasterData()->getCurrent()->getMasterVariant()->getSku()
-        );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertSame(
+                    $sku,
+                    $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(ProductUnpublishAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $product = $result;
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(ProductPublishAction::of());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertSame(
+                    $sku,
+                    $result->getMasterData()->getStaged()->getMasterVariant()->getSku()
+                );
+                $this->assertSame(
+                    $sku,
+                    $result->getMasterData()->getCurrent()->getMasterVariant()->getSku()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(ProductUnpublishAction::of());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                return $result;
+            }
+        );
     }
 
     public function testSkuAlreadyExistsStaged()
     {
-        $draft = $this->getDraft('sku-already-exists');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
 
-        $product2 = $this->getProduct();
+        ProductFixture::withProduct(
+            $client,
+            function (Product $product2) use ($client) {
+                ProductFixture::withUpdateableProduct(
+                    $client,
+                    function (Product $product1) use ($client, $product2) {
+                        $sku = 'sku-' . ProductFixture::uniqueProductString();
 
-        $sku = $this->getTestRun() . 'sku';
-        $request = ProductUpdateRequest::ofIdAndVersion($product2->getId(), $product2->getVersion())
-            ->addAction(
-                ProductSetSkuAction::ofVariantId(
-                    $product2->getMasterData()->getCurrent()->getMasterVariant()->getId()
-                )->setSku($sku)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $product2 = $request->mapResponse($response);
-        TestHelper::getInstance($this->getClient())->setProduct($product2);
+                        $request = RequestBuilder::of()->products()->update($product2)
+                            ->addAction(
+                                ProductSetSkuAction::ofVariantId(
+                                    $product2->getMasterData()->getCurrent()->getMasterVariant()->getId()
+                                )->setSku($sku)
+                            );
+                        $response = $this->execute($client, $request);
+                        $request->mapFromResponse($response);
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetSkuAction::ofVariantId(
-                    $product->getMasterData()->getCurrent()->getMasterVariant()->getId()
-                )->setSku($sku)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $this->assertTrue($response->isError());
-        $this->assertInstanceOf(ErrorResponse::class, $response);
-        $this->assertSame(400, $response->getStatusCode());
-        $this->assertSame(DuplicateFieldError::CODE, $response->getErrors()->current()->getCode());
-        $this->assertSame($sku, $response->getErrors()->current()->getDuplicateValue());
-        $this->assertSame('sku', $response->getErrors()->current()->getField());
+                        $request = RequestBuilder::of()->products()->update($product1)
+                            ->addAction(
+                                ProductSetSkuAction::ofVariantId(
+                                    $product1->getMasterData()->getCurrent()->getMasterVariant()->getId()
+                                )->setSku($sku)
+                            );
+                        $this->execute($client, $request);
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product2->getId(), $product2->getVersion())
-            ->addAction(
-                ProductPublishAction::of()
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $product2 = $request->mapResponse($response);
-        TestHelper::getInstance($this->getClient())->setProduct($product2);
+                        $request = RequestBuilder::of()->products()->update($product1)
+                            ->addAction(
+                                ProductSetSkuAction::ofVariantId(
+                                    $product1->getMasterData()->getCurrent()->getMasterVariant()->getId()
+                                )->setSku($sku)
+                            );
+                        $response = $this->execute($client, $request);
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetSkuAction::ofVariantId(
-                    $product->getMasterData()->getCurrent()->getMasterVariant()->getId()
-                )->setSku($sku)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertTrue($response->isError());
-        $this->assertInstanceOf(ErrorResponse::class, $response);
-        $this->assertSame(400, $response->getStatusCode());
-        $this->assertSame(DuplicateFieldError::CODE, $response->getErrors()->current()->getCode());
-        $this->assertSame($sku, $response->getErrors()->current()->getDuplicateValue());
-        $this->assertSame('sku', $response->getErrors()->current()->getField());
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSearchKeyword()
     {
-        $draft = $this->getDraft('keyword');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $keyword = $this->getTestRun() . '-keyword';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetSearchKeywordsAction::ofKeywords(
-                    LocalizedSearchKeywords::of()->setAt(
-                        'en',
-                        SearchKeywords::of()->add(SearchKeyword::of()->setText($keyword))
-                    )
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $keyword = 'keyword-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertEmpty($result->getMasterData()->getCurrent()->getSearchKeywords());
-        $this->assertSame(
-            $keyword,
-            $result->getMasterData()->getStaged()->getSearchKeywords()->en->current()->getText()
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetSearchKeywordsAction::ofKeywords(
+                            LocalizedSearchKeywords::of()->setAt(
+                                'en',
+                                SearchKeywords::of()->add(SearchKeyword::of()->setText($keyword))
+                            )
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertEmpty($result->getMasterData()->getCurrent()->getSearchKeywords());
+                $this->assertSame(
+                    $keyword,
+                    $result->getMasterData()->getStaged()->getSearchKeywords()->en->current()->getText()
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testMetaTitle()
     {
-        $draft = $this->getDraft('meta-title');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $metaTitle = $this->getTestRun() . '-meta-title';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetMetaTitleAction::of()->setMetaTitle(
-                    LocalizedString::ofLangAndText('en', $metaTitle)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $metaTitle = 'meta-title-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertNull($result->getMasterData()->getCurrent()->getMetaTitle());
-        $this->assertSame(
-            $metaTitle,
-            $result->getMasterData()->getStaged()->getMetaTitle()->en
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetMetaTitleAction::of()->setMetaTitle(
+                            LocalizedString::ofLangAndText('en', $metaTitle)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertNull($result->getMasterData()->getCurrent()->getMetaTitle());
+                $this->assertSame(
+                    $metaTitle,
+                    $result->getMasterData()->getStaged()->getMetaTitle()->en
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testMetaTitlePublish()
     {
-        $draft = $this->getDraft('meta-title');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $metaTitle = $this->getTestRun() . '-meta-title';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetMetaTitleAction::of()->setMetaTitle(
-                    LocalizedString::ofLangAndText('en', $metaTitle)
-                )->setStaged(false)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $metaTitle = 'meta-title-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertSame(
-            $metaTitle,
-            $result->getMasterData()->getCurrent()->getMetaTitle()->en
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetMetaTitleAction::of()->setMetaTitle(
+                            LocalizedString::ofLangAndText('en', $metaTitle)
+                        )->setStaged(false)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertSame(
+                    $metaTitle,
+                    $result->getMasterData()->getCurrent()->getMetaTitle()->en
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testMetaDescription()
     {
-        $draft = $this->getDraft('meta-description');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $metaDescription = $this->getTestRun() . '-meta-description';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetMetaDescriptionAction::of()->setMetaDescription(
-                    LocalizedString::ofLangAndText('en', $metaDescription)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $metaDescription = 'meta-description-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
-        $this->assertSame(
-            $metaDescription,
-            $result->getMasterData()->getStaged()->getMetaDescription()->en
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetMetaDescriptionAction::of()->setMetaDescription(
+                            LocalizedString::ofLangAndText('en', $metaDescription)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
+                $this->assertSame(
+                    $metaDescription,
+                    $result->getMasterData()->getStaged()->getMetaDescription()->en
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testMetaDescriptionPublish()
     {
-        $draft = $this->getDraft('meta-description');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $metaDescription = $this->getTestRun() . '-meta-description';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetMetaDescriptionAction::of()->setMetaDescription(
-                    LocalizedString::ofLangAndText('en', $metaDescription)
-                )->setStaged(false)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $metaDescription = 'meta-description-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertSame(
-            $metaDescription,
-            $result->getMasterData()->getCurrent()->getMetaDescription()->en
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetMetaDescriptionAction::of()->setMetaDescription(
+                            LocalizedString::ofLangAndText('en', $metaDescription)
+                        )->setStaged(false)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertSame(
+                    $metaDescription,
+                    $result->getMasterData()->getCurrent()->getMetaDescription()->en
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testMetaKeywords()
     {
-        $draft = $this->getDraft('meta-keywords');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $metaKeywords = $this->getTestRun() . '-meta-keywords';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetMetaKeywordsAction::of()->setMetaKeywords(
-                    LocalizedString::ofLangAndText('en', $metaKeywords)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $metaKeywords = 'meta-keywords-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
-        $this->assertSame(
-            $metaKeywords,
-            $result->getMasterData()->getStaged()->getMetaKeywords()->en
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetMetaKeywordsAction::of()->setMetaKeywords(
+                            LocalizedString::ofLangAndText('en', $metaKeywords)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
+                $this->assertSame(
+                    $metaKeywords,
+                    $result->getMasterData()->getStaged()->getMetaKeywords()->en
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testMetaKeywordsPublish()
     {
-        $draft = $this->getDraft('meta-keywords');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $metaKeywords = $this->getTestRun() . '-meta-keywords';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetMetaKeywordsAction::of()->setMetaKeywords(
-                    LocalizedString::ofLangAndText('en', $metaKeywords)
-                )->setStaged(false)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $metaKeywords = 'meta-keywords-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertSame(
-            $metaKeywords,
-            $result->getMasterData()->getCurrent()->getMetaKeywords()->en
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetMetaKeywordsAction::of()->setMetaKeywords(
+                            LocalizedString::ofLangAndText('en', $metaKeywords)
+                        )->setStaged(false)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertSame(
+                    $metaKeywords,
+                    $result->getMasterData()->getCurrent()->getMetaKeywords()->en
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testRevertStagedChanges()
     {
-        $draft = $this->getDraft('revert');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(ProductPublishAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-        $product = $result;
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(ProductPublishAction::of());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $metaKeywords = $this->getTestRun() . '-meta-keywords';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetMetaKeywordsAction::of()->setMetaKeywords(
-                    LocalizedString::ofLangAndText('en', $metaKeywords)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $product = $result;
+                $metaKeywords = 'meta-keywords-' . ProductFixture::uniqueProductString();
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
-        $this->assertSame(
-            $metaKeywords,
-            $result->getMasterData()->getStaged()->getMetaKeywords()->en
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetMetaKeywordsAction::of()->setMetaKeywords(
+                            LocalizedString::ofLangAndText('en', $metaKeywords)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
+                $this->assertSame(
+                    $metaKeywords,
+                    $result->getMasterData()->getStaged()->getMetaKeywords()->en
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(ProductRevertStagedChangesAction::of());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
+                $this->assertNull($result->getMasterData()->getStaged()->getMetaDescription());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(ProductUnpublishAction::of());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                return $result;
+            }
         );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(ProductRevertStagedChangesAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
-        $this->assertNull($result->getMasterData()->getStaged()->getMetaDescription());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(ProductUnpublishAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testRevertStagedVariantChanges()
     {
+        $client = $this->getApiClient();
         $sku = 'sku' . uniqid();
-        $draft = $this->getDraft('revert-variant');
-        $draft->setMasterVariant(
-            ProductVariantDraft::ofSku($sku)
+
+        ProductFixture::withUpdateableDraftProduct(
+            $client,
+            function (ProductDraft $draft) use ($sku) {
+
+                $draft->setMasterVariant(ProductVariantDraft::ofSku($sku));
+
+                return $draft;
+            },
+            function (Product $product) use ($client, $sku) {
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(ProductPublishAction::of());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $product = $result;
+                $metaKeywords = 'meta-keywords-' . ProductFixture::uniqueProductString();
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetMetaKeywordsAction::of()->setMetaKeywords(
+                            LocalizedString::ofLangAndText('en', $metaKeywords)
+                        )
+                    )
+                    ->addAction(
+                        ProductAddPriceAction::ofSkuAndPrice(
+                            $sku,
+                            PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
+                $this->assertSame(
+                    $metaKeywords,
+                    $result->getMasterData()->getStaged()->getMetaKeywords()->en
+                );
+                $this->assertCount(0, $result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertCount(1, $result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(ProductRevertStagedVariantChangesAction::ofVariantId(1));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
+                $this->assertSame(
+                    $metaKeywords,
+                    $result->getMasterData()->getStaged()->getMetaKeywords()->en
+                );
+                $this->assertCount(0, $result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
+                $this->assertCount(0, $result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(ProductUnpublishAction::of());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                return $result;
+            }
         );
-        $product = $this->createProduct($draft);
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(ProductPublishAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-        $product = $result;
-
-        $metaKeywords = $this->getTestRun() . '-meta-keywords';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetMetaKeywordsAction::of()->setMetaKeywords(
-                    LocalizedString::ofLangAndText('en', $metaKeywords)
-                )
-            )
-            ->addAction(
-                ProductAddPriceAction::ofSkuAndPrice(
-                    $sku,
-                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 100))
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
-        $this->assertSame(
-            $metaKeywords,
-            $result->getMasterData()->getStaged()->getMetaKeywords()->en
-        );
-        $this->assertCount(0, $result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertCount(1, $result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
-
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(ProductRevertStagedVariantChangesAction::ofVariantId(1))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertNull($result->getMasterData()->getCurrent()->getMetaDescription());
-        $this->assertSame(
-            $metaKeywords,
-            $result->getMasterData()->getStaged()->getMetaKeywords()->en
-        );
-
-        $this->assertCount(0, $result->getMasterData()->getCurrent()->getMasterVariant()->getPrices());
-        $this->assertCount(0, $result->getMasterData()->getStaged()->getMasterVariant()->getPrices());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-
-        $product = $result;
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(ProductUnpublishAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testPublish()
     {
-        $draft = $this->getDraft('publish');
-        $product = $this->createProduct($draft);
+        $client = $this->getApiClient();
 
-        $metaKeywords = $this->getTestRun() . '-meta-keywords';
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetMetaKeywordsAction::of()->setMetaKeywords(
-                    LocalizedString::ofLangAndText('en', $metaKeywords)
-                )
-            )
-            ->addAction(ProductPublishAction::of())
+        ProductFixture::withUpdateableProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $metaKeywords = 'meta-keywords-' . ProductFixture::uniqueProductString();
 
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductSetMetaKeywordsAction::of()->setMetaKeywords(
+                            LocalizedString::ofLangAndText('en', $metaKeywords)
+                        )
+                    )->addAction(ProductPublishAction::of());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertSame(
-            $metaKeywords,
-            $result->getMasterData()->getCurrent()->getMetaKeywords()->en
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertSame(
+                    $metaKeywords,
+                    $result->getMasterData()->getCurrent()->getMetaKeywords()->en
+                );
+                $this->assertSame(
+                    $metaKeywords,
+                    $result->getMasterData()->getStaged()->getMetaKeywords()->en
+                );
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                $product = $result;
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(ProductUnpublishAction::of());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Product::class, $result);
+                $this->assertFalse($result->getMasterData()->getPublished());
+                $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $this->assertSame(
-            $metaKeywords,
-            $result->getMasterData()->getStaged()->getMetaKeywords()->en
-        );
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-        $product = $result;
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(ProductUnpublishAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertFalse($result->getMasterData()->getPublished());
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
     }
 
     public function testPublishPrices()

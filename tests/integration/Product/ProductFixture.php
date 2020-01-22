@@ -11,8 +11,6 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
-use Commercetools\Core\Model\CustomField\CustomFieldObject;
-use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
@@ -24,7 +22,6 @@ use Commercetools\Core\Model\ProductType\ProductTypeReference;
 use Commercetools\Core\Model\ProductType\StringType;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
-use Commercetools\Core\Model\Type\TypeReference;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
 
