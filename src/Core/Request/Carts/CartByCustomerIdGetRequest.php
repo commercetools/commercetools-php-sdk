@@ -12,7 +12,6 @@ use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequest;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\AbstractApiRequest;
-use Commercetools\Core\Request\CustomerIdTrait;
 use Commercetools\Core\Response\ResourceResponse;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Response\ApiResponseInterface;
@@ -27,10 +26,14 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class CartByCustomerIdGetRequest extends AbstractApiRequest
 {
-    use CustomerIdTrait;
     use InStoreTrait;
 
     protected $resultClass = Cart::class;
+
+    /**
+     * @var string
+     */
+    protected $customerId;
 
     /**
      * @param string $customerId
@@ -39,7 +42,14 @@ class CartByCustomerIdGetRequest extends AbstractApiRequest
     public function __construct($customerId, Context $context = null)
     {
         parent::__construct(CartsEndpoint::endpoint(), $context);
-        $this->byCustomerId($customerId);
+        $this->customerId = $customerId;
+    }
+
+    public function byCustomerId($customerId)
+    {
+        $this->customerId = $customerId;
+
+        return $this;
     }
 
     /**
@@ -50,6 +60,15 @@ class CartByCustomerIdGetRequest extends AbstractApiRequest
     public static function ofCustomerId($customerId, Context $context = null)
     {
         return new static($customerId, $context);
+    }
+
+    /**
+     * @return string
+     * @internal
+     */
+    protected function getPath()
+    {
+        return (string)$this->getEndpoint() . '/customer-id=' . $this->customerId . $this->getParamString();
     }
 
     /**
