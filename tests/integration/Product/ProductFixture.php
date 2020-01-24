@@ -2,7 +2,11 @@
 
 namespace Commercetools\Core\IntegrationTests\Product;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Client\ApiClient;
+use Commercetools\Core\Error\ConcurrentModificationError;
+use Commercetools\Core\Error\ConcurrentModificationException;
+use Commercetools\Core\Error\NotFoundException;
 use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\ProductType\ProductTypeFixture;
 use Commercetools\Core\IntegrationTests\ResourceFixture;
@@ -22,8 +26,10 @@ use Commercetools\Core\Model\ProductType\ProductTypeReference;
 use Commercetools\Core\Model\ProductType\StringType;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
+use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
+use Commercetools\Core\Response\ErrorResponse;
 
 class ProductFixture extends ResourceFixture
 {
@@ -85,6 +91,25 @@ class ProductFixture extends ResourceFixture
 
     final public static function defaultProductDeleteFunction(ApiClient $client, Product $resource)
     {
+        $request = RequestBuilder::of()->products()->update($resource)->addAction(ProductUnpublishAction::of());
+
+        try {
+            $response = $client->execute($request);
+            $resource = $request->mapFromResponse($response);
+        } catch (NotFoundException $e) {
+            return null;
+        } catch (ConcurrentModificationException $e) {
+            $errorResponse = new ErrorResponse($e, $request, $e->getResponse());
+
+            /** @var ConcurrentModificationError $error */
+            $error = $errorResponse->getErrors()->getByCode(ConcurrentModificationError::CODE);
+            $currentVersion = $error->getCurrentVersion();
+
+            $request = $request->setVersion($currentVersion);
+            $response = $client->execute($request);
+            $resource = $request->mapFromResponse($response);
+        }
+
         return parent::defaultDeleteFunction($client, self::DELETE_REQUEST_TYPE, $resource);
     }
 

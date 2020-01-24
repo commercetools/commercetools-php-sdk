@@ -3,7 +3,6 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\Product;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
@@ -16,6 +15,10 @@ use GuzzleHttp\Psr7\UploadedFile;
 
 class ProductImageUploadRequestTest extends ApiTestCase
 {
+    const FILE_NAME = __DIR__ . '/../../fixtures/CT_cube_200px.png';
+    const FILE_ALIAS_PATTERN = '/CT-cube-[-_a-zA-Z0-9]*.png/';
+    const FILE_ALIAS = 'CT-cube.png';
+
 // todo   introduce a new method in products to upload By Variant ID
     public function testUploadByVariantId()
     {
@@ -24,14 +27,15 @@ class ProductImageUploadRequestTest extends ApiTestCase
         ProductFixture::withProduct(
             $client,
             function (Product $product) use ($client) {
-                $fileName = __DIR__ . '/../../fixtures/CT_cube_200px.png';
-                $fileAlias = 'CT-cube.png';
-                $fileAliasPattern = '/CT-cube-[-_a-zA-Z0-9]*.png/';
-
                 $fInfo = finfo_open(FILEINFO_MIME_TYPE);
-                $mimeType = finfo_file($fInfo, $fileName);
-
-                $file = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, $fileAlias, $mimeType);
+                $mimeType = finfo_file($fInfo, self::FILE_NAME);
+                $file = new UploadedFile(
+                    self::FILE_NAME,
+                    filesize(self::FILE_NAME),
+                    UPLOAD_ERR_OK,
+                    self::FILE_ALIAS,
+                    $mimeType
+                );
 
                 $request = RequestBuilder::of()->products()->uploadImageBySKU(
                     $product->getId(),
@@ -42,7 +46,7 @@ class ProductImageUploadRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertRegExp(
-                    $fileAliasPattern,
+                    self::FILE_ALIAS_PATTERN,
                     basename(
                         $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->current()->getUrl()
                     )
@@ -70,14 +74,16 @@ class ProductImageUploadRequestTest extends ApiTestCase
         ProductFixture::withProduct(
             $client,
             function (Product $product) use ($client) {
-                $fileName = __DIR__ . '/../../fixtures/CT_cube_200px.png';
-                $fileAlias = 'CT-cube.png';
-                $fileAliasPattern = '/CT-cube-[-_a-zA-Z0-9]*.png/';
-
                 $fInfo = finfo_open(FILEINFO_MIME_TYPE);
-                $mimeType = finfo_file($fInfo, $fileName);
+                $mimeType = finfo_file($fInfo, self::FILE_NAME);
 
-                $file = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, $fileAlias, $mimeType);
+                $file = new UploadedFile(
+                    self::FILE_NAME,
+                    filesize(self::FILE_NAME),
+                    UPLOAD_ERR_OK,
+                    self::FILE_ALIAS,
+                    $mimeType
+                );
 
                 $request = RequestBuilder::of()->products()->uploadImageBySKU(
                     $product->getId(),
@@ -88,7 +94,7 @@ class ProductImageUploadRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertRegExp(
-                    $fileAliasPattern,
+                    self::FILE_ALIAS_PATTERN,
                     basename(
                         $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->current()->getUrl()
                     )
@@ -116,15 +122,12 @@ class ProductImageUploadRequestTest extends ApiTestCase
         ProductFixture::withProduct(
             $client,
             function (Product $product) use ($client) {
-                $fileName = __DIR__ . '/../../fixtures/CT_cube_200px.png';
-                $fileAliasPattern = '/([0-9])-[-_a-zA-Z0-9]*.png/';
-
                 $fInfo = finfo_open(FILEINFO_MIME_TYPE);
-                $mimeType = finfo_file($fInfo, $fileName);
+                $mimeType = finfo_file($fInfo, self::FILE_NAME);
 
-                $file1 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i1', $mimeType);
-                $file2 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i2', $mimeType);
-                $file3 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i3', $mimeType);
+                $file1 = new UploadedFile(self::FILE_NAME, filesize(self::FILE_NAME), UPLOAD_ERR_OK, 'i1', $mimeType);
+                $file2 = new UploadedFile(self::FILE_NAME, filesize(self::FILE_NAME), UPLOAD_ERR_OK, 'i2', $mimeType);
+                $file3 = new UploadedFile(self::FILE_NAME, filesize(self::FILE_NAME), UPLOAD_ERR_OK, 'i3', $mimeType);
 
                 $request = RequestBuilder::of()->products()->uploadImageBySKU(
                     $product->getId(),
@@ -172,7 +175,7 @@ class ProductImageUploadRequestTest extends ApiTestCase
 
                 $number = 3;
                 foreach ($product->getMasterData()->getStaged()->getMasterVariant()->getImages() as $image) {
-                    if (preg_match($fileAliasPattern, basename($image->getUrl()), $matches)) {
+                    if (preg_match(self::FILE_ALIAS_PATTERN, basename($image->getUrl()), $matches)) {
                         $this->assertSame((string)$number, $matches[1]);
                         $number--;
                     }
@@ -202,16 +205,14 @@ class ProductImageUploadRequestTest extends ApiTestCase
         ProductFixture::withProduct(
             $client,
             function (Product $product) use ($client) {
-                $fileName = __DIR__ . '/../../fixtures/CT_cube_200px.png';
                 $fileAliasPattern = '/([0-9])-[-_a-zA-Z0-9]*.png/';
 
                 $fInfo = finfo_open(FILEINFO_MIME_TYPE);
-                $mimeType = finfo_file($fInfo, $fileName);
+                $mimeType = finfo_file($fInfo, self::FILE_NAME);
 
-                $file1 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i1', $mimeType);
-                $file2 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i2', $mimeType);
-                $file3 = new UploadedFile($fileName, filesize($fileName), UPLOAD_ERR_OK, 'i3', $mimeType);
-
+                $file1 = new UploadedFile(self::FILE_NAME, filesize(self::FILE_NAME), UPLOAD_ERR_OK, 'i1', $mimeType);
+                $file2 = new UploadedFile(self::FILE_NAME, filesize(self::FILE_NAME), UPLOAD_ERR_OK, 'i2', $mimeType);
+                $file3 = new UploadedFile(self::FILE_NAME, filesize(self::FILE_NAME), UPLOAD_ERR_OK, 'i3', $mimeType);
 
                 $request = RequestBuilder::of()->products()->uploadImageBySKU(
                     $product->getId(),
