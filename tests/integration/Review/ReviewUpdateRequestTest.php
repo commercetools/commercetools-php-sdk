@@ -8,10 +8,12 @@ namespace Commercetools\Core\IntegrationTests\Review;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
+use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\IntegrationTests\State\StateFixture;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\Review\ReviewDraft;
 use Commercetools\Core\Model\State\State;
@@ -150,26 +152,28 @@ class ReviewUpdateRequestTest extends ApiTestCase
         );
     }
 
-    //todo migration for Product is missing
     public function testSetTargetProduct()
     {
         $client = $this->getApiClient();
 
-        ReviewFixture::withUpdateableReview(
+        ProductFixture::withProduct(
             $client,
-            function (Review $review) use ($client) {
-                $target = $this->getProduct();
+            function (Product $product) use ($client) {
+                ReviewFixture::withUpdateableReview(
+                    $client,
+                    function (Review $review) use ($client, $product) {
+                        $request = RequestBuilder::of()->reviews()->update($review)
+                            ->addAction(ReviewSetTargetAction::of()->setTarget($product->getReference()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-                $request = RequestBuilder::of()->reviews()->update($review)
-                    ->addAction(ReviewSetTargetAction::of()->setTarget($target->getReference()));
-                $response = $this->execute($client, $request);
-                $result = $request->mapFromResponse($response);
+                        $this->assertInstanceOf(Review::class, $result);
+                        $this->assertSame($product->getId(), $result->getTarget()->getId());
+                        $this->assertNotSame($review->getVersion(), $result->getVersion());
 
-                $this->assertInstanceOf(Review::class, $result);
-                $this->assertSame($target->getId(), $result->getTarget()->getId());
-                $this->assertNotSame($review->getVersion(), $result->getVersion());
-
-                return $result;
+                        return $result;
+                    }
+                );
             }
         );
     }
