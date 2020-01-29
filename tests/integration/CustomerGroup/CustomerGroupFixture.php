@@ -23,7 +23,7 @@ class CustomerGroupFixture extends ResourceFixture
     final public static function defaultCustomerGroupDraftFunction()
     {
         $uniqueCustomerGroupString = self::uniqueCustomerGroupString();
-        $draft =CustomerGroupDraft::ofGroupName(
+        $draft = CustomerGroupDraft::ofGroupName(
             'test-' . $uniqueCustomerGroupString . '-group'
         );
 
