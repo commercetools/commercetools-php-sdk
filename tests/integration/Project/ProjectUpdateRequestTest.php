@@ -62,6 +62,8 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(Project::class, $result);
                 $this->assertSame($oldName, $result->getName());
+
+                return $result;
             }
         );
 
@@ -120,6 +122,8 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(Project::class, $result);
                 $this->assertSame($oldCurrencies, $result->getCurrencies()->toArray());
+
+                return $result;
             }
         );
 
@@ -177,6 +181,8 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(Project::class, $result);
                 $this->assertSame($oldCountries, $result->getCountries()->toArray());
+
+                return $result;
             }
         );
 //
@@ -234,6 +240,8 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(Project::class, $result);
                 $this->assertSame($oldLanguages, $result->getLanguages()->toArray());
+
+                return $result;
             }
         );
 //
@@ -290,6 +298,8 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(Project::class, $result);
                 $this->assertSame($messagesEnabled, $result->getMessages()->getEnabled());
+
+                return $result;
             }
         );
 //
@@ -359,6 +369,8 @@ class ProjectUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(Project::class, $result);
                 $this->assertSame($messagesEnabled, $result->getMessages()->getEnabled());
                 $this->assertSame($deleteDaysAfterCreation, $result->getMessages()->getDeleteDaysAfterCreation());
+
+                return $result;
             }
         );
 
@@ -428,6 +440,8 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(Project::class, $result);
                 $this->assertNotInstanceOf(CartValueType::class, $result->getShippingRateInputType());
+
+                return $result;
             }
         );
 //
@@ -488,6 +502,8 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(Project::class, $result);
                 $this->assertNotInstanceOf(CartScoreType::class, $result->getShippingRateInputType());
+
+                return $result;
             }
         );
 //
@@ -563,6 +579,8 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(Project::class, $result);
                 $this->assertNotInstanceOf(CartClassificationType::class, $result->getShippingRateInputType());
+
+                return $result;
             }
         );
 //
@@ -653,6 +671,8 @@ class ProjectUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertNull($result->getExternalOAuth());
+
+                return $result;
             }
         );
 
