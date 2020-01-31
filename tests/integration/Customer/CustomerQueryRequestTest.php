@@ -6,9 +6,12 @@
 
 namespace Commercetools\Core\IntegrationTests\Customer;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
+use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByKeyGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
@@ -62,44 +65,90 @@ class CustomerQueryRequestTest extends ApiTestCase
 
     public function testQuery()
     {
-        $draft = $this->getDraft();
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $request = CustomerQueryRequest::of()->where('email="' . $draft->getEmail() . '"');
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CustomerFixture::withCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $request = RequestBuilder::of()->customers()->query()
+                    ->where('email=:email', ['email' => $customer->getEmail()]);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Customer::class, $result->current());
+                $this->assertSame($customer->getId(), $result->current()->getId());
+            }
+        );
 
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(Customer::class, $result->getAt(0));
-        $this->assertSame($customer->getId(), $result->getAt(0)->getId());
+//        $draft = $this->getDraft();
+//        $customer = $this->createCustomer($draft);
+//
+//        $request = CustomerQueryRequest::of()->where('email="' . $draft->getEmail() . '"');
+//        $response = $request->executeWithClient($this->getClient());
+//        $result = $request->mapResponse($response);
+//
+//
+//        $this->assertCount(1, $result);
+//        $this->assertInstanceOf(Customer::class, $result->getAt(0));
+//        $this->assertSame($customer->getId(), $result->getAt(0)->getId());
     }
 
     public function testGetById()
     {
-        $draft = $this->getDraft();
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $request = CustomerByIdGetRequest::ofId($customer->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CustomerFixture::withCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $request = RequestBuilder::of()->customers()->getById($customer->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Customer::class, $customer);
-        $this->assertSame($customer->getId(), $result->getId());
+                $this->assertInstanceOf(Customer::class, $customer);
+                $this->assertSame($customer->getId(), $result->getId());
+            }
+        );
+
+//        $draft = $this->getDraft();
+//        $customer = $this->createCustomer($draft);
+//
+//        $request = CustomerByIdGetRequest::ofId($customer->getId());
+//        $response = $request->executeWithClient($this->getClient());
+//        $result = $request->mapResponse($response);
+//
+//        $this->assertInstanceOf(Customer::class, $customer);
+//        $this->assertSame($customer->getId(), $result->getId());
     }
 
     public function testGetByKey()
     {
-        $draft = $this->getDraft();
-        $draft->setKey('test-'. $this->getTestRun());
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $request = CustomerByKeyGetRequest::ofKey($customer->getKey());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $draft) {
+                return $draft->setKey('test-'. CustomerFixture::uniqueCustomerString());
+            },
+            function (Customer $customer) use ($client) {
+                $request = RequestBuilder::of()->customers()->getByKey($customer->getKey());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Customer::class, $customer);
-        $this->assertSame($customer->getId(), $result->getId());
+                $this->assertInstanceOf(Customer::class, $customer);
+                $this->assertSame($customer->getId(), $result->getId());
+            }
+        );
+//        $draft = $this->getDraft();
+//        $draft->setKey('test-'. $this->getTestRun());
+//        $customer = $this->createCustomer($draft);
+//
+//        $request = CustomerByKeyGetRequest::ofKey($customer->getKey());
+//        $response = $request->executeWithClient($this->getClient());
+//        $result = $request->mapResponse($response);
+//
+//        $this->assertInstanceOf(Customer::class, $customer);
+//        $this->assertSame($customer->getId(), $result->getId());
     }
 
     public function testInStoreGetById()
