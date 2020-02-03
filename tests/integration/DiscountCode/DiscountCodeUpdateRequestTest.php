@@ -100,7 +100,7 @@ class DiscountCodeUpdateRequestTest extends ApiTestCase
                         return $draft->setCustom(CustomFieldObjectDraft::ofTypeKey($type->getKey()));
                     },
                     function (DiscountCode $discountCode) use ($client, $type) {
-                        $newValue = $this->getTestRun() . '-value';
+                        $newValue = 'value-' . DiscountCodeFixture::uniqueDiscountCodeString();
 
                         $request = RequestBuilder::of()->discountCodes()->update($discountCode)
                             ->addAction(SetCustomFieldAction::ofName('testField')->setValue($newValue));
