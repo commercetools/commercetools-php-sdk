@@ -6,7 +6,10 @@
 
 namespace Commercetools\Core\IntegrationTests\ShippingMethod;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\TaxCategory\TaxCategoryFixture;
+use Commercetools\Core\IntegrationTests\Zone\ZoneFixture;
 use Commercetools\Core\Model\Common\LocalizedEnum;
 use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
@@ -26,11 +29,13 @@ use Commercetools\Core\Model\ShippingMethod\ShippingRateCollection;
 use Commercetools\Core\Model\ShippingMethod\ShippingRatePriceTierCollection;
 use Commercetools\Core\Model\ShippingMethod\ZoneRate;
 use Commercetools\Core\Model\ShippingMethod\ZoneRateCollection;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
 use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\TaxCategory\TaxRateCollection;
 use Commercetools\Core\Model\Zone\Location;
 use Commercetools\Core\Model\Zone\LocationCollection;
+use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Model\Zone\ZoneDraft;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
@@ -56,6 +61,7 @@ use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 
 class ShippingMethodUpdateRequestTest extends ApiTestCase
 {
+//    todo Project migration missing
     public function tearDown(): void
     {
         parent::tearDown();
@@ -109,281 +115,277 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
 
     public function testUpdateByKey()
     {
-        $draft = $this->getDraft('update-by-key');
-        $draft->setKey('test-' . $this->getTestRun() . '-update-by-key');
-        $shippingMethod = $this->createShippingMethod($draft);
+        $client = $this->getApiClient();
 
-        $text = 'test-' . $this->getTestRun() . '-new-name';
-        $request = ShippingMethodUpdateByKeyRequest::ofKeyAndVersion($shippingMethod->getKey(), $shippingMethod->getVersion())
-            ->addAction(
-                ShippingMethodChangeNameAction::ofName($text)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShippingMethodFixture::withUpdateableDraftShippingMethod(
+            $client,
+            function (ShippingMethodDraft $draft) {
+                return $draft->setKey('test-' . ShippingMethodFixture::uniqueShippingMethodString() . '-update-by-key');
+            },
+            function (ShippingMethod $shippingMethod) use ($client) {
+                $text = 'test-' . ShippingMethodFixture::uniqueShippingMethodString() . '-new-name';
 
-        $this->assertInstanceOf(ShippingMethod::class, $result);
-        $this->assertSame($text, $result->getName());
+                $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                    ->addAction(ShippingMethodChangeNameAction::ofName($text));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShippingMethod::class, $result);
+                $this->assertSame($text, $result->getName());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetKey()
     {
-        $draft = $this->getDraft('set-key');
-        $draft->setKey('test-' . $this->getTestRun() . '-update-by-key');
-        $shippingMethod = $this->createShippingMethod($draft);
+        $client = $this->getApiClient();
 
-        $key = 'new-' . $this->getTestRun();
-        $request = ShippingMethodUpdateByKeyRequest::ofKeyAndVersion($shippingMethod->getKey(), $shippingMethod->getVersion())
-            ->addAction(
-                ShippingMethodSetKeyAction::of()->setKey($key)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShippingMethodFixture::withUpdateableDraftShippingMethod(
+            $client,
+            function (ShippingMethodDraft $draft) {
+                return $draft->setKey('test-' . ShippingMethodFixture::uniqueShippingMethodString() . '-update-by-key');
+            },
+            function (ShippingMethod $shippingMethod) use ($client) {
+                $key = 'new-' . ShippingMethodFixture::uniqueShippingMethodString();
 
-        $this->assertInstanceOf(ShippingMethod::class, $result);
-        $this->assertSame($key, $result->getKey());
-        $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->shippingMethods()->updateByKey($shippingMethod)
+                    ->addAction(ShippingMethodSetKeyAction::of()->setKey($key));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShippingMethod::class, $result);
+                $this->assertSame($key, $result->getKey());
+                $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetPredicate()
     {
-        $draft = $this->getDraft('set-predicate');
-        $draft->setKey('test-' . $this->getTestRun() . '-update-by-key');
-        $shippingMethod = $this->createShippingMethod($draft);
+        $client = $this->getApiClient();
 
-        $predicate = '1 = 1';
-        $request = ShippingMethodUpdateByKeyRequest::ofKeyAndVersion($shippingMethod->getKey(), $shippingMethod->getVersion())
-            ->addAction(
-                ShippingMethodSetPredicateAction::of()->setPredicate($predicate)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShippingMethodFixture::withUpdateableDraftShippingMethod(
+            $client,
+            function (ShippingMethodDraft $draft) {
+                return $draft->setKey('test-' . ShippingMethodFixture::uniqueShippingMethodString() . '-update-by-key');
+            },
+            function (ShippingMethod $shippingMethod) use ($client) {
+                $predicate = '1 = 1';
 
-        $this->assertInstanceOf(ShippingMethod::class, $result);
-        $this->assertSame($predicate, $result->getPredicate());
-        $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->shippingMethods()->updateByKey($shippingMethod)
+                    ->addAction(ShippingMethodSetPredicateAction::of()->setPredicate($predicate));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShippingMethod::class, $result);
+                $this->assertSame($predicate, $result->getPredicate());
+                $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeName()
     {
-        $draft = $this->getDraft('change-name');
-        $shippingMethod = $this->createShippingMethod($draft);
+        $client = $this->getApiClient();
 
+        ShippingMethodFixture::withUpdateableShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod) use ($client) {
+                $name = 'new-name-' . ShippingMethodFixture::uniqueShippingMethodString();
 
-        $name = $this->getTestRun() . '-new-name';
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $shippingMethod->getVersion()
-        )
-            ->addAction(ShippingMethodChangeNameAction::ofName($name))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                    ->addAction(ShippingMethodChangeNameAction::ofName($name));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(ShippingMethod::class, $result);
-        $this->assertSame($name, $result->getName());
-        $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(ShippingMethod::class, $result);
+                $this->assertSame($name, $result->getName());
+                $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetDescription()
     {
-        $draft = $this->getDraft('set-description');
-        $shippingMethod = $this->createShippingMethod($draft);
+        $client = $this->getApiClient();
 
+        ShippingMethodFixture::withUpdateableShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod) use ($client) {
+                $description = 'new-description-' . ShippingMethodFixture::uniqueShippingMethodString();
 
-        $description = $this->getTestRun() . '-new-description';
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $shippingMethod->getVersion()
-        )
-            ->addAction(ShippingMethodSetDescriptionAction::of()->setDescription($description))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                    ->addAction(ShippingMethodSetDescriptionAction::of()->setDescription($description));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(ShippingMethod::class, $result);
-        $this->assertSame($description, $result->getDescription());
-        $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(ShippingMethod::class, $result);
+                $this->assertSame($description, $result->getDescription());
+                $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeTaxCategory()
     {
-        $draft = $this->getDraft('change-tax-category');
-        $shippingMethod = $this->createShippingMethod($draft);
+        $client = $this->getApiClient();
 
-        $taxCategoryDraft = TaxCategoryDraft::ofNameAndRates(
-            'test-' . $this->getTestRun() . '-new-name',
-            TaxRateCollection::of()->add(
-                TaxRate::of()->setName('test-' . $this->getTestRun() . '-name')
-                    ->setAmount(0.2)
-                    ->setIncludedInPrice(true)
-                    ->setCountry('DE')
-                    ->setState($this->getRegion())
-            )
+        TaxCategoryFixture::withTaxCategory(
+            $client,
+            function (TaxCategory $newTaxCategory) use ($client) {
+                ShippingMethodFixture::withUpdateableShippingMethod(
+                    $client,
+                    function (
+                        ShippingMethod $shippingMethod,
+                        Zone $zone,
+                        TaxCategory $oldTaxCategory
+                    ) use (
+                        $client,
+                        $newTaxCategory
+                    ) {
+                        $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                            ->addAction(
+                                ShippingMethodChangeTaxCategoryAction::ofTaxCategory($newTaxCategory->getReference())
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ShippingMethod::class, $result);
+                        $this->assertSame($newTaxCategory->getId(), $result->getTaxCategory()->getId());
+                        $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+
+                        $oldTaxCategoryReference = $oldTaxCategory->getReference();
+                        $shippingMethod = $result;
+
+                        $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                            ->addAction(
+                                ShippingMethodChangeTaxCategoryAction::ofTaxCategory($oldTaxCategoryReference)
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $request = TaxCategoryCreateRequest::ofDraft($taxCategoryDraft);
-        $response = $request->executeWithClient($this->getClient());
-        $newTaxCategory = $request->mapResponse($response);
-
-        $oldTaxCategory = $shippingMethod->getTaxCategory();
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $shippingMethod->getVersion()
-        )
-            ->addAction(ShippingMethodChangeTaxCategoryAction::ofTaxCategory($newTaxCategory->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(ShippingMethod::class, $result);
-        $this->assertSame($newTaxCategory->getId(), $result->getTaxCategory()->getId());
-        $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
-        $shippingMethod = $result;
-
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $shippingMethod->getVersion()
-        )
-            ->addAction(ShippingMethodChangeTaxCategoryAction::ofTaxCategory($oldTaxCategory))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $deleteRequest = TaxCategoryDeleteRequest::ofIdAndVersion(
-            $newTaxCategory->getId(),
-            $newTaxCategory->getVersion()
-        );
-        $this->getClient()->execute($deleteRequest);
     }
 
     public function testChangeIsDefault()
     {
-        $draft = $this->getDraft('change-is-default');
-        $shippingMethod = $this->createShippingMethod($draft);
+        $client = $this->getApiClient();
 
+        ShippingMethodFixture::withUpdateableShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
+                $isDefault = true;
 
-        $isDefault = true;
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $shippingMethod->getVersion()
-        )
-            ->addAction(ShippingMethodChangeIsDefaultAction::ofIsDefault($isDefault))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                    ->addAction(ShippingMethodChangeIsDefaultAction::ofIsDefault($isDefault));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(ShippingMethod::class, $result);
+                $this->assertInstanceOf(ShippingMethod::class, $result);
+                $this->assertSame($isDefault, $result->getIsDefault());
+                $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
 
-        $this->assertSame($isDefault, $result->getIsDefault());
-        $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testAddRemoveShippingRate()
     {
-        $draft = $this->getDraft('shipping-rates');
-        $shippingMethod = $this->createShippingMethod($draft);
-        $actualVersion = $shippingMethod->getVersion();
+        $client = $this->getApiClient();
 
-        $rate = ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('USD', 100));
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $actualVersion
-        )
-            ->addAction(ShippingMethodAddShippingRateAction::ofZoneAndShippingRate(
-                $this->getZone()->getReference(),
-                $rate
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShippingMethodFixture::withUpdateableShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
+                $rate = ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('USD', 100));
 
-        $this->assertInstanceOf(ShippingMethod::class, $result);
+                $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                    ->addAction(ShippingMethodAddShippingRateAction::ofZoneAndShippingRate(
+                        $zone->getReference(),
+                        $rate
+                    ));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
+                $this->assertInstanceOf(ShippingMethod::class, $result);
+                $this->assertCount(2, $result->getZoneRates()->current()->getShippingRates());
+                $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
 
-        $this->assertCount(2, $result->getZoneRates()->current()->getShippingRates());
-        $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
-        $actualVersion = $result->getVersion();
+                $actualVersion = $result->getVersion();
+                $request = RequestBuilder::of()->shippingMethods()->update($result)
+                    ->addAction(ShippingMethodRemoveShippingRateAction::ofZoneAndShippingRate(
+                        $zone->getReference(),
+                        $rate
+                    ));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $actualVersion
-        )
-            ->addAction(ShippingMethodRemoveShippingRateAction::ofZoneAndShippingRate(
-                $this->getZone()->getReference(),
-                $rate
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertCount(1, $result->getZoneRates()->current()->getShippingRates());
+                $this->assertNotSame($actualVersion, $result->getVersion());
 
-        $this->assertCount(1, $result->getZoneRates()->current()->getShippingRates());
-        $this->assertNotSame($actualVersion, $result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testAddRemoveZone()
     {
-        $draft = $this->getDraft('shipping-rates');
-        $shippingMethod = $this->createShippingMethod($draft);
-        $actualVersion = $shippingMethod->getVersion();
+        $client = $this->getApiClient();
 
-        $zoneDraft = ZoneDraft::ofNameAndLocations(
-            'test-' . $this->getTestRun() . '-new-name',
-            LocationCollection::of()->add(
-                Location::of()->setCountry('DE')->setState('new-' . $this->getRegion())
-            )
+        ZoneFixture::withZone(
+            $client,
+            function (Zone $newZone) use ($client) {
+                ShippingMethodFixture::withUpdateableShippingMethod(
+                    $client,
+                    function (ShippingMethod $shippingMethod) use ($client, $newZone) {
+                        $actualVersion = $shippingMethod->getVersion();
+
+                        $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                            ->addAction(ShippingMethodAddZoneAction::ofZone($newZone->getReference()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ShippingMethod::class, $result);
+                        $this->assertGreaterThan(
+                            $shippingMethod->getZoneRates()->count(),
+                            $result->getZoneRates()->count()
+                        );
+                        $this->assertNotSame($actualVersion, $result->getVersion());
+
+                        $actualVersion = $result->getVersion();
+
+                        $request = RequestBuilder::of()->shippingMethods()->update($result)
+                            ->addAction(
+                                ShippingMethodRemoveZoneAction::ofZone($newZone->getReference())
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ShippingMethod::class, $result);
+                        $this->assertSame($shippingMethod->getZoneRates()->count(), $result->getZoneRates()->count());
+                        $this->assertNotSame($actualVersion, $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $request = ZoneCreateRequest::ofDraft($zoneDraft);
-        $response = $request->executeWithClient($this->getClient());
-        $zone = $request->mapResponse($response);
-
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $actualVersion
-        )
-            ->addAction(ShippingMethodAddZoneAction::ofZone($zone->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(ShippingMethod::class, $result);
-        $this->assertGreaterThan($shippingMethod->getZoneRates()->count(), $result->getZoneRates()->count());
-        $this->assertNotSame($actualVersion, $result->getVersion());
-
-        $actualVersion = $result->getVersion();
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $actualVersion
-        )
-            ->addAction(ShippingMethodRemoveZoneAction::ofZone($zone->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(ShippingMethod::class, $result);
-        $this->assertSame($shippingMethod->getZoneRates()->count(), $result->getZoneRates()->count());
-        $this->assertNotSame($actualVersion, $result->getVersion());
-
-        $deleteRequest = ZoneDeleteRequest::ofIdAndVersion(
-            $zone->getId(),
-            $zone->getVersion()
-        );
-        $this->getClient()->execute($deleteRequest)->toObject();
     }
-
+//todo Project migration is missing
     public function testShippingMethodPriceTierClassification()
     {
         $request = ProjectGetRequest::of();
@@ -448,7 +450,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
             $rate->getTiers()->current()
         );
     }
-
+//todo Project migration is missing
     public function testShippingMethodPriceTierScoreFunction()
     {
         $request = ProjectGetRequest::of();
@@ -502,7 +504,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
             $rate->getTiers()->current()
         );
     }
-
+//todo Project migration is missing
     public function testShippingMethodPriceTierScorePrice()
     {
         $request = ProjectGetRequest::of();
@@ -556,7 +558,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
             $rate->getTiers()->current()
         );
     }
-
+//todo Project migration is missing
     public function testShippingMethodPriceTierCartValue()
     {
         $request = ProjectGetRequest::of();

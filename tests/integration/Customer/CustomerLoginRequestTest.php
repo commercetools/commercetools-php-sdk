@@ -211,7 +211,7 @@ class CustomerLoginRequestTest extends ApiTestCase
 
         $request = CustomerPasswordTokenRequest::ofEmailAndTtlMinutes(
             $customer->getEmail(),
-            60
+            61
         );
         $response = $request->executeWithClient($this->getClient());
         $result = $request->mapResponse($response);
