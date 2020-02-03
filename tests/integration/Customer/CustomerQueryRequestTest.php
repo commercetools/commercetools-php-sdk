@@ -153,21 +153,39 @@ class CustomerQueryRequestTest extends ApiTestCase
 
     public function testInStoreGetById()
     {
-        $store = $this->getStore();
-        $draft = $this->getDraft();
-        $customer = $this->createStoreCustomer($store->getKey(), $draft);
+        $client = $this->getApiClient();
 
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-            $store->getKey(),
-            CustomerByIdGetRequest::ofId($customer->getId())
+        CustomerFixture::withCustomer(
+            $client,
+            function (Customer $customer, Store $store) use ($client) {
+                $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                    $store->getKey(),
+                    CustomerByIdGetRequest::ofId($customer->getId())
+                );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Customer::class, $customer);
+                $this->assertSame($customer->getId(), $result->getId());
+                $this->assertSame($customer->getStores()->current()->getId(), $result->getStores()->current()->getId());
+            }
         );
 
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
-
-        $this->assertInstanceOf(Customer::class, $customer);
-        $this->assertSame($customer->getId(), $result->getId());
-        $this->assertSame($customer->getStores()->current()->getId(), $result->getStores()->current()->getId());
+//        $store = $this->getStore();
+//        $draft = $this->getDraft();
+//        $customer = $this->createStoreCustomer($store->getKey(), $draft);
+//
+//        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+//            $store->getKey(),
+//            CustomerByIdGetRequest::ofId($customer->getId())
+//        );
+//
+//        $response = $request->executeWithClient($this->getClient());
+//        $result = $request->mapFromResponse($response);
+//
+//        $this->assertInstanceOf(Customer::class, $customer);
+//        $this->assertSame($customer->getId(), $result->getId());
+//        $this->assertSame($customer->getStores()->current()->getId(), $result->getStores()->current()->getId());
     }
 
     public function testInStoreGetByKey()

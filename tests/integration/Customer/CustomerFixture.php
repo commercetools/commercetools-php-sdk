@@ -3,6 +3,7 @@
 namespace Commercetools\Core\IntegrationTests\Customer;
 
 use Commercetools\Core\Client\ApiClient;
+use Commercetools\Core\Error\ApiServiceException;
 use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\ResourceFixture;
 use Commercetools\Core\IntegrationTests\Store\StoreFixture;
@@ -10,8 +11,10 @@ use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreReference;
+use Commercetools\Core\Model\Store\StoreReferenceCollection;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
+use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 
 class CustomerFixture extends ResourceFixture
 {
@@ -23,7 +26,7 @@ class CustomerFixture extends ResourceFixture
         return 'test-' . Uuid::uuidv4();
     }
 
-    final public static function defaultCustomerDraftFunction()
+    final public static function defaultCustomerDraftFunction(StoreReferenceCollection $storeReferenceCollection)
     {
         $uniqueCustomerString = self::uniqueCustomerString();
         $draft = CustomerDraft::ofEmailNameAndPassword(
@@ -32,6 +35,7 @@ class CustomerFixture extends ResourceFixture
             'test-' . $uniqueCustomerString . '-lastName',
             'test-' . $uniqueCustomerString . '-password'
         );
+        $draft->setStores($storeReferenceCollection);
 
         return $draft;
     }
@@ -41,17 +45,24 @@ class CustomerFixture extends ResourceFixture
         return $draft;
     }
 
-    final public static function defaultCustomerCreateFunction(ApiClient $client, CustomerDraft $draft)
-    {
-        $createFunctionCustomerSignIn = parent::defaultCreateFunction(
-            $client,
-            self::CREATE_REQUEST_TYPE,
-            $draft
+    public static function customerCreateFunction(
+        ApiClient $client,
+        CustomerDraft $draft
+    ) {
+        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+            $draft->getStores()->current()->getKey(),
+            CustomerCreateRequest::ofDraft($draft)
         );
 
-        $customer = new Customer($createFunctionCustomerSignIn->getCustomer()->toArray());
+        try {
+            $response = $client->execute($request);
+        } catch (ApiServiceException $e) {
+            throw self::toFixtureException($e);
+        }
 
-        return $customer;
+        $result = $request->mapFromResponse($response);
+
+        return $result->getCustomer();
     }
 
     final public static function defaultCustomerDeleteFunction(ApiClient $client, Customer $resource)
@@ -67,23 +78,43 @@ class CustomerFixture extends ResourceFixture
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        if ($draftFunction == null) {
-            $draftFunction = [__CLASS__, 'defaultCustomerDraftFunction'];
-        }
-        if ($createFunction == null) {
-            $createFunction = [__CLASS__, 'defaultCustomerCreateFunction'];
-        }
-        if ($deleteFunction == null) {
-            $deleteFunction = [__CLASS__, 'defaultCustomerDeleteFunction'];
-        }
-
-        parent::withUpdateableDraftResource(
+        StoreFixture::withStore(
             $client,
-            $draftBuilderFunction,
-            $assertFunction,
-            $createFunction,
-            $deleteFunction,
-            $draftFunction
+            function (Store $store) use (
+                $client,
+                $draftBuilderFunction,
+                $assertFunction,
+                $createFunction,
+                $deleteFunction,
+                $draftFunction
+            ) {
+                $storeReferences = StoreReferenceCollection::of()
+                    ->add(StoreReference::ofId($store->getId())->setKey($store->getKey()));
+                if ($draftFunction == null) {
+                    $draftFunction = function () use ($storeReferences) {
+                        return call_user_func([__CLASS__, 'defaultCustomerDraftFunction'], $storeReferences);
+                    };
+                } else {
+                    $draftFunction = function () use ($storeReferences, $draftFunction) {
+                        return call_user_func($draftFunction, $storeReferences);
+                    };
+                }
+                if ($createFunction == null) {
+                    $createFunction = [__CLASS__, 'customerCreateFunction'];
+                }
+                if ($deleteFunction == null) {
+                    $deleteFunction = [__CLASS__, 'defaultCustomerDeleteFunction'];
+                }
+
+                parent::withUpdateableDraftResource(
+                    $client,
+                    $draftBuilderFunction,
+                    $assertFunction,
+                    $createFunction,
+                    $deleteFunction,
+                    $draftFunction
+                );
+            }
         );
     }
 
@@ -105,22 +136,19 @@ class CustomerFixture extends ResourceFixture
                 $deleteFunction,
                 $draftFunction
             ) {
-                $storeReference = StoreReference::ofId($store->getId());
-
+                $storeReferences = StoreReferenceCollection::of()
+                    ->add(StoreReference::ofKey($store->getKey()));
                 if ($draftFunction == null) {
-                    $draftFunction = function () use ($storeReference) {
-                        return call_user_func([__CLASS__, 'defaultCustomerDraftFunction'], $storeReference);
+                    $draftFunction = function () use ($storeReferences) {
+                        return call_user_func([__CLASS__, 'defaultCustomerDraftFunction'], $storeReferences);
                     };
                 } else {
-                    $draftFunction = function () use (
-                        $storeReference,
-                        $draftFunction
-                    ) {
-                        return call_user_func($draftFunction, $storeReference);
+                    $draftFunction = function () use ($storeReferences, $draftFunction) {
+                        return call_user_func($draftFunction, $storeReferences);
                     };
                 }
                 if ($createFunction == null) {
-                    $createFunction = [__CLASS__, 'defaultCustomerCreateFunction'];
+                    $createFunction = [__CLASS__, 'customerCreateFunction'];
                 }
                 if ($deleteFunction == null) {
                     $deleteFunction = [__CLASS__, 'defaultCustomerDeleteFunction'];
@@ -133,7 +161,7 @@ class CustomerFixture extends ResourceFixture
                     $createFunction,
                     $deleteFunction,
                     $draftFunction,
-                    [$storeReference]
+                    [$store]
                 );
             }
         );
