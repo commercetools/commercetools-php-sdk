@@ -8,6 +8,8 @@ namespace Commercetools\Core\IntegrationTests\ProductType;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\CustomObject\CustomObjectFixture;
+use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\Model\Common\Attribute;
 use Commercetools\Core\Model\Common\AttributeCollection;
 use Commercetools\Core\Model\Common\Enum;
@@ -18,6 +20,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomObject\CustomObject;
 use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\Model\CustomObject\CustomObjectReference;
+use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
@@ -315,83 +318,78 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
         );
     }
 
-//todo customObject and product to be migrated and then migrate this method
     public function testReferenceAttributeDefinition()
     {
-        $draft = $this->getDraft('reference-attribute-definition');
-        $productType = $this->createProductType($draft);
-        $name = 'testCustomObject-' . ProductTypeFixture::uniqueProductTypeString();
-        $type = ReferenceType::of()->setReferenceTypeId(CustomObjectReference::TYPE_CUSTOM_OBJECT);
-        $definition = $this->getAttributeDefinition($name, $type);
+        $client = $this->getApiClient();
 
-        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion())
-            ->addAction(
-                ProductTypeAddAttributeDefinitionAction::ofAttribute($definition)
-            );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->productTypeDeleteRequest->setVersion($result->getVersion());
+        ProductTypeFixture::withUpdateableProductType(
+            $client,
+            function (ProductType $productType) use ($client) {
+                $name = 'testCustomObject-' . ProductTypeFixture::uniqueProductTypeString();
+                $type = ReferenceType::of()->setReferenceTypeId(CustomObjectReference::TYPE_CUSTOM_OBJECT);
+                $definition = $this->getAttributeDefinition($name, $type);
 
-        $this->assertInstanceOf(ProductType::class, $result);
-        $this->assertNotSame($productType->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeAddAttributeDefinitionAction::ofAttribute($definition)
+                    );
+                $response = $this->execute($client, $request);
+                $productTypeResult = $request->mapFromResponse($response);
 
-        $customObjectDraft = CustomObjectDraft::ofContainerKeyAndValue('test', 'key', uniqid());
-        $request = CustomObjectCreateRequest::ofObject($customObjectDraft);
-        $response = $request->executeWithClient($this->getClient());
-        $customObject = $request->mapResponse($response);
+                $this->assertInstanceOf(ProductType::class, $productTypeResult);
+                $this->assertNotSame($productType->getVersion(), $productTypeResult->getVersion());
 
-        $productDraft = ProductDraft::ofTypeNameAndSlug(
-            $result->getReference(),
-            LocalizedString::ofLangAndText('en', 'test'),
-            LocalizedString::ofLangAndText('en', uniqid())
+                CustomObjectFixture::withDraftCustomObject(
+                    $client,
+                    function (CustomObjectDraft $customObjectDraft) {
+                        return $customObjectDraft->setContainer('test')->setKey('key')->setValue(uniqid());
+                    },
+                    function (CustomObject $customObject) use ($client, $productTypeResult, $name) {
+                        ProductFixture::withDraftProduct(
+                            $client,
+                            function (ProductDraft $productDraft) use ($productTypeResult, $customObject, $name) {
+                                return $productDraft->setProductType($productTypeResult->getReference())
+                                    ->setName(LocalizedString::ofLangAndText('en', 'test'))
+                                    ->setSlug(LocalizedString::ofLangAndText('en', uniqid()))
+                                    ->setMasterVariant(
+                                        ProductVariantDraft::of()->setAttributes(
+                                            AttributeCollection::of()
+                                                ->add(
+                                                    Attribute::of()
+                                                        ->setName($name)
+                                                        ->setValue($customObject->getReference())
+                                                )
+                                        )
+                                    );
+                            },
+                            function (Product $product) use ($client, $customObject, $productTypeResult, $name) {
+                                $request = RequestBuilder::of()->productProjections()->getById($product->getId())
+                                    ->expand('masterVariant.attributes[*].value')
+                                    ->staged(true);
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
+
+                                $variant = $result->getMasterVariant();
+                                $this->assertSame(
+                                    $customObject->getId(),
+                                    $variant->getAttributes()->getByName($name)->getValue()->getId()
+                                );
+                                $this->assertInstanceOf(
+                                    CustomObject::class,
+                                    $variant->getAttributes()->getByName($name)->getValue()->getObj()
+                                );
+                                $this->assertSame(
+                                    $customObject->getValue(),
+                                    $variant->getAttributes()->getByName($name)->getValue()->getObj()->getValue()
+                                );
+
+                                return $result;
+                            }
+                        );
+                    }
+                );
+            }
         );
-        $productDraft->setMasterVariant(
-            ProductVariantDraft::of()->setAttributes(
-                AttributeCollection::of()
-                    ->add(
-                        Attribute::of()
-                            ->setName($name)
-                            ->setValue(
-                                $customObject->getReference()
-                            )
-                    )
-            )
-        );
-
-        $request = ProductCreateRequest::ofDraft($productDraft);
-        $response = $request->executeWithClient($this->getClient());
-        $product = $request->mapResponse($response);
-
-        $request = ProductProjectionByIdGetRequest::ofId($product->getId())
-            ->expand('masterVariant.attributes[*].value')
-            ->staged(true)
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $product = $request->mapResponse($response);
-
-        $variant = $product->getMasterVariant();
-        $this->assertSame(
-            $customObject->getId(),
-            $variant->getAttributes()->getByName($name)->getValue()->getId()
-        );
-        $this->assertInstanceOf(
-            CustomObject::class,
-            $variant->getAttributes()->getByName($name)->getValue()->getObj()
-        );
-        $this->assertSame(
-            $customObjectDraft->getValue(),
-            $variant->getAttributes()->getByName($name)->getValue()->getObj()->getValue()
-        );
-
-        $request = ProductDeleteRequest::ofIdAndVersion($product->getId(), $product->getVersion());
-        $response = $request->executeWithClient($this->getClient());
-
-        $this->assertFalse($response->isError());
-
-        $request = CustomObjectDeleteRequest::ofIdAndVersion($customObject->getId(), $customObject->getVersion());
-        $response = $request->executeWithClient($this->getClient());
-
-        $this->assertFalse($response->isError());
     }
 
     public function testLocalizedEnumAttributeDefinition()

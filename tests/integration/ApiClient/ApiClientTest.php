@@ -18,6 +18,7 @@ class ApiClientTest extends ApiTestCase
 {
     const API_CLIENTS_SCOPE = 'manage_api_clients';
 
+//    todo migration of Project is missing
     public function testApiClient()
     {
         $client = $this->getClient(self::API_CLIENTS_SCOPE);
