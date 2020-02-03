@@ -1,0 +1,14 @@
+### Get auth token
+POST https://{{auth_url}}/oauth/token
+Authorization: Basic {{client_id}} {{client_secret}}
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials
+
+> {% client.global.set("auth_token", response.body.access_token); %}
+
+### Authorization by token, part 2. Use token to authorize.
+GET https://{{api_url}}/{{project_key}}
+Authorization: Bearer {{auth_token}}
+
+###
