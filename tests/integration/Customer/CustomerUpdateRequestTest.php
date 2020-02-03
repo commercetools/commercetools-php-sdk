@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Customer;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
@@ -95,326 +96,429 @@ class CustomerUpdateRequestTest extends ApiTestCase
         return $result->getCustomer();
     }
 
+    protected function getAddress()
+    {
+        return Address::of()
+            ->setCountry('DE')
+            ->setFirstName('new-' . CustomerFixture::uniqueCustomerString() . '-firstName');
+    }
+
     public function testUpdateByKey()
     {
-        $draft = $this->getDraft('update-by-key');
-        $draft->setKey('test-'. $this->getTestRun());
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $firstName = 'test-' . $this->getTestRun() . '-new firstName';
-        $request = CustomerUpdateByKeyRequest::ofKeyAndVersion($customer->getKey(), $customer->getVersion())
-            ->addAction(
-                CustomerSetFirstNameAction::of()->setFirstName($firstName)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CustomerFixture::withUpdateableDraftCustomer(
+            $client,
+            function (CustomerDraft $draft) {
+                return $draft->setKey('test-' . CustomerFixture::uniqueCustomerString());
+            },
+            function (Customer $customer) use ($client) {
+                $firstName = 'test-' . CustomerFixture::uniqueCustomerString() . '-new firstName';
 
-        $this->assertInstanceOf(Customer::class, $result);
-        $this->assertSame($firstName, $result->getFirstName());
+                $request = RequestBuilder::of()->customers()->updateByKey($customer)
+                    ->addAction(
+                        CustomerSetFirstNameAction::of()->setFirstName($firstName)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Customer::class, $result);
+                $this->assertSame($firstName, $result->getFirstName());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetKey()
     {
-        $draft = $this->getDraft('set-key');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $key = 'new-' . $this->getTestRun();
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(
-                CustomerSetKeyAction::of()->setKey($key)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $key = 'new-' . CustomerFixture::uniqueCustomerString();
 
-        $this->assertInstanceOf(Customer::class, $result);
-        $this->assertSame($key, $result->getKey());
-        $this->assertNotSame($customer->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerSetKeyAction::of()->setKey($key)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Customer::class, $result);
+                $this->assertSame($key, $result->getKey());
+                $this->assertNotSame($customer->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testCustomerEmail()
     {
-        $draft = $this->getDraft('email');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $email = 'new-' . $this->getTestRun() . '@example.com';
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $email = 'new-' . CustomerFixture::uniqueCustomerString() . '@example.com';
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerChangeEmailAction::ofEmail($email))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerChangeEmailAction::ofEmail($email));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($email, $customer->getEmail());
+                $this->assertSame($email, $result->getEmail());
+
+                return $result;
+            }
+        );
     }
 
     public function testSalutation()
     {
-        $draft = $this->getDraft('salutation');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $salutation = 'new-salutation';
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $salutation = 'new-salutation';
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerSetSalutationAction::of()->setSalutation($salutation))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerSetSalutationAction::of()->setSalutation($salutation));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($salutation, $customer->getSalutation());
+                $this->assertSame($salutation, $result->getSalutation());
+
+                return $result;
+            }
+        );
     }
 
     public function testNoopCustomerEmail()
     {
-        $draft = $this->getDraft('email');
-        $customer = $this->createCustomer($draft);
-        $version = $customer->getVersion();
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerChangeEmailAction::ofEmail($draft->getEmail()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+        $client = $this->getApiClient();
 
-        $this->assertSame($version, $customer->getVersion());
-        $this->assertSame($draft->getEmail(), $customer->getEmail());
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $version = $customer->getVersion();
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerChangeEmailAction::ofEmail($customer->getEmail()));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($version, $result->getVersion());
+                $this->assertSame($customer->getEmail(), $result->getEmail());
+
+                return $result;
+            }
+        );
     }
 
     public function testFirstName()
     {
-        $draft = $this->getDraft('firstName');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $firstName = 'new-' . $this->getTestRun() . '-firstName';
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $firstName = 'new-' . CustomerFixture::uniqueCustomerString() . '-firstName';
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerSetFirstNameAction::of()->setFirstName($firstName))
-            ->addAction(CustomerSetFirstNameAction::of()->setFirstName($firstName))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerSetFirstNameAction::of()->setFirstName($firstName))
+                    ->addAction(CustomerSetFirstNameAction::of()->setFirstName($firstName));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($firstName, $customer->getFirstName());
+                $this->assertSame($firstName, $result->getFirstName());
+
+                return $result;
+            }
+        );
     }
 
     public function testLastName()
     {
-        $draft = $this->getDraft('lastName');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $lastName = 'new-' . $this->getTestRun() . '-lastName';
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $lastName = 'new-' . CustomerFixture::uniqueCustomerString() . '-lastName';
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerSetLastNameAction::of()->setLastName($lastName))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerSetLastNameAction::of()->setLastName($lastName));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($lastName, $customer->getLastName());
+                $this->assertSame($lastName, $result->getLastName());
+
+                return $result;
+            }
+        );
     }
 
     public function testMiddleName()
     {
-        $draft = $this->getDraft('middleName');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $middleName = 'new-' . $this->getTestRun() . '-middleName';
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $middleName = 'new-' . CustomerFixture::uniqueCustomerString() . '-middleName';
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerSetMiddleNameAction::of()->setMiddleName($middleName))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerSetMiddleNameAction::of()->setMiddleName($middleName));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($middleName, $customer->getMiddleName());
+                $this->assertSame($middleName, $result->getMiddleName());
+
+                return $result;
+            }
+        );
     }
 
     public function testTitle()
     {
-        $draft = $this->getDraft('title');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $title = 'new-' . $this->getTestRun() . '-title';
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $title = 'new-' . CustomerFixture::uniqueCustomerString() . '-title';
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerSetTitleAction::of()->setTitle($title))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerSetTitleAction::of()->setTitle($title));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($title, $customer->getTitle());
+                $this->assertSame($title, $result->getTitle());
+
+                return $result;
+            }
+        );
     }
 
     public function testAddress()
     {
-        $draft = $this->getDraft('title');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $address = Address::of()
-            ->setCountry('DE')
-            ->setFirstName('new-' . $this->getTestRun() . '-firstName');
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $address = $this->getAddress();
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerAddAddressAction::ofAddress($address))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerAddAddressAction::ofAddress($address));
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $customer->getAddresses());
-        $this->assertSame($address->getFirstName(), $customer->getAddresses()->current()->getFirstName());
+                $this->assertCount(1, $customer->getAddresses());
+                $this->assertSame($address->getFirstName(), $customer->getAddresses()->current()->getFirstName());
 
-        $address = Address::of()
-            ->setCountry('DE')
-            ->setLastName('new-' . $this->getTestRun() . '-lastName');
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(
-                CustomerChangeAddressAction::ofAddressIdAndAddress(
-                    $customer->getAddresses()->current()->getId(),
-                    $address
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+                $address = Address::of()
+                    ->setCountry('DE')
+                    ->setLastName('new-' . CustomerFixture::uniqueCustomerString() . '-lastName');
 
-        $this->assertNull($customer->getAddresses()->current()->getFirstName());
-        $this->assertSame($address->getLastName(), $customer->getAddresses()->current()->getLastName());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerChangeAddressAction::ofAddressIdAndAddress(
+                            $customer->getAddresses()->current()->getId(),
+                            $address
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerRemoveAddressAction::ofAddressId($customer->getAddresses()->current()->getId()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
-        $this->assertCount(0, $customer->getAddresses());
+                $this->assertNull($customer->getAddresses()->current()->getFirstName());
+                $this->assertSame($address->getLastName(), $customer->getAddresses()->current()->getLastName());
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerRemoveAddressAction::ofAddressId($customer->getAddresses()->current()->getId()))
+                ;
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertCount(0, $result->getAddresses());
+
+                return $result;
+            }
+        );
     }
 
     public function testAddressExternalId()
     {
-        $draft = $this->getDraft('external-address-id');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $externalId = uniqid();
-        $address = Address::of()
-            ->setCountry('DE')
-            ->setFirstName($this->getTestRun() . '-firstName')
-            ->setExternalId($externalId);
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $externalId = uniqid();
+                $address = $this->getAddress()->setExternalId($externalId);
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerAddAddressAction::ofAddress($address))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerAddAddressAction::ofAddress($address));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $customer->getAddresses());
-        $this->assertSame($externalId, $customer->getAddresses()->current()->getExternalId());
+                $this->assertCount(1, $result->getAddresses());
+                $this->assertSame($externalId, $result->getAddresses()->current()->getExternalId());
+
+                return $result;
+            }
+        );
     }
 
     public function testDefaultShippingAddress()
     {
-        $draft = $this->getDraft('title');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $address = Address::of()
-            ->setCountry('DE')
-            ->setFirstName('new-' . $this->getTestRun() . '-firstName');
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $address = $this->getAddress();
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerAddAddressAction::ofAddress($address))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerAddAddressAction::ofAddress($address));
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $customer->getAddresses());
+                $this->assertCount(1, $customer->getAddresses());
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(
-                CustomerSetDefaultShippingAddressAction::of()->setAddressId(
-                    $customer->getAddresses()->current()->getId()
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerSetDefaultShippingAddressAction::of()->setAddressId(
+                            $customer->getAddresses()->current()->getId()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($address->getFirstName(), $customer->getDefaultShippingAddress()->getFirstName());
+                $this->assertSame($address->getFirstName(), $result->getDefaultShippingAddress()->getFirstName());
+
+                return $result;
+            }
+        );
     }
 
     public function testShippingBillingAddressCreate()
     {
-        $draft = $this->getDraft('title');
-        $draft->setAddresses(AddressCollection::of()->add(Address::of()->setCountry('DE')));
-        $draft->setShippingAddresses([0]);
-        $draft->setBillingAddresses([0]);
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $this->assertArrayHasKey(0, $customer->getShippingAddressIds());
-        $this->assertArrayHasKey(0, $customer->getBillingAddressIds());
+        CustomerFixture::withUpdateableDraftCustomer(
+            $client,
+            function (CustomerDraft $draft) {
+                $draft->setAddresses(AddressCollection::of()->add(Address::of()->setCountry('DE')))
+                    ->setShippingAddresses([0])->setBillingAddresses([0]);
+
+                return $draft;
+            },
+            function (Customer $customer) use ($client) {
+                $this->assertArrayHasKey(0, $customer->getShippingAddressIds());
+                $this->assertArrayHasKey(0, $customer->getBillingAddressIds());
+
+                return $customer;
+            }
+        );
     }
 
     public function testAddShippingAddress()
     {
-        $draft = $this->getDraft('title');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
 
-        $address = Address::of()
-            ->setCountry('DE')
-            ->setFirstName('new-' . $this->getTestRun() . '-firstName');
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $address = $this->getAddress();
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(CustomerAddAddressAction::ofAddress($address))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerAddAddressAction::ofAddress($address));
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $customer->getAddresses());
+                $this->assertCount(1, $customer->getAddresses());
 
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(
-                CustomerAddShippingAddressAction::of()->setAddressId(
-                    $customer->getAddresses()->current()->getId()
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
-        $this->assertSame(
-            $address->getFirstName(),
-            $customer->getAddresses()->getById(current($customer->getShippingAddressIds()))->getFirstName()
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerAddShippingAddressAction::of()->setAddressId(
+                            $customer->getAddresses()->current()->getId()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
+
+                $this->assertSame(
+                    $address->getFirstName(),
+                    $customer->getAddresses()->getById(current($customer->getShippingAddressIds()))->getFirstName()
+                );
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerRemoveShippingAddressAction::of()->setAddressId(
+                            $customer->getAddresses()->current()->getId()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertEmpty($result->getShippingAddressIds());
+
+                return $result;
+            }
         );
-
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(
-                CustomerRemoveShippingAddressAction::of()->setAddressId(
-                    $customer->getAddresses()->current()->getId()
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $customer = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($customer->getVersion());
-
-        $this->assertEmpty($customer->getShippingAddressIds());
     }
 
     public function testAddBillingAddress()
     {
+        $client = $this->getApiClient();
+
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $address = $this->getAddress();
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerAddAddressAction::ofAddress($address));
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
+
+                $this->assertCount(1, $customer->getAddresses());
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerAddShippingAddressAction::of()->setAddressId(
+                            $customer->getAddresses()->current()->getId()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
+
+                $this->assertSame(
+                    $address->getFirstName(),
+                    $customer->getAddresses()->getById(current($customer->getShippingAddressIds()))->getFirstName()
+                );
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerRemoveShippingAddressAction::of()->setAddressId(
+                            $customer->getAddresses()->current()->getId()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertEmpty($result->getShippingAddressIds());
+
+                return $result;
+            }
+        );
+
+
         $draft = $this->getDraft('title');
         $customer = $this->createCustomer($draft);
 

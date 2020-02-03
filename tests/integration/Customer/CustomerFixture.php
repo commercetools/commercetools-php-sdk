@@ -88,8 +88,8 @@ class CustomerFixture extends ResourceFixture
                 $deleteFunction,
                 $draftFunction
             ) {
-                $storeReferences = StoreReferenceCollection::of()
-                    ->add(StoreReference::ofId($store->getId())->setKey($store->getKey()));
+                $storeReferences = StoreReferenceCollection::of()->add(StoreReference::ofKey($store->getKey()));
+
                 if ($draftFunction == null) {
                     $draftFunction = function () use ($storeReferences) {
                         return call_user_func([__CLASS__, 'defaultCustomerDraftFunction'], $storeReferences);
@@ -112,7 +112,8 @@ class CustomerFixture extends ResourceFixture
                     $assertFunction,
                     $createFunction,
                     $deleteFunction,
-                    $draftFunction
+                    $draftFunction,
+                    [$store]
                 );
             }
         );
@@ -136,8 +137,8 @@ class CustomerFixture extends ResourceFixture
                 $deleteFunction,
                 $draftFunction
             ) {
-                $storeReferences = StoreReferenceCollection::of()
-                    ->add(StoreReference::ofKey($store->getKey()));
+                $storeReferences = StoreReferenceCollection::of()->add(StoreReference::ofKey($store->getKey()));
+
                 if ($draftFunction == null) {
                     $draftFunction = function () use ($storeReferences) {
                         return call_user_func([__CLASS__, 'defaultCustomerDraftFunction'], $storeReferences);
