@@ -8,12 +8,14 @@ namespace Commercetools\Core\IntegrationTests\Inventory;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
+use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Inventory\InventoryDraft;
 use Commercetools\Core\Model\Inventory\InventoryEntry;
 use Commercetools\Core\Model\Message\InventoryEntryDeletedMessage;
+use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\Search\Filter;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
@@ -30,6 +32,7 @@ use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
 use Commercetools\Core\Request\Inventory\InventoryDeleteRequest;
 use Commercetools\Core\Request\Messages\MessageQueryRequest;
 use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
+use PHPUnit\Framework\SkippedTestError;
 
 class InventoryUpdateRequestTest extends ApiTestCase
 {
@@ -215,56 +218,70 @@ class InventoryUpdateRequestTest extends ApiTestCase
         );
     }
 
-// TODO migrate Product
     public function testQueryChannels()
     {
-        $channel = $this->getChannel();
-        $draft = $this->getDraft('sku');
-        $draft = $draft->setQuantityOnStock(1);
-        $draft->setSupplyChannel($channel->getReference());
-        $this->createInventory($draft);
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
+        ChannelFixture::withChannel(
+            $client,
+            function (Channel $channel) use ($client) {
+                ProductFixture::withProduct(
+                    $client,
+                    function (Product $product) use ($client, $channel) {
+                        InventoryFixture::withUpdateableDraftInventory(
+                            $client,
+                            function (InventoryDraft $inventoryDraft) use ($channel) {
+                                return $inventoryDraft->setQuantityOnStock(1)
+                                    ->setSupplyChannel($channel->getReference());
+                            },
+                            function (InventoryEntry $inventoryEntry) use ($client, $channel, $product) {
+                                $retries = 0;
+                                do {
+                                    $retries++;
+                                    sleep(1);
+                                    $request = RequestBuilder::of()->productProjections()->search()
+                                        ->addFilterQuery(Filter::ofName('id')->setValue($product->getId()))
+                                        ->limit(1);
+                                    $response = $this->execute($client, $request);
+                                    $result = $request->mapFromResponse($response);
+                                } while ($result->count() == 0 && $retries <= 20);
 
-        $retries = 0;
-        do {
-            $retries++;
-            sleep(1);
-            $request = ProductProjectionSearchRequest::of()
-                ->addFilterQuery(Filter::ofName('id')->setValue($product->getId()))
-                ->limit(1);
-            $response = $request->executeWithClient($this->getClient());
-            $result = $request->mapResponse($response);
-        } while ($result->count() == 0 && $retries <= 20);
+                                if ($result->count() == 0) {
+                                    $this->markTestSkipped('Product not updated in time');
+                                }
 
-        if ($result->count() == 0) {
-            $this->markTestSkipped('Product not updated in time');
-        }
+                                $retries = 0;
+                                do {
+                                    $retries++;
+                                    sleep(1);
+                                    $request = RequestBuilder::of()->productProjections()->search()
+                                        ->addFilterQuery(
+                                            Filter::ofName('variants.availability.isOnStockInChannels')
+                                                ->setValue([$channel->getId()])
+                                        )->limit(1);
+                                    $response = $this->execute($client, $request);
+                                    $result = $request->mapFromResponse($response);
+                                } while ($result->count() == 0 && $retries <= 9);
 
-        $retries = 0;
-        do {
-            $retries++;
-            sleep(1);
-            $request = ProductProjectionSearchRequest::of()
-                ->addFilterQuery(
-                    Filter::ofName('variants.availability.isOnStockInChannels')->setValue([$channel->getId()])
-                )
-                ->limit(1);
-            $response = $request->executeWithClient($this->getClient());
-            $result = $request->mapResponse($response);
-        } while ($result->count() == 0 && $retries <= 9);
+                                if ($result->count() == 0) {
+                                    $this->markTestSkipped('Product channel availability not updated in time');
+                                }
 
-        if ($result->count() == 0) {
-            $this->markTestSkipped('Product channel availability not updated in time');
-        }
+                                $this->assertSame(
+                                    $product->getId(),
+                                    $result->current()->getId()
+                                );
+                                $this->assertSame(
+                                    $channel->getId(),
+                                    $result->current()->getMasterVariant()->getAvailability()->getChannels()->key()
+                                );
 
-        $this->assertSame(
-            $product->getId(),
-            $result->current()->getId()
-        );
-        $this->assertSame(
-            $channel->getId(),
-            $result->current()->getMasterVariant()->getAvailability()->getChannels()->key()
+                                return $result;
+                            }
+                        );
+                    }
+                );
+            }
         );
     }
 

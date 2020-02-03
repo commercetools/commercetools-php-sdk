@@ -75,6 +75,9 @@ class ClientFactory
     ) {
         $config = $this->createConfig($config);
 
+        if (is_null($context)) {
+            $context = $config->getContext();
+        }
         if (is_null($cacheAdapterFactory)) {
             $cacheDir = $config->getCacheDir();
             $cacheDir = !is_null($cacheDir) ? $cacheDir : realpath(__DIR__ . '/../../..');
