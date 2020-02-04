@@ -675,10 +675,10 @@ class ApiTestCase extends TestCase
         return ClientFactory::of()->createClient($config, $this->getLogger(), $this->getCache(), $provider);
     }
 
-    protected function execute(Client\ApiClient $client, $request)
+    protected function execute(Client\ApiClient $client, $request, array $headers = null)
     {
         try {
-            $response = $client->execute($request);
+            $response = $client->execute($request, $headers);
         } catch (ApiServiceException $e) {
             throw ResourceFixture::toFixtureException($e);
         }

@@ -5,7 +5,9 @@
 
 namespace Commercetools\Core\IntegrationTests\ShoppingList;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\ShoppingList\LineItemDraft;
@@ -14,6 +16,8 @@ use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
 use Commercetools\Core\Model\ShoppingList\TextLineItemDraft;
 use Commercetools\Core\Model\ShoppingList\TextLineItemDraftCollection;
+use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListAddLineItemAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListAddTextLineItemAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListChangeLineItemQuantityAction;
@@ -34,7 +38,6 @@ use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetTextLineItem
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetTextLineItemCustomTypeAction;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListCreateRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteRequest;
-use Commercetools\Core\Request\ShoppingLists\ShoppingListUpdateByKeyRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListUpdateRequest;
 
 class ShoppingListUpdateRequestTest extends ApiTestCase
@@ -71,106 +74,143 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
 
     public function testChangeByKey()
     {
-        $draft = $this->getDraft('change-by-key');
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
 
-        $name = $this->getTestRun() . '-new name';
-        $request = ShoppingListUpdateByKeyRequest::ofKeyAndVersion($shoppingList->getKey(), $shoppingList->getVersion())
-            ->addAction(ShoppingListChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $name)))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShoppingListFixture::withUpdateableShoppingList(
+            $client,
+            function (ShoppingList $shoppingList) use ($client) {
+                $name = 'new-name-' . ShoppingListFixture::uniqueShoppingListString();
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($name, $result->getName()->en);
+                $request = RequestBuilder::of()->shoppingLists()->updateByKey($shoppingList)
+                    ->addAction(ShoppingListChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShoppingList::class, $result);
+                $this->assertSame($name, $result->getName()->en);
+
+                return $result;
+            }
+        );
     }
 
     public function testSetKey()
     {
-        $draft = $this->getDraft('set-key');
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
 
-        $key = 'new-' . $this->getTestRun();
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(ShoppingListSetKeyAction::ofKey($key))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShoppingListFixture::withUpdateableShoppingList(
+            $client,
+            function (ShoppingList $shoppingList) use ($client) {
+                $key = 'new-' . ShoppingListFixture::uniqueShoppingListString();
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($key, $result->getKey());
+                $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                    ->addAction(ShoppingListSetKeyAction::ofKey($key));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShoppingList::class, $result);
+                $this->assertSame($key, $result->getKey());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeKeyLength()
     {
-        $draft = $this->getDraft('change-key');
-        $draft->setKey(str_pad($draft->getKey(), 256, '0'));
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
 
-        $key = str_pad('new-' . $this->getTestRun(), 256, '0');
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(ShoppingListSetKeyAction::ofKey($key))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShoppingListFixture::withUpdateableDraftShoppingList(
+            $client,
+            function (ShoppingListDraft $draft) {
+                return  $draft->setKey(str_pad($draft->getKey(), 256, '0'));
+            },
+            function (ShoppingList $shoppingList) use ($client) {
+                $key = str_pad('new-' . ShoppingListFixture::uniqueShoppingListString(), 256, '0');
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($key, $result->getKey());
+                $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                    ->addAction(ShoppingListSetKeyAction::ofKey($key));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShoppingList::class, $result);
+                $this->assertSame($key, $result->getKey());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeName()
     {
-        $draft = $this->getDraft('change-name');
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
 
-        $name = $this->getTestRun() . '-new name';
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(ShoppingListChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $name)))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShoppingListFixture::withUpdateableShoppingList(
+            $client,
+            function (ShoppingList $shoppingList) use ($client) {
+                $name = 'new-' . ShoppingListFixture::uniqueShoppingListString();
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($name, $result->getName()->en);
+                $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                    ->addAction(ShoppingListChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShoppingList::class, $result);
+                $this->assertSame($name, $result->getName()->en);
+
+                return $result;
+            }
+        );
     }
 
     public function testSetSlug()
     {
-        $draft = $this->getDraft('set-slug');
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
 
-        $slug = $this->getTestRun() . '-new-slug';
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(ShoppingListSetSlugAction::ofSlug(LocalizedString::ofLangAndText('en', $slug)))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($slug, $result->getSlug()->en);
+        ShoppingListFixture::withUpdateableShoppingList(
+            $client,
+            function (ShoppingList $shoppingList) use ($client) {
+                $slug = 'new-slug-' . ShoppingListFixture::uniqueShoppingListString();
+
+                $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                    ->addAction(ShoppingListSetSlugAction::ofSlug(LocalizedString::ofLangAndText('en', $slug)));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShoppingList::class, $result);
+                $this->assertSame($slug, $result->getSlug()->en);
+
+                return $result;
+            }
+        );
     }
 
     public function testSetDescription()
     {
-        $draft = $this->getDraft('set-description');
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
 
-        $description = $this->getTestRun() . '-new description';
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(ShoppingListSetDescriptionAction::ofDescription(LocalizedString::ofLangAndText('en', $description)))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShoppingListFixture::withUpdateableShoppingList(
+            $client,
+            function (ShoppingList $shoppingList) use ($client) {
+                $description = 'new-description-' . ShoppingListFixture::uniqueShoppingListString();
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($description, $result->getDescription()->en);
+                $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                    ->addAction(
+                        ShoppingListSetDescriptionAction::ofDescription(
+                            LocalizedString::ofLangAndText('en', $description)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShoppingList::class, $result);
+                $this->assertSame($description, $result->getDescription()->en);
+
+                return $result;
+            }
+        );
     }
-
+// todo migrate customer first
     public function testSetCustomer()
     {
         $draft = $this->getDraft('set-customer');
@@ -190,41 +230,70 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
 
     public function testSetCustomType()
     {
-        $draft = $this->getDraft('set-custom-type');
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
 
-        $type = $this->getType('shopping-list-set-type', 'shopping-list');
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(ShoppingListSetCustomTypeAction::ofTypeKey('shopping-list-set-type'))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('shopping-list-set-type')->setResourceTypeIds(['shopping-list']);
+            },
+            function (Type $type) use ($client) {
+                ShoppingListFixture::withUpdateableShoppingList(
+                    $client,
+                    function (ShoppingList $shoppingList) use ($client, $type) {
+                        $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                            ->addAction(
+                                ShoppingListSetCustomTypeAction::ofTypeKey('shopping-list-set-type')
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
+                        $this->assertInstanceOf(ShoppingList::class, $result);
+                        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSetCustomField()
     {
-        $type = $this->getType('shopping-list-set-field', 'shopping-list');
-        $draft = $this->getDraft('set-custom-field');
-        $draft->setCustom(CustomFieldObjectDraft::ofTypeKey('shopping-list-set-field'));
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
 
-        $fieldValue = $this->getTestRun() . '-new value';
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(ShoppingListSetCustomFieldAction::ofName('testField')->setValue($fieldValue))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('shopping-list-set-field')->setResourceTypeIds(['shopping-list']);
+            },
+            function (Type $type) use ($client) {
+                ShoppingListFixture::withUpdateableDraftShoppingList(
+                    $client,
+                    function (ShoppingListDraft $draft) {
+                        return $draft->setCustom(CustomFieldObjectDraft::ofTypeKey('shopping-list-set-field'));
+                    },
+                    function (ShoppingList $shoppingList) use ($client, $type) {
+                        $fieldValue = 'new value-' . ShoppingListFixture::uniqueShoppingListString();
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
-        $this->assertSame($fieldValue, $result->getCustom()->getFields()->getTestField());
+                        $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                            ->addAction(
+                                ShoppingListSetCustomFieldAction::ofName('testField')->setValue($fieldValue)
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ShoppingList::class, $result);
+                        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
+                        $this->assertSame($fieldValue, $result->getCustom()->getFields()->getTestField());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
-
+//todo migrate Product first
     public function testAddLineItem()
     {
         $product = $this->getProduct();
@@ -245,7 +314,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($product->getId(), $result->getLineItems()->current()->getProductId());
     }
-
+//todo migrate Product first
     public function testRemoveLineItem()
     {
         $product = $this->getProduct();
@@ -271,7 +340,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertCount(0, $result->getLineItems());
     }
-
+//todo migrate Product first
     public function testChangeQuantityLineItem()
     {
         $product = $this->getProduct();
@@ -299,7 +368,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $this->assertSame($product->getId(), $result->getLineItems()->current()->getProductId());
         $this->assertSame(2, $result->getLineItems()->current()->getQuantity());
     }
-
+//todo migrate Product first
     public function testSetLineItemCustomType()
     {
         $type = $this->getType('shopping-list-lineitem-set-field', 'line-item');
@@ -329,7 +398,7 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
         $this->assertInstanceOf(ShoppingList::class, $result);
         $this->assertSame($type->getId(), $result->getLineItems()->current()->getCustom()->getType()->getId());
     }
-
+//todo migrate Product first
     public function testSetLineItemCustomField()
     {
         $type = $this->getType('shopping-list-lineitem-set-field', 'line-item');
@@ -363,139 +432,208 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
 
     public function testAddTextLineItem()
     {
-        $draft = $this->getDraft('add-text-line-item');
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
 
-        $name = $this->getTestRun() . '-text line item name';
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(ShoppingListAddTextLineItemAction::ofName(
-                LocalizedString::ofLangAndText('en', $name)
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShoppingListFixture::withUpdateableShoppingList(
+            $client,
+            function (ShoppingList $shoppingList) use ($client) {
+                $name = 'text line item name-' . ShoppingListFixture::uniqueShoppingListString();
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($name, $result->getTextLineItems()->current()->getName()->en);
+                $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                    ->addAction(
+                        ShoppingListAddTextLineItemAction::ofName(
+                            LocalizedString::ofLangAndText('en', $name)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShoppingList::class, $result);
+                $this->assertSame($name, $result->getTextLineItems()->current()->getName()->en);
+
+                return $result;
+            }
+        );
     }
 
     public function testRemoveTextLineItem()
     {
-        $name = $this->getTestRun() . '-text line item name';
-        $draft = $this->getDraft('remove-text-line-item');
-        $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
-            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
-        ));
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
 
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(ShoppingListRemoveTextLineItemAction::ofTextLineItemId(
-                $shoppingList->getTextLineItems()->current()->getId()
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShoppingListFixture::withUpdateableDraftShoppingList(
+            $client,
+            function (ShoppingListDraft $draft) {
+                $name = 'text line item name-' . ShoppingListFixture::uniqueShoppingListString();
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertCount(0, $result->getTextLineItems());
+                return $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
+                    TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
+                ));
+            },
+            function (ShoppingList $shoppingList) use ($client) {
+                $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                    ->addAction(
+                        ShoppingListRemoveTextLineItemAction::ofTextLineItemId(
+                            $shoppingList->getTextLineItems()->current()->getId()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShoppingList::class, $result);
+                $this->assertCount(0, $result->getTextLineItems());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeQuantityTextLineItem()
     {
-        $name = $this->getTestRun() . '-text line item name';
-        $draft = $this->getDraft('change-text-line-item');
-        $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
-            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
-        ));
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
+        $name = 'text line item name-' . ShoppingListFixture::uniqueShoppingListString();
 
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(ShoppingListChangeTextLineItemQuantityAction::ofTextLineItemIdAndQuantity(
-                $shoppingList->getTextLineItems()->current()->getId(),
-                2
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShoppingListFixture::withUpdateableDraftShoppingList(
+            $client,
+            function (ShoppingListDraft $draft) use ($name) {
+                return $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
+                    TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
+                ));
+            },
+            function (ShoppingList $shoppingList) use ($client, $name) {
+                $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                    ->addAction(
+                        ShoppingListChangeTextLineItemQuantityAction::ofTextLineItemIdAndQuantity(
+                            $shoppingList->getTextLineItems()->current()->getId(),
+                            2
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($name, $result->getTextLineItems()->current()->getName()->en);
-        $this->assertSame(2, $result->getTextLineItems()->current()->getQuantity());
+                $this->assertInstanceOf(ShoppingList::class, $result);
+                $this->assertSame($name, $result->getTextLineItems()->current()->getName()->en);
+                $this->assertSame(2, $result->getTextLineItems()->current()->getQuantity());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetTextLineItemCustomType()
     {
-        $type = $this->getType('shopping-list-textLineItem-set-field', 'shopping-list-text-line-item');
-        $draft = $this->getDraft('set-line-item-custom-type');
-        $name = $this->getTestRun() . '-text line item name';
-        $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
-            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
-        ));
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
+        $name = 'text line item name-' . ShoppingListFixture::uniqueShoppingListString();
 
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(
-                ShoppingListSetTextLineItemCustomTypeAction::ofTypeKeyAndTextLineItemId(
-                    'shopping-list-textLineItem-set-field',
-                    $shoppingList->getTextLineItems()->current()->getId()
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('shopping-list-textLineItem-set-field')
+                ->setResourceTypeIds(['shopping-list-text-line-item']);
+            },
+            function (Type $type) use ($client, $name) {
+                ShoppingListFixture::withUpdateableDraftShoppingList(
+                    $client,
+                    function (ShoppingListDraft $draft) use ($name) {
+                        return $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
+                            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
+                        ));
+                    },
+                    function (ShoppingList $shoppingList) use ($client, $type) {
+                        $fieldValue = 'new value-' . ShoppingListFixture::uniqueShoppingListString();
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($type->getId(), $result->getTextLineItems()->current()->getCustom()->getType()->getId());
+                        $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                        ->addAction(
+                            ShoppingListSetTextLineItemCustomTypeAction::ofTypeKeyAndTextLineItemId(
+                                $type->getKey(),
+                                $shoppingList->getTextLineItems()->current()->getId()
+                            )
+                        );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ShoppingList::class, $result);
+                        $this->assertSame(
+                            $type->getId(),
+                            $result->getTextLineItems()->current()->getCustom()->getType()->getId()
+                        );
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSetTextLineItemCustomField()
     {
-        $type = $this->getType('shopping-list-textLineItem-set-field', 'shopping-list-text-line-item');
-        $draft = $this->getDraft('set-line-item-custom-type');
-        $name = $this->getTestRun() . '-text line item name';
-        $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
-            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
-                ->setCustom(CustomFieldObjectDraft::ofTypeKey('shopping-list-textLineItem-set-field'))
-        ));
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
+        $name = 'text line item name-' . ShoppingListFixture::uniqueShoppingListString();
 
-        $fieldValue = $this->getTestRun() . '-new value';
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(
-                ShoppingListSetTextLineItemCustomFieldAction::ofTextLineItemIdAndName(
-                    $shoppingList->getTextLineItems()->current()->getId(),
-                    'testField'
-                )->setValue($fieldValue)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('shopping-list-textLineItem-set-field')
+                    ->setResourceTypeIds(['shopping-list-text-line-item']);
+            },
+            function (Type $type) use ($client, $name) {
+                ShoppingListFixture::withUpdateableDraftShoppingList(
+                    $client,
+                    function (ShoppingListDraft $draft) use ($name) {
+                        return $draft->setTextLineItems(TextLineItemDraftCollection::of()->add(
+                            TextLineItemDraft::ofName(LocalizedString::ofLangAndText('en', $name))
+                                ->setCustom(CustomFieldObjectDraft::ofTypeKey('shopping-list-textLineItem-set-field'))
+                        ));
+                    },
+                    function (ShoppingList $shoppingList) use ($client, $type) {
+                        $fieldValue = 'new value-' . ShoppingListFixture::uniqueShoppingListString();
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($fieldValue, $result->getTextLineItems()->current()->getCustom()->getFields()->getTestField());
+                        $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                            ->addAction(
+                                ShoppingListSetTextLineItemCustomFieldAction::ofTextLineItemIdAndName(
+                                    $shoppingList->getTextLineItems()->current()->getId(),
+                                    'testField'
+                                )->setValue($fieldValue)
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ShoppingList::class, $result);
+                        $this->assertSame(
+                            $fieldValue,
+                            $result->getTextLineItems()->current()->getCustom()->getFields()->getTestField()
+                        );
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
     public function testSetDeleteDaysAfterLastModification()
     {
-        $draft = $this->getDraft('set-delete-days-after-last-modification');
-        $shoppingList = $this->createShoppingList($draft);
+        $client = $this->getApiClient();
 
-        $days = 5;
-        $request = ShoppingListUpdateRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion())
-            ->addAction(ShoppingListSetDeleteDaysAfterLastModificationAction::of()->setDeleteDaysAfterLastModification($days))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ShoppingListFixture::withUpdateableShoppingList(
+            $client,
+            function (ShoppingList $shoppingList) use ($client) {
+                $days = 5;
 
-        $this->assertInstanceOf(ShoppingList::class, $result);
-        $this->assertSame($days, $result->getDeleteDaysAfterLastModification());
+                $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                    ->addAction(
+                        ShoppingListSetDeleteDaysAfterLastModificationAction::of()
+                            ->setDeleteDaysAfterLastModification($days)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShoppingList::class, $result);
+                $this->assertSame($days, $result->getDeleteDaysAfterLastModification());
+
+                return $result;
+            }
+        );
     }
-
+//todo migrate product first
     public function testAddLineItemBySku()
     {
         $product = $this->getProduct();

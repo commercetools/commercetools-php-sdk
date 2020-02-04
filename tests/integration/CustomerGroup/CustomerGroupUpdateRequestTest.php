@@ -5,83 +5,53 @@
 
 namespace Commercetools\Core\IntegrationTests\CustomerGroup;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
-use Commercetools\Core\Model\CustomerGroup\CustomerGroupDraft;
-use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupSetKeyAction;
-use Commercetools\Core\Request\CustomerGroups\CustomerGroupCreateRequest;
-use Commercetools\Core\Request\CustomerGroups\CustomerGroupDeleteRequest;
-use Commercetools\Core\Request\CustomerGroups\CustomerGroupUpdateRequest;
 use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupChangeNameAction;
+use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupSetKeyAction;
 
 class CustomerGroupUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @param $name
-     * @return CustomerGroupDraft
-     */
-    protected function getDraft($name)
-    {
-        $draft = CustomerGroupDraft::ofGroupName(
-            'test-' . $this->getTestRun() . '-' . $name
-        );
-
-        return $draft;
-    }
-
-    protected function createCustomerGroup(CustomerGroupDraft $draft)
-    {
-        $request = CustomerGroupCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $customerGroup = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = CustomerGroupDeleteRequest::ofIdAndVersion(
-            $customerGroup->getId(),
-            $customerGroup->getVersion()
-        );
-
-        return $customerGroup;
-    }
-
     public function testChangeName()
     {
-        $draft = $this->getDraft('change-name');
-        $customerGroup = $this->createCustomerGroup($draft);
+        $client = $this->getApiClient();
 
-        $name = $this->getTestRun() . '-new name';
-        $request = CustomerGroupUpdateRequest::ofIdAndVersion($customerGroup->getId(), $customerGroup->getVersion())
-            ->addAction(CustomerGroupChangeNameAction::ofName($name))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CustomerGroupFixture::withCustomerGroup(
+            $client,
+            function (CustomerGroup $customerGroup) use ($client) {
+                $name = 'new name-' . CustomerGroupFixture::uniqueCustomerGroupString();
 
-        $this->assertInstanceOf(CustomerGroup::class, $result);
-        $this->assertSame($name, $result->getName());
-        $this->assertNotSame($customerGroup->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->customerGroups()->update($customerGroup)
+                    ->addAction(CustomerGroupChangeNameAction::ofName($name));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(CustomerGroup::class, $result);
+                $this->assertInstanceOf(CustomerGroup::class, $result);
+                $this->assertSame($name, $result->getName());
+                $this->assertNotSame($customerGroup->getVersion(), $result->getVersion());
+            }
+        );
     }
 
     public function testSetKey()
     {
-        $draft = $this->getDraft('set-key');
-        $customerGroup = $this->createCustomerGroup($draft);
+        $client = $this->getApiClient();
 
-        $key = $this->getTestRun() . '-new-key';
-        $request = CustomerGroupUpdateRequest::ofIdAndVersion($customerGroup->getId(), $customerGroup->getVersion())
-            ->addAction(CustomerGroupSetKeyAction::of()->setKey($key))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CustomerGroupFixture::withCustomerGroup(
+            $client,
+            function (CustomerGroup $customerGroup) use ($client) {
+                $key = 'new-key-' . CustomerGroupFixture::uniqueCustomerGroupString();
 
-        $this->assertInstanceOf(CustomerGroup::class, $result);
-        $this->assertSame($key, $result->getKey());
-        $this->assertNotSame($customerGroup->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->customerGroups()->update($customerGroup)
+                    ->addAction(CustomerGroupSetKeyAction::of()->setKey($key));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(CustomerGroup::class, $result);
+                $this->assertInstanceOf(CustomerGroup::class, $result);
+                $this->assertSame($key, $result->getKey());
+                $this->assertNotSame($customerGroup->getVersion(), $result->getVersion());
+            }
+        );
     }
 }
