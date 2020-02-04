@@ -112,11 +112,4 @@ abstract class ResourceFixture
             call_user_func($deleteFunction, $client, $resource);
         }
     }
-
-    final protected static function withoutResource(
-        callable $assertFunction,
-        ApiClient $client
-    ) {
-        call_user_func($assertFunction, $client);
-    }
 }
