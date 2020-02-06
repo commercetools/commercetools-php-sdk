@@ -20,6 +20,7 @@ class CustomerFixture extends ResourceFixture
 {
     const CREATE_REQUEST_TYPE = CustomerCreateRequest::class;
     const DELETE_REQUEST_TYPE = CustomerDeleteRequest::class;
+    const EXTERNAL_USER_HEADER = 'X-External-User-ID';
 
     final public static function uniqueCustomerString()
     {
@@ -51,6 +52,8 @@ class CustomerFixture extends ResourceFixture
         ApiClient $client,
         CustomerDraft $draft
     ) {
+        $headers[self::EXTERNAL_USER_HEADER] = ['custom-external-user-id'];
+
         if (!empty($draft->getStores())) {
             $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
                 $draft->getStores()->current()->getKey(),
@@ -58,11 +61,10 @@ class CustomerFixture extends ResourceFixture
             );
         } else {
             $request = CustomerCreateRequest::ofDraft($draft);
-            $request->setExternalUserId('custom-external-user-id');
         }
 
         try {
-            $response = $client->execute($request);
+            $response = $client->execute($request, $headers);
         } catch (ApiServiceException $e) {
             throw self::toFixtureException($e);
         }

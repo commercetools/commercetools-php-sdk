@@ -10,6 +10,7 @@ use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\CustomerGroup\CustomerGroupFixture;
+use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
@@ -20,6 +21,7 @@ use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
+use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction;
@@ -786,43 +788,37 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
     public function testSetExternalUserOnCustomerUpdate()
     {
-        $draft = $this->getDraft('name');
+        $client = $this->getApiClient();
 
-        $request = CustomerCreateRequest::ofDraft($draft);
-        $request->setExternalUserId('custom-external-user-id');
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $this->assertInstanceOf(Customer::class, $customer);
+                $this->assertInstanceOf(CreatedBy::class, $customer->getCreatedBy());
+                $this->assertInstanceOf(LastModifiedBy::class, $customer->getLastModifiedBy());
+                $this->assertSame('custom-external-user-id', $customer->getCreatedBy()->getExternalUserId());
+                $this->assertSame('custom-external-user-id', $customer->getLastModifiedBy()->getExternalUserId());
 
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                $key = 'new-' . CustomerFixture::uniqueCustomerString();
 
-        $this->cleanupRequests[] = $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
-            $result->getCustomer()->getId(),
-            $result->getCustomer()->getVersion()
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerSetKeyAction::of()->setKey($key)
+                    );
+
+                $headers[CustomerFixture::EXTERNAL_USER_HEADER] = ['another-user'];
+                $response = $this->execute($client, $request, $headers);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Customer::class, $result);
+                $this->assertInstanceOf(CreatedBy::class, $result->getCreatedBy());
+                $this->assertInstanceOf(LastModifiedBy::class, $result->getLastModifiedBy());
+                $this->assertSame('custom-external-user-id', $result->getCreatedBy()->getExternalUserId());
+                $this->assertSame('another-user', $result->getLastModifiedBy()->getExternalUserId());
+
+                return $result;
+            }
         );
-        $customer = $result->getCustomer();
-
-        $this->assertInstanceOf(Customer::class, $customer);
-        $this->assertInstanceOf(CreatedBy::class, $customer->getCreatedBy());
-        $this->assertInstanceOf(LastModifiedBy::class, $customer->getLastModifiedBy());
-        $this->assertSame('custom-external-user-id', $customer->getCreatedBy()->getExternalUserId());
-        $this->assertSame('custom-external-user-id', $customer->getLastModifiedBy()->getExternalUserId());
-
-        $key = 'new-' . $this->getTestRun();
-        $request = CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(
-                CustomerSetKeyAction::of()->setKey($key)
-            )
-        ;
-        $request->setExternalUserId('another-user');
-
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Customer::class, $result);
-        $this->assertInstanceOf(CreatedBy::class, $result->getCreatedBy());
-        $this->assertInstanceOf(LastModifiedBy::class, $result->getLastModifiedBy());
-        $this->assertSame('custom-external-user-id', $result->getCreatedBy()->getExternalUserId());
-        $this->assertSame('another-user', $result->getLastModifiedBy()->getExternalUserId());
     }
 
     public function localeProvider()
@@ -895,46 +891,68 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
     public function testUpdateInStoreCustomerById()
     {
-        $store = $this->getStore();
-        $draft = $this->getDraft('in-store-update-by-id');
-        $customer = $this->createStoreCustomer($store->getKey(), $draft);
+        $client = $this->getApiClient();
 
-        $firstName = 'test-' . $this->getTestRun() . '-new firstName';
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-            $store->getKey(),
-            CustomerUpdateRequest::ofIdAndVersion($customer->getId(), $customer->getVersion())
-            ->addAction(
-                CustomerSetFirstNameAction::of()->setFirstName($firstName)
-            )
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client) {
+                CustomerFixture::withUpdateableCustomer(
+                    $client,
+                    function (Customer $customer) use ($client, $store) {
+                        $firstName = 'test-' . $this->getTestRun() . '-new firstName';
+
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->customers()->update($customer)
+                                ->addAction(
+                                    CustomerSetFirstNameAction::of()->setFirstName($firstName)
+                                )
+                        );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Customer::class, $result);
+                        $this->assertSame($firstName, $result->getFirstName());
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Customer::class, $result);
-        $this->assertSame($firstName, $result->getFirstName());
     }
 
     public function testUpdateInStoreCustomerByKey()
     {
-        $store = $this->getStore();
-        $draft = $this->getDraft('in-store-update-by-key');
-        $draft->setKey('test-'. $this->getTestRun());
-        $customer = $this->createStoreCustomer($store->getKey(), $draft);
+        $client = $this->getApiClient();
 
-        $firstName = 'test-' . $this->getTestRun() . '-new firstName';
-        $request =InStoreRequestDecorator::ofStoreKeyAndRequest(
-            $store->getKey(),
-            CustomerUpdateByKeyRequest::ofKeyAndVersion($customer->getKey(), $customer->getVersion())
-            ->addAction(
-                CustomerSetFirstNameAction::of()->setFirstName($firstName)
-            )
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client) {
+                CustomerFixture::withUpdateableDraftCustomer(
+                    $client,
+                    function (CustomerDraft $customerDraft) {
+                        return $customerDraft->setKey('test-'. CustomerFixture::uniqueCustomerString());
+                    },
+                    function (Customer $customer) use ($client, $store) {
+                        $firstName = 'test-' . CustomerFixture::uniqueCustomerString() . '-new firstName';
+
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->customers()->update($customer)
+                                ->addAction(
+                                    CustomerSetFirstNameAction::of()->setFirstName($firstName)
+                                )
+                        );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Customer::class, $result);
+                        $this->assertSame($firstName, $result->getFirstName());
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Customer::class, $result);
-        $this->assertSame($firstName, $result->getFirstName());
     }
 }
