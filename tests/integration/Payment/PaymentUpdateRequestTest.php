@@ -8,13 +8,14 @@ namespace Commercetools\Core\IntegrationTests\Payment;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
 use Commercetools\Core\IntegrationTests\State\StateFixture;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Payment\PaymentDraft;
-use Commercetools\Core\Model\Payment\PaymentMethodInfo;
 use Commercetools\Core\Model\Payment\Transaction;
 use Commercetools\Core\Model\Payment\TransactionState;
 use Commercetools\Core\Model\State\State;
@@ -43,45 +44,10 @@ use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoNameAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceCodeAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceTextAction;
 use Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction;
-use Commercetools\Core\Request\Payments\PaymentCreateRequest;
-use Commercetools\Core\Request\Payments\PaymentDeleteRequest;
-use Commercetools\Core\Request\Payments\PaymentUpdateByKeyRequest;
 use Commercetools\Core\Request\Payments\PaymentUpdateRequest;
 
 class PaymentUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @return PaymentDraft
-     */
-    protected function getDraft()
-    {
-        $externalId = 'test-' . $this->getTestRun() . '-payment';
-        $draft = PaymentDraft::ofKeyExternalIdAmountPlannedAndPaymentMethodInfo(
-            $externalId,
-            $externalId,
-            Money::ofCurrencyAndAmount('EUR', 100),
-            PaymentMethodInfo::of()
-                ->setPaymentInterface('Test')
-                ->setMethod('CreditCard')
-        );
-
-        return $draft;
-    }
-
-    protected function createPayment(PaymentDraft $draft)
-    {
-        $request = PaymentCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $payment = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = PaymentDeleteRequest::ofIdAndVersion(
-            $payment->getId(),
-            $payment->getVersion()
-        );
-
-        return $payment;
-    }
-
     public function testPaymentPlanned()
     {
         $client = $this->getApiClient();
@@ -106,47 +72,64 @@ class PaymentUpdateRequestTest extends ApiTestCase
             }
         );
     }
-// todo migrate Customer missing
+
     public function testUpdateByKey()
     {
-        $key = $this->getTestRun() . '-key';
-        $draft = $this->getDraft();
-        $draft->setKey($this->getTestRun() . '-key');
-        $payment = $this->createPayment($draft);
+        $client = $this->getApiClient();
 
-        $customer = $this->getCustomer();
-        $request = PaymentUpdateByKeyRequest::ofKeyAndVersion($key, $payment->getVersion())
-            ->addAction(
-                PaymentSetCustomerAction::of()->setCustomer($customer->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CustomerFixture::withCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                PaymentFixture::withUpdateableDraftPayment(
+                    $client,
+                    function (PaymentDraft $paymentDraft) {
+                        return $paymentDraft->setKey('key-' . PaymentFixture::uniquePaymentString());
+                    },
+                    function (Payment $payment) use ($client, $customer) {
+                        $request = RequestBuilder::of()->payments()->update($payment)
+                            ->addAction(
+                                PaymentSetCustomerAction::of()->setCustomer($customer->getReference())
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Payment::class, $result);
-        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
-        $this->assertNotSame($payment->getVersion(), $result->getVersion());
+                        $this->assertInstanceOf(Payment::class, $result);
+                        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+                        $this->assertNotSame($payment->getVersion(), $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
-// todo migrate Customer missing
+
     public function testSetCustomer()
     {
-        $draft = $this->getDraft();
-        $payment = $this->createPayment($draft);
+        $client = $this->getApiClient();
 
-        $customer = $this->getCustomer();
-        $request = PaymentUpdateRequest::ofIdAndVersion($payment->getId(), $payment->getVersion())
-            ->addAction(
-                PaymentSetCustomerAction::of()->setCustomer($customer->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CustomerFixture::withCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                PaymentFixture::withUpdateablePayment(
+                    $client,
+                    function (Payment $payment) use ($client, $customer) {
+                        $request = RequestBuilder::of()->payments()->update($payment)
+                            ->addAction(
+                                PaymentSetCustomerAction::of()->setCustomer($customer->getReference())
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Payment::class, $result);
-        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
-        $this->assertNotSame($payment->getVersion(), $result->getVersion());
+                        $this->assertInstanceOf(Payment::class, $result);
+                        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+                        $this->assertNotSame($payment->getVersion(), $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSetAnonymousId()

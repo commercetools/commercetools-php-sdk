@@ -8,6 +8,7 @@ namespace Commercetools\Core\IntegrationTests\Review;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
+use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
 use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\IntegrationTests\State\StateFixture;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
@@ -105,26 +106,28 @@ class ReviewUpdateRequestTest extends ApiTestCase
         );
     }
 
-//todo migration for Customer is missing
     public function testSetCustomer()
     {
         $client = $this->getApiClient();
 
-        ReviewFixture::withUpdateableReview(
+        CustomerFixture::withCustomer(
             $client,
-            function (Review $review) use ($client) {
-                $customer = $this->getCustomer();
+            function (Customer $customer) use ($client) {
+                ReviewFixture::withUpdateableReview(
+                    $client,
+                    function (Review $review) use ($client, $customer) {
+                        $request = RequestBuilder::of()->reviews()->update($review)
+                            ->addAction(ReviewSetCustomerAction::of()->setCustomer($customer->getReference()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-                $request = RequestBuilder::of()->reviews()->update($review)
-                    ->addAction(ReviewSetCustomerAction::of()->setCustomer($customer->getReference()));
-                $response = $this->execute($client, $request);
-                $result = $request->mapFromResponse($response);
+                        $this->assertInstanceOf(Review::class, $result);
+                        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+                        $this->assertNotSame($review->getVersion(), $result->getVersion());
 
-                $this->assertInstanceOf(Review::class, $result);
-                $this->assertSame($customer->getId(), $result->getCustomer()->getId());
-                $this->assertNotSame($review->getVersion(), $result->getVersion());
-
-                return $result;
+                        return $result;
+                    }
+                );
             }
         );
     }
@@ -393,27 +396,29 @@ class ReviewUpdateRequestTest extends ApiTestCase
         );
     }
 
-//todo migration for Customer is missing
     public function testReferenceExpansion()
     {
         $client = $this->getApiClient();
 
-        ReviewFixture::withUpdateableDraftReview(
+        CustomerFixture::withCustomer(
             $client,
-            function (ReviewDraft $reviewDraft) {
-                $customer = $this->getCustomer();
+            function (Customer $customer) use ($client) {
+                ReviewFixture::withUpdateableDraftReview(
+                    $client,
+                    function (ReviewDraft $reviewDraft) use ($customer) {
+                        return $reviewDraft->setCustomer($customer->getReference());
+                    },
+                    function (Review $review) use ($client) {
+                        $request = RequestBuilder::of()->reviews()->update($review);
+                        $request->expand('customer.id');
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-                return $reviewDraft->setCustomer($customer->getReference());
-            },
-            function (Review $review) use ($client) {
-                $request = RequestBuilder::of()->reviews()->update($review);
-                $request->expand('customer.id');
-                $response = $this->execute($client, $request);
-                $result = $request->mapFromResponse($response);
+                        $this->assertInstanceOf(Customer::class, $result->getCustomer()->getObj());
 
-                $this->assertInstanceOf(Customer::class, $result->getCustomer()->getObj());
-
-                return $result;
+                        return $result;
+                    }
+                );
             }
         );
     }
