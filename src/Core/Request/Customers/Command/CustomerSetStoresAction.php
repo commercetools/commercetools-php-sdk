@@ -35,7 +35,7 @@ class CustomerSetStoresAction extends AbstractAction
      * @param Context|callable $context
      * @return CustomerSetStoresAction
      */
-    public static function ofStores($stores, $context = null)
+    public static function ofStores(StoreReferenceCollection $stores, $context = null)
     {
         return static::of($context)->setStores($stores);
     }

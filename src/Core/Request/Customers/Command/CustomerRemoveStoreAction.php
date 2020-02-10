@@ -35,4 +35,14 @@ class CustomerRemoveStoreAction extends AbstractAction
         parent::__construct($data, $context);
         $this->setAction('removeStore');
     }
+
+    /**
+     * @param StoreReference $store
+     * @param Context|callable $context
+     * @return CustomerRemoveStoreAction
+     */
+    public static function ofStore(StoreReference $store, $context = null)
+    {
+        return static::of($context)->setStore($store);
+    }
 }

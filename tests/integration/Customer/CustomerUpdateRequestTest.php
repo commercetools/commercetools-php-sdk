@@ -838,13 +838,10 @@ class CustomerUpdateRequestTest extends ApiTestCase
                     function (Customer $customer) use ($client, $store) {
                         $storeReference = StoreReferenceCollection::of()->add($store->getReference());
 
-                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-                            $store->getKey(),
-                            RequestBuilder::of()->customers()->update($customer)
+                        $request = RequestBuilder::of()->customers()->update($customer)
                                 ->addAction(
                                     CustomerSetStoresAction::ofStores($storeReference)
-                                )
-                        );
+                                );
                         $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
@@ -871,11 +868,8 @@ class CustomerUpdateRequestTest extends ApiTestCase
                     function (Customer $customer) use ($client, $store) {
                         $storeReference = StoreReference::ofKey($store->getKey());
 
-                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-                            $store->getKey(),
-                            RequestBuilder::of()->customers()->update($customer)
-                                ->addAction(CustomerAddStoreAction::ofStore($storeReference))
-                        );
+                        $request = RequestBuilder::of()->customers()->update($customer)
+                                ->addAction(CustomerAddStoreAction::ofStore($storeReference));
                         $response = $this->execute($client, $request);
                         $customer = $request->mapFromResponse($response);
 
