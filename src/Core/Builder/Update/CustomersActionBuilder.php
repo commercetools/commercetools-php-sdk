@@ -7,11 +7,13 @@ use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerAddBillingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerAddShippingAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerAddStoreAction;
 use Commercetools\Core\Request\Customers\Command\CustomerChangeAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerChangeEmailAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveBillingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveShippingAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerRemoveStoreAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomFieldAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomTypeAction;
@@ -27,6 +29,7 @@ use Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetLocaleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetSalutationAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetStoresAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction;
 
@@ -64,6 +67,17 @@ class CustomersActionBuilder
     public function addShippingAddressId($action = null)
     {
         $this->addAction($this->resolveAction(CustomerAddShippingAddressAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#add-store-beta
+     * @param CustomerAddStoreAction|callable $action
+     * @return $this
+     */
+    public function addStore($action = null)
+    {
+        $this->addAction($this->resolveAction(CustomerAddStoreAction::class, $action));
         return $this;
     }
 
@@ -119,6 +133,17 @@ class CustomersActionBuilder
     public function removeShippingAddressId($action = null)
     {
         $this->addAction($this->resolveAction(CustomerRemoveShippingAddressAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#remove-store-beta
+     * @param CustomerRemoveStoreAction|callable $action
+     * @return $this
+     */
+    public function removeStore($action = null)
+    {
+        $this->addAction($this->resolveAction(CustomerRemoveStoreAction::class, $action));
         return $this;
     }
 
@@ -284,6 +309,17 @@ class CustomersActionBuilder
     public function setSalutation($action = null)
     {
         $this->addAction($this->resolveAction(CustomerSetSalutationAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-customers.html#set-stores-beta
+     * @param CustomerSetStoresAction|callable $action
+     * @return $this
+     */
+    public function setStores($action = null)
+    {
+        $this->addAction($this->resolveAction(CustomerSetStoresAction::class, $action));
         return $this;
     }
 
