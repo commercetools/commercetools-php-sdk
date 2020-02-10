@@ -6,7 +6,9 @@
 
 namespace Commercetools\Core\IntegrationTests\Customer;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\CreatedBy;
@@ -15,14 +17,19 @@ use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
+use Commercetools\Core\Model\Store\Store;
+use Commercetools\Core\Model\Store\StoreReference;
+use Commercetools\Core\Model\Store\StoreReferenceCollection;
 use Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerAddBillingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerAddShippingAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerAddStoreAction;
 use Commercetools\Core\Request\Customers\Command\CustomerChangeAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerChangeEmailAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveBillingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveShippingAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerRemoveStoreAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerGroupAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerNumberAction;
@@ -36,6 +43,7 @@ use Commercetools\Core\Request\Customers\Command\CustomerSetLastNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetLocaleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetMiddleNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetSalutationAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetStoresAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
@@ -816,5 +824,70 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Customer::class, $result);
         $this->assertSame($firstName, $result->getFirstName());
+    }
+
+    public function testSetStores()
+    {
+        $client = $this->getApiClient();
+
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client) {
+                CustomerFixture::withUpdateableCustomer(
+                    $client,
+                    function (Customer $customer) use ($client, $store) {
+                        $storeReference = StoreReferenceCollection::of()->add($store->getReference());
+
+                        $request = RequestBuilder::of()->customers()->update($customer)
+                                ->addAction(
+                                    CustomerSetStoresAction::ofStores($storeReference)
+                                );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Customer::class, $result);
+                        $this->assertSame($store->getKey(), $result->getStores()->current()->getKey());
+                        $this->assertNotSame($customer->getVersion(), $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
+
+    public function testAddStore()
+    {
+        $client = $this->getApiClient();
+
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client) {
+                CustomerFixture::withUpdateableCustomer(
+                    $client,
+                    function (Customer $customer) use ($client, $store) {
+                        $storeReference = StoreReference::ofKey($store->getKey());
+
+                        $request = RequestBuilder::of()->customers()->update($customer)
+                                ->addAction(CustomerAddStoreAction::ofStore($storeReference));
+                        $response = $this->execute($client, $request);
+                        $customer = $request->mapFromResponse($response);
+
+                        $this->assertCount(1, $customer->getStores());
+
+                        $request = RequestBuilder::of()->customers()->update($customer)
+                            ->addAction(
+                                CustomerRemoveStoreAction::of()->setStore($storeReference)
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertEmpty($result->getStores());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 }
