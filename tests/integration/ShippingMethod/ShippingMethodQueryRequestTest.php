@@ -3,7 +3,6 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\ShippingMethod;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
@@ -29,42 +28,6 @@ use Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest;
 
 class ShippingMethodQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @return ShippingMethodDraft
-     */
-    protected function getDraft()
-    {
-        $draft = ShippingMethodDraft::ofNameTaxCategoryZoneRateAndDefault(
-            'test-' . $this->getTestRun() . '-name',
-            $this->getTaxCategory()->getReference(),
-            ZoneRateCollection::of()->add(
-                ZoneRate::of()->setZone($this->getZone()->getReference())
-                    ->setShippingRates(
-                        ShippingRateCollection::of()->add(
-                            ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100))
-                        )
-                    )
-            ),
-            false
-        );
-
-        return $draft;
-    }
-
-    protected function createShippingMethod(ShippingMethodDraft $draft)
-    {
-        $request = ShippingMethodCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $shippingMethod = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = ShippingMethodDeleteRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $shippingMethod->getVersion()
-        );
-
-        return $shippingMethod;
-    }
-
     public function testQuery()
     {
         $client = $this->getApiClient();

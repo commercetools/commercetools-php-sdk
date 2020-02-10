@@ -18,6 +18,7 @@ class ProjectFixture extends ResourceFixture
     {
         $request = RequestBuilder::of()->project()->get();
         $response = $client->execute($request);
+
         return $request->mapFromResponse($response);
     }
 
