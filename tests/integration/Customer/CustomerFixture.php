@@ -135,50 +135,29 @@ class CustomerFixture extends ResourceFixture
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        StoreFixture::withStore(
-            $client,
-            function (Store $store) use (
-                $client,
-                $draftBuilderFunction,
-                $assertFunction,
-                $createFunction,
-                $deleteFunction,
-                $draftFunction
-            ) {
-
-                $storeReference = StoreReference::ofId($store->getId());
-                if ($draftFunction == null) {
-                    $draftFunction = function () use ($storeReference) {
-                        return call_user_func(
-                            [__CLASS__, 'customerDraftFunction'],
-                            $storeReference
-                        );
-                    };
-                } else {
-                    $draftFunction = function () use (
-                        $storeReference,
-                        $draftFunction
-                    ) {
-                        return call_user_func($draftFunction, $storeReference);
-                    };
-                }
-                if ($createFunction == null) {
-                    $createFunction = [__CLASS__, 'customerCreateFunction'];
-                }
-                if ($deleteFunction == null) {
-                    $deleteFunction = [__CLASS__, 'defaultCustomerDeleteFunction'];
-                }
-
-                parent::withDraftResource(
-                    $client,
-                    $draftBuilderFunction,
-                    $assertFunction,
-                    $createFunction,
-                    $deleteFunction,
-                    $draftFunction,
-                    [$store]
+        $storeReference = null;
+        if ($draftFunction == null) {
+            $draftFunction = function () use ($storeReference) {
+                return call_user_func(
+                    [__CLASS__, 'customerDraftFunction'],
+                    $storeReference
                 );
-            }
+            };
+        }
+        if ($createFunction == null) {
+            $createFunction = [__CLASS__, 'customerCreateFunction'];
+        }
+        if ($deleteFunction == null) {
+            $deleteFunction = [__CLASS__, 'defaultCustomerDeleteFunction'];
+        }
+
+        parent::withDraftResource(
+            $client,
+            $draftBuilderFunction,
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
         );
     }
 
