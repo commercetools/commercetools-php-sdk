@@ -77,31 +77,21 @@ class CustomerQueryRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        StoreFixture::withStore(
+        CustomerFixture::withCustomer(
             $client,
-            function (Store $store) use ($client) {
-                CustomerFixture::withDraftCustomer(
-                    $client,
-                    function (CustomerDraft $draft) use ($store) {
-                        $storeReferences = StoreReferenceCollection::of()->add(StoreReference::ofKey($store->getKey()));
+            function (Customer $customer, Store $store) use ($client) {
+                $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                    $store->getKey(),
+                    RequestBuilder::of()->customers()->getById($customer->getId())
+                );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-                        return $draft->setStores($storeReferences);
-                    },
-                    function (Customer $customer) use ($client, $store) {
-                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-                            $store->getKey(),
-                            RequestBuilder::of()->customers()->getById($customer->getId())
-                        );
-                        $response = $this->execute($client, $request);
-                        $result = $request->mapFromResponse($response);
-
-                        $this->assertInstanceOf(Customer::class, $customer);
-                        $this->assertSame($customer->getId(), $result->getId());
-                        $this->assertSame(
-                            $customer->getStores()->current()->getId(),
-                            $result->getStores()->current()->getId()
-                        );
-                    }
+                $this->assertInstanceOf(Customer::class, $customer);
+                $this->assertSame($customer->getId(), $result->getId());
+                $this->assertSame(
+                    $customer->getStores()->current()->getId(),
+                    $result->getStores()->current()->getId()
                 );
             }
         );
@@ -111,32 +101,23 @@ class CustomerQueryRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        StoreFixture::withStore(
+        CustomerFixture::withDraftCustomer(
             $client,
-            function (Store $store) use ($client) {
-                CustomerFixture::withDraftCustomer(
-                    $client,
-                    function (CustomerDraft $draft) use ($store) {
-                        $storeReferences = StoreReferenceCollection::of()->add(StoreReference::ofKey($store->getKey()));
+            function (CustomerDraft $draft) {
+                return $draft->setKey('test-' . CustomerFixture::uniqueCustomerString());
+            },
+            function (Customer $customer, Store $store) use ($client) {
+                $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                    $store->getKey(),
+                    RequestBuilder::of()->customers()->getByKey($customer->getKey())
+                );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-                        $draft->setStores($storeReferences)->setKey('test-' . CustomerFixture::uniqueCustomerString());
-
-                        return $draft;
-                    },
-                    function (Customer $customer) use ($client, $store) {
-                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-                            $store->getKey(),
-                            RequestBuilder::of()->customers()->getByKey($customer->getKey())
-                        );
-                        $response = $this->execute($client, $request);
-                        $result = $request->mapFromResponse($response);
-
-                        $this->assertInstanceOf(Customer::class, $customer);
-                        $this->assertSame(
-                            $customer->getStores()->current()->getKey(),
-                            $result->getStores()->current()->getKey()
-                        );
-                    }
+                $this->assertInstanceOf(Customer::class, $customer);
+                $this->assertSame(
+                    $customer->getStores()->current()->getKey(),
+                    $result->getStores()->current()->getKey()
                 );
             }
         );
@@ -146,30 +127,20 @@ class CustomerQueryRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        StoreFixture::withStore(
+        CustomerFixture::withCustomer(
             $client,
-            function (Store $store) use ($client) {
-                CustomerFixture::withDraftCustomer(
-                    $client,
-                    function (CustomerDraft $draft) use ($store) {
-                        $storeReferences = StoreReferenceCollection::of()->add(StoreReference::ofKey($store->getKey()));
-
-                        return $draft->setStores($storeReferences);
-                    },
-                    function (Customer $customer) use ($client, $store) {
-                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-                            $store->getKey(),
-                            RequestBuilder::of()->customers()->query()
-                                ->where('email=:email', ['email' => $customer->getEmail()])
-                        );
-                        $response = $this->execute($client, $request);
-                        $result = $request->mapFromResponse($response);
-
-                        $this->assertCount(1, $result);
-                        $this->assertInstanceOf(Customer::class, $result->current());
-                        $this->assertSame($customer->getId(), $result->current()->getId());
-                    }
+            function (Customer $customer, Store $store) use ($client) {
+                $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                    $store->getKey(),
+                    RequestBuilder::of()->customers()->query()
+                        ->where('email=:email', ['email' => $customer->getEmail()])
                 );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Customer::class, $result->current());
+                $this->assertSame($customer->getId(), $result->current()->getId());
             }
         );
     }

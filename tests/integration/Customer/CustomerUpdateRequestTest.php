@@ -10,7 +10,6 @@ use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\CustomerGroup\CustomerGroupFixture;
-use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
@@ -898,30 +897,25 @@ class CustomerUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        StoreFixture::withStore(
+        CustomerFixture::withUpdateableCustomer(
             $client,
-            function (Store $store) use ($client) {
-                CustomerFixture::withUpdateableCustomer(
-                    $client,
-                    function (Customer $customer) use ($client, $store) {
-                        $firstName = 'test-' . $this->getTestRun() . '-new firstName';
+            function (Customer $customer, Store $store) use ($client) {
+                $firstName = 'test-' . $this->getTestRun() . '-new firstName';
 
-                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-                            $store->getKey(),
-                            RequestBuilder::of()->customers()->update($customer)
-                                ->addAction(
-                                    CustomerSetFirstNameAction::of()->setFirstName($firstName)
-                                )
-                        );
-                        $response = $this->execute($client, $request);
-                        $result = $request->mapFromResponse($response);
-
-                        $this->assertInstanceOf(Customer::class, $result);
-                        $this->assertSame($firstName, $result->getFirstName());
-
-                        return $result;
-                    }
+                $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                    $store->getKey(),
+                    RequestBuilder::of()->customers()->update($customer)
+                        ->addAction(
+                            CustomerSetFirstNameAction::of()->setFirstName($firstName)
+                        )
                 );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Customer::class, $result);
+                $this->assertSame($firstName, $result->getFirstName());
+
+                return $result;
             }
         );
     }
@@ -930,33 +924,28 @@ class CustomerUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        StoreFixture::withStore(
+        CustomerFixture::withUpdateableDraftCustomer(
             $client,
-            function (Store $store) use ($client) {
-                CustomerFixture::withUpdateableDraftCustomer(
-                    $client,
-                    function (CustomerDraft $customerDraft) {
-                        return $customerDraft->setKey('test-'. CustomerFixture::uniqueCustomerString());
-                    },
-                    function (Customer $customer) use ($client, $store) {
-                        $firstName = 'test-' . CustomerFixture::uniqueCustomerString() . '-new firstName';
+            function (CustomerDraft $customerDraft) {
+                return $customerDraft->setKey('test-'. CustomerFixture::uniqueCustomerString());
+            },
+            function (Customer $customer, Store $store) use ($client) {
+                $firstName = 'test-' . CustomerFixture::uniqueCustomerString() . '-new firstName';
 
-                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-                            $store->getKey(),
-                            RequestBuilder::of()->customers()->update($customer)
-                                ->addAction(
-                                    CustomerSetFirstNameAction::of()->setFirstName($firstName)
-                                )
-                        );
-                        $response = $this->execute($client, $request);
-                        $result = $request->mapFromResponse($response);
-
-                        $this->assertInstanceOf(Customer::class, $result);
-                        $this->assertSame($firstName, $result->getFirstName());
-
-                        return $result;
-                    }
+                $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                    $store->getKey(),
+                    RequestBuilder::of()->customers()->update($customer)
+                        ->addAction(
+                            CustomerSetFirstNameAction::of()->setFirstName($firstName)
+                        )
                 );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Customer::class, $result);
+                $this->assertSame($firstName, $result->getFirstName());
+
+                return $result;
             }
         );
     }
@@ -965,28 +954,22 @@ class CustomerUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        StoreFixture::withStore(
+        CustomerFixture::withUpdateableCustomer(
             $client,
-            function (Store $store) use ($client) {
-                CustomerFixture::withUpdateableCustomer(
-                    $client,
-                    function (Customer $customer) use ($client, $store) {
-                        $storeReference = StoreReferenceCollection::of()->add($store->getReference());
+            function (Customer $customer, Store $store) use ($client) {
+                $storeReference = StoreReferenceCollection::of()->add($store->getReference());
 
-                        $request = RequestBuilder::of()->customers()->update($customer)
-                                ->addAction(
-                                    CustomerSetStoresAction::ofStores($storeReference)
-                                );
-                        $response = $this->execute($client, $request);
-                        $result = $request->mapFromResponse($response);
+                $request = RequestBuilder::of()->customers()->update($customer)
+                        ->addAction(
+                            CustomerSetStoresAction::ofStores($storeReference)
+                        );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-                        $this->assertInstanceOf(Customer::class, $result);
-                        $this->assertSame($store->getKey(), $result->getStores()->current()->getKey());
-                        $this->assertNotSame($customer->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Customer::class, $result);
+                $this->assertSame($store->getKey(), $result->getStores()->current()->getKey());
 
-                        return $result;
-                    }
-                );
+                return $result;
             }
         );
     }
@@ -995,33 +978,28 @@ class CustomerUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        StoreFixture::withStore(
+        CustomerFixture::withUpdateableCustomer(
             $client,
-            function (Store $store) use ($client) {
-                CustomerFixture::withUpdateableCustomer(
-                    $client,
-                    function (Customer $customer) use ($client, $store) {
-                        $storeReference = StoreReference::ofKey($store->getKey());
+            function (Customer $customer, Store $store) use ($client) {
+                $storeReference = StoreReference::ofKey($store->getKey());
 
-                        $request = RequestBuilder::of()->customers()->update($customer)
-                                ->addAction(CustomerAddStoreAction::ofStore($storeReference));
-                        $response = $this->execute($client, $request);
-                        $customer = $request->mapFromResponse($response);
+                $request = RequestBuilder::of()->customers()->update($customer)
+                        ->addAction(CustomerAddStoreAction::ofStore($storeReference));
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
 
-                        $this->assertCount(1, $customer->getStores());
+                $this->assertCount(1, $customer->getStores());
 
-                        $request = RequestBuilder::of()->customers()->update($customer)
-                            ->addAction(
-                                CustomerRemoveStoreAction::of()->setStore($storeReference)
-                            );
-                        $response = $this->execute($client, $request);
-                        $result = $request->mapFromResponse($response);
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerRemoveStoreAction::of()->setStore($storeReference)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-                        $this->assertEmpty($result->getStores());
+                $this->assertEmpty($result->getStores());
 
-                        return $result;
-                    }
-                );
+                return $result;
             }
         );
     }
