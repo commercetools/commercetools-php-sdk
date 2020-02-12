@@ -27,7 +27,7 @@ class CustomerFixture extends ResourceFixture
         return 'test-' . Uuid::uuidv4();
     }
 
-    final public static function customerDraftFunction(StoreReferenceCollection $storeReferenceCollection = null)
+    final public static function customerDraftFunction($storeReference)
     {
         $uniqueCustomerString = self::uniqueCustomerString();
         $draft = CustomerDraft::ofEmailNameAndPassword(
@@ -36,8 +36,8 @@ class CustomerFixture extends ResourceFixture
             'test-' . $uniqueCustomerString . '-lastName',
             'test-' . $uniqueCustomerString . '-password'
         );
-        if (!empty($storeReferenceCollection)) {
-            $draft->setStores($storeReferenceCollection);
+        if (!empty($storeReference)) {
+            $draft->setStores(StoreReferenceCollection::of()->add($storeReference));
         }
 
         return $draft;
@@ -54,14 +54,7 @@ class CustomerFixture extends ResourceFixture
     ) {
         $headers[self::EXTERNAL_USER_HEADER] = ['custom-external-user-id'];
 
-        if (!empty($draft->getStores())) {
-            $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-                $draft->getStores()->current()->getKey(),
-                CustomerCreateRequest::ofDraft($draft)
-            );
-        } else {
-            $request = CustomerCreateRequest::ofDraft($draft);
-        }
+        $request = CustomerCreateRequest::ofDraft($draft);
 
         try {
             $response = $client->execute($request, $headers);
@@ -87,23 +80,50 @@ class CustomerFixture extends ResourceFixture
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        if ($draftFunction == null) {
-            $draftFunction = [__CLASS__, 'customerDraftFunction'];
-        }
-        if ($createFunction == null) {
-            $createFunction = [__CLASS__, 'customerCreateFunction'];
-        }
-        if ($deleteFunction == null) {
-            $deleteFunction = [__CLASS__, 'defaultCustomerDeleteFunction'];
-        }
-
-        parent::withUpdateableDraftResource(
+        StoreFixture::withStore(
             $client,
-            $draftBuilderFunction,
-            $assertFunction,
-            $createFunction,
-            $deleteFunction,
-            $draftFunction
+            function (Store $store) use (
+                $client,
+                $draftBuilderFunction,
+                $assertFunction,
+                $createFunction,
+                $deleteFunction,
+                $draftFunction
+            ) {
+
+                $storeReference = StoreReference::ofId($store->getId());
+                if ($draftFunction == null) {
+                    $draftFunction = function () use ($storeReference) {
+                        return call_user_func(
+                            [__CLASS__, 'customerDraftFunction'],
+                            $storeReference
+                        );
+                    };
+                } else {
+                    $draftFunction = function () use (
+                        $storeReference,
+                        $draftFunction
+                    ) {
+                        return call_user_func($draftFunction, $storeReference);
+                    };
+                }
+                if ($createFunction == null) {
+                    $createFunction = [__CLASS__, 'customerCreateFunction'];
+                }
+                if ($deleteFunction == null) {
+                    $deleteFunction = [__CLASS__, 'defaultCustomerDeleteFunction'];
+                }
+
+                parent::withUpdateableDraftResource(
+                    $client,
+                    $draftBuilderFunction,
+                    $assertFunction,
+                    $createFunction,
+                    $deleteFunction,
+                    $draftFunction,
+                    [$store]
+                );
+            }
         );
     }
 
@@ -115,8 +135,14 @@ class CustomerFixture extends ResourceFixture
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
+        $storeReference = null;
         if ($draftFunction == null) {
-            $draftFunction = [__CLASS__, 'customerDraftFunction'];
+            $draftFunction = function () use ($storeReference) {
+                return call_user_func(
+                    [__CLASS__, 'customerDraftFunction'],
+                    $storeReference
+                );
+            };
         }
         if ($createFunction == null) {
             $createFunction = [__CLASS__, 'customerCreateFunction'];

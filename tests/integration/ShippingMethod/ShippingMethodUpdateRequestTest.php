@@ -3,11 +3,11 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\ShippingMethod;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Project\ProjectFixture;
 use Commercetools\Core\IntegrationTests\TaxCategory\TaxCategoryFixture;
 use Commercetools\Core\IntegrationTests\Zone\ZoneFixture;
 use Commercetools\Core\Model\Common\LocalizedEnum;
@@ -25,21 +25,10 @@ use Commercetools\Core\Model\ShippingMethod\PriceFunction;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
-use Commercetools\Core\Model\ShippingMethod\ShippingRateCollection;
 use Commercetools\Core\Model\ShippingMethod\ShippingRatePriceTierCollection;
-use Commercetools\Core\Model\ShippingMethod\ZoneRate;
-use Commercetools\Core\Model\ShippingMethod\ZoneRateCollection;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
-use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
-use Commercetools\Core\Model\TaxCategory\TaxRate;
-use Commercetools\Core\Model\TaxCategory\TaxRateCollection;
-use Commercetools\Core\Model\Zone\Location;
-use Commercetools\Core\Model\Zone\LocationCollection;
 use Commercetools\Core\Model\Zone\Zone;
-use Commercetools\Core\Model\Zone\ZoneDraft;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
-use Commercetools\Core\Request\Project\ProjectGetRequest;
-use Commercetools\Core\Request\Project\ProjectUpdateRequest;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddShippingRateAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddZoneAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeIsDefaultAction;
@@ -50,67 +39,23 @@ use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneA
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetKeyAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetPredicateAction;
-use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
-use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
-use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateByKeyRequest;
-use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest;
-use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
-use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
-use Commercetools\Core\Request\Zones\ZoneCreateRequest;
-use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 
 class ShippingMethodUpdateRequestTest extends ApiTestCase
 {
-//    todo Project migration missing
-    public function tearDown(): void
+    protected function getRateSetPriceFunction()
     {
-        parent::tearDown();
-        $request = ProjectGetRequest::of();
-        $response = $request->executeWithClient($this->getClient());
-        $project = $request->mapResponse($response);
-
-        if ($project instanceof Project) {
-            $request = ProjectUpdateRequest::ofVersion($project->getVersion());
-            $request->addAction(ProjectSetShippingRateInputTypeAction::of());
-            $request->executeWithClient($this->getClient());
-        }
-    }
-
-    /**
-     * @param $name
-     * @return ShippingMethodDraft
-     */
-    protected function getDraft($name)
-    {
-        $draft = ShippingMethodDraft::ofNameTaxCategoryZoneRateAndDefault(
-            'test-' . $this->getTestRun() . '-' . $name,
-            $this->getTaxCategory()->getReference(),
-            ZoneRateCollection::of()->add(
-                ZoneRate::of()->setZone($this->getZone()->getReference())
-                    ->setShippingRates(
-                        ShippingRateCollection::of()->add(
-                            ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100))
-                        )
+        $rate = ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('USD', 100));
+        $rate->setTiers(
+            ShippingRatePriceTierCollection::of()->add(
+                CartScore::of()
+                    ->setScore(1)
+                    ->setPriceFunction(
+                        PriceFunction::of()->setCurrencyCode('USD')->setFunction('200 * x')
                     )
-            ),
-            false
+            )
         );
 
-        return $draft;
-    }
-
-    protected function createShippingMethod(ShippingMethodDraft $draft)
-    {
-        $request = ShippingMethodCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $shippingMethod = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = ShippingMethodDeleteRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $shippingMethod->getVersion()
-        );
-
-        return $shippingMethod;
+        return $rate;
     }
 
     public function testUpdateByKey()
@@ -314,10 +259,9 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
                 $rate = ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('USD', 100));
 
                 $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
-                    ->addAction(ShippingMethodAddShippingRateAction::ofZoneAndShippingRate(
-                        $zone->getReference(),
-                        $rate
-                    ));
+                    ->addAction(
+                        ShippingMethodAddShippingRateAction::ofZoneAndShippingRate($zone->getReference(), $rate)
+                    );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -385,231 +329,219 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
             }
         );
     }
-//todo Project migration is missing
+
     public function testShippingMethodPriceTierClassification()
     {
-        $request = ProjectGetRequest::of();
-        $response = $request->executeWithClient($this->getClient());
-        $project = $request->mapResponse($response);
+        $client = $this->getApiClient();
 
-        $this->assertInstanceOf(Project::class, $project);
+        ProjectFixture::withProject(
+            $client,
+            function (Project $project) use ($client) {
+                $this->assertInstanceOf(Project::class, $project);
 
-        $request = ProjectUpdateRequest::ofVersion($project->getVersion());
-        $request->addAction(
-            ProjectSetShippingRateInputTypeAction::of()
-                ->setShippingRateInputType(
-                    CartClassificationType::of()->setValues(
-                        LocalizedEnumCollection::of()->add(
-                            LocalizedEnum::of()->setKey('small')
-                                ->setLabel(LocalizedString::ofLangAndText('en', 'small'))
-                        )->add(
-                            LocalizedEnum::of()->setKey('medium')
-                                ->setLabel(LocalizedString::ofLangAndText('en', 'medium'))
-                        )->add(
-                            LocalizedEnum::of()->setKey('large')
-                                ->setLabel(LocalizedString::ofLangAndText('en', 'large'))
-                        )
-                    )
-                )
-        );
-        $request->executeWithClient($this->getClient());
+                $request = RequestBuilder::of()->project()->update($project)
+                    ->addAction(
+                        ProjectSetShippingRateInputTypeAction::of()
+                            ->setShippingRateInputType(
+                                CartClassificationType::of()->setValues(
+                                    LocalizedEnumCollection::of()->add(
+                                        LocalizedEnum::of()->setKey('small')
+                                            ->setLabel(LocalizedString::ofLangAndText('en', 'small'))
+                                    )->add(
+                                        LocalizedEnum::of()->setKey('medium')
+                                            ->setLabel(LocalizedString::ofLangAndText('en', 'medium'))
+                                    )->add(
+                                        LocalizedEnum::of()->setKey('large')
+                                            ->setLabel(LocalizedString::ofLangAndText('en', 'large'))
+                                    )
+                                )
+                            )
+                    );
+                $this->execute($client, $request);
 
-        $draft = $this->getDraft('shipping-rate-tiers');
-        $shippingMethod = $this->createShippingMethod($draft);
-        $actualVersion = $shippingMethod->getVersion();
+                ShippingMethodFixture::withUpdateableShippingMethod(
+                    $client,
+                    function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
+                        $rate = ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('USD', 100));
+                        $rate->setTiers(
+                            ShippingRatePriceTierCollection::of()->add(
+                                CartClassification::of()
+                                    ->setValue('small')
+                                    ->setPrice(Money::ofCurrencyAndAmount('USD', 90))
+                            )
+                        );
 
-        $rate = ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('USD', 100));
-        $rate->setTiers(
-            ShippingRatePriceTierCollection::of()->add(
-                CartClassification::of()->setValue('small')->setPrice(Money::ofCurrencyAndAmount('USD', 90))
-            )
-        );
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $actualVersion
-        )
-            ->addAction(ShippingMethodAddShippingRateAction::ofZoneAndShippingRate(
-                $this->getZone()->getReference(),
-                $rate
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient(), ['X-Vrap-Disable-Validation' => 'response']);
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                        $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                            ->addAction(ShippingMethodAddShippingRateAction::ofZoneAndShippingRate(
+                                $zone->getReference(),
+                                $rate
+                            ));
+                        $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(ShippingMethod::class, $result);
-        $rate = null;
-        foreach ($result->getZoneRates()->current()->getShippingRates() as $shippingRate) {
-            if ($shippingRate->getPrice()->getCurrencyCode() == 'USD') {
-                $rate = $shippingRate;
+                        $this->assertInstanceOf(ShippingMethod::class, $result);
+
+                        $rate = null;
+                        foreach ($result->getZoneRates()->current()->getShippingRates() as $shippingRate) {
+                            if ($shippingRate->getPrice()->getCurrencyCode() == 'USD') {
+                                $rate = $shippingRate;
+                            }
+                        }
+                        $this->assertInstanceOf(ShippingRate::class, $rate);
+                        $this->assertInstanceOf(CartClassification::class, $rate->getTiers()->current());
+
+                        return $result;
+                    }
+                );
             }
-        }
-        $this->assertInstanceOf(ShippingRate::class, $rate);
-        $this->assertInstanceOf(
-            CartClassification::class,
-            $rate->getTiers()->current()
         );
     }
-//todo Project migration is missing
+
     public function testShippingMethodPriceTierScoreFunction()
     {
-        $request = ProjectGetRequest::of();
-        $response = $request->executeWithClient($this->getClient());
-        $project = $request->mapResponse($response);
+        $client = $this->getApiClient();
 
-        $this->assertInstanceOf(Project::class, $project);
+        ProjectFixture::withProject(
+            $client,
+            function (Project $project) use ($client) {
+                $this->assertInstanceOf(Project::class, $project);
 
-        $request = ProjectUpdateRequest::ofVersion($project->getVersion());
-        $request->addAction(
-            ProjectSetShippingRateInputTypeAction::of()
-                ->setShippingRateInputType(CartScoreType::of())
-        );
-        $request->executeWithClient($this->getClient());
+                $request = RequestBuilder::of()->project()->update($project)
+                    ->addAction(
+                        ProjectSetShippingRateInputTypeAction::of()
+                            ->setShippingRateInputType(CartScoreType::of())
+                    );
+                $this->execute($client, $request);
 
-        $draft = $this->getDraft('shipping-rate-tiers');
-        $shippingMethod = $this->createShippingMethod($draft);
-        $actualVersion = $shippingMethod->getVersion();
+                ShippingMethodFixture::withUpdateableShippingMethod(
+                    $client,
+                    function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
+                        $rate = $this->getRateSetPriceFunction();
 
-        $rate = ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('USD', 100));
-        $rate->setTiers(
-            ShippingRatePriceTierCollection::of()->add(
-                CartScore::of()
-                    ->setScore(1)
-                    ->setPriceFunction(PriceFunction::of()->setCurrencyCode('USD')->setFunction('200 * x'))
-            )
-        );
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $actualVersion
-        )
-            ->addAction(ShippingMethodAddShippingRateAction::ofZoneAndShippingRate(
-                $this->getZone()->getReference(),
-                $rate
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                        $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                            ->addAction(
+                                ShippingMethodAddShippingRateAction::ofZoneAndShippingRate(
+                                    $zone->getReference(),
+                                    $rate
+                                )
+                            );
 
-        $this->assertInstanceOf(ShippingMethod::class, $result);
-        $rate = null;
-        foreach ($result->getZoneRates()->current()->getShippingRates() as $shippingRate) {
-            if ($shippingRate->getPrice()->getCurrencyCode() == 'USD') {
-                $rate = $shippingRate;
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ShippingMethod::class, $result);
+                        $rate = null;
+                        foreach ($result->getZoneRates()->current()->getShippingRates() as $shippingRate) {
+                            if ($shippingRate->getPrice()->getCurrencyCode() == 'USD') {
+                                $rate = $shippingRate;
+                            }
+                        }
+                        $this->assertInstanceOf(ShippingRate::class, $rate);
+                        $this->assertInstanceOf(CartScore::class, $rate->getTiers()->current());
+                    }
+                );
             }
-        }
-        $this->assertInstanceOf(ShippingRate::class, $rate);
-        $this->assertInstanceOf(
-            CartScore::class,
-            $rate->getTiers()->current()
         );
     }
-//todo Project migration is missing
+
     public function testShippingMethodPriceTierScorePrice()
     {
-        $request = ProjectGetRequest::of();
-        $response = $request->executeWithClient($this->getClient());
-        $project = $request->mapResponse($response);
+        $client = $this->getApiClient();
 
-        $this->assertInstanceOf(Project::class, $project);
+        ProjectFixture::withProject(
+            $client,
+            function (Project $project) use ($client) {
+                $this->assertInstanceOf(Project::class, $project);
 
-        $request = ProjectUpdateRequest::ofVersion($project->getVersion());
-        $request->addAction(
-            ProjectSetShippingRateInputTypeAction::of()
-                ->setShippingRateInputType(CartScoreType::of())
-        );
-        $request->executeWithClient($this->getClient());
+                $request = RequestBuilder::of()->project()->update($project)
+                    ->addAction(
+                        ProjectSetShippingRateInputTypeAction::of()
+                            ->setShippingRateInputType(CartScoreType::of())
+                    );
+                $this->execute($client, $request);
 
-        $draft = $this->getDraft('shipping-rate-tiers');
-        $shippingMethod = $this->createShippingMethod($draft);
-        $actualVersion = $shippingMethod->getVersion();
+                ShippingMethodFixture::withUpdateableShippingMethod(
+                    $client,
+                    function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
+                        $rate = $this->getRateSetPriceFunction();
 
-        $rate = ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('USD', 100));
-        $rate->setTiers(
-            ShippingRatePriceTierCollection::of()->add(
-                CartScore::of()
-                    ->setScore(1)
-                    ->setPrice(Money::ofCurrencyAndAmount('USD', 90))
-            )
-        );
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $actualVersion
-        )
-            ->addAction(ShippingMethodAddShippingRateAction::ofZoneAndShippingRate(
-                $this->getZone()->getReference(),
-                $rate
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                        $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                            ->addAction(
+                                ShippingMethodAddShippingRateAction::ofZoneAndShippingRate(
+                                    $zone->getReference(),
+                                    $rate
+                                )
+                            );
 
-        $this->assertInstanceOf(ShippingMethod::class, $result);
-        $rate = null;
-        foreach ($result->getZoneRates()->current()->getShippingRates() as $shippingRate) {
-            if ($shippingRate->getPrice()->getCurrencyCode() == 'USD') {
-                $rate = $shippingRate;
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ShippingMethod::class, $result);
+                        $rate = null;
+                        foreach ($result->getZoneRates()->current()->getShippingRates() as $shippingRate) {
+                            if ($shippingRate->getPrice()->getCurrencyCode() == 'USD') {
+                                $rate = $shippingRate;
+                            }
+                        }
+                        $this->assertInstanceOf(ShippingRate::class, $rate);
+                        $this->assertInstanceOf(CartScore::class, $rate->getTiers()->current());
+                    }
+                );
             }
-        }
-        $this->assertInstanceOf(ShippingRate::class, $rate);
-        $this->assertInstanceOf(
-            CartScore::class,
-            $rate->getTiers()->current()
         );
     }
-//todo Project migration is missing
+
     public function testShippingMethodPriceTierCartValue()
     {
-        $request = ProjectGetRequest::of();
-        $response = $request->executeWithClient($this->getClient());
-        $project = $request->mapResponse($response);
+        $client = $this->getApiClient();
 
-        $this->assertInstanceOf(Project::class, $project);
+        ProjectFixture::withProject(
+            $client,
+            function (Project $project) use ($client) {
+                $this->assertInstanceOf(Project::class, $project);
 
-        $request = ProjectUpdateRequest::ofVersion($project->getVersion());
-        $request->addAction(
-            ProjectSetShippingRateInputTypeAction::of()
-                ->setShippingRateInputType(CartValueType::of())
-        );
-        $request->executeWithClient($this->getClient());
+                $request = RequestBuilder::of()->project()->update($project)
+                    ->addAction(
+                        ProjectSetShippingRateInputTypeAction::of()
+                            ->setShippingRateInputType(CartValueType::of())
+                    );
+                $this->execute($client, $request);
 
-        $draft = $this->getDraft('shipping-rate-tiers');
-        $shippingMethod = $this->createShippingMethod($draft);
-        $actualVersion = $shippingMethod->getVersion();
+                ShippingMethodFixture::withUpdateableShippingMethod(
+                    $client,
+                    function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
+                        $rate = ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('USD', 100));
+                        $rate->setTiers(
+                            ShippingRatePriceTierCollection::of()->add(
+                                CartValue::of()
+                                    ->setMinimumCentAmount(10)
+                                    ->setPrice(Money::ofCurrencyAndAmount('USD', 90))
+                            )
+                        );
 
-        $rate = ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('USD', 100));
-        $rate->setTiers(
-            ShippingRatePriceTierCollection::of()->add(
-                CartValue::of()
-                    ->setMinimumCentAmount(10)
-                    ->setPrice(Money::ofCurrencyAndAmount('USD', 90))
-            )
-        );
-        $request = ShippingMethodUpdateRequest::ofIdAndVersion(
-            $shippingMethod->getId(),
-            $actualVersion
-        )
-            ->addAction(ShippingMethodAddShippingRateAction::ofZoneAndShippingRate(
-                $this->getZone()->getReference(),
-                $rate
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                        $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                            ->addAction(
+                                ShippingMethodAddShippingRateAction::ofZoneAndShippingRate(
+                                    $zone->getReference(),
+                                    $rate
+                                )
+                            );
 
-        $this->assertInstanceOf(ShippingMethod::class, $result);
-        $rate = null;
-        foreach ($result->getZoneRates()->current()->getShippingRates() as $shippingRate) {
-            if ($shippingRate->getPrice()->getCurrencyCode() == 'USD') {
-                $rate = $shippingRate;
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ShippingMethod::class, $result);
+                        $rate = null;
+                        foreach ($result->getZoneRates()->current()->getShippingRates() as $shippingRate) {
+                            if ($shippingRate->getPrice()->getCurrencyCode() == 'USD') {
+                                $rate = $shippingRate;
+                            }
+                        }
+                        $this->assertInstanceOf(ShippingRate::class, $rate);
+                        $this->assertInstanceOf(CartValue::class, $rate->getTiers()->current());
+                    }
+                );
             }
-        }
-        $this->assertInstanceOf(ShippingRate::class, $rate);
-        $this->assertInstanceOf(
-            CartValue::class,
-            $rate->getTiers()->current()
         );
     }
 }

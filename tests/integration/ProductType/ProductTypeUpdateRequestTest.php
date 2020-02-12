@@ -31,11 +31,6 @@ use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;
 use Commercetools\Core\Model\ProductType\ReferenceType;
 use Commercetools\Core\Model\ProductType\StringType;
-use Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest;
-use Commercetools\Core\Request\CustomObjects\CustomObjectDeleteRequest;
-use Commercetools\Core\Request\Products\ProductCreateRequest;
-use Commercetools\Core\Request\Products\ProductDeleteRequest;
-use Commercetools\Core\Request\Products\ProductProjectionByIdGetRequest;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddLocalizedEnumValueAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddPlainEnumValueAction;
@@ -53,44 +48,9 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeChangePlainEnumLa
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeRemoveEnumValuesAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetInputTipAction;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction;
-use Commercetools\Core\Request\ProductTypes\ProductTypeCreateRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeDeleteRequest;
-use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
 
 class ProductTypeUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @var ProductTypeDeleteRequest
-     */
-    private $productTypeDeleteRequest;
-
-    /**
-     * @return ProductTypeDraft
-     */
-    protected function getDraft($name)
-    {
-        $draft = ProductTypeDraft::ofNameAndDescription(
-            'test-' . $this->getTestRun() . '-' . $name,
-            'test-' . $this->getTestRun() . '-description'
-        );
-        $draft->setKey('key-' . $this->getTestRun());
-
-        return $draft;
-    }
-
-    protected function createProductType(ProductTypeDraft $draft)
-    {
-        $request = ProductTypeCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $productType = $request->mapResponse($response);
-        $this->cleanupRequests[] = $this->productTypeDeleteRequest = ProductTypeDeleteRequest::ofIdAndVersion(
-            $productType->getId(),
-            $productType->getVersion()
-        );
-
-        return $productType;
-    }
-
     private function getAttributeDefinition($name, $type)
     {
         $definition = AttributeDefinition::of()
