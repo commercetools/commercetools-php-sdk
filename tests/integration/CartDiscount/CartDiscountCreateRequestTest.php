@@ -58,10 +58,10 @@ class CartDiscountCreateRequestTest extends ApiTestCase
 
     public function testDeleteByKey()
     {
-        $client = $this->getApiClient();
-
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(404);
+
+        $client = $this->getApiClient();
 
         CartDiscountFixture::withDraftCartDiscount(
             $client,

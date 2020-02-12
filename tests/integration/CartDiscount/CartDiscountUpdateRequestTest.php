@@ -8,7 +8,6 @@ namespace Commercetools\Core\IntegrationTests\CartDiscount;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\IntegrationTests\TestHelper;
 use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
@@ -426,10 +425,10 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
 
     public function testDeleteByKey()
     {
-        $client = $this->getApiClient();
-
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(404);
+
+        $client = $this->getApiClient();
 
         CartDiscountFixture::withDraftCartDiscount(
             $client,

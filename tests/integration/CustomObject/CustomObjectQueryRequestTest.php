@@ -32,9 +32,10 @@ class CustomObjectQueryRequestTest extends ApiTestCase
 
     public function testCustomObjectWithVersionConflict()
     {
-        $client = $this->getApiClient();
         $this->expectException(ConcurrentModificationException::class);
         $this->expectExceptionCode(409);
+
+        $client = $this->getApiClient();
 
         CustomObjectFixture::withCustomObject(
             $client,
@@ -54,9 +55,10 @@ class CustomObjectQueryRequestTest extends ApiTestCase
 
     public function testCustomObjectDraftWithVersionConflict()
     {
-        $client = $this->getApiClient();
         $this->expectException(ConcurrentModificationException::class);
         $this->expectExceptionCode(409);
+
+        $client = $this->getApiClient();
 
         CustomObjectFixture::withCustomObject(
             $client,
@@ -169,10 +171,10 @@ class CustomObjectQueryRequestTest extends ApiTestCase
 
     public function testDeleteByKey()
     {
-        $client = $this->getApiClient();
-
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(404);
+
+        $client = $this->getApiClient();
 
         CustomObjectFixture::withCustomObject(
             $client,

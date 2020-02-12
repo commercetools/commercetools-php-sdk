@@ -434,10 +434,11 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
 
     public function testLocalizedEnumDontChangeLabel()
     {
-        $client = $this->getApiClient();
-        $name = 'testLocalizedEnumField-' . ProductTypeFixture::uniqueProductTypeString();
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
+
+        $client = $this->getApiClient();
+        $name = 'testLocalizedEnumField-' . ProductTypeFixture::uniqueProductTypeString();
 
         ProductTypeFixture::withUpdateableDraftProductType(
             $client,
@@ -510,10 +511,11 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
 
     public function testPlainEnumDontChangeLabel()
     {
-        $client = $this->getApiClient();
-        $name = 'testPlainEnumField-' . ProductTypeFixture::uniqueProductTypeString();
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
+
+        $client = $this->getApiClient();
+        $name = 'testPlainEnumField-' . ProductTypeFixture::uniqueProductTypeString();
 
         ProductTypeFixture::withUpdateableDraftProductType(
             $client,
