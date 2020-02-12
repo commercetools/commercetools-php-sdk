@@ -3,7 +3,6 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\Customer;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
@@ -58,22 +57,6 @@ class CustomerLoginRequestTest extends ApiTestCase
         );
         return $result->getCustomer();
     }
-
-    protected function createStoreCustomer($storeKey, CustomerDraft $draft)
-    {
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, CustomerCreateRequest::ofDraft($draft));
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
-            $result->getCustomer()->getId(),
-            $result->getCustomer()->getVersion()
-        );
-        $this->cleanupRequests[] = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, $this->deleteRequest);
-
-        return $result->getCustomer();
-    }
-
 
     public function testLoginSuccess()
     {

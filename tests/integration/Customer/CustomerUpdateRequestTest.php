@@ -3,7 +3,6 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\Customer;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
@@ -21,10 +20,10 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Model\Store\Store;
-use Commercetools\Core\Model\Type\Type;
-use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Model\Store\StoreReferenceCollection;
+use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerAddBillingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerAddShippingAddressAction;
@@ -51,63 +50,12 @@ use Commercetools\Core\Request\Customers\Command\CustomerSetSalutationAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetStoresAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetTitleAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetVatIdAction;
-use Commercetools\Core\Request\Customers\CustomerCreateRequest;
-use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
-use Commercetools\Core\Request\Customers\CustomerUpdateByKeyRequest;
-use Commercetools\Core\Request\Customers\CustomerUpdateRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
-use function GuzzleHttp\Psr7\str;
 
 class CustomerUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @return CustomerDraft
-     */
-    protected function getDraft($name)
-    {
-        $draft = CustomerDraft::ofEmailNameAndPassword(
-            'test-' . $this->getTestRun() . '-email',
-            'test-' . $this->getTestRun() . '-' . $name,
-            'test-' . $this->getTestRun() . '-lastName',
-            'test-' . $this->getTestRun() . '-password'
-        );
-
-        return $draft;
-    }
-
-    protected function createCustomer(CustomerDraft $draft)
-    {
-        $request = CustomerCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
-            $result->getCustomer()->getId(),
-            $result->getCustomer()->getVersion()
-        );
-        return $result->getCustomer();
-    }
-
-    protected function createStoreCustomer($storeKey, CustomerDraft $draft)
-    {
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-            $storeKey,
-            CustomerCreateRequest::ofDraft($draft)
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
-            $result->getCustomer()->getId(),
-            $result->getCustomer()->getVersion()
-        );
-        $this->cleanupRequests[] = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, $this->deleteRequest);
-
-        return $result->getCustomer();
-    }
-
     protected function getAddress()
     {
         return Address::of()
@@ -875,10 +823,11 @@ class CustomerUpdateRequestTest extends ApiTestCase
      */
     public function testInvalidLocale($locale)
     {
-        $client = $this->getApiClient();
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
         $this->expectExceptionMessageRegExp("/InvalidInput/");
+
+        $client = $this->getApiClient();
 
         CustomerFixture::withUpdateableCustomer(
             $client,
