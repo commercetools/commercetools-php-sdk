@@ -27,7 +27,7 @@ class CustomerFixture extends ResourceFixture
         return 'test-' . Uuid::uuidv4();
     }
 
-    final public static function customerDraftFunction(StoreReference $storeReference)
+    final public static function customerDraftFunction(StoreReference $storeReference = null)
     {
         $uniqueCustomerString = self::uniqueCustomerString();
         $draft = CustomerDraft::ofEmailNameAndPassword(
@@ -36,7 +36,7 @@ class CustomerFixture extends ResourceFixture
             'test-' . $uniqueCustomerString . '-lastName',
             'test-' . $uniqueCustomerString . '-password'
         );
-        if (!empty($storeReference)) {
+        if (!is_null($storeReference)) {
             $draft->setStores(StoreReferenceCollection::of()->add($storeReference));
         }
 
@@ -72,7 +72,7 @@ class CustomerFixture extends ResourceFixture
         return parent::defaultDeleteFunction($client, self::DELETE_REQUEST_TYPE, $resource);
     }
 
-    final public static function withUpdateableDraftCustomer(
+    final public static function withUpdateableDraftStoreCustomer(
         ApiClient $client,
         callable $draftBuilderFunction,
         callable $assertFunction,
@@ -90,8 +90,8 @@ class CustomerFixture extends ResourceFixture
                 $deleteFunction,
                 $draftFunction
             ) {
-
                 $storeReference = StoreReference::ofId($store->getId());
+
                 if ($draftFunction == null) {
                     $draftFunction = function () use ($storeReference) {
                         return call_user_func(
@@ -124,6 +124,34 @@ class CustomerFixture extends ResourceFixture
                     [$store]
                 );
             }
+        );
+    }
+
+    final public static function withUpdateableDraftCustomer(
+        ApiClient $client,
+        callable $draftBuilderFunction,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
+        if ($draftFunction == null) {
+            $draftFunction = [__CLASS__, 'customerDraftFunction'];
+        }
+        if ($createFunction == null) {
+            $createFunction = [__CLASS__, 'customerCreateFunction'];
+        }
+        if ($deleteFunction == null) {
+            $deleteFunction = [__CLASS__, 'defaultCustomerDeleteFunction'];
+        }
+
+        parent::withUpdateableDraftResource(
+            $client,
+            $draftBuilderFunction,
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
         );
     }
 
@@ -186,6 +214,23 @@ class CustomerFixture extends ResourceFixture
         callable $draftFunction = null
     ) {
         self::withUpdateableDraftCustomer(
+            $client,
+            [__CLASS__, 'defaultCustomerDraftBuilderFunction'],
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
+        );
+    }
+
+    final public static function withUpdateableStoreCustomer(
+        ApiClient $client,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
+        self::withUpdateableDraftStoreCustomer(
             $client,
             [__CLASS__, 'defaultCustomerDraftBuilderFunction'],
             $assertFunction,

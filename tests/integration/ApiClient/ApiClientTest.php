@@ -5,70 +5,72 @@
 
 namespace Commercetools\Core\IntegrationTests\ApiClient;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Project\ProjectFixture;
 use Commercetools\Core\Model\ApiClient\ApiClient;
 use Commercetools\Core\Model\ApiClient\ApiClientCollection;
 use Commercetools\Core\Model\ApiClient\ApiClientDraft;
-use Commercetools\Core\Request\ApiClients\ApiClientByIdGetRequest;
-use Commercetools\Core\Request\ApiClients\ApiClientCreateRequest;
-use Commercetools\Core\Request\ApiClients\ApiClientDeleteRequest;
-use Commercetools\Core\Request\ApiClients\ApiClientQueryRequest;
+use Commercetools\Core\Model\Project\Project;
 
 class ApiClientTest extends ApiTestCase
 {
     const API_CLIENTS_SCOPE = 'manage_api_clients';
 
-//    todo migration of Project is missing
     public function testApiClient()
     {
-        $client = $this->getClient(self::API_CLIENTS_SCOPE);
-        $project = $client->getConfig()->getProject();
-        $deleteDaysAfterCreation = 1;
+        $client = $this->getApiClient(self::API_CLIENTS_SCOPE);
+        $projectClient = $this->getApiClient();
 
-        $apiClientDraft = ApiClientDraft::ofNameAndScope(
-            'test-' . $this->getTestRun(),
-            'view_products:' . $project
-        )->setDeleteDaysAfterCreation($deleteDaysAfterCreation);
+        ProjectFixture::withProject(
+            $projectClient,
+            function (Project $project) use ($client) {
+                $deleteDaysAfterCreation = 1;
+                $name = ProjectFixture::uniqueProjectString();
 
-        $request = ApiClientCreateRequest::ofDraft($apiClientDraft);
-        $response = $request->executeWithClient($client);
-        $result = $request->mapFromResponse($response);
+                $apiClientDraft = ApiClientDraft::ofNameAndScope($name, 'view_products:' . $project->getKey())
+                    ->setDeleteDaysAfterCreation($deleteDaysAfterCreation);
 
-        $this->assertNotNull($result);
-        $this->assertNotNull($result->getId());
+                $createRequest = RequestBuilder::of()->apiClients()->create($apiClientDraft);
+                $response = $this->execute($client, $createRequest);
+                $result = $createRequest->mapFromResponse($response);
 
-        $calcDate = new \DateTime('+' . $deleteDaysAfterCreation . 'day');
-        $this->assertEquals($calcDate->format('Y-m-d'), $result->getDeleteAt()->format('Y-m-d'));
+                $this->assertNotNull($result);
+                $this->assertNotNull($result->getId());
 
-        $getByIdRequest = ApiClientByIdGetRequest::ofId($result->getId());
-        $getResponse = $getByIdRequest->executeWithClient($client);
-        $getResult = $request->mapResponse($getResponse);
+                $calcDate = new \DateTime('+' . $deleteDaysAfterCreation . 'day');
+                $this->assertEquals($calcDate->format('Y-m-d'), $result->getDeleteAt()->format('Y-m-d'));
 
-        $this->assertInstanceOf(ApiClient::class, $getResult);
-        $this->assertSame('test-' . $this->getTestRun(), $getResult->getName());
-        $this->assertSame('view_products:' . $project, $getResult->getScope());
-        $this->assertNotNull($getResult->getId());
-        $this->assertNull($getResult->getSecret());
+                $getByIdRequest = RequestBuilder::of()->apiClients()->getById($result->getId());
+                $getResponse =  $this->execute($client, $getByIdRequest);
+                $getResult = $getByIdRequest->mapFromResponse($getResponse);
 
-        $queryRequest = ApiClientQueryRequest::of();
-        $queryResponse = $queryRequest->executeWithClient($client);
-        $queryResult = $queryRequest->mapResponse($queryResponse);
+                $this->assertInstanceOf(ApiClient::class, $getResult);
+                $this->assertSame($name, $getResult->getName());
+                $this->assertSame('view_products:' . $project->getKey(), $getResult->getScope());
+                $this->assertNotNull($getResult->getId());
+                $this->assertNull($getResult->getSecret());
 
-        $this->assertInstanceOf(ApiClientCollection::class, $queryResult);
-        $this->assertInstanceOf(ApiClient::class, $queryResult->current());
+                $queryRequest = RequestBuilder::of()->apiClients()->query();
+                $queryResponse = $this->execute($client, $queryRequest);
+                $queryResult = $queryRequest->mapFromResponse($queryResponse);
 
-        $deleteRequest = ApiClientDeleteRequest::ofId($result->getId());
+                $this->assertInstanceOf(ApiClientCollection::class, $queryResult);
+                $this->assertInstanceOf(ApiClient::class, $queryResult->current());
 
-        $deleteResponse = $deleteRequest->executeWithClient($client);
-        $deleteResult = $request->mapResponse($deleteResponse);
+                $deleteRequest = RequestBuilder::of()->apiClients()->delete($result);
+                $deleteResponse = $this->execute($client, $deleteRequest);
+                $deleteResult = $deleteRequest->mapFromResponse($deleteResponse);
 
-        $this->assertInstanceOf(ApiClient::class, $deleteResult);
-        $this->assertSame('test-' . $this->getTestRun(), $deleteResult->getName());
+                $this->assertInstanceOf(ApiClient::class, $deleteResult);
+                $this->assertSame($name, $deleteResult->getName());
 
-        $getByIdRequest = ApiClientByIdGetRequest::ofId($result->getId());
-        $getResponse = $getByIdRequest->executeWithClient($client);
-        $getResult = $request->mapResponse($getResponse);
-
-        $this->assertNull($getResult);
+                $this->expectException(FixtureException::class);
+                $this->expectExceptionCode(404);
+                $getByIdRequest = RequestBuilder::of()->apiClients()->getById($result->getId());
+                $this->execute($client, $getByIdRequest);
+            }
+        );
     }
 }
