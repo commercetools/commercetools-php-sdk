@@ -860,33 +860,28 @@ class CustomerUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        StoreFixture::withStore(
+        CustomerFixture::withUpdateableCustomer(
             $client,
-            function (Store $store) use ($client) {
-                CustomerFixture::withUpdateableCustomer(
-                    $client,
-                    function (Customer $customer) use ($client, $store) {
-                        $storeReference = StoreReference::ofKey($store->getKey());
+            function (Customer $customer, Store $store) use ($client) {
+                $storeReference = StoreReference::ofKey($store->getKey());
 
-                        $request = RequestBuilder::of()->customers()->update($customer)
-                                ->addAction(CustomerAddStoreAction::ofStore($storeReference));
-                        $response = $this->execute($client, $request);
-                        $customer = $request->mapFromResponse($response);
+                $request = RequestBuilder::of()->customers()->update($customer)
+                        ->addAction(CustomerAddStoreAction::ofStore($storeReference));
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
 
-                        $this->assertCount(1, $customer->getStores());
+                $this->assertCount(1, $customer->getStores());
 
-                        $request = RequestBuilder::of()->customers()->update($customer)
-                            ->addAction(
-                                CustomerRemoveStoreAction::of()->setStore($storeReference)
-                            );
-                        $response = $this->execute($client, $request);
-                        $result = $request->mapFromResponse($response);
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerRemoveStoreAction::of()->setStore($storeReference)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-                        $this->assertEmpty($result->getStores());
+                $this->assertEmpty($result->getStores());
 
-                        return $result;
-                    }
-                );
+                return $result;
             }
         );
     }
