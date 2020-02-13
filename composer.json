@@ -46,7 +46,6 @@
     "squizlabs/php_codesniffer": "^3.2",
     "doctrine/cache": "^1.6",
     "monolog/monolog": "^1.12",
-    "behat/behat": "^3.0",
     "symfony/yaml": "^3.2",
     "symfony/stopwatch": "^3.2",
     "cache/adapter-common": "^1.0",
