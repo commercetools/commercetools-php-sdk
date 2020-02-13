@@ -9,6 +9,7 @@ use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\CustomerGroup\CustomerGroupFixture;
+use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
@@ -903,22 +904,28 @@ class CustomerUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CustomerFixture::withUpdateableCustomer(
+        StoreFixture::withStore(
             $client,
-            function (Customer $customer, Store $store) use ($client) {
-                $storeReference = StoreReferenceCollection::of()->add($store->getReference());
+            function (Store $store) use ($client) {
+                CustomerFixture::withUpdateableCustomer(
+                    $client,
+                    function (Customer $customer) use ($client, $store) {
+                        $storeReference = StoreReferenceCollection::of()->add($store->getReference());
 
-                $request = RequestBuilder::of()->customers()->update($customer)
-                        ->addAction(
-                            CustomerSetStoresAction::ofStores($storeReference)
-                        );
-                $response = $this->execute($client, $request);
-                $result = $request->mapFromResponse($response);
+                        $request = RequestBuilder::of()->customers()->update($customer)
+                            ->addAction(
+                                CustomerSetStoresAction::ofStores($storeReference)
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-                $this->assertInstanceOf(Customer::class, $result);
-                $this->assertSame($store->getKey(), $result->getStores()->current()->getKey());
+                        $this->assertInstanceOf(Customer::class, $result);
+                        $this->assertSame($store->getKey(), $result->getStores()->current()->getKey());
+                        $this->assertNotSame($customer->getVersion(), $result->getVersion());
 
-                return $result;
+                        return $result;
+                    }
+                );
             }
         );
     }

@@ -27,7 +27,7 @@ class CustomerFixture extends ResourceFixture
         return 'test-' . Uuid::uuidv4();
     }
 
-    final public static function customerDraftFunction($storeReference)
+    final public static function customerDraftFunction(StoreReference $storeReference)
     {
         $uniqueCustomerString = self::uniqueCustomerString();
         $draft = CustomerDraft::ofEmailNameAndPassword(
