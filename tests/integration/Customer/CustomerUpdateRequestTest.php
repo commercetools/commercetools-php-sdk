@@ -507,7 +507,6 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
                 $this->assertSame($address->getFirstName(), $result->getDefaultBillingAddress()->getFirstName());
 
-
                 return $result;
             }
         );
@@ -847,7 +846,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CustomerFixture::withUpdateableCustomer(
+        CustomerFixture::withUpdateableStoreCustomer(
             $client,
             function (Customer $customer, Store $store) use ($client) {
                 $firstName = 'test-' . $this->getTestRun() . '-new firstName';
@@ -874,7 +873,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CustomerFixture::withUpdateableDraftCustomer(
+        CustomerFixture::withUpdateableDraftStoreCustomer(
             $client,
             function (CustomerDraft $customerDraft) {
                 return $customerDraft->setKey('test-'. CustomerFixture::uniqueCustomerString());
@@ -907,7 +906,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         StoreFixture::withStore(
             $client,
             function (Store $store) use ($client) {
-                CustomerFixture::withUpdateableCustomer(
+                CustomerFixture::withUpdateableStoreCustomer(
                     $client,
                     function (Customer $customer) use ($client, $store) {
                         $storeReference = StoreReferenceCollection::of()->add($store->getReference());
@@ -934,7 +933,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        CustomerFixture::withUpdateableCustomer(
+        CustomerFixture::withUpdateableStoreCustomer(
             $client,
             function (Customer $customer, Store $store) use ($client) {
                 $storeReference = StoreReference::ofKey($store->getKey());
