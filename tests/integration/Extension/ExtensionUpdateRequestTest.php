@@ -23,7 +23,7 @@ class ExtensionUpdateRequestTest extends ApiTestCase
     private function getExtensionDraft()
     {
         return ExtensionDraft::ofDestinationAndTriggers(
-            HttpDestination::of()->setUrl('https://api.sphere.io'),
+            HttpDestination::of()->setUrl('https://api.europe-west1.gcp.commercetools.com'),
             TriggerCollection::of()->add(
                 Trigger::of()->setResourceTypeId('cart')->setActions([Trigger::ACTION_CREATE])
             )

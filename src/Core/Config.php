@@ -103,12 +103,12 @@ class Config implements ContextAwareInterface
     /**
      * @var string
      */
-    protected $oauthUrl = 'https://auth.sphere.io';
+    protected $oauthUrl = 'https://auth.europe-west1.gcp.commercetools.com';
 
     /**
      * @var string
      */
-    protected $apiUrl = 'https://api.sphere.io';
+    protected $apiUrl = 'https://api.europe-west1.gcp.commercetools.com';
 
     /**
      * @var int

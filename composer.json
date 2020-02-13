@@ -5,8 +5,8 @@
   "description": "The commercetools PHP SDK \n The official PHP Interface to the commercetools eCommerce API",
   "homepage": "https://github.com/commercetools/commercetools-php-sdk",
   "support": {
-    "email": "support@sphere.io",
-    "forum": "http://support.sphere.io",
+    "email": "support@commercetools.com",
+    "forum": "https://support.commercetools.com",
     "issues": "https://github.com/commercetools/commercetools-php-sdk/issues",
     "docs": "http://commercetools.github.io/commercetools-php-sdk/docs/master/"
   },
