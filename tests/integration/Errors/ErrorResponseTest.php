@@ -30,6 +30,7 @@ use Commercetools\Core\Error\InvalidOperationError;
 use Commercetools\Core\Error\InvalidTokenError;
 use Commercetools\Core\Error\RequiredFieldError;
 use Commercetools\Core\Error\ResourceNotFoundError;
+use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\Model\Common\Attribute;
 use Commercetools\Core\Model\Common\AttributeCollection;
 use Commercetools\Core\Model\Common\Enum;
@@ -38,6 +39,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
+use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\EnumType;
 use Commercetools\Core\Model\ProductType\StringType;
@@ -67,10 +69,14 @@ class ErrorResponseTest extends ApiTestCase
 {
     public function testCorrelationId()
     {
+        $client = $this->getApiClient();
+
         $t = '00000000-0000-0000-0000-000000000000';
         $request = ProductUpdateRequest::ofIdAndVersion($t, 1);
-        $response = $request->executeWithClient($this->getClient());
-        $this->assertInternalType('string', $response->getCorrelationId());
+        $httpResponse = $client->execute($request, [], ['http_errors' => false]);
+        $response = $request->buildResponse($httpResponse);
+
+        $this->assertIsString($response->getCorrelationId());
         $this->assertNotEmpty($response->getCorrelationId());
     }
 
