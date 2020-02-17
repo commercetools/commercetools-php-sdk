@@ -12,6 +12,7 @@ use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\ErrorContainer;
 use Commercetools\Core\Error\ErrorResponseException;
+use Commercetools\Core\Error\InvalidClientCredentialsException;
 use Commercetools\Core\Error\InvalidOperationError;
 use Commercetools\Core\Model\Category\CategoryCollection;
 use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
@@ -19,7 +20,11 @@ use Commercetools\Core\Request\Categories\CategoryQueryRequest;
 use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
 use Commercetools\Core\Client\ApiClient;
+use Commercetools\Core\Request\Project\ProjectGetRequest;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Response as PsrResponse;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
@@ -239,5 +244,18 @@ class ClientFactoryTest extends ApiTestCase
         $this->assertInstanceOf(PsrResponse::class, $response);
 
         $this->assertSame(401, $response->getStatusCode());
+    }
+
+    public function testInvalidCredentialsOAuthException()
+    {
+        $client = ClientFactory::of()->createClient(new Config());
+
+        $this->assertInstanceOf(ApiClient::class, $client);
+
+        $this->expectException(InvalidClientCredentialsException::class);
+        $this->expectExceptionCode(401);
+
+        $request = ProjectGetRequest::of();
+        $client->execute($request);
     }
 }
