@@ -115,7 +115,7 @@ class ErrorResponseTest extends ApiTestCase
                     );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
-                TestHelper::getInstance($this->getClient())->setCategory($result);
+
                 $this->assertInstanceOf(Category::class, $result);
 
                 $this->expectException(FixtureException::class);
