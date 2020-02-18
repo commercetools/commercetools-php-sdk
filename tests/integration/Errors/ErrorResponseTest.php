@@ -618,7 +618,7 @@ class ErrorResponseTest extends ApiTestCase
 
     public function testInsufficientScope()
     {
-        $this->expectException(ApiException::class);
+        $this->expectException(FixtureException::class);
         $this->expectExceptionCode(403);
 
         $client = $this->getApiClient('view_products');
