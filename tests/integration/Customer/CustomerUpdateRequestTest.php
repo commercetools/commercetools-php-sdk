@@ -939,7 +939,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
                 $storeReference = StoreReference::ofKey($store->getKey());
 
                 $request = RequestBuilder::of()->customers()->update($customer)
-                    ->addAction(CustomerAddStoreAction::ofStore($storeReference));
+                        ->addAction(CustomerAddStoreAction::ofStore($storeReference));
                 $response = $this->execute($client, $request);
                 $customer = $request->mapFromResponse($response);
 

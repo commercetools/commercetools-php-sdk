@@ -6,7 +6,7 @@
 namespace Commercetools\Core\Error;
 
 /**
- * Base class for responses with status code 401
+ * Base class for responses with status code 401 || 403
  * @package Commercetools\Core\Error
  */
 class UnauthorizedException extends ClientErrorException

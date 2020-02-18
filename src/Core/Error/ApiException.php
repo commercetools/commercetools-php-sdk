@@ -72,6 +72,8 @@ class ApiException extends Exception
                     return new InvalidTokenException($message, $request, $response, $previous);
                 }
                 return new InvalidClientCredentialsException($message, $request, $response, $previous);
+            case 403:
+                return new ForbiddenException($message, $request, $response, $previous);
             case 404:
                 return new NotFoundException($message, $request, $response, $previous);
             case 409:
