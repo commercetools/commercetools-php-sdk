@@ -3,30 +3,26 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\Customer;
 
-use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Client;
 use Commercetools\Core\Client\OAuth\Token;
 use Commercetools\Core\Config;
-use Commercetools\Core\Error\DuplicateFieldError;
+use Commercetools\Core\Fixtures\FixtureException;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\Model\Cart\CartState;
+use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\Customer\CustomerToken;
+use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
-use Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest;
-use Commercetools\Core\Request\Customers\CustomerByTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
-use Commercetools\Core\Request\Customers\CustomerEmailConfirmRequest;
-use Commercetools\Core\Request\Customers\CustomerEmailTokenRequest;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
-use Commercetools\Core\Request\Customers\CustomerPasswordChangeRequest;
-use Commercetools\Core\Request\Customers\CustomerPasswordResetRequest;
-use Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
@@ -62,261 +58,334 @@ class CustomerLoginRequestTest extends ApiTestCase
         return $result->getCustomer();
     }
 
-    protected function createStoreCustomer($storeKey, CustomerDraft $draft)
-    {
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, CustomerCreateRequest::ofDraft($draft));
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->deleteRequest = CustomerDeleteRequest::ofIdAndVersion(
-            $result->getCustomer()->getId(),
-            $result->getCustomer()->getVersion()
-        );
-        $this->cleanupRequests[] = InStoreRequestDecorator::ofStoreKeyAndRequest($storeKey, $this->deleteRequest);
-
-        return $result->getCustomer();
-    }
-
-
     public function testLoginSuccess()
     {
-        $draft = $this->getDraft('email');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
 
-        $request = CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $draft->getPassword());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $draft) use ($password) {
+                return $draft->setPassword($password);
+            },
+            function (Customer $customer) use ($client, $password) {
+                $request = RequestBuilder::of()->customers()->login($customer->getEmail(), $password);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+                $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+            }
+        );
     }
 
     public function testLoginSuccessLowerCased()
     {
-        $draft = $this->getDraft('email');
-        $customer = $this->createCustomer($draft);
-        $email = strtolower($customer->getEmail());
-        $this->assertNotSame($customer->getEmail(), $email);
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
 
-        $request = CustomerLoginRequest::ofEmailAndPassword($email, $draft->getPassword());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $draft) use ($password) {
+                return $draft->setPassword($password);
+            },
+            function (Customer $customer) use ($client, $password) {
+                $email = strtolower($customer->getEmail());
 
-        $this->assertFalse($response->isError());
-        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+                $this->assertNotSame($customer->getEmail(), $email);
+
+                $request = RequestBuilder::of()->customers()->login($email, $password);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+            }
+        );
     }
 
     public function testLoginFailure()
     {
-        $draft = $this->getDraft('email');
-        $customer = $this->createCustomer($draft);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidCredentials/");
 
-        $request = CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $this->getTestRun());
-        $response = $request->executeWithClient($this->getClient());
+        $client = $this->getApiClient();
 
-        $this->assertTrue($response->isError());
+        CustomerFixture::withCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $request = RequestBuilder::of()->customers()
+                    ->login($customer->getEmail(), CustomerFixture::uniqueCustomerString());
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
+            }
+        );
     }
 
     public function testLoginFailureLowercased()
     {
-        $draft = $this->getDraft('email');
-        $customer = $this->createCustomer($draft);
-        $email = strtolower($customer->getEmail());
-        $this->assertNotSame($customer->getEmail(), $email);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidCredentials/");
 
-        $request = CustomerLoginRequest::ofEmailAndPassword($email, $this->getTestRun());
-        $response = $request->executeWithClient($this->getClient());
+        $client = $this->getApiClient();
 
-        $this->assertTrue($response->isError());
+        CustomerFixture::withCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $email = strtolower($customer->getEmail());
+
+                $this->assertNotSame($customer->getEmail(), $email);
+
+                $request = RequestBuilder::of()->customers()
+                    ->login($email, CustomerFixture::uniqueCustomerString());
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
+            }
+        );
     }
 
     public function testChangePasswordSuccess()
     {
-        $draft = $this->getDraft('email');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
 
-        $request = CustomerPasswordChangeRequest::ofIdVersionAndPasswords(
-            $customer->getId(),
-            $customer->getVersion(),
-            $draft->getPassword(),
-            $this->getTestRun()
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $draft) use ($password) {
+                return $draft->setPassword($password);
+            },
+            function (Customer $customer) use ($client, $password) {
+                $request = RequestBuilder::of()->customers()
+                    ->changePassword($customer, $password, CustomerFixture::uniqueCustomerString());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($customer->getId(), $result->getId());
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertSame($customer->getId(), $result->getId());
     }
 
     public function testChangePasswordFailure()
     {
-        $draft = $this->getDraft('email');
-        $customer = $this->createCustomer($draft);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidCurrentPassword/");
 
-        $request = CustomerPasswordChangeRequest::ofIdVersionAndPasswords(
-            $customer->getId(),
-            $customer->getVersion(),
-            $this->getTestRun(),
-            $draft->getPassword()
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
+
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $draft) use ($password) {
+                return $draft->setPassword($password);
+            },
+            function (Customer $customer) use ($client, $password) {
+                $request = RequestBuilder::of()->customers()
+                    ->changePassword($customer, CustomerFixture::uniqueCustomerString(), $password);
+                $this->execute($client, $request);
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $this->assertTrue($response->isError());
     }
 
     public function testPasswordReset()
     {
-        $draft = $this->getDraft('email');
-        $customer = $this->createCustomer($draft);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidCredentials/");
 
-        $request = CustomerPasswordTokenRequest::ofEmail(
-            $customer->getEmail()
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
+
+        CustomerFixture::withCustomer(
+            $client,
+            function (Customer $customer) use ($client, $password) {
+                $request = RequestBuilder::of()->customers()
+                    ->createResetPasswordToken($customer->getEmail());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $token = $result->getValue();
+                $this->assertNotEmpty($token);
+
+                $request = RequestBuilder::of()->customers()->getByPasswordToken($token);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($customer->getId(), $result->getId());
+
+                $newPassword = CustomerFixture::uniqueCustomerString();
+
+                $request = RequestBuilder::of()->customers()
+                    ->resetPassword($token, $newPassword);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($customer->getId(), $result->getId());
+
+                $request = RequestBuilder::of()->customers()
+                    ->login($customer->getEmail(), $newPassword);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+
+                $request = RequestBuilder::of()->customers()
+                    ->login($customer->getEmail(), $password);
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $token = $result->getValue();
-        $this->assertNotEmpty($token);
-
-        $request = CustomerByTokenGetRequest::ofToken(
-            $token
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->assertSame($customer->getId(), $result->getId());
-
-        $request = CustomerPasswordResetRequest::ofTokenAndPassword(
-            $token,
-            $this->getTestRun()
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertSame($customer->getId(), $result->getId());
-
-        $request = CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $this->getTestRun());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
-
-        $request = CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $draft->getPassword());
-        $response = $request->executeWithClient($this->getClient());
-        $this->assertTrue($response->isError());
     }
 
     public function testPasswordResetWithTtlMinutes()
     {
-        $draft = $this->getDraft('email');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
 
-        $request = CustomerPasswordTokenRequest::ofEmailAndTtlMinutes(
-            $customer->getEmail(),
-            61
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $draft) use ($password) {
+                return $draft->setPassword($password);
+            },
+            function (Customer $customer) use ($client, $password) {
+                $request = RequestBuilder::of()->customers()
+                    ->createResetPasswordToken($customer->getEmail())->setTtlMinutes(61);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(CustomerToken::class, $result);
+
+                $dateCreated = $result->getCreatedAt()->getDateTime();
+                $dateExpires = $result->getExpiresAt()->getDateTime();
+                $interval = $dateExpires->diff($dateCreated);
+
+                $this->assertSame(1, (int)$interval->format('%h'));
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertInstanceOf(CustomerToken::class, $result);
-
-        $dateCreated = $result->getCreatedAt()->getDateTime();
-        $dateExpires = $result->getExpiresAt()->getDateTime();
-        $interval = $dateExpires->diff($dateCreated);
-        $this->assertSame(1, (int)$interval->format('%h'));
     }
 
     public function testPasswordResetLowerCased()
     {
-        $draft = $this->getDraft('email');
-        $customer = $this->createCustomer($draft);
-        $email = strtolower($customer->getEmail());
-        $this->assertNotSame($customer->getEmail(), $email);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidCredentials/");
 
-        $request = CustomerPasswordTokenRequest::ofEmail(
-            $email
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
+
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $draft) use ($password) {
+                return $draft->setPassword($password);
+            },
+            function (Customer $customer) use ($client, $password) {
+                $email = strtolower($customer->getEmail());
+
+                $this->assertNotSame($customer->getEmail(), $email);
+
+                $request = RequestBuilder::of()->customers()
+                    ->createResetPasswordToken($email);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $token = $result->getValue();
+                $this->assertNotEmpty($token);
+
+                $request = RequestBuilder::of()->customers()
+                    ->getByPasswordToken($token);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($customer->getId(), $result->getId());
+
+                $newPassword = CustomerFixture::uniqueCustomerString();
+
+                $request = RequestBuilder::of()->customers()
+                    ->resetPassword($token, $newPassword);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($customer->getId(), $result->getId());
+
+                $request = RequestBuilder::of()->customers()
+                    ->login($customer->getEmail(), $newPassword);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+
+                $request = RequestBuilder::of()->customers()
+                    ->login($customer->getEmail(), $password);
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertFalse($response->isError());
-        $token = $result->getValue();
-        $this->assertNotEmpty($token);
-
-        $request = CustomerByTokenGetRequest::ofToken(
-            $token
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->assertSame($customer->getId(), $result->getId());
-
-        $request = CustomerPasswordResetRequest::ofTokenAndPassword(
-            $token,
-            $this->getTestRun()
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertFalse($response->isError());
-        $this->assertSame($customer->getId(), $result->getId());
-
-        $request = CustomerLoginRequest::ofEmailAndPassword($email, $this->getTestRun());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertFalse($response->isError());
-        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
-
-        $request = CustomerLoginRequest::ofEmailAndPassword($email, $draft->getPassword());
-        $response = $request->executeWithClient($this->getClient());
-        $this->assertTrue($response->isError());
     }
 
     public function testVerifyEmail()
     {
-        $draft = $this->getDraft('email');
-        $customer = $this->createCustomer($draft);
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
 
-        $this->assertFalse($customer->getIsEmailVerified());
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $draft) use ($password) {
+                return $draft->setPassword($password);
+            },
+            function (Customer $customer) use ($client, $password) {
+                $this->assertFalse($customer->getIsEmailVerified());
 
-        $request = CustomerEmailTokenRequest::ofIdVersionAndTtl(
-            $customer->getId(),
-            $customer->getVersion(),
-            15
+                $request = RequestBuilder::of()->customers()
+                    ->createEmailVerificationToken($customer, 15);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $token = $result->getValue();
+                $this->assertNotEmpty($token);
+
+                $request = RequestBuilder::of()->customers()
+                    ->getByEmailToken($token);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($customer->getId(), $result->getId());
+
+                $request = RequestBuilder::of()->customers()
+                    ->confirmEmail($token);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertTrue($result->getIsEmailVerified());
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $token = $result->getValue();
-        $this->assertNotEmpty($token);
-
-        $request = CustomerByEmailTokenGetRequest::ofToken(
-            $token
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->assertSame($customer->getId(), $result->getId());
-
-        $request = CustomerEmailConfirmRequest::ofToken(
-            $token
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertTrue($result->getIsEmailVerified());
     }
 
     public function testDuplicateLowerCased()
     {
-        $draft = $this->getDraft('email');
-        $this->createCustomer($draft);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/DuplicateField/");
 
-        $request = CustomerCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
 
-        $this->assertTrue($response->isError());
-        $this->assertSame(400, $response->getStatusCode());
-        $this->assertInstanceOf(DuplicateFieldError::class, $response->getErrors()->current());
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $draft) use ($password) {
+                return $draft->setPassword($password);
+            },
+            function (Customer $customer1) use ($client, $password) {
+                CustomerFixture::withDraftCustomer(
+                    $client,
+                    function (CustomerDraft $draft) use ($password, $customer1) {
+                        return $draft->setPassword($password)->setEmail($customer1->getEmail())
+                            ->setFirstName($customer1->getFirstName())->setLastName($customer1->getLastName());
+                    },
+                    function (Customer $customer2) use ($client, $password) {
+                    }
+                );
+            }
+        );
     }
 
     public function testAuthLogin()
@@ -352,7 +421,7 @@ class CustomerLoginRequestTest extends ApiTestCase
         $forceRefreshToken = $client->getOauthManager()->refreshToken();
         $this->assertNotSame($token->getToken(), $forceRefreshToken->getToken());
     }
-
+//todo migrate Cart first
     public function testCartNewOnLogin()
     {
         $client = $this->getClient();
@@ -387,7 +456,7 @@ class CustomerLoginRequestTest extends ApiTestCase
         $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
         $this->assertSame(CartState::ACTIVE, $loggedInCart->getCartState());
     }
-
+//todo migrate Cart first
     public function testCartMergeOnLogin()
     {
         $client = $this->getClient();
@@ -427,7 +496,7 @@ class CustomerLoginRequestTest extends ApiTestCase
         $this->assertSame(CartState::MERGED, $anonCart->getCartState());
         $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
     }
-
+//todo migrate Cart first
     public function testCartUpdateProductDataOnLogin()
     {
         $client = $this->getClient();
@@ -473,88 +542,119 @@ class CustomerLoginRequestTest extends ApiTestCase
 
     public function testInStorePasswordReset()
     {
-        $store = $this->getStore();
-        $draft = $this->getDraft('email');
-        $customer = $this->createStoreCustomer($store->getKey(), $draft);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidCredentials/");
 
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-            $store->getKey(),
-            CustomerPasswordTokenRequest::ofEmail($customer->getEmail())
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
+
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client, $password) {
+                CustomerFixture::withDraftCustomer(
+                    $client,
+                    function (CustomerDraft $draft) use ($password) {
+                        return $draft->setPassword($password);
+                    },
+                    function (Customer $customer) use ($client, $store, $password) {
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->customers()->createResetPasswordToken($customer->getEmail())
+                        );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $token = $result->getValue();
+                        $this->assertNotEmpty($token);
+
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->customers()->getByPasswordToken($token)
+                        );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame($customer->getId(), $result->getId());
+
+                        $newPassword = CustomerFixture::uniqueCustomerString();
+
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->customers()->resetPassword($token, $newPassword)
+                        );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame($customer->getId(), $result->getId());
+
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->customers()->login($customer->getEmail(), $newPassword)
+                        );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
+
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->customers()->login($customer->getEmail(), $password)
+                        );
+                        $response = $this->execute($client, $request);
+                        $request->mapFromResponse($response);
+                    }
+                );
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
-
-        $token = $result->getValue();
-        $this->assertNotEmpty($token);
-
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-            $store->getKey(),
-            CustomerByTokenGetRequest::ofToken($token)
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
-        $this->assertSame($customer->getId(), $result->getId());
-
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-            $store->getKey(),
-            CustomerPasswordResetRequest::ofTokenAndPassword($token, $this->getTestRun())
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertSame($customer->getId(), $result->getId());
-
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-            $store->getKey(),
-            CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $this->getTestRun())
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
-        $this->assertSame($customer->getId(), $result->getCustomer()->getId());
-
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-            $store->getKey(),
-            CustomerLoginRequest::ofEmailAndPassword($customer->getEmail(), $draft->getPassword())
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $this->assertTrue($response->isError());
     }
 
     public function testInStoreVerifyEmail()
     {
-        $store = $this->getStore();
-        $draft = $this->getDraft('email');
-        $customer = $this->createStoreCustomer($store->getKey(), $draft);
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
 
-        $this->assertFalse($customer->getIsEmailVerified());
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client, $password) {
+                CustomerFixture::withDraftCustomer(
+                    $client,
+                    function (CustomerDraft $draft) use ($password) {
+                        return $draft->setPassword($password);
+                    },
+                    function (Customer $customer) use ($client, $store, $password) {
+                        $this->assertFalse($customer->getIsEmailVerified());
 
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-            $store->getKey(),
-            CustomerEmailTokenRequest::ofIdVersionAndTtl($customer->getId(), $customer->getVersion(), 15)
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->customers()->createEmailVerificationToken($customer, 15)
+                        );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $token = $result->getValue();
+                        $this->assertNotEmpty($token);
+
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->customers()->getByEmailToken($token)
+                        );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame($customer->getId(), $result->getId());
+
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->customers()->confirmEmail($token)
+                        );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertTrue($result->getIsEmailVerified());
+                    }
+                );
+            }
         );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
-
-        $token = $result->getValue();
-        $this->assertNotEmpty($token);
-
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-            $store->getKey(),
-            CustomerByEmailTokenGetRequest::ofToken($token)
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
-        $this->assertSame($customer->getId(), $result->getId());
-
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
-            $store->getKey(),
-            CustomerEmailConfirmRequest::ofToken($token)
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertTrue($result->getIsEmailVerified());
     }
 }

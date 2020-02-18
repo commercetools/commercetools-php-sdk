@@ -104,7 +104,7 @@ abstract class ResourceFixture
 
         $resourceDraft = call_user_func($draftBuilderFunction, $initialDraft);
 
-        $resource = call_user_func($createFunction, $client, $resourceDraft);
+        $resource = call_user_func($createFunction, $client, $resourceDraft, ...$additionalResources);
 
         try {
             call_user_func($assertFunction, $resource, ...$additionalResources);

@@ -3,7 +3,6 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\ShippingMethod;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
@@ -30,13 +29,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingRatePriceTierCollection;
 use Commercetools\Core\Model\ShippingMethod\ZoneRate;
 use Commercetools\Core\Model\ShippingMethod\ZoneRateCollection;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
-use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
-use Commercetools\Core\Model\TaxCategory\TaxRate;
-use Commercetools\Core\Model\TaxCategory\TaxRateCollection;
-use Commercetools\Core\Model\Zone\Location;
-use Commercetools\Core\Model\Zone\LocationCollection;
 use Commercetools\Core\Model\Zone\Zone;
-use Commercetools\Core\Model\Zone\ZoneDraft;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
@@ -52,12 +45,7 @@ use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetKeyActio
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetPredicateAction;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
-use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateByKeyRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest;
-use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
-use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
-use Commercetools\Core\Request\Zones\ZoneCreateRequest;
-use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 
 class ShippingMethodUpdateRequestTest extends ApiTestCase
 {
