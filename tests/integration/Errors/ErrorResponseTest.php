@@ -3,7 +3,6 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\Errors;
 
 use Cache\Adapter\PHPArray\ArrayCachePool;
@@ -13,23 +12,9 @@ use Commercetools\Core\Client;
 use Commercetools\Core\Client\OAuth\Manager;
 use Commercetools\Core\Error\AccessDeniedError;
 use Commercetools\Core\Error\ApiException;
-use Commercetools\Core\Error\ConcurrentModificationError;
-use Commercetools\Core\Error\ConcurrentModificationException;
-use Commercetools\Core\Error\DuplicateAttributeValueError;
-use Commercetools\Core\Error\DuplicateAttributeValuesError;
-use Commercetools\Core\Error\DuplicateFieldError;
-use Commercetools\Core\Error\DuplicatePriceScopeError;
-use Commercetools\Core\Error\DuplicateVariantValuesError;
 use Commercetools\Core\Error\ErrorContainer;
-use Commercetools\Core\Error\ErrorResponseException;
-use Commercetools\Core\Error\InsufficientScopeError;
-use Commercetools\Core\Error\InvalidCredentialsError;
-use Commercetools\Core\Error\InvalidCurrentPasswordError;
-use Commercetools\Core\Error\InvalidFieldError;
 use Commercetools\Core\Error\InvalidOperationError;
 use Commercetools\Core\Error\InvalidTokenError;
-use Commercetools\Core\Error\RequiredFieldError;
-use Commercetools\Core\Error\ResourceNotFoundError;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\Category\CategoryFixture;
@@ -58,19 +43,11 @@ use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\StringType;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
-use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
-use Commercetools\Core\Request\Customers\CustomerLoginRequest;
-use Commercetools\Core\Request\Customers\CustomerPasswordChangeRequest;
 use Commercetools\Core\Request\Products\Command\ProductAddPriceAction;
 use Commercetools\Core\Request\Products\Command\ProductAddVariantAction;
-use Commercetools\Core\Request\Products\Command\ProductPublishAction;
-use Commercetools\Core\Request\Products\ProductByIdGetRequest;
-use Commercetools\Core\Request\Products\ProductCreateRequest;
-use Commercetools\Core\Request\Products\ProductQueryRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\ProductTypes\Command\ProductTypeAddAttributeDefinitionAction;
-use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
 use Commercetools\Core\Request\PsrRequest;
 use Commercetools\Core\Response\ErrorResponse;
 use GuzzleHttp\Psr7\Request;
@@ -143,6 +120,7 @@ class ErrorResponseTest extends ApiTestCase
 
                 $this->expectException(FixtureException::class);
                 $this->expectExceptionCode(409);
+                $this->expectExceptionMessageRegExp("/ConcurrentModification/");
 
                 $newName = CategoryFixture::uniqueCategoryString() . '-concurrent';
                 $request = RequestBuilder::of()->categories()->update($category)
@@ -162,6 +140,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(404);
+        $this->expectExceptionMessageRegExp("/ResourceNotFound/");
 
         $client = $this->getApiClient();
         $t = '00000000-0000-0000-0000-000000000000';
@@ -174,6 +153,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(404);
+        $this->expectExceptionMessageRegExp("/ResourceNotFound/");
 
         $client = $this->getApiClient();
         $t = '00000000-0000-0000-0000-000000000000';
@@ -210,6 +190,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidCredentials/");
         $client = $this->getApiClient();
 
         CustomerFixture::withCustomer(
@@ -227,6 +208,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidCurrentPassword/");
         $client = $this->getApiClient();
 
         CustomerFixture::withCustomer(
@@ -245,6 +227,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/DuplicatePriceScope/");
 
         $client = $this->getApiClient();
 
@@ -283,6 +266,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/DuplicateField/");
 
         $client = $this->getApiClient();
 
@@ -308,6 +292,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/DuplicateVariantValues/");
 
         $client = $this->getApiClient();
 
@@ -343,6 +328,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/DuplicateVariantValues/");
 
         $client = $this->getApiClient();
 
@@ -388,59 +374,54 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidJsonInput/");
 
         $client = $this->getApiClient();
-
-        ProductTypeFixture::withProductType(
-            $client,
-            function (ProductType $productType) use ($client) {
-                $request = RequestBuilder::of()->productTypes()->update($productType)
-                    ->addAction(
-                        ProductTypeAddAttributeDefinitionAction::ofAttribute(
-                            AttributeDefinition::of()
-                                ->setType(StringType::of())
-                                ->setName('uniqueField')
-                                ->setLabel(LocalizedString::ofLangAndText('en', 'uniqueField'))
-                                ->setIsRequired(false)
-                                ->setAttributeConstraint('Unique')
-                        )
-                    );
-                $response = $this->execute($client, $request);
-                $result  = $request->mapFromResponse($response);
-
-                TestHelper::getInstance($this->getClient())->setProductType($result);
-
-                return $result;
-            }
-        );
 
         ProductFixture::withDraftProduct(
             $client,
             function (ProductDraft $draft) {
                 return $draft->setPublish(true);
             },
-            function (Product $product) use ($client) {
-                $request = RequestBuilder::of()->products()->update($product)
-                    ->addAction(
-                        ProductTypeAddAttributeDefinitionAction::ofAttribute(
-                            AttributeDefinition::of()
-                                ->setType(StringType::of())
-                                ->setName('uniqueField')
-                                ->setLabel(LocalizedString::ofLangAndText('en', 'uniqueField'))
-                                ->setIsRequired(false)
-                                ->setAttributeConstraint('Unique')
-                        )
-                    )
-                    ->addAction(
-                        ProductAddVariantAction::of()
-                            ->setSku(ProductFixture::uniqueProductString() . '-2')
-                            ->setAttributes(
-                                AttributeCollection::of()->add(
-                                    Attribute::of()->setName('uniqueField')->setValue('123456')
+            function (Product $product, ProductType $productType) use ($client) {
+                        $request = RequestBuilder::of()->productTypes()->update($productType)
+                            ->addAction(
+                                ProductTypeAddAttributeDefinitionAction::ofAttribute(
+                                    AttributeDefinition::of()
+                                        ->setType(StringType::of())
+                                        ->setName('uniqueField')
+                                        ->setLabel(LocalizedString::ofLangAndText('en', 'uniqueField'))
+                                        ->setIsRequired(false)
+                                        ->setAttributeConstraint('Unique')
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        TestHelper::getInstance($this->getClient())->setProductType($result);
+                        $request = RequestBuilder::of()->products()->update($product)
+                            ->addAction(
+                                ProductTypeAddAttributeDefinitionAction::ofAttribute(
+                                    AttributeDefinition::of()
+                                        ->setType(StringType::of())
+                                        ->setName('uniqueField')
+                                        ->setLabel(LocalizedString::ofLangAndText('en', 'uniqueField'))
+                                        ->setIsRequired(false)
+                                        ->setAttributeConstraint('Unique')
                                 )
                             )
-                    );
-                $this->execute($client, $request);
+                            ->addAction(
+                                ProductAddVariantAction::of()
+                                    ->setSku(ProductFixture::uniqueProductString() . '-2')
+                                    ->setAttributes(
+                                        AttributeCollection::of()->add(
+                                            Attribute::of()->setName('uniqueField')->setValue('123456')
+                                        )
+                                    )
+                            );
+                        $this->execute($client, $request);
+
+                        return $result;
             }
         );
     }
@@ -449,6 +430,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/AttributeNameDoesNotExist/");
 
         $client = $this->getApiClient();
 
@@ -521,47 +503,47 @@ class ErrorResponseTest extends ApiTestCase
 
     public function testRequiredField()
     {
-        $productType = $this->getProductType();
-        $product = $this->getProduct();
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/RequiredField/");
 
-        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion());
-        $request->addAction(
-            ProductTypeAddAttributeDefinitionAction::ofAttribute(
-                AttributeDefinition::of()
-                    ->setType(StringType::of())
-                    ->setName('requiredField')
-                    ->setLabel(LocalizedString::ofLangAndText('en', 'requiredField'))
-                    ->setIsRequired(true)
-            )
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        TestHelper::getInstance($this->getClient())->setProductType($result);
+        $client = $this->getApiClient();
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductAddVariantAction::of()
-                    ->setSku($this->getTestRun() . '-1')
-                    ->setAttributes(
-                        AttributeCollection::of()->add(
-                            Attribute::of()->setName('testField')->setValue('123456')
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setPublish(true);
+            },
+            function (Product $product, ProductType $productType) use ($client) {
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeAddAttributeDefinitionAction::ofAttribute(
+                            AttributeDefinition::of()
+                                ->setType(StringType::of())
+                                ->setName('requiredField')
+                                ->setLabel(LocalizedString::ofLangAndText('en', 'requiredField'))
+                                ->setIsRequired(true)
                         )
-                    )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $this->assertTrue($response->isError());
-        $this->assertInstanceOf(ErrorResponse::class, $response);
-        $this->assertSame(400, $response->getStatusCode());
-        $error = $response->getErrors()->current();
-        $this->assertInstanceOf(
-            RequiredFieldError::class,
-            $error
-        );
-        $this->assertSame(RequiredFieldError::CODE, $error->getCode());
-        $this->assertSame('requiredField', $error->getField());
-    }
+                    );
+                $response = $this->execute($client, $request);
+                $result  = $request->mapFromResponse($response);
+                TestHelper::getInstance($this->getClient())->setProductType($result);
 
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductAddVariantAction::of()
+                            ->setSku($this->getTestRun() . '-1')
+                            ->setAttributes(
+                                AttributeCollection::of()->add(
+                                    Attribute::of()->setName('testField')->setValue('123456')
+                                )
+                            )
+                    );
+                $this->execute($client, $request);
+            }
+        );
+    }
+// todo migrate Cart
     public function testInvalidOperation()
     {
         $cart = $this->getCart();
@@ -585,72 +567,70 @@ class ErrorResponseTest extends ApiTestCase
 
     public function testInvalidField()
     {
-        $productType = $this->getProductType();
-        $product = $this->getProduct();
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidField/");
 
-        $request = ProductTypeUpdateRequest::ofIdAndVersion($productType->getId(), $productType->getVersion());
-        $request->addAction(
-            ProductTypeAddAttributeDefinitionAction::ofAttribute(
-                AttributeDefinition::of()
-                    ->setType(
-                        EnumType::of()->setValues(
-                            EnumCollection::of()->add(
-                                Enum::of()->setKey('test')->setLabel('test')
+        $client = $this->getApiClient();
+
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setPublish(true);
+            },
+            function (Product $product, ProductType $productType) use ($client) {
+                $request = RequestBuilder::of()->productTypes()->update($productType)
+                    ->addAction(
+                        ProductTypeAddAttributeDefinitionAction::ofAttribute(
+                            AttributeDefinition::of()
+                                ->setType(
+                                    EnumType::of()->setValues(
+                                        EnumCollection::of()->add(
+                                            Enum::of()->setKey('test')->setLabel('test')
+                                        )
+                                    )
+                                )
+                                ->setName('enumField')
+                                ->setLabel(LocalizedString::ofLangAndText('en', 'enumField'))
+                                ->setIsRequired(false)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result  = $request->mapFromResponse($response);
+                TestHelper::getInstance($this->getClient())->setProductType($result);
+
+                $request = RequestBuilder::of()->products()->update($product)
+                    ->addAction(
+                        ProductAddVariantAction::of()
+                            ->setSku($this->getTestRun() . '-1')
+                            ->setAttributes(
+                                AttributeCollection::of()->add(
+                                    Attribute::of()->setName('enumField')->setValue('unknown')
+                                )
                             )
-                        )
-                    )
-                    ->setName('enumField')
-                    ->setLabel(LocalizedString::ofLangAndText('en', 'enumField'))
-                    ->setIsRequired(false)
-            )
-        );
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        TestHelper::getInstance($this->getClient())->setProductType($result);
+                    );
+                $this->execute($client, $request);
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductAddVariantAction::of()
-                    ->setSku($this->getTestRun() . '-1')
-                    ->setAttributes(
-                        AttributeCollection::of()->add(
-                            Attribute::of()->setName('enumField')->setValue('unknown')
-                        )
-                    )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $this->assertTrue($response->isError());
-        $this->assertInstanceOf(ErrorResponse::class, $response);
-        $this->assertSame(400, $response->getStatusCode());
-        $error = $response->getErrors()->current();
-        $this->assertInstanceOf(
-            InvalidFieldError::class,
-            $error
+                return $result;
+            }
         );
-        $this->assertSame(InvalidFieldError::CODE, $error->getCode());
-        $this->assertSame('enumField', $error->getField());
-        $this->assertSame('unknown', $error->getInvalidValue());
-        $this->assertSame(['test'], $error->getAllowedValues());
     }
 
     public function testInsufficientScope()
     {
-        $draft = $this->getProductDraft();
+        $this->expectException(ApiException::class);
+        $this->expectExceptionCode(403);
 
-        $request = ProductCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient('view_products'));
+        $client = $this->getApiClient('view_products');
 
-        $this->assertTrue($response->isError());
-        $this->assertInstanceOf(ErrorResponse::class, $response);
-        $this->assertSame(403, $response->getStatusCode());
-
-        $error = $response->getErrors()->current();
-        $this->assertInstanceOf(
-            InsufficientScopeError::class,
-            $error
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $draft) {
+                return $draft->setPublish(true);
+            },
+            function (Product $product) use ($client) {
+            }
         );
-        $this->assertSame(InsufficientScopeError::CODE, $error->getCode());
     }
 
     public function testInvalidToken()
@@ -670,7 +650,7 @@ class ErrorResponseTest extends ApiTestCase
         $cacheItem->set('1234');
         $cacheAdapter->save($cacheItem);
 
-        $request = ProductQueryRequest::of();
+        $request = RequestBuilder::of()->products()->query();
         $client->addBatchRequest($request);
 
         $responses = $client->executeBatch();
@@ -689,7 +669,7 @@ class ErrorResponseTest extends ApiTestCase
 
     public function testAccessDenied()
     {
-        $request = ProductQueryRequest::of();
+        $request = RequestBuilder::of()->products()->query();
         $httpRequest = $request->httpRequest();
 
         $config = $this->getClientConfig('manage_project');
