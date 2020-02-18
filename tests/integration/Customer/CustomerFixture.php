@@ -163,14 +163,8 @@ class CustomerFixture extends ResourceFixture
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        $storeReference = null;
         if ($draftFunction == null) {
-            $draftFunction = function () use ($storeReference) {
-                return call_user_func(
-                    [__CLASS__, 'customerDraftFunction'],
-                    $storeReference
-                );
-            };
+            $draftFunction = [__CLASS__, 'customerDraftFunction'];
         }
         if ($createFunction == null) {
             $createFunction = [__CLASS__, 'customerCreateFunction'];
