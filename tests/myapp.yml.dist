@@ -2,6 +2,6 @@ parameters:
   client_id: Your Commercetools client ID
   client_secret: Your Commercetools client secret
   project: Your Commercetools project key
-  oauth_url: https://auth.sphere.io
-  api_url: https://api.sphere.io
+  oauth_url: https://auth.europe-west1.gcp.commercetools.com
+  api_url: https://api.europe-west1.gcp.commercetools.com
   enableCorrelationId: 1

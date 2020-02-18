@@ -3,17 +3,11 @@
 namespace Commercetools\Core\Client;
 
 use Commercetools\Core\Cache\CacheAdapterFactory;
-use Commercetools\Core\Client\OAuth\AnonymousFlowTokenProvider;
-use Commercetools\Core\Client\OAuth\AnonymousIdProvider;
 use Commercetools\Core\Client\OAuth\CacheTokenProvider;
 use Commercetools\Core\Client\OAuth\ClientCredentials;
 use Commercetools\Core\Client\OAuth\CredentialTokenProvider;
 use Commercetools\Core\Client\OAuth\OAuth2Handler;
-use Commercetools\Core\Client\OAuth\PasswordFlowTokenProvider;
-use Commercetools\Core\Client\OAuth\RefreshFlowTokenProvider;
 use Commercetools\Core\Client\OAuth\TokenProvider;
-use Commercetools\Core\Client\OAuth\TokenStorage;
-use Commercetools\Core\Client\OAuth\TokenStorageProvider;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\DeprecatedException;
@@ -153,6 +147,9 @@ class ClientFactory
             $handler = HandlerStack::create();
             $options['handler'] = $handler;
         }
+
+        $handler->remove("http_errors");
+        $handler->unshift(self::httpErrors(), 'ctp_http_errors');
 
         $this->setCorrelationIdMiddleware($handler, $correlationIdProvider);
 

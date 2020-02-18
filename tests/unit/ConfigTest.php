@@ -30,9 +30,9 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
 
         $this->assertEquals($testConfig[Config::CLIENT_ID], $config->getClientId());
         $this->assertEquals($testConfig[Config::CLIENT_SECRET], $config->getClientSecret());
-        $this->assertEquals('https://auth.sphere.io/oauth/token', $config->getOauthUrl());
+        $this->assertEquals('https://auth.europe-west1.gcp.commercetools.com/oauth/token', $config->getOauthUrl());
         $this->assertEquals($testConfig[Config::PROJECT], $config->getProject());
-        $this->assertEquals('https://api.sphere.io', $config->getApiUrl());
+        $this->assertEquals('https://api.europe-west1.gcp.commercetools.com', $config->getApiUrl());
     }
 
     public function testSetBearerTokenOnly()
@@ -49,9 +49,9 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(Config::class, $config);
 
         $this->assertEquals($testConfig[Config::BEARER_TOKEN], $config->getBearerToken());
-        $this->assertEquals('https://auth.sphere.io/oauth/token', $config->getOauthUrl());
+        $this->assertEquals('https://auth.europe-west1.gcp.commercetools.com/oauth/token', $config->getOauthUrl());
         $this->assertEquals($testConfig[Config::PROJECT], $config->getProject());
-        $this->assertEquals('https://api.sphere.io', $config->getApiUrl());
+        $this->assertEquals('https://api.europe-west1.gcp.commercetools.com', $config->getApiUrl());
     }
 
     public function testFromArray()
@@ -76,8 +76,8 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $this->assertEmpty($config->getClientId());
         $this->assertEmpty($config->getClientSecret());
         $this->assertEmpty($config->getProject());
-        $this->assertEquals('https://auth.sphere.io/oauth/token', $config->getOauthUrl());
-        $this->assertEquals('https://api.sphere.io', $config->getApiUrl());
+        $this->assertEquals('https://auth.europe-west1.gcp.commercetools.com/oauth/token', $config->getOauthUrl());
+        $this->assertEquals('https://api.europe-west1.gcp.commercetools.com', $config->getApiUrl());
     }
 
     /**
