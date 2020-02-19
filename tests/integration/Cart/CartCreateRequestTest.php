@@ -5,14 +5,16 @@
 
 namespace Commercetools\Core\IntegrationTests\Cart;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
+use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
-use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
-use Commercetools\Core\Request\Carts\CartReplicateRequest;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 
@@ -44,11 +46,24 @@ class CartCreateRequestTest extends ApiTestCase
 
     public function testCreate()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
-        $this->assertSame($draft->getCurrency(), $cart->getTotalPrice()->getCurrencyCode());
-        $this->assertSame($draft->getCountry(), $cart->getCountry());
-        $this->assertSame(0, $cart->getTotalPrice()->getCentAmount());
+        $client = $this->getApiClient();
+
+        CartFixture::withCart(
+            $client,
+            function (Cart $cart) use ($client) {
+                $request = RequestBuilder::of()->carts()->query()
+                    ->where('id=:id', ['id' => $cart->getId()]);
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame(
+                    $cart->getTotalPrice()->getCurrencyCode(),
+                    $result->current()->getTotalPrice()->getCurrencyCode()
+                );
+                $this->assertSame($cart->getCountry(), $result->current()->getCountry());
+                $this->assertSame(0, $result->current()->getTotalPrice()->getCentAmount());
+            }
+        );
     }
 
     public function getOriginTypes()
@@ -64,52 +79,73 @@ class CartCreateRequestTest extends ApiTestCase
      */
     public function testCreateOriginCustom($originType, $successful)
     {
-        $draft = $this->getDraft();
-        $draft->setOrigin($originType);
-        $cart = $this->createCart($draft);
-        if ($successful) {
-            $this->assertSame($originType, $cart->getOrigin());
-        } else {
-            $this->assertNull($cart);
+        if ($originType === 'invalidOrigin') {
+            $this->expectException(FixtureException::class);
+            $this->expectExceptionCode(400);
         }
+
+        $client = $this->getApiClient();
+
+        CartFixture::withDraftCart(
+            $client,
+            function (CartDraft $draft) use ($originType) {
+                return $draft->setOrigin($originType);
+            },
+            function (Cart $cart) use ($client, $originType, $successful) {
+                if ($successful) {
+                    $this->assertSame($originType, $cart->getOrigin());
+                } else {
+                    $this->assertNull($cart);
+                }
+            }
+        );
     }
 
     public function testCreateReplicaCartFromCart()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withProduct(
+            $client,
+            function (Product $product) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $product) {
+                        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-            )
-        ;
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                    $product->getId(),
+                                    $variant->getId(),
+                                    1
+                                )
+                            );
+                        $response = $client->execute($request);
+                        $cart = $request->mapFromResponse($response);
 
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->assertFalse($response->isError());
+                        $this->assertInstanceOf(Cart::class, $cart);
 
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->replicate($cart->getId());
+                        $response = $client->execute($request);
+                        $replicaCart = $request->mapFromResponse($response);
 
-        $request = CartReplicateRequest::ofCartId($cart->getId());
+                        $this->assertNotEmpty($replicaCart->getLineItems());
 
-        $response = $request->executeWithClient($this->getClient());
-        $replicaCart = $request->mapResponse($response);
-        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($replicaCart->getId(), $replicaCart->getVersion());
+                        $cartLineItem = $cart->getLineItems()->current()->getProductId();
+                        $replicaCartLineItem = $replicaCart->getLineItems()->current()->getProductId();
 
-        $this->assertNotEmpty($replicaCart->getLineItems());
+                        $this->assertSame($cartLineItem, $replicaCartLineItem);
+                        $this->assertNotSame($cart->getId(), $replicaCart->getId());
+                        $this->assertSame(CartState::ACTIVE, $replicaCart->getCartState());
 
-        $cartLineItem = $cart->getLineItems()->current()->getProductId();
-        $replicaCartLineItem = $replicaCart->getLineItems()->current()->getProductId();
-
-        $this->assertSame($cartLineItem, $replicaCartLineItem);
-        $this->assertNotSame($cart->getId(), $replicaCart->getId());
-        $this->assertSame(CartState::ACTIVE, $replicaCart->getCartState());
+                        return $replicaCart;
+                    }
+                );
+            }
+        );
     }
-
+//todo need InStoreRequestDecorator?
     public function testCreateCartInStore()
     {
         $store = $this->getStore();
