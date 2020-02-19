@@ -94,6 +94,6 @@ GRAPHQL;
         $response = $this->execute($client, $request);
 
         $data = json_decode((string)$response->getBody(), true);
-        $this->assertNotEmpty($data['data']['products']['count']);
+        $this->assertTrue(isset($data['data']['products']['count']));
     }
 }
