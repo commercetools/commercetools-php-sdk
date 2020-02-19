@@ -68,9 +68,10 @@ class ZoneQueryRequestTest extends ApiTestCase
 
     public function testDeleteByKey()
     {
-        $client = $this->getApiClient();
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(404);
+
+        $client = $this->getApiClient();
 
         ZoneFixture::withZone(
             $client,

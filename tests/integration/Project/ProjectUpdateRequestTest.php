@@ -7,7 +7,6 @@ namespace Commercetools\Core\IntegrationTests\Project;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Builder\Update\ActionBuilder;
-use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedEnum;
 use Commercetools\Core\Model\Common\LocalizedEnumCollection;
@@ -26,8 +25,6 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledActio
 use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetExternalOAuthAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
-use Commercetools\Core\Request\Project\ProjectGetRequest;
-use Commercetools\Core\Request\Project\ProjectUpdateRequest;
 
 class ProjectUpdateRequestTest extends ApiTestCase
 {

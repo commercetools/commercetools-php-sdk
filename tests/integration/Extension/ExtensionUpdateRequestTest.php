@@ -4,8 +4,8 @@
 
 namespace Commercetools\Core\IntegrationTests\Extension;
 
-use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Extension\Extension;
 use Commercetools\Core\Model\Extension\ExtensionDraft;
 use Commercetools\Core\Model\Extension\HttpDestination;
@@ -15,34 +15,9 @@ use Commercetools\Core\Request\Extensions\Command\ExtensionChangeDestinationActi
 use Commercetools\Core\Request\Extensions\Command\ExtensionChangeTriggersAction;
 use Commercetools\Core\Request\Extensions\Command\ExtensionSetKeyAction;
 use Commercetools\Core\Request\Extensions\Command\ExtensionSetTimeoutInMsAction;
-use Commercetools\Core\Request\Extensions\ExtensionCreateRequest;
-use Commercetools\Core\Request\Extensions\ExtensionDeleteRequest;
 
 class ExtensionUpdateRequestTest extends ApiTestCase
 {
-    private function getExtensionDraft()
-    {
-        return ExtensionDraft::ofDestinationAndTriggers(
-            HttpDestination::of()->setUrl('https://api.europe-west1.gcp.commercetools.com'),
-            TriggerCollection::of()->add(
-                Trigger::of()->setResourceTypeId('cart')->setActions([Trigger::ACTION_CREATE])
-            )
-        )->setKey('test-' .$this->getTestRun());
-    }
-
-    private function createExtension(ExtensionDraft $draft)
-    {
-        $request = ExtensionCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $extension = $request->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = ExtensionDeleteRequest::ofIdAndVersion(
-            $extension->getId(),
-            $extension->getVersion()
-        );
-
-        return $extension;
-    }
-
     public function testSetKey()
     {
         $client = $this->getApiClient();

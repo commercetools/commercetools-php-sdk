@@ -28,43 +28,10 @@ use Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction;
 use Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction;
 use Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction;
-use Commercetools\Core\Request\Inventory\InventoryCreateRequest;
-use Commercetools\Core\Request\Inventory\InventoryDeleteRequest;
 use Commercetools\Core\Request\Messages\MessageQueryRequest;
-use Commercetools\Core\Request\Products\ProductProjectionSearchRequest;
-use PHPUnit\Framework\SkippedTestError;
 
 class InventoryUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @param $sku
-     * @param int $quantity
-     * @return InventoryDraft
-     */
-    protected function getDraft($sku, $quantity = 0)
-    {
-        $draft = InventoryDraft::ofSkuAndQuantityOnStock(
-            'test-' . $this->getTestRun() . '-' . $sku,
-            $quantity
-        );
-
-        return $draft;
-    }
-
-    protected function createInventory(InventoryDraft $draft)
-    {
-        $request = InventoryCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $inventory = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = InventoryDeleteRequest::ofIdAndVersion(
-            $inventory->getId(),
-            $inventory->getVersion()
-        );
-
-        return $inventory;
-    }
-
     public function testAddQuantity()
     {
         $client = $this->getApiClient();

@@ -386,11 +386,11 @@ class CategoryQueryRequestTest extends ApiTestCase
 
     public function testMinSlugFail()
     {
-        $client = $this->getApiClient();
-
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
         $this->expectExceptionMessageRegExp("/InvalidField/");
+
+        $client = $this->getApiClient();
 
         CategoryFixture::withDraftCategory(
             $client,
@@ -422,11 +422,11 @@ class CategoryQueryRequestTest extends ApiTestCase
 
     public function testMaxSlugFail()
     {
-        $client = $this->getApiClient();
-
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
         $this->expectExceptionMessageRegExp("/InvalidField/");
+
+        $client = $this->getApiClient();
 
         CategoryFixture::withDraftCategory(
             $client,
