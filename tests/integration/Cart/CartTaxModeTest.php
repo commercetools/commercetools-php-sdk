@@ -33,6 +33,29 @@ use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxRateAction;
 
 class CartTaxModeTest extends ApiTestCase
 {
+    const TAX_RATE_NAME = 'test';
+    const TAX_RATE_COUNTRY = 'DE';
+    const TAX_RATE = 0.1;
+
+    private function getExternalTaxRate()
+    {
+        return ExternalTaxRateDraft::ofNameCountryAndAmount(
+            $this::TAX_RATE_NAME,
+            $this::TAX_RATE_COUNTRY,
+            $this::TAX_RATE
+        );
+    }
+
+    private function getExternalTaxRateWithSubRates($amount, SubRateCollection $subRateCollection)
+    {
+        return ExternalTaxRateDraft::ofNameCountryAmountAndSubRates(
+            self::TAX_RATE_NAME,
+            self::TAX_RATE_COUNTRY,
+            $amount,
+            $subRateCollection
+        );
+    }
+
     public function testCreateWithTaxModeExternal()
     {
         $client = $this->getApiClient();
@@ -92,9 +115,6 @@ class CartTaxModeTest extends ApiTestCase
                     },
                     function (Cart $cart) use ($client, $product) {
                         $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
-                        $taxRateName = 'test';
-                        $taxRateCountry = 'DE';
-                        $taxRate = 0.1;
 
                         $request = RequestBuilder::of()->carts()->update($cart)
                             ->addAction(
@@ -104,22 +124,25 @@ class CartTaxModeTest extends ApiTestCase
                                     1
                                 )
                                     ->setExternalTaxRate(
-                                        ExternalTaxRateDraft::ofNameCountryAndAmount(
-                                            $taxRateName,
-                                            $taxRateCountry,
-                                            $taxRate
-                                        )->setIncludedInPrice(true)
+                                        $this->getExternalTaxRate()
+                                        ->setIncludedInPrice(true)
                                     )
                             );
                         $response = $client->execute($request);
                         $result = $request->mapFromResponse($response);
 
-                        $this->assertSame($taxRateName, $result->getLineItems()->current()->getTaxRate()->getName());
                         $this->assertSame(
-                            $taxRateCountry,
+                            self::TAX_RATE_NAME,
+                            $result->getLineItems()->current()->getTaxRate()->getName()
+                        );
+                        $this->assertSame(
+                            self::TAX_RATE_COUNTRY,
                             $result->getLineItems()->current()->getTaxRate()->getCountry()
                         );
-                        $this->assertSame($taxRate, $result->getLineItems()->current()->getTaxRate()->getAmount());
+                        $this->assertSame(
+                            self::TAX_RATE,
+                            $result->getLineItems()->current()->getTaxRate()->getAmount()
+                        );
                         $this->assertTrue($result->getLineItems()->current()->getTaxRate()->getIncludedInPrice());
                     }
                 );
@@ -156,8 +179,7 @@ class CartTaxModeTest extends ApiTestCase
                     },
                     function (Cart $cart) use ($client, $product, $testSubRates, $testTaxRate) {
                         $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
-                        $taxRateName = 'test';
-                        $taxRateCountry = 'DE';
+
                         $subRateCollection = SubRateCollection::of();
                         $i = 1;
                         foreach ($testSubRates as $testSubRate) {
@@ -172,20 +194,18 @@ class CartTaxModeTest extends ApiTestCase
                                     $variant->getId(),
                                     1
                                 )->setExternalTaxRate(
-                                    ExternalTaxRateDraft::ofNameCountryAmountAndSubRates(
-                                        $taxRateName,
-                                        $taxRateCountry,
-                                        $testTaxRate,
-                                        $subRateCollection
-                                    )
+                                    $this->getExternalTaxRateWithSubRates($testTaxRate, $subRateCollection)
                                 )
                             );
                         $response = $client->execute($request);
                         $result = $request->mapFromResponse($response);
 
-                        $this->assertSame($taxRateName, $result->getLineItems()->current()->getTaxRate()->getName());
                         $this->assertSame(
-                            $taxRateCountry,
+                            self::TAX_RATE_NAME,
+                            $result->getLineItems()->current()->getTaxRate()->getName()
+                        );
+                        $this->assertSame(
+                            self::TAX_RATE_COUNTRY,
                             $result->getLineItems()->current()->getTaxRate()->getCountry()
                         );
                         $this->assertSame($testTaxRate, $result->getLineItems()->current()->getTaxRate()->getAmount());
@@ -216,12 +236,11 @@ class CartTaxModeTest extends ApiTestCase
                     },
                     function (Cart $cart) use ($client, $product) {
                         $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
-
-                        $taxRateName = 'test';
-                        $taxRateCountry = 'DE';
-                        $taxRate = 0.1;
                         $subRate1 = 0.08;
                         $subRate2 = 0.02;
+                        $subRateCollection = SubRateCollection::of()
+                            ->add(SubRate::of()->setName('test-1')->setAmount($subRate1))
+                            ->add(SubRate::of()->setName('test-2')->setAmount($subRate2));
 
                         $request = RequestBuilder::of()->carts()->update($cart)
                             ->addAction(
@@ -232,23 +251,27 @@ class CartTaxModeTest extends ApiTestCase
                                 )
                                     ->setExternalTaxRate(
                                         ExternalTaxRateDraft::ofNameCountryAndSubRates(
-                                            $taxRateName,
-                                            $taxRateCountry,
-                                            SubRateCollection::of()
-                                                ->add(SubRate::of()->setName('test-1')->setAmount($subRate1))
-                                                ->add(SubRate::of()->setName('test-2')->setAmount($subRate2))
+                                            self::TAX_RATE_NAME,
+                                            self::TAX_RATE_COUNTRY,
+                                            $subRateCollection
                                         )
                                     )
                             );
                         $response = $client->execute($request);
                         $result = $request->mapFromResponse($response);
 
-                        $this->assertSame($taxRateName, $result->getLineItems()->current()->getTaxRate()->getName());
                         $this->assertSame(
-                            $taxRateCountry,
+                            self::TAX_RATE_NAME,
+                            $result->getLineItems()->current()->getTaxRate()->getName()
+                        );
+                        $this->assertSame(
+                            self::TAX_RATE_COUNTRY,
                             $result->getLineItems()->current()->getTaxRate()->getCountry()
                         );
-                        $this->assertSame($taxRate, $result->getLineItems()->current()->getTaxRate()->getAmount());
+                        $this->assertSame(
+                            self::TAX_RATE,
+                            $result->getLineItems()->current()->getTaxRate()->getAmount()
+                        );
                         $this->assertFalse($result->getLineItems()->current()->getTaxRate()->getIncludedInPrice());
 
                         $subRates = [];
@@ -273,10 +296,6 @@ class CartTaxModeTest extends ApiTestCase
                 return $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL);
             },
             function (Cart $cart) use ($client) {
-                $taxRateName = 'test';
-                $taxRateCountry = 'DE';
-                $taxRate = 0.1;
-
                 $request = RequestBuilder::of()->carts()->update($cart)
                     ->addAction(
                         CartAddCustomLineItemAction::ofNameQuantityMoneySlugAndExternalTaxRate(
@@ -284,19 +303,22 @@ class CartTaxModeTest extends ApiTestCase
                             1,
                             Money::ofCurrencyAndAmount('EUR', 100),
                             'test',
-                            ExternalTaxRateDraft::ofNameCountryAndAmount($taxRateName, $taxRateCountry, $taxRate)
+                            $this->getExternalTaxRate()
                                 ->setIncludedInPrice(false)
                         )
                     );
                 $response = $client->execute($request);
                 $result = $request->mapFromResponse($response);
 
-                $this->assertSame($taxRateName, $result->getCustomLineItems()->current()->getTaxRate()->getName());
                 $this->assertSame(
-                    $taxRateCountry,
+                    self::TAX_RATE_NAME,
+                    $result->getCustomLineItems()->current()->getTaxRate()->getName()
+                );
+                $this->assertSame(
+                    self::TAX_RATE_COUNTRY,
                     $result->getCustomLineItems()->current()->getTaxRate()->getCountry()
                 );
-                $this->assertSame($taxRate, $result->getCustomLineItems()->current()->getTaxRate()->getAmount());
+                $this->assertSame(self::TAX_RATE, $result->getCustomLineItems()->current()->getTaxRate()->getAmount());
                 $this->assertFalse($result->getCustomLineItems()->current()->getTaxRate()->getIncludedInPrice());
             }
         );
@@ -315,8 +337,6 @@ class CartTaxModeTest extends ApiTestCase
                 return $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL);
             },
             function (Cart $cart) use ($client, $testSubRates, $testTaxRate) {
-                $taxRateName = 'test';
-                $taxRateCountry = 'DE';
                 $i = 1;
                 $subRateCollection = SubRateCollection::of();
                 foreach ($testSubRates as $testSubRate) {
@@ -331,20 +351,19 @@ class CartTaxModeTest extends ApiTestCase
                             1,
                             Money::ofCurrencyAndAmount('EUR', 100),
                             'test',
-                            ExternalTaxRateDraft::ofNameCountryAmountAndSubRates(
-                                $taxRateName,
-                                $taxRateCountry,
-                                $testTaxRate,
-                                $subRateCollection
-                            )
+                            $this->getExternalTaxRateWithSubRates($testTaxRate, $subRateCollection)
                         )
                     );
                 $response = $client->execute($request);
                 $cart = $request->mapFromResponse($response);
 
-                $this->assertSame($taxRateName, $cart->getCustomLineItems()->current()->getTaxRate()->getName());
-                $this->assertSame($taxRateCountry, $cart->getCustomLineItems()->current()->getTaxRate()->getCountry());
+                $this->assertSame(self::TAX_RATE_NAME, $cart->getCustomLineItems()->current()->getTaxRate()->getName());
+                $this->assertSame(
+                    self::TAX_RATE_COUNTRY,
+                    $cart->getCustomLineItems()->current()->getTaxRate()->getCountry()
+                );
                 $this->assertSame($testTaxRate, $cart->getCustomLineItems()->current()->getTaxRate()->getAmount());
+
                 $subRates = [];
                 foreach ($cart->getCustomLineItems()->current()->getTaxRate()->getSubRates() as $subRate) {
                     $subRates[] = $subRate->getAmount();
@@ -366,11 +385,11 @@ class CartTaxModeTest extends ApiTestCase
                 return $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL);
             },
             function (Cart $cart) use ($client) {
-                $taxRateName = 'test';
-                $taxRateCountry = 'DE';
-                $taxRate = 0.1;
                 $subRate1 = 0.08;
                 $subRate2 = 0.02;
+                $subRateCollection = SubRateCollection::of()
+                    ->add(SubRate::of()->setName('test-1')->setAmount($subRate1))
+                    ->add(SubRate::of()->setName('test-2')->setAmount($subRate2));
 
                 $request = RequestBuilder::of()->carts()->update($cart)
                     ->addAction(
@@ -380,25 +399,27 @@ class CartTaxModeTest extends ApiTestCase
                             Money::ofCurrencyAndAmount('EUR', 100),
                             'test',
                             ExternalTaxRateDraft::ofNameCountryAndSubRates(
-                                $taxRateName,
-                                $taxRateCountry,
-                                SubRateCollection::of()
-                                    ->add(SubRate::of()->setName('test-1')->setAmount($subRate1))
-                                    ->add(SubRate::of()->setName('test-2')->setAmount($subRate2))
+                                self::TAX_RATE_NAME,
+                                self::TAX_RATE_COUNTRY,
+                                $subRateCollection
                             )
                         )
                     );
                 $response = $client->execute($request);
                 $cart = $request->mapFromResponse($response);
 
-                $this->assertSame($taxRateName, $cart->getCustomLineItems()->current()->getTaxRate()->getName());
-                $this->assertSame($taxRateCountry, $cart->getCustomLineItems()->current()->getTaxRate()->getCountry());
-                $this->assertSame($taxRate, $cart->getCustomLineItems()->current()->getTaxRate()->getAmount());
+                $this->assertSame(self::TAX_RATE_NAME, $cart->getCustomLineItems()->current()->getTaxRate()->getName());
+                $this->assertSame(
+                    self::TAX_RATE_COUNTRY,
+                    $cart->getCustomLineItems()->current()->getTaxRate()->getCountry()
+                );
+                $this->assertSame(self::TAX_RATE, $cart->getCustomLineItems()->current()->getTaxRate()->getAmount());
 
                 $subRates = [];
                 foreach ($cart->getCustomLineItems()->current()->getTaxRate()->getSubRates() as $subRate) {
                     $subRates[] = $subRate->getAmount();
                 }
+
                 $this->assertContains($subRate1, $subRates);
                 $this->assertContains($subRate2, $subRates);
             }
@@ -425,28 +446,21 @@ class CartTaxModeTest extends ApiTestCase
                     );
             },
             function (Cart $cart) use ($client) {
-                $taxRateName = 'test';
-                $taxRateCountry = 'DE';
-                $taxRate = 0.1;
-
                 $request = RequestBuilder::of()->carts()->update($cart)
                     ->addAction(
                         CartSetCustomLineItemTaxRateAction::ofCustomLineItemId(
                             $cart->getCustomLineItems()->current()->getId()
-                        )->setExternalTaxRate(
-                            ExternalTaxRateDraft::ofNameCountryAndAmount(
-                                $taxRateName,
-                                $taxRateCountry,
-                                $taxRate
-                            )
-                        )
+                        )->setExternalTaxRate($this->getExternalTaxRate())
                     );
                 $response = $client->execute($request);
                 $cart = $request->mapFromResponse($response);
 
-                $this->assertSame($taxRateName, $cart->getCustomLineItems()->current()->getTaxRate()->getName());
-                $this->assertSame($taxRateCountry, $cart->getCustomLineItems()->current()->getTaxRate()->getCountry());
-                $this->assertSame($taxRate, $cart->getCustomLineItems()->current()->getTaxRate()->getAmount());
+                $this->assertSame(self::TAX_RATE_NAME, $cart->getCustomLineItems()->current()->getTaxRate()->getName());
+                $this->assertSame(
+                    self::TAX_RATE_COUNTRY,
+                    $cart->getCustomLineItems()->current()->getTaxRate()->getCountry()
+                );
+                $this->assertSame(self::TAX_RATE, $cart->getCustomLineItems()->current()->getTaxRate()->getAmount());
             }
         );
     }
@@ -473,30 +487,26 @@ class CartTaxModeTest extends ApiTestCase
                             );
                     },
                     function (Cart $cart) use ($client, $product) {
-                        $taxRateName = 'test';
-                        $taxRateCountry = 'DE';
-                        $taxRate = 0.1;
-
                         $request = RequestBuilder::of()->carts()->update($cart)
                             ->addAction(
                                 CartSetLineItemTaxRateAction::ofLineItemId($cart->getLineItems()->current()->getId())
-                                    ->setExternalTaxRate(
-                                        ExternalTaxRateDraft::ofNameCountryAndAmount(
-                                            $taxRateName,
-                                            $taxRateCountry,
-                                            $taxRate
-                                        )
-                                    )
+                                    ->setExternalTaxRate($this->getExternalTaxRate())
                             );
                         $response = $client->execute($request);
                         $result = $request->mapFromResponse($response);
 
-                        $this->assertSame($taxRateName, $result->getLineItems()->current()->getTaxRate()->getName());
                         $this->assertSame(
-                            $taxRateCountry,
+                            self::TAX_RATE_NAME,
+                            $result->getLineItems()->current()->getTaxRate()->getName()
+                        );
+                        $this->assertSame(
+                            self::TAX_RATE_COUNTRY,
                             $result->getLineItems()->current()->getTaxRate()->getCountry()
                         );
-                        $this->assertSame($taxRate, $result->getLineItems()->current()->getTaxRate()->getAmount());
+                        $this->assertSame(
+                            self::TAX_RATE,
+                            $result->getLineItems()->current()->getTaxRate()->getAmount()
+                        );
                     }
                 );
             }
@@ -521,27 +531,20 @@ class CartTaxModeTest extends ApiTestCase
                         return $cartDraft;
                     },
                     function (Cart $cart) use ($client, $shippingMethod) {
-                        $taxRateName = 'test';
-                        $taxRateCountry = 'DE';
-                        $taxRate = 0.1;
-
                         $request = RequestBuilder::of()->carts()->update($cart)
                             ->addAction(
                                 CartSetShippingMethodTaxRateAction::of()
-                                    ->setExternalTaxRate(
-                                        ExternalTaxRateDraft::ofNameCountryAndAmount(
-                                            $taxRateName,
-                                            $taxRateCountry,
-                                            $taxRate
-                                        )
-                                    )
+                                    ->setExternalTaxRate($this->getExternalTaxRate())
                             );
                         $response = $client->execute($request);
                         $result = $request->mapFromResponse($response);
 
-                        $this->assertSame($taxRateName, $result->getShippingInfo()->getTaxRate()->getName());
-                        $this->assertSame($taxRateCountry, $result->getShippingInfo()->getTaxRate()->getCountry());
-                        $this->assertSame($taxRate, $result->getShippingInfo()->getTaxRate()->getAmount());
+                        $this->assertSame(self::TAX_RATE_NAME, $result->getShippingInfo()->getTaxRate()->getName());
+                        $this->assertSame(
+                            self::TAX_RATE_COUNTRY,
+                            $result->getShippingInfo()->getTaxRate()->getCountry()
+                        );
+                        $this->assertSame(self::TAX_RATE, $result->getShippingInfo()->getTaxRate()->getAmount());
                     }
                 );
             }
@@ -551,39 +554,33 @@ class CartTaxModeTest extends ApiTestCase
     public function testChangeTaxMode()
     {
         $client = $this->getApiClient();
-        $taxRateName = 'test';
-        $taxRateCountry = 'DE';
-        $taxRate = 0.1;
 
         ProductFixture::withProduct(
             $client,
-            function (Product $product) use ($client, $taxRateName, $taxRateCountry, $taxRate) {
+            function (Product $product) use ($client) {
                 CartFixture::withUpdateableDraftCart(
                     $client,
-                    function (CartDraft $draft) use ($product, $taxRateName, $taxRateCountry, $taxRate) {
+                    function (CartDraft $draft) use ($product) {
                         return $draft->setLineItems(
                             LineItemDraftCollection::of()->add(
                                 LineItemDraft::ofProductIdVariantIdAndQuantity(
                                     $product->getId(),
                                     $product->getMasterData()->getCurrent()->getMasterVariant()->getId(),
                                     1
-                                )->setExternalTaxRate(
-                                    ExternalTaxRateDraft::ofNameCountryAndAmount(
-                                        $taxRateName,
-                                        $taxRateCountry,
-                                        $taxRate
-                                    )
-                                )
+                                )->setExternalTaxRate($this->getExternalTaxRate())
                             )
                         )->setTaxMode(Cart::TAX_MODE_EXTERNAL);
                     },
-                    function (Cart $cart) use ($client, $product, $taxRateName, $taxRateCountry, $taxRate) {
-                        $this->assertSame($taxRateName, $cart->getLineItems()->current()->getTaxRate()->getName());
+                    function (Cart $cart) use ($client, $product) {
                         $this->assertSame(
-                            $taxRateCountry,
+                            $this::TAX_RATE_NAME,
+                            $cart->getLineItems()->current()->getTaxRate()->getName()
+                        );
+                        $this->assertSame(
+                            $this::TAX_RATE_COUNTRY,
                             $cart->getLineItems()->current()->getTaxRate()->getCountry()
                         );
-                        $this->assertSame($taxRate, $cart->getLineItems()->current()->getTaxRate()->getAmount());
+                        $this->assertSame($this::TAX_RATE, $cart->getLineItems()->current()->getTaxRate()->getAmount());
 
                         $request = RequestBuilder::of()->carts()->update($cart)
                             ->addAction(
