@@ -37,6 +37,9 @@ class CartTaxModeTest extends ApiTestCase
     const TAX_RATE_COUNTRY = 'DE';
     const TAX_RATE = 0.1;
 
+    /**
+     * @return ExternalTaxRateDraft
+     */
     private function getExternalTaxRate()
     {
         return ExternalTaxRateDraft::ofNameCountryAndAmount(
@@ -46,6 +49,11 @@ class CartTaxModeTest extends ApiTestCase
         );
     }
 
+    /**
+     * @param $amount
+     * @param SubRateCollection $subRateCollection
+     * @return ExternalTaxRateDraft
+     */
     private function getExternalTaxRateWithSubRates($amount, SubRateCollection $subRateCollection)
     {
         return ExternalTaxRateDraft::ofNameCountryAmountAndSubRates(
