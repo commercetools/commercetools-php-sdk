@@ -327,7 +327,7 @@ class CartUpdateRequestTest extends ApiTestCase
                             $cart->getLineItems()->current()->getPriceMode()
                         );
                         $this->assertSame(
-                            2345,
+                            12345,
                             $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
                         );
                         $this->assertSame(12345678, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
