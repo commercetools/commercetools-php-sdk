@@ -98,7 +98,8 @@ class DiscountCodeFixture extends ResourceFixture
                     $assertFunction,
                     $createFunction,
                     $deleteFunction,
-                    $draftFunction
+                    $draftFunction,
+                    [$cartDiscount]
                 );
             }
         );
@@ -149,7 +150,8 @@ class DiscountCodeFixture extends ResourceFixture
                     $assertFunction,
                     $createFunction,
                     $deleteFunction,
-                    $draftFunction
+                    $draftFunction,
+                    [$cartDiscount]
                 );
             }
         );
