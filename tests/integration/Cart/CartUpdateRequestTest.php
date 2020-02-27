@@ -70,6 +70,7 @@ use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Model\Zone\Zone;
@@ -135,6 +136,7 @@ use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAc
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
 use Commercetools\Core\IntegrationTests\TestHelper;
+use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryAddTaxRateAction;
 
 class CartUpdateRequestTest extends ApiTestCase
 {
@@ -1005,53 +1007,83 @@ class CartUpdateRequestTest extends ApiTestCase
             }
         );
     }
-//todo
+
     public function testSetShippingMethod()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $shippingMethod = $this->getShippingMethod();
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetShippingAddressAction::of()->setAddress(
-                    Address::of()->setCountry('DE')->setState($this->getRegion())
-                )
-            )
-            ->addAction(
-                CartSetShippingMethodAction::of()->setShippingMethod($shippingMethod->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+        ShippingMethodFixture::withShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod, Zone $zone, TaxCategory $taxCategory) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $shippingMethod, $zone, $taxCategory) {
+                        $region = $zone->getLocations()->current()->getState();
 
-        $this->assertSame($shippingMethod->getName(), $cart->getShippingInfo()->getShippingMethodName());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetShippingAddressAction::of()->setAddress(
+                                    Address::of()->setCountry('DE')
+                                        ->setState($region)
+                                )
+                            )->addAction(
+                                CartSetShippingMethodAction::of()->setShippingMethod($shippingMethod->getReference())
+                            );
+
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame(
+                            $shippingMethod->getName(),
+                            $result->getShippingInfo()->getShippingMethodName()
+                        );
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
-//todo
+
     public function testSetCustomShippingMethod()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $shippingMethod = 'test-' . $this->getTestRun();
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetShippingAddressAction::of()->setAddress(
-                    Address::of()->setCountry('DE')->setState($this->getRegion())
-                )
-            )
-            ->addAction(
-                CartSetCustomShippingMethodAction::of()->setShippingMethodName($shippingMethod)
-                    ->setShippingRate(ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100)))
-                    ->setTaxCategory($this->getTaxCategory()->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+        ShippingMethodFixture::withShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod, Zone $zone, TaxCategory $taxCategory) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $shippingMethod, $zone, $taxCategory) {
+                        $region = $zone->getLocations()->current()->getState();
 
-        $this->assertSame($shippingMethod, $cart->getShippingInfo()->getShippingMethodName());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetShippingAddressAction::of()->setAddress(
+                                    Address::of()->setCountry('DE')->setState($region)
+                                )
+                            )->addAction(
+                                CartSetCustomShippingMethodAction::of()
+                                    ->setShippingMethodName($shippingMethod->getName())
+                                    ->setShippingRate(
+                                        ShippingRate::of()
+                                            ->setPrice(Money::ofCurrencyAndAmount('EUR', 100))
+                                    )->setTaxCategory($taxCategory->getReference())
+                            );
+
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame(
+                            $shippingMethod->getName(),
+                            $result->getShippingInfo()->getShippingMethodName()
+                        );
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testCustomerId()
@@ -1609,21 +1641,21 @@ class CartUpdateRequestTest extends ApiTestCase
     public function testDiscountCodeCustomPredicate()
     {
         $type = $this->getType('key-' . $this->getTestRun(), 'order');
-        $draft = $this->getDraft();
-        $draft->setCustom(
+        $cartDraft = $this->getDraft();
+        $cartDraft->setCustom(
             CustomFieldObjectDraft::ofTypeAndFields(
                 $type->getReference(),
                 FieldContainer::of()->set('testField', $this->getTestRun())
             )
         );
-        $draft->setLineItems(
+        $cartDraft->setLineItems(
             LineItemDraftCollection::of()
                 ->add(LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1))
         );
 
-        $cart = $this->createCart($draft);
+        $cart = $this->createCart($cartDraft);
 
-        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+        $cartDiscountDraft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
             LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
             AbsoluteCartDiscountValue::of()->setMoney(
                 MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
@@ -1634,7 +1666,7 @@ class CartUpdateRequestTest extends ApiTestCase
             true,
             true
         );
-        $request = CartDiscountCreateRequest::ofDraft($draft);
+        $request = CartDiscountCreateRequest::ofDraft($cartDiscountDraft);
         $response = $request->executeWithClient($this->getClient());
         $cartDiscount = $request->mapFromResponse($response);
         TestHelper::getInstance($this->getClient())->setCartDiscount($cartDiscount);
@@ -1660,6 +1692,8 @@ class CartUpdateRequestTest extends ApiTestCase
 // todo cartdiscount draft e amche qui personalizzata
     public function testMultiBuyDiscount()
     {
+
+
         $draft = $this->getDraft();
         $draft->setLineItems(
             LineItemDraftCollection::of()
