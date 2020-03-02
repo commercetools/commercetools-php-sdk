@@ -45,23 +45,14 @@ class CartDiscountFixture extends ResourceFixture
         return $draft;
     }
 
-    final public static function customizedCartDiscountDraftfunction($cartPredicate, $target)
+    final public static function emptyCartDiscountDraftFunction()
     {
-        $value = AbsoluteCartDiscountValue::of()->setMoney(
-            MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
-        );
         $uniqueCartDiscountString = self::uniqueCartDiscountString();
 
         $draft = CartDiscountDraft::of();
-        $draft->setName(LocalizedString::ofLangAndText('en', 'test-' . $uniqueCartDiscountString . '-discount'))
-            ->setValue($value)
-//            cartPredicate
-            ->setCartPredicate('custom.testField = "' . $uniqueCartDiscountString . '"')
-//            target
-            ->setTarget(LineItemsTarget::of()->setPredicate('1=1'))
-            ->setSortOrder('0.9' . trim((string)mt_rand(1, self::RAND_MAX), '0'))
-            ->setIsActive(true)->setRequiresDiscountCode(true)
-            ->setKey($uniqueCartDiscountString);
+        $draft->setName(LocalizedString::ofLangAndText('en', 'test-' . $uniqueCartDiscountString . '-discount'));
+
+        return $draft;
     }
 
     final public static function defaultCartDiscountDraftBuilderFunction(CartDiscountDraft $draft)
@@ -135,7 +126,7 @@ class CartDiscountFixture extends ResourceFixture
         );
     }
 
-    final public static function withDraftCustomizedCartDiscount(
+    final public static function withEmptyDraftCartDiscount(
         ApiClient $client,
         callable $draftBuilderFunction,
         callable $assertFunction,
@@ -144,13 +135,7 @@ class CartDiscountFixture extends ResourceFixture
         callable $draftFunction = null
     ) {
         if ($draftFunction == null) {
-            $draftFunction = function () use ($cartPredicate, $target) {
-                return call_user_func([__CLASS__, 'customizedCartDiscountDraftfunction'], $cartPredicate, $target);
-            };
-        } else {
-            $draftFunction = function () use ($cartPredicate, $target, $draftFunction) {
-                return call_user_func($draftFunction, $cartPredicate, $target);
-            };
+            $draftFunction = [__CLASS__, 'emptyCartDiscountDraftFunction'];
         }
         if ($createFunction == null) {
             $createFunction = [__CLASS__, 'defaultCartDiscountCreateFunction'];

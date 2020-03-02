@@ -18,8 +18,8 @@ use Commercetools\Core\IntegrationTests\Project\ProjectFixture;
 use Commercetools\Core\IntegrationTests\ShippingMethod\ShippingMethodFixture;
 use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\IntegrationTests\TaxCategory\TaxCategoryFixture;
+use Commercetools\Core\IntegrationTests\TestHelper;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
-use Commercetools\Core\IntegrationTests\Zone\ZoneFixture;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
@@ -37,9 +37,9 @@ use Commercetools\Core\Model\Cart\ScoreShippingRateInput;
 use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
-use Commercetools\Core\Model\CartDiscount\CartDiscountReference;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
 use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
+use Commercetools\Core\Model\CartDiscount\GiftLineItemCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\LineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\MultiBuyCustomLineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\MultiBuyLineItemsTarget;
@@ -53,6 +53,7 @@ use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceTier;
 use Commercetools\Core\Model\Common\PriceTierCollection;
 use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
@@ -70,7 +71,6 @@ use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
-use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Model\Zone\Zone;
@@ -78,7 +78,6 @@ use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
-use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction;
@@ -126,17 +125,11 @@ use Commercetools\Core\Request\Carts\Command\CartUpdateItemShippingAddressAction
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
-use Commercetools\Core\Request\DiscountCodes\Command\DiscountCodeChangeCartDiscountsAction;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use Commercetools\Core\Request\Products\Command\ProductChangeNameAction;
 use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
 use Commercetools\Core\Request\Products\Command\ProductPublishAction;
-use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
-use Commercetools\Core\Request\Project\ProjectGetRequest;
-use Commercetools\Core\Request\Project\ProjectUpdateRequest;
-use Commercetools\Core\IntegrationTests\TestHelper;
-use Commercetools\Core\Request\TaxCategories\Command\TaxCategoryAddTaxRateAction;
 
 class CartUpdateRequestTest extends ApiTestCase
 {
@@ -544,6 +537,8 @@ class CartUpdateRequestTest extends ApiTestCase
                 CartFixture::withUpdateableCart(
                     $client,
                     function (Cart $cart) use ($client, $product, $variant) {
+                        $price = 12345;
+
                         $request = RequestBuilder::of()->carts()->update($cart)
                             ->addAction(
                                 CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
@@ -553,7 +548,7 @@ class CartUpdateRequestTest extends ApiTestCase
                                 )
                                     ->setExternalTotalPrice(
                                         ExternalLineItemTotalPrice::of()
-                                            ->setPrice(Money::ofCurrencyAndAmount('EUR', 12345))
+                                            ->setPrice(Money::ofCurrencyAndAmount('EUR', $price))
                                             ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 12345678))
                                     )
                             );
@@ -566,7 +561,7 @@ class CartUpdateRequestTest extends ApiTestCase
                             $cart->getLineItems()->current()->getPriceMode()
                         );
                         $this->assertSame(
-                            12345,
+                            $price,
                             $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
                         );
                         $this->assertSame(12345678, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
@@ -579,7 +574,7 @@ class CartUpdateRequestTest extends ApiTestCase
                                 )
                                     ->setExternalTotalPrice(
                                         ExternalLineItemTotalPrice::of()
-                                            ->setPrice(Money::ofCurrencyAndAmount('EUR', 12345))
+                                            ->setPrice(Money::ofCurrencyAndAmount('EUR', $price))
                                             ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 12345679))
                                     )
                             );
@@ -591,7 +586,7 @@ class CartUpdateRequestTest extends ApiTestCase
                             $result->getLineItems()->current()->getPriceMode()
                         );
                         $this->assertSame(
-                            12345,
+                            $price,
                             $result->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
                         );
                         $this->assertSame(
@@ -618,6 +613,8 @@ class CartUpdateRequestTest extends ApiTestCase
                 CartFixture::withUpdateableCart(
                     $client,
                     function (Cart $cart) use ($client, $product, $variant) {
+                        $externalPrice = 12345;
+
                         $request = RequestBuilder::of()->carts()->update($cart)
                             ->addAction(
                                 CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
@@ -625,7 +622,7 @@ class CartUpdateRequestTest extends ApiTestCase
                                     $variant->getId(),
                                     2
                                 )
-                                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', 12345))
+                                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', $externalPrice))
                             );
                         $response = $this->execute($client, $request);
                         $cart = $request->mapFromResponse($response);
@@ -636,7 +633,7 @@ class CartUpdateRequestTest extends ApiTestCase
                             $cart->getLineItems()->current()->getPriceMode()
                         );
                         $this->assertSame(
-                            12345,
+                            $externalPrice,
                             $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
                         );
                         $this->assertSame(24690, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
@@ -647,7 +644,7 @@ class CartUpdateRequestTest extends ApiTestCase
                                     $cart->getLineItems()->current()->getId(),
                                     3
                                 )
-                                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', 12345))
+                                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', $externalPrice))
                             );
                         $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
@@ -657,7 +654,7 @@ class CartUpdateRequestTest extends ApiTestCase
                             $result->getLineItems()->current()->getPriceMode()
                         );
                         $this->assertSame(
-                            12345,
+                            $externalPrice,
                             $result->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
                         );
                         $this->assertSame(37035, $result->getLineItems()->current()->getTotalPrice()->getCentAmount());
@@ -825,70 +822,93 @@ class CartUpdateRequestTest extends ApiTestCase
             }
         );
     }
-// todo
+
     public function testCustomLineItemMerge()
     {
-        $name = LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun());
-        $anonName = LocalizedString::ofLangAndText('en', 'anon-' . $this->getTestRun());
-        $customerDraft = $this->getCustomerDraft();
-        $customer = $this->getCustomer($customerDraft);
+        $client = $this->getApiClient();
+        $anonName = LocalizedString::ofLangAndText('en', 'anon-' . CartFixture::uniqueCartString());
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
 
-        $draft = $this->getDraft();
-        $draft->setCustomerId($customer->getId());
-        $customerCart = $this->createCart($draft);
+        TaxCategoryFixture::withTaxCategory(
+            $client,
+            function (TaxCategory $taxCategory) use ($client, $anonName, $password) {
+                CustomerFixture::withDraftCustomer(
+                    $client,
+                    function (CustomerDraft $customerDraft) use ($password) {
+                        return $customerDraft->setPassword($password);
+                    },
+                    function (Customer $customer) use ($client, $taxCategory, $anonName, $password) {
+                        CartFixture::withDraftCart(
+                            $client,
+                            function (CartDraft $customerCartDraft) use ($customer) {
+                                return $customerCartDraft->setCustomerId($customer->getId());
+                            },
+                            function (Cart $customerCart) use ($client, $customer, $taxCategory, $anonName, $password) {
+                                $this->assertCount(0, $customerCart->getCustomLineItems());
 
-        $this->assertCount(0, $customerCart->getCustomLineItems());
+                                CartFixture::withDraftCart(
+                                    $client,
+                                    function (CartDraft $anonCartDraft) use ($taxCategory, $anonName, $password) {
+                                        return $anonCartDraft->setCustomLineItems(
+                                            CustomLineItemDraftCollection::of()
+                                                ->add(
+                                                    CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                                                        $anonName,
+                                                        Money::ofCurrencyAndAmount('EUR', 100),
+                                                        $anonName->en,
+                                                        $taxCategory->getReference(),
+                                                        1
+                                                    )
+                                                )
+                                        );
+                                    },
+                                    function (Cart $anonCart) use (
+                                        $client,
+                                        $customerCart,
+                                        $customer,
+                                        $anonName,
+                                        $password
+                                    ) {
+                                        $this->assertSame(CartState::ACTIVE, $anonCart->getCartState());
+                                        $this->assertNotSame($customerCart->getId(), $anonCart->getId());
 
-        $anonCartDraft = $this->getDraft();
-        $anonCartDraft->setCustomLineItems(
-            CustomLineItemDraftCollection::of()
-                ->add(
-                    CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-                        $anonName,
-                        Money::ofCurrencyAndAmount('EUR', 100),
-                        $anonName->en,
-                        $this->getTaxCategory()->getReference(),
-                        1
-                    )
-                )
+                                        $request = RequestBuilder::of()->customers()->login(
+                                            $customer->getEmail(),
+                                            $password,
+                                            false,
+                                            $anonCart->getId()
+                                        );
+                                        $response = $this->execute($client, $request);
+                                        $result = $request->mapFromResponse($response);
+                                        $loginCart = $result->getCart();
+
+                                        $this->assertSame(CartState::ACTIVE, $loginCart->getCartState());
+                                        $this->assertNotSame($customerCart->getId(), $anonCart->getId());
+
+                                        $this->assertCount(1, $loginCart->getCustomLineItems());
+                                        $this->assertSame(
+                                            $anonName->en,
+                                            $loginCart->getCustomLineItems()->current()->getSlug()
+                                        );
+
+                                        $anonCartRequest = RequestBuilder::of()->carts()->getById($anonCart->getId());
+                                        $response = $this->execute($client, $anonCartRequest);
+                                        /** @var Cart $anonCart */
+                                        $anonCart = $anonCartRequest->mapFromResponse($response);
+
+                                        $customerCartRequest = CartByIdGetRequest::ofId($anonCart->getId());
+                                        $response = $this->execute($client, $customerCartRequest);
+                                        $customerCartRequest->mapFromResponse($response);
+
+                                        $this->assertSame(CartState::MERGED, $anonCart->getCartState());
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
         );
-        $request = CartCreateRequest::ofDraft($anonCartDraft);
-        $response = $request->executeWithClient($this->getClient());
-        $anonCart = $request->mapResponse($response);
-        $this->assertSame(CartState::ACTIVE, $anonCart->getCartState());
-
-        $this->assertNotSame($customerCart->getId(), $anonCart->getId());
-
-        $loginRequest = CustomerLoginRequest::ofEmailAndPassword(
-            $customerDraft->getEmail(),
-            $customerDraft->getPassword(),
-            $anonCart->getId()
-        );
-        $response = $loginRequest->executeWithClient($this->getClient());
-        $result = $loginRequest->mapResponse($response);
-        $loginCart = $result->getCart();
-        $this->assertSame(CartState::ACTIVE, $loginCart->getCartState());
-
-        if ($loginCart->getCustomLineItems()->count() == 0) {
-            $this->markTestSkipped(
-                'Merging custom line items from anon carts to customer cart not yet supported by API.'
-            );
-        }
-        $this->assertCount(1, $loginCart->getCustomLineItems());
-        $this->assertSame($anonName->en, $loginCart->getCustomLineItems()->current()->getSlug());
-
-        $anonCartRequest = CartByIdGetRequest::ofId($anonCart->getId());
-        $response = $anonCartRequest->executeWithClient($this->getClient());
-        $anonCart = $request->mapResponse($response);
-
-        $customerCartRequest = CartByIdGetRequest::ofId($anonCart->getId());
-        $response = $customerCartRequest->executeWithClient($this->getClient());
-        $customerCart = $request->mapResponse($response);
-
-        $this->deleteRequest->setVersion($customerCart->getVersion());
-        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($anonCart->getId(), $anonCart->getVersion());
-
-        $this->assertSame(CartState::MERGED, $anonCart->getCartState());
     }
 
     public function testCustomerEmail()
@@ -1372,8 +1392,7 @@ class CartUpdateRequestTest extends ApiTestCase
                                                 FieldContainer::of()->setTestField('1')
                                             )
                                         )
-                                    )
-                                    ->addAction(
+                                    )->addAction(
                                         CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
                                             $product->getId(),
                                             $variant->getId(),
@@ -1637,7 +1656,7 @@ class CartUpdateRequestTest extends ApiTestCase
             }
         );
     }
-// todo cartdiscount draft e amche qui personalizzata
+// todo
     public function testDiscountCodeCustomPredicate()
     {
         $type = $this->getType('key-' . $this->getTestRun(), 'order');
@@ -1692,8 +1711,6 @@ class CartUpdateRequestTest extends ApiTestCase
 // todo cartdiscount draft e amche qui personalizzata
     public function testMultiBuyDiscount()
     {
-
-
         $draft = $this->getDraft();
         $draft->setLineItems(
             LineItemDraftCollection::of()
@@ -2157,47 +2174,83 @@ class CartUpdateRequestTest extends ApiTestCase
             }
         );
     }
-//todo cart discount draft
+
     public function testGiftLineItem()
     {
-        $cartDiscount = $this->getGiftLineItemCartDiscount();
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $productDraft) {
+                return $productDraft->setPublish(true);
+            },
+            function (Product $product) use ($client) {
+                CartDiscountFixture::withEmptyDraftCartDiscount(
+                    $client,
+                    function (CartDiscountDraft $cartDiscountDraft) use ($product) {
+                        $cartDiscountDraft = CartDiscountDraft::ofNameValuePredicateOrderActiveAndDiscountCode(
+                            LocalizedString::ofLangAndText(
+                                'en',
+                                'test-' . CartDiscountFixture::uniqueCartDiscountString() . '-gift-line-item-discount'
+                            ),
+                            GiftLineItemCartDiscountValue::of()
+                                ->setProduct($product->getReference())
+                                ->setVariantId($product->getMasterData()->getCurrent()->getMasterVariant()->getId()),
+                            '1=1',
+                            '0.9' . trim((string)mt_rand(1, CartDiscountFixture::RAND_MAX), '0'),
+                            true,
+                            false
+                        );
 
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+                        return $cartDiscountDraft;
+                    },
+                    function (CartDiscount $cartDiscount) use ($client, $product) {
+                        CartFixture::withUpdateableCart(
+                            $client,
+                            function (Cart $cart) use ($client, $product, $cartDiscount) {
+                                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-            );
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                            $product->getId(),
+                                            $variant->getId(),
+                                            1
+                                        )
+                                    );
+                                $response = $this->execute($client, $request);
+                                $cart = $request->mapFromResponse($response);
 
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                $this->assertCount(2, $cart->getLineItems());
+                                $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
 
-        $this->assertCount(2, $cart->getLineItems());
+                                $giftLineItemIncluded = false;
+                                foreach ($cart->getLineItems() as $lineItem) {
+                                    $this->assertSame(
+                                        $product->getReference()->getId(),
+                                        $lineItem->getProductId()
+                                    );
+                                    $this->assertSame($variant->getId(), $lineItem->getVariant()->getId());
 
-        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
-
-        $giftLineItemIncluded = false;
-        foreach ($cart->getLineItems() as $lineItem) {
-            $this->assertSame($product->getReference()->getId(), $lineItem->getProductId());
-            $this->assertSame($variant->getId(), $lineItem->getVariant()->getId());
-            if ($lineItem->getLineItemMode() == LineItem::LINE_ITEM_MODE_GIFT_LINE_ITEM) {
-                $giftLineItemIncluded = true;
-                $this->assertSame(0, $lineItem->getTotalPrice()->getCentAmount());
-                $this->assertCount(1, $lineItem->getDiscountedPricePerQuantity());
-                $this->assertSame(
-                    $cartDiscount->getId(),
-                    $lineItem->getDiscountedPricePerQuantity()->current()
-                            ->getDiscountedPrice()->getIncludedDiscounts()->current()
-                            ->getDiscount()->getId()
+                                    if ($lineItem->getLineItemMode() == LineItem::LINE_ITEM_MODE_GIFT_LINE_ITEM) {
+                                        $giftLineItemIncluded = true;
+                                        $this->assertSame(0, $lineItem->getTotalPrice()->getCentAmount());
+                                        $this->assertCount(1, $lineItem->getDiscountedPricePerQuantity());
+                                        $this->assertSame(
+                                            $cartDiscount->getId(),
+                                            $lineItem->getDiscountedPricePerQuantity()->current()
+                                                ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                                                ->getDiscount()->getId()
+                                        );
+                                    }
+                                }
+                                $this->assertTrue($giftLineItemIncluded);
+                            }
+                        );
+                    }
                 );
             }
-        }
-        $this->assertTrue($giftLineItemIncluded);
+        );
     }
 
     public function testSetLineItemTaxAmount()
