@@ -12,57 +12,12 @@ use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartCollection;
 use Commercetools\Core\Model\Cart\CartDraft;
-use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreReference;
-use Commercetools\Core\Request\Carts\CartByCustomerIdGetRequest;
-use Commercetools\Core\Request\Carts\CartQueryRequest;
-use Commercetools\Core\Request\Carts\CartCreateRequest;
-use Commercetools\Core\Request\Carts\CartDeleteRequest;
-use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 
 class CartQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @return CartDraft
-     */
-    protected function getDraft()
-    {
-        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
-        /**
-         * @var Customer $customer
-         */
-        $customer = $this->getCustomer();
-        $draft->setCustomerId($customer->getId())
-            ->setShippingAddress($customer->getDefaultShippingAddress())
-            ->setBillingAddress($customer->getDefaultBillingAddress())
-            ->setCustomerEmail($customer->getEmail())
-//            ->setLineItems(
-//                LineItemDraftCollection::of()
-//                    ->add(
-//                        LineItemDraft::of()
-//                    )
-//            )
-            ->setShippingMethod($this->getShippingMethod()->getReference())
-        ;
-
-        return $draft;
-    }
-
-    protected function createCart(CartDraft $draft)
-    {
-        $request = CartCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
-            $cart->getId(),
-            $cart->getVersion()
-        );
-
-        return $cart;
-    }
-
     public function testGetById()
     {
         $client = $this->getApiClient();
