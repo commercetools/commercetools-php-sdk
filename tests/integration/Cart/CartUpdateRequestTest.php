@@ -887,7 +887,6 @@ class CartUpdateRequestTest extends ApiTestCase
 
                                         $anonCartRequest = RequestBuilder::of()->carts()->getById($anonCart->getId());
                                         $response = $this->execute($client, $anonCartRequest);
-                                        /** @var Cart $anonCart */
                                         $anonCart = $anonCartRequest->mapFromResponse($response);
 
                                         $customerCartRequest = CartByIdGetRequest::ofId($anonCart->getId());
