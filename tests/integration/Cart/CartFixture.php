@@ -4,9 +4,13 @@ namespace Commercetools\Core\IntegrationTests\Cart;
 
 use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\Helper\Uuid;
+use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
 use Commercetools\Core\IntegrationTests\ResourceFixture;
+use Commercetools\Core\IntegrationTests\ShippingMethod\ShippingMethodFixture;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 
@@ -24,6 +28,19 @@ class CartFixture extends ResourceFixture
     final public static function defaultCartDraftFunction()
     {
         $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
+
+        return $draft;
+    }
+
+    final public static function customerCartDraftFunction(Customer $customer, ShippingMethod $shippingMethod)
+    {
+        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
+
+        $draft->setCustomerId($customer->getId())
+            ->setShippingAddress($customer->getDefaultShippingAddress())
+            ->setBillingAddress($customer->getDefaultBillingAddress())
+            ->setCustomerEmail($customer->getEmail())
+            ->setShippingMethod($shippingMethod->getReference());
 
         return $draft;
     }

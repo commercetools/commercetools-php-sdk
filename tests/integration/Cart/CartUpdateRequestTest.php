@@ -18,7 +18,6 @@ use Commercetools\Core\IntegrationTests\Project\ProjectFixture;
 use Commercetools\Core\IntegrationTests\ShippingMethod\ShippingMethodFixture;
 use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\IntegrationTests\TaxCategory\TaxCategoryFixture;
-use Commercetools\Core\IntegrationTests\TestHelper;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
@@ -37,8 +36,8 @@ use Commercetools\Core\Model\Cart\ScoreShippingRateInput;
 use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
+use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
-use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\GiftLineItemCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\LineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\MultiBuyCustomLineItemsTarget;
@@ -74,11 +73,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Model\Zone\Zone;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
-use Commercetools\Core\Request\Carts\CartCreateRequest;
-use Commercetools\Core\Request\Carts\CartDeleteRequest;
-use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction;
 use Commercetools\Core\Request\Carts\Command\CartAddItemShippingAddressAction;
@@ -122,7 +117,6 @@ use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingRateInputAction;
 use Commercetools\Core\Request\Carts\Command\CartUpdateItemShippingAddressAction;
-use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
@@ -942,6 +936,7 @@ class CartUpdateRequestTest extends ApiTestCase
                 $address = Address::of()
                     ->setFirstName('test-' . CartFixture::uniqueCartString() . '@example.com')
                     ->setCountry('DE');
+
                 $request = RequestBuilder::of()->carts()->update($cart)
                     ->addAction(CartSetShippingAddressAction::of()->setAddress($address));
                 $response = $this->execute($client, $request);
@@ -964,6 +959,7 @@ class CartUpdateRequestTest extends ApiTestCase
                 $address = Address::of()
                     ->setFirstName('test-' . CartFixture::uniqueCartString() . '@example.com')
                     ->setCountry('DE');
+
                 $request = RequestBuilder::of()->carts()->update($cart)
                     ->addAction(CartSetBillingAddressAction::of()->setAddress($address));
                 $response = $this->execute($client, $request);
@@ -1656,221 +1652,402 @@ class CartUpdateRequestTest extends ApiTestCase
             }
         );
     }
-// todo
+
     public function testDiscountCodeCustomPredicate()
     {
-        $type = $this->getType('key-' . $this->getTestRun(), 'order');
-        $cartDraft = $this->getDraft();
-        $cartDraft->setCustom(
-            CustomFieldObjectDraft::ofTypeAndFields(
-                $type->getReference(),
-                FieldContainer::of()->set('testField', $this->getTestRun())
-            )
-        );
-        $cartDraft->setLineItems(
-            LineItemDraftCollection::of()
-                ->add(LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1))
-        );
+        $client = $this->getApiClient();
+        $testField = CartFixture::uniqueCartString();
 
-        $cart = $this->createCart($cartDraft);
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())->setResourceTypeIds(['order']);
+            },
+            function (Type $type) use ($client, $testField) {
+                ProductFixture::withProduct(
+                    $client,
+                    function (Product $product) use ($client, $type, $testField) {
+                        CartDiscountFixture::withEmptyDraftCartDiscount(
+                            $client,
+                            function (CartDiscountDraft $cartDiscountDraft) use ($testField) {
+                                $cartDiscountDraft =
+                                    CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+                                        LocalizedString::ofLangAndText('en', 'test-' . $testField . '-discount'),
+                                        AbsoluteCartDiscountValue::of()->setMoney(
+                                            MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
+                                        ),
+                                        'custom.testField = "' . $testField . '"',
+                                        LineItemsTarget::of()->setPredicate('1=1'),
+                                        '0.9' . trim((string)mt_rand(1, CartDiscountFixture::RAND_MAX), '0'),
+                                        true,
+                                        true
+                                    );
 
-        $cartDiscountDraft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-            AbsoluteCartDiscountValue::of()->setMoney(
-                MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
-            ),
-            'custom.testField = "' . $this->getTestRun() . '"',
-            LineItemsTarget::of()->setPredicate('1=1'),
-            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
-            true,
-            true
-        );
-        $request = CartDiscountCreateRequest::ofDraft($cartDiscountDraft);
-        $response = $request->executeWithClient($this->getClient());
-        $cartDiscount = $request->mapFromResponse($response);
-        TestHelper::getInstance($this->getClient())->setCartDiscount($cartDiscount);
-        $discountCode = $this->getDiscountCode();
+                                return $cartDiscountDraft;
+                            },
+                            function (CartDiscount $cartDiscount) use ($client, $type, $product, $testField) {
+                                DiscountCodeFixture::withDraftDiscountCodeWithoutCartDiscount(
+                                    $client,
+                                    function (DiscountCodeDraft $discountCodeDraft) use ($cartDiscount) {
+                                        $discountCodeDraft->setCartDiscounts(
+                                            CartDiscountReferenceCollection::of()->add($cartDiscount->getReference())
+                                        );
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                        return $discountCodeDraft;
+                                    },
+                                    function (DiscountCode $discountCode) use (
+                                        $client,
+                                        $type,
+                                        $product,
+                                        $cartDiscount,
+                                        $testField
+                                    ) {
+                                        CartFixture::withUpdateableDraftCart(
+                                            $client,
+                                            function (CartDraft $cartDraft) use ($type, $product, $testField) {
+                                                $cartDraft->setCustom(
+                                                    CustomFieldObjectDraft::ofTypeAndFields(
+                                                        $type->getReference(),
+                                                        FieldContainer::of()->set('testField', $testField)
+                                                    )
+                                                )->setLineItems(
+                                                    LineItemDraftCollection::of()
+                                                        ->add(
+                                                            LineItemDraft::ofProductIdVariantIdAndQuantity(
+                                                                $product->getId(),
+                                                                1,
+                                                                1
+                                                            )
+                                                        )
+                                                );
 
-        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+                                                return $cartDraft;
+                                            },
+                                            function (Cart $cart) use ($client, $discountCode, $cartDiscount) {
+                                                $request = RequestBuilder::of()->carts()->update($cart)
+                                                    ->addAction(
+                                                        CartAddDiscountCodeAction::ofCode($discountCode->getCode())
+                                                    );
+                                                $response = $this->execute($client, $request);
+                                                $cart = $request->mapFromResponse($response);
 
-        $this->assertSame(
-            $cartDiscount->getId(),
-            $cart->getLineItems()->current()
-                ->getDiscountedPricePerQuantity()->current()
-                ->getDiscountedPrice()->getIncludedDiscounts()->current()
-                ->getDiscount()->getId()
+                                                $this->assertSame(
+                                                    $discountCode->getId(),
+                                                    $cart->getDiscountCodes()->current()->getDiscountCode()->getId()
+                                                );
+                                                $this->assertSame(
+                                                    $cartDiscount->getId(),
+                                                    $cart->getLineItems()->current()
+                                                        ->getDiscountedPricePerQuantity()->current()
+                                                        ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                                                        ->getDiscount()->getId()
+                                                );
+
+                                                return $cart;
+                                            }
+                                        );
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
         );
     }
-// todo cartdiscount draft e amche qui personalizzata
+
     public function testMultiBuyDiscount()
     {
-        $draft = $this->getDraft();
-        $draft->setLineItems(
-            LineItemDraftCollection::of()
-                ->add(LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 3))
-        );
+        $client = $this->getApiClient();
+        $testField = CartFixture::uniqueCartString();
 
-        $cart = $this->createCart($draft);
+        ProductFixture::withProduct(
+            $client,
+            function (Product $product) use ($client, $testField) {
+                CartDiscountFixture::withEmptyDraftCartDiscount(
+                    $client,
+                    function (CartDiscountDraft $cartDiscountDraft) use ($testField) {
+                        $cartDiscountDraft =
+                            CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+                                LocalizedString::ofLangAndText('en', 'test-' . $testField . '-discount'),
+                                RelativeCartDiscountValue::of()->setPermyriad(10000),
+                                '1=1',
+                                MultiBuyLineItemsTarget::ofPredicateTriggerDiscountedAndMode(
+                                    '1=1',
+                                    3,
+                                    1,
+                                    MultiBuyLineItemsTarget::MODE_CHEAPEST
+                                ),
+                                '0.9' . trim((string)mt_rand(1, CartDiscountFixture::RAND_MAX), '0'),
+                                true,
+                                true
+                            );
 
-        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-            RelativeCartDiscountValue::of()->setPermyriad(10000),
-            '1=1',
-            MultiBuyLineItemsTarget::ofPredicateTriggerDiscountedAndMode(
-                '1=1',
-                3,
-                1,
-                MultiBuyLineItemsTarget::MODE_CHEAPEST
-            ),
-            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
-            true,
-            true
-        );
-        $request = CartDiscountCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        TestHelper::getInstance($this->getClient())->setCartDiscount($request->mapResponse($response));
+                        return $cartDiscountDraft;
+                    },
+                    function (CartDiscount $cartDiscount) use ($client, $product, $testField) {
+                        DiscountCodeFixture::withDraftDiscountCodeWithoutCartDiscount(
+                            $client,
+                            function (DiscountCodeDraft $discountCodeDraft) use ($cartDiscount) {
+                                $discountCodeDraft->setCartDiscounts(
+                                    CartDiscountReferenceCollection::of()->add($cartDiscount->getReference())
+                                );
 
-        $discountCode = $this->getDiscountCode();
+                                return $discountCodeDraft;
+                            },
+                            function (DiscountCode $discountCode) use (
+                                $client,
+                                $product,
+                                $cartDiscount,
+                                $testField
+                            ) {
+                                CartFixture::withUpdateableDraftCart(
+                                    $client,
+                                    function (CartDraft $cartDraft) use ($product, $testField) {
+                                        $cartDraft->setLineItems(
+                                            LineItemDraftCollection::of()
+                                                ->add(LineItemDraft::ofProductIdVariantIdAndQuantity(
+                                                    $product->getId(),
+                                                    1,
+                                                    3
+                                                ))
+                                        );
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                        return $cartDraft;
+                                    },
+                                    function (Cart $cart) use ($client, $discountCode, $cartDiscount) {
+                                        $request = RequestBuilder::of()->carts()->update($cart)
+                                            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()));
+                                        $response = $this->execute($client, $request);
+                                        $cart = $request->mapFromResponse($response);
 
-        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+                                         $this->assertSame(
+                                             $discountCode->getId(),
+                                             $cart->getDiscountCodes()->current()->getDiscountCode()->getId()
+                                         );
+                                        $this->assertSame(
+                                            $cartDiscount->getId(),
+                                            $cart->getLineItems()->current()
+                                                ->getDiscountedPricePerQuantity()->current()
+                                                ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                                                ->getDiscount()->getId()
+                                        );
+                                        $this->assertSame(
+                                            $cart->getLineItems()->current()->getPrice()
+                                                ->getValue()->getCentAmount() * 2,
+                                            $cart->getLineItems()->current()->getTotalPrice()->getCentAmount()
+                                        );
 
-        $this->assertSame(
-            TestHelper::getInstance($this->getClient())->getCartDiscount()->getId(),
-            $cart->getLineItems()->current()
-                ->getDiscountedPricePerQuantity()->current()
-                ->getDiscountedPrice()->getIncludedDiscounts()->current()
-                ->getDiscount()->getId()
-        );
-        $this->assertSame(
-            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount() * 2,
-            $cart->getLineItems()->current()->getTotalPrice()->getCentAmount()
+                                        return $cart;
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
         );
     }
-// todo cartdiscount draft e amche qui personalizzata
+
     public function testMultiBuyCustomLineItemDiscount()
     {
-        $draft = $this->getDraft();
-        $draft->setCustomLineItems(
-            CustomLineItemDraftCollection::of()
-                ->add(
-                    CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-                        LocalizedString::ofLangAndText('en', 'Test'),
-                        Money::ofCurrencyAndAmount('EUR', 1000),
-                        'test',
-                        $this->getTaxCategory()->getReference(),
-                        3
-                    )
-                )
-        );
+        $client = $this->getApiClient();
+        $testField = CartFixture::uniqueCartString();
 
-        $cart = $this->createCart($draft);
+        TaxCategoryFixture::withTaxCategory(
+            $client,
+            function (TaxCategory $taxCategory) use ($client, $testField) {
+                CartDiscountFixture::withEmptyDraftCartDiscount(
+                    $client,
+                    function (CartDiscountDraft $cartDiscountDraft) use ($testField) {
+                        $cartDiscountDraft =
+                            CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+                                LocalizedString::ofLangAndText('en', 'test-' . $testField . '-discount'),
+                                RelativeCartDiscountValue::of()->setPermyriad(10000),
+                                '1=1',
+                                MultiBuyCustomLineItemsTarget::ofPredicateTriggerDiscountedAndMode(
+                                    '1=1',
+                                    3,
+                                    1,
+                                    MultiBuyCustomLineItemsTarget::MODE_CHEAPEST
+                                ),
+                                '0.9' . trim((string)mt_rand(1, CartDiscountFixture::RAND_MAX), '0'),
+                                true,
+                                true
+                            );
 
-        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-            RelativeCartDiscountValue::of()->setPermyriad(10000),
-            '1=1',
-            MultiBuyCustomLineItemsTarget::ofPredicateTriggerDiscountedAndMode(
-                '1=1',
-                3,
-                1,
-                MultiBuyCustomLineItemsTarget::MODE_CHEAPEST
-            ),
-            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
-            true,
-            true
-        );
-        $request = CartDiscountCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        TestHelper::getInstance($this->getClient())->setCartDiscount($request->mapResponse($response));
+                        return $cartDiscountDraft;
+                    },
+                    function (CartDiscount $cartDiscount) use ($client, $testField, $taxCategory) {
+                        DiscountCodeFixture::withDraftDiscountCodeWithoutCartDiscount(
+                            $client,
+                            function (DiscountCodeDraft $discountCodeDraft) use ($cartDiscount) {
+                                $discountCodeDraft->setCartDiscounts(
+                                    CartDiscountReferenceCollection::of()->add($cartDiscount->getReference())
+                                );
 
-        $discountCode = $this->getDiscountCode();
+                                return $discountCodeDraft;
+                            },
+                            function (DiscountCode $discountCode) use (
+                                $client,
+                                $cartDiscount,
+                                $testField,
+                                $taxCategory
+                            ) {
+                                CartFixture::withUpdateableDraftCart(
+                                    $client,
+                                    function (CartDraft $cartDraft) use ($testField, $taxCategory) {
+                                        $cartDraft->setCustomLineItems(
+                                            CustomLineItemDraftCollection::of()
+                                                ->add(
+                                                    CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                                                        LocalizedString::ofLangAndText('en', 'Test'),
+                                                        Money::ofCurrencyAndAmount('EUR', 1000),
+                                                        'test',
+                                                        $taxCategory->getReference(),
+                                                        3
+                                                    )
+                                                )
+                                        );
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                        return $cartDraft;
+                                    },
+                                    function (Cart $cart) use ($client, $discountCode, $cartDiscount) {
+                                        $request = RequestBuilder::of()->carts()->update($cart)
+                                            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()));
+                                        $response = $this->execute($client, $request);
+                                        $cart = $request->mapFromResponse($response);
 
-        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+                                        $this->assertSame(
+                                            $discountCode->getId(),
+                                            $cart->getDiscountCodes()->current()->getDiscountCode()->getId()
+                                        );
+                                        $this->assertSame(
+                                            $cartDiscount->getId(),
+                                            $cart->getCustomLineItems()->current()
+                                                ->getDiscountedPricePerQuantity()->current()
+                                                ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                                                ->getDiscount()->getId()
+                                        );
+                                        $this->assertSame(
+                                            $cart->getCustomLineItems()->current()->getMoney()->getCentAmount() * 2,
+                                            $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount()
+                                        );
 
-        $this->assertSame(
-            TestHelper::getInstance($this->getClient())->getCartDiscount()->getId(),
-            $cart->getCustomLineItems()->current()
-                ->getDiscountedPricePerQuantity()->current()
-                ->getDiscountedPrice()->getIncludedDiscounts()->current()
-                ->getDiscount()->getId()
-        );
-        $this->assertSame(
-            $cart->getCustomLineItems()->current()->getMoney()->getCentAmount() * 2,
-            $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount()
+                                        return $cart;
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
         );
     }
-// todo cartdiscount draft e amche qui personalizzata
+
     public function testDiscountCodeCustomLineItemPredicate()
     {
-        $type = $this->getType('key-' . $this->getTestRun(), 'line-item');
-        $draft = $this->getDraft();
-        $draft->setLineItems(
-            LineItemDraftCollection::of()
-                ->add(
-                    LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1)
-                        ->setCustom(
-                            CustomFieldObject::of()
-                                ->setType($type->getReference())
-                                ->setFields(FieldContainer::of()->set('testField', $this->getTestRun()))
-                        )
-                )
-        );
+        $client = $this->getApiClient();
+        $testField = CartFixture::uniqueCartString();
 
-        $cart = $this->createCart($draft);
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())->setResourceTypeIds(['line-item']);
+            },
+            function (Type $type) use ($client, $testField) {
+                ProductFixture::withProduct(
+                    $client,
+                    function (Product $product) use ($client, $type, $testField) {
+                        CartDiscountFixture::withEmptyDraftCartDiscount(
+                            $client,
+                            function (CartDiscountDraft $cartDiscountDraft) use ($testField) {
+                                $cartDiscountDraft =
+                                    CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+                                        LocalizedString::ofLangAndText('en', 'test-' . $testField . '-discount'),
+                                        AbsoluteCartDiscountValue::of()->setMoney(
+                                            MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
+                                        ),
+                                        '1=1',
+                                        CartDiscountTarget::of()->setType('lineItems')
+                                            ->setPredicate('custom.testField = "' . $testField . '"'),
+                                        '0.9' . trim((string)mt_rand(1, CartDiscountFixture::RAND_MAX), '0'),
+                                        true,
+                                        true
+                                    );
 
-        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-            CartDiscountValue::of()->setType('absolute')->setMoney(
-                MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
-            ),
-            '1=1',
-            CartDiscountTarget::of()->setType('lineItems')->setPredicate('custom.testField = "' . $this->getTestRun() . '"'),
-            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
-            true,
-            true
-        );
-        $request = CartDiscountCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        TestHelper::getInstance($this->getClient())->setCartDiscount($request->mapResponse($response));
+                                return $cartDiscountDraft;
+                            },
+                            function (CartDiscount $cartDiscount) use ($client, $type, $product, $testField) {
+                                DiscountCodeFixture::withDraftDiscountCodeWithoutCartDiscount(
+                                    $client,
+                                    function (DiscountCodeDraft $discountCodeDraft) use ($cartDiscount) {
+                                        $discountCodeDraft->setCartDiscounts(
+                                            CartDiscountReferenceCollection::of()->add($cartDiscount->getReference())
+                                        );
 
-        $discountCode = $this->getDiscountCode();
+                                        return $discountCodeDraft;
+                                    },
+                                    function (DiscountCode $discountCode) use (
+                                        $client,
+                                        $type,
+                                        $product,
+                                        $cartDiscount,
+                                        $testField
+                                    ) {
+                                        CartFixture::withUpdateableDraftCart(
+                                            $client,
+                                            function (CartDraft $cartDraft) use ($type, $product, $testField) {
+                                                $cartDraft->setLineItems(
+                                                    LineItemDraftCollection::of()
+                                                        ->add(
+                                                            LineItemDraft::ofProductIdVariantIdAndQuantity(
+                                                                $product->getId(),
+                                                                1,
+                                                                1
+                                                            )->setCustom(
+                                                                CustomFieldObject::of()
+                                                                        ->setType($type->getReference())
+                                                                        ->setFields(
+                                                                            FieldContainer::of()
+                                                                                ->set('testField', $testField)
+                                                                        )
+                                                            )
+                                                        )
+                                                );
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                                return $cartDraft;
+                                            },
+                                            function (Cart $cart) use ($client, $discountCode, $cartDiscount) {
+                                                $request = RequestBuilder::of()->carts()->update($cart)
+                                                    ->addAction(
+                                                        CartAddDiscountCodeAction::ofCode($discountCode->getCode())
+                                                    );
+                                                $response = $this->execute($client, $request);
+                                                $cart = $request->mapFromResponse($response);
 
-        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+                                                $this->assertSame(
+                                                    $discountCode->getId(),
+                                                    $cart->getDiscountCodes()->current()->getDiscountCode()->getId()
+                                                );
+                                                $this->assertSame(
+                                                    $cartDiscount->getId(),
+                                                    $cart->getLineItems()->current()
+                                                        ->getDiscountedPricePerQuantity()->current()
+                                                        ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                                                        ->getDiscount()->getId()
+                                                );
 
-        $this->assertSame(
-            TestHelper::getInstance($this->getClient())->getCartDiscount()->getId(),
-            $cart->getLineItems()->current()
-                ->getDiscountedPricePerQuantity()->current()
-                ->getDiscountedPrice()->getIncludedDiscounts()->current()
-                ->getDiscount()->getId()
+                                                return $cart;
+                                            }
+                                        );
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
         );
     }
 
@@ -2017,7 +2194,11 @@ class CartUpdateRequestTest extends ApiTestCase
                 $this->assertSame(Cart::TAX_CALCULATION_MODE_LINE_ITEM_LEVEL, $cart->getTaxCalculationMode());
 
                 $request = RequestBuilder::of()->carts()->update($cart)
-                    ->addAction(CartChangeTaxCalculationModeAction::ofTaxCalculationMode(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL));
+                    ->addAction(
+                        CartChangeTaxCalculationModeAction::ofTaxCalculationMode(
+                            Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL
+                        )
+                    );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -2783,27 +2964,5 @@ class CartUpdateRequestTest extends ApiTestCase
                 );
             }
         );
-    }
-
-    /**
-     * @return CartDraft
-     */
-    protected function getDraft()
-    {
-        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
-
-        return $draft;
-    }
-
-    protected function createCart(CartDraft $draft)
-    {
-        $request = CartCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-
-        $this->deleteRequest = CartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
-        $this->cleanupRequests[] = $this->deleteRequest;
-
-        return $cart;
     }
 }

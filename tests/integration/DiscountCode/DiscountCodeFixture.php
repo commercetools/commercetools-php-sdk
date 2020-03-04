@@ -30,10 +30,19 @@ class DiscountCodeFixture extends ResourceFixture
     ) {
         $uniqueDiscountCodeString = self::uniqueDiscountCodeString();
         $draft = DiscountCodeDraft::ofCodeDiscountsAndActive(
-            'test-' . $uniqueDiscountCodeString . '-' . 'code',
+            'test-' . $uniqueDiscountCodeString . '-code',
             $cartDiscountReferenceCollection,
             false
         );
+
+        return $draft;
+    }
+
+    final public static function discountCodeDraftWithoutCartDiscountFunction()
+    {
+        $uniqueDiscountCodeString = self::uniqueDiscountCodeString();
+        $draft = DiscountCodeDraft::of()->setCode('test-' . $uniqueDiscountCodeString . '-code')
+            ->setIsActive(true);
 
         return $draft;
     }
@@ -154,6 +163,60 @@ class DiscountCodeFixture extends ResourceFixture
                     [$cartDiscount]
                 );
             }
+        );
+    }
+    final public static function withDraftCategory(
+        ApiClient $client,
+        callable $draftBuilderFunction,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
+        if ($draftFunction == null) {
+            $draftFunction = [__CLASS__, 'defaultCategoryDraftFunction'];
+        }
+        if ($createFunction == null) {
+            $createFunction = [__CLASS__, 'defaultCategoryCreateFunction'];
+        }
+        if ($deleteFunction == null) {
+            $deleteFunction = [__CLASS__, 'defaultCategoryDeleteFunction'];
+        }
+
+        parent::withDraftResource(
+            $client,
+            $draftBuilderFunction,
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
+        );
+    }
+
+    final public static function withDraftDiscountCodeWithoutCartDiscount(
+        ApiClient $client,
+        callable $draftBuilderFunction,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
+        if ($draftFunction == null) {
+            $draftFunction = [__CLASS__, 'discountCodeDraftWithoutCartDiscountFunction'];
+        }
+        if ($createFunction == null) {
+            $createFunction = [__CLASS__, 'defaultDiscountCodeCreateFunction'];
+        }
+        if ($deleteFunction == null) {
+            $deleteFunction = [__CLASS__, 'defaultDiscountCodeDeleteFunction'];
+        }
+        parent::withDraftResource(
+            $client,
+            $draftBuilderFunction,
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
         );
     }
 
