@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\ShippingMethod;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
+use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
@@ -26,6 +27,8 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  * @method ShippingMethodDraft setKey(string $key = null)
  * @method string getPredicate()
  * @method ShippingMethodDraft setPredicate(string $predicate = null)
+ * @method LocalizedString getLocalizedDescription()
+ * @method ShippingMethodDraft setLocalizedDescription(LocalizedString $localizedDescription = null)
  */
 class ShippingMethodDraft extends JsonObject
 {
@@ -33,6 +36,7 @@ class ShippingMethodDraft extends JsonObject
     {
         return [
             'name' => [static::TYPE => 'string'],
+            'localizedDescription' => [static::TYPE => LocalizedString::class],
             'description' => [static::TYPE => 'string'],
             'taxCategory' => [static::TYPE => TaxCategoryReference::class],
             'zoneRates' => [static::TYPE => ZoneRateCollection::class],
