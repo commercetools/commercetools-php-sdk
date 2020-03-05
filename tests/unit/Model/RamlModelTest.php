@@ -11,8 +11,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class RamlModelTest extends AbstractModelTest
 {
-//    const RAML_MODEL_PATH = __DIR__ . '/../../../vendor/commercetools/commercetools-api-reference/types/';
-    const RAML_MODEL_PATH = __DIR__ . '/../../../../commercetools-api-reference/types/';
+    const RAML_MODEL_PATH = __DIR__ . '/../../../vendor/commercetools/commercetools-api-reference/types/';
     const MODEL_PATH = __DIR__ . '/../../../src/Core/Model';
     const COMMAND_PATH = __DIR__ . '/../../../src/Core/Request';
 
