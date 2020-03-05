@@ -38,6 +38,7 @@ use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveShipp
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetKeyAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetLocalizedDescriptionAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetPredicateAction;
 
 class ShippingMethodUpdateRequestTest extends ApiTestCase
@@ -541,6 +542,32 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
                         $this->assertInstanceOf(CartValue::class, $rate->getTiers()->current());
                     }
                 );
+            }
+        );
+    }
+
+    public function testSetLocalizedDescription()
+    {
+        $client = $this->getApiClient();
+
+        ShippingMethodFixture::withUpdateableShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod) use ($client) {
+                $localizedDescription = LocalizedString::ofLangAndText('en', 'localized-description');
+
+                $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                    ->addAction(
+                        ShippingMethodSetLocalizedDescriptionAction::of()
+                            ->setLocalizedDescription($localizedDescription)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShippingMethod::class, $result);
+                $this->assertSame($localizedDescription->en, $result->getLocalizedDescription()->en);
+                $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+
+                return $result;
             }
         );
     }

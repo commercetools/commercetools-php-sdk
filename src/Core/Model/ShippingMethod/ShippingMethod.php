@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\ShippingMethod;
 
+use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
@@ -35,6 +36,8 @@ use DateTime;
  * @method ShippingMethod setKey(string $key = null)
  * @method string getPredicate()
  * @method ShippingMethod setPredicate(string $predicate = null)
+ * @method LocalizedString getLocalizedDescription()
+ * @method ShippingMethod setLocalizedDescription(LocalizedString $localizedDescription = null)
  * @method ShippingMethodReference getReference()
  */
 class ShippingMethod extends Resource
@@ -53,6 +56,7 @@ class ShippingMethod extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => 'string'],
+            'localizedDescription' => [static::TYPE => LocalizedString::class],
             'description' => [static::TYPE => 'string'],
             'taxCategory' => [static::TYPE => TaxCategoryReference::class],
             'zoneRates' => [static::TYPE => ZoneRateCollection::class],
