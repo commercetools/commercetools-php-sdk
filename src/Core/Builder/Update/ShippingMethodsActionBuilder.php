@@ -13,6 +13,7 @@ use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveShipp
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetKeyAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetLocalizedDescriptionAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetPredicateAction;
 
 class ShippingMethodsActionBuilder
@@ -115,6 +116,17 @@ class ShippingMethodsActionBuilder
     public function setKey($action = null)
     {
         $this->addAction($this->resolveAction(ShippingMethodSetKeyAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-localized-description
+     * @param ShippingMethodSetLocalizedDescriptionAction|callable $action
+     * @return $this
+     */
+    public function setLocalizedDescription($action = null)
+    {
+        $this->addAction($this->resolveAction(ShippingMethodSetLocalizedDescriptionAction::class, $action));
         return $this;
     }
 
