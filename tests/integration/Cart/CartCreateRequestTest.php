@@ -68,11 +68,7 @@ class CartCreateRequestTest extends ApiTestCase
                 return $draft->setOrigin($originType);
             },
             function (Cart $cart) use ($client, $originType, $successful) {
-                if ($successful) {
-                    $this->assertSame($originType, $cart->getOrigin());
-                } else {
-                    $this->assertNull($cart);
-                }
+                $this->assertSame($originType, $cart->getOrigin());
             }
         );
     }
