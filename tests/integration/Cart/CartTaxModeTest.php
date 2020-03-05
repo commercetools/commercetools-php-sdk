@@ -136,7 +136,7 @@ class CartTaxModeTest extends ApiTestCase
                                         ->setIncludedInPrice(true)
                                     )
                             );
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
                         $this->assertSame(
@@ -205,7 +205,7 @@ class CartTaxModeTest extends ApiTestCase
                                     $this->getExternalTaxRateWithSubRates($testTaxRate, $subRateCollection)
                                 )
                             );
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
                         $this->assertSame(
@@ -265,7 +265,7 @@ class CartTaxModeTest extends ApiTestCase
                                         )
                                     )
                             );
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
                         $this->assertSame(
@@ -315,7 +315,7 @@ class CartTaxModeTest extends ApiTestCase
                                 ->setIncludedInPrice(false)
                         )
                     );
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertSame(
@@ -362,7 +362,7 @@ class CartTaxModeTest extends ApiTestCase
                             $this->getExternalTaxRateWithSubRates($testTaxRate, $subRateCollection)
                         )
                     );
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $cart = $request->mapFromResponse($response);
 
                 $this->assertSame(self::TAX_RATE_NAME, $cart->getCustomLineItems()->current()->getTaxRate()->getName());
@@ -413,7 +413,7 @@ class CartTaxModeTest extends ApiTestCase
                             )
                         )
                     );
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $cart = $request->mapFromResponse($response);
 
                 $this->assertSame(self::TAX_RATE_NAME, $cart->getCustomLineItems()->current()->getTaxRate()->getName());
@@ -460,7 +460,7 @@ class CartTaxModeTest extends ApiTestCase
                             $cart->getCustomLineItems()->current()->getId()
                         )->setExternalTaxRate($this->getExternalTaxRate())
                     );
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $cart = $request->mapFromResponse($response);
 
                 $this->assertSame(self::TAX_RATE_NAME, $cart->getCustomLineItems()->current()->getTaxRate()->getName());
@@ -500,7 +500,7 @@ class CartTaxModeTest extends ApiTestCase
                                 CartSetLineItemTaxRateAction::ofLineItemId($cart->getLineItems()->current()->getId())
                                     ->setExternalTaxRate($this->getExternalTaxRate())
                             );
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
                         $this->assertSame(
@@ -544,7 +544,7 @@ class CartTaxModeTest extends ApiTestCase
                                 CartSetShippingMethodTaxRateAction::of()
                                     ->setExternalTaxRate($this->getExternalTaxRate())
                             );
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
                         $this->assertSame(self::TAX_RATE_NAME, $result->getShippingInfo()->getTaxRate()->getName());
@@ -594,7 +594,7 @@ class CartTaxModeTest extends ApiTestCase
                             ->addAction(
                                 CartChangeTaxModeAction::of()->setTaxMode(Cart::TAX_MODE_PLATFORM)
                             );
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
                         $this->assertNull($result->getLineItems()->current()->getTaxRate());

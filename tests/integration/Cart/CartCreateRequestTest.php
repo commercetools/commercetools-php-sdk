@@ -9,41 +9,17 @@ use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\Product\ProductFixture;
+use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Product\Product;
-use Commercetools\Core\Request\Carts\CartCreateRequest;
-use Commercetools\Core\Request\Carts\CartDeleteRequest;
+use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 
 class CartCreateRequestTest extends ApiTestCase
 {
-    /**
-     * @return CartDraft
-     */
-    protected function getDraft()
-    {
-        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
-
-        return $draft;
-    }
-
-    protected function createCart(CartDraft $draft)
-    {
-        $request = CartCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-
-        if ($cart != null) {
-            $this->cleanupRequests[] = $this->deleteRequest = CartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
-        }
-
-        return $cart;
-    }
-
-
     public function testCreate()
     {
         $client = $this->getApiClient();
@@ -53,7 +29,7 @@ class CartCreateRequestTest extends ApiTestCase
             function (Cart $cart) use ($client) {
                 $request = RequestBuilder::of()->carts()->query()
                     ->where('id=:id', ['id' => $cart->getId()]);
-                $response = $client->execute($request);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertSame(
@@ -79,7 +55,7 @@ class CartCreateRequestTest extends ApiTestCase
      */
     public function testCreateOriginCustom($originType, $successful)
     {
-        if ($originType === 'invalidOrigin') {
+        if ($successful == false) {
             $this->expectException(FixtureException::class);
             $this->expectExceptionCode(400);
         }
@@ -121,13 +97,13 @@ class CartCreateRequestTest extends ApiTestCase
                                     1
                                 )
                             );
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $cart = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(Cart::class, $cart);
 
                         $request = RequestBuilder::of()->carts()->replicate($cart->getId());
-                        $response = $client->execute($request);
+                        $response = $this->execute($client, $request);
                         $replicaCart = $request->mapFromResponse($response);
 
                         $this->assertNotEmpty($replicaCart->getLineItems());
@@ -145,20 +121,30 @@ class CartCreateRequestTest extends ApiTestCase
             }
         );
     }
-//todo need InStoreRequestDecorator?
+
     public function testCreateCartInStore()
     {
-        $store = $this->getStore();
-        $cartDraft = $this->getDraft();
+        $client = $this->getApiClient();
 
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), CartCreateRequest::ofDraft($cartDraft));
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapFromResponse($response);
-        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client) {
+                $cartDraft = CartDraft::ofCurrency('EUR')->setCountry('DE');
+                $cartRequest = RequestBuilder::of()->carts()->create($cartDraft);
+                $createRequest = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), $cartRequest);
+                $response = $this->execute($client, $createRequest);
+                $result = $createRequest->mapFromResponse($response);
 
-        $this->assertInstanceOf(Cart::class, $cart);
-        $this->assertSame($cartDraft->getCountry(), $cart->getCountry());
-        $this->assertSame('in-store/key='.$store->getKey().'/carts', (string)$request->httpRequest()->getUri());
-        $this->assertSame($store->getKey(), $cart->getStore()->getKey());
+                $cartRequest = RequestBuilder::of()->carts()->delete($result);
+                $deleteRequest = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), $cartRequest);
+                $response = $this->execute($client, $deleteRequest);
+                $result = $deleteRequest->mapFromResponse($response);
+
+                $this->assertInstanceOf(Cart::class, $result);
+                $this->assertSame($cartDraft->getCountry(), $result->getCountry());
+                $this->assertSame('in-store/key=' . $store->getKey() . '/carts', (string)$createRequest->httpRequest()->getUri());
+                $this->assertSame($store->getKey(), $result->getStore()->getKey());
+            }
+        );
     }
 }
