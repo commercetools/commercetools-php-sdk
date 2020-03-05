@@ -9,6 +9,7 @@ use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
+use Commercetools\Core\Model\CartDiscount\LineItemsTarget;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
@@ -40,6 +41,16 @@ class CartDiscountFixture extends ResourceFixture
             ->setSortOrder('0.9' . trim((string)mt_rand(1, self::RAND_MAX), '0'))
             ->setIsActive(true)->setRequiresDiscountCode(false)
             ->setKey($uniqueCartDiscountString);
+
+        return $draft;
+    }
+
+    final public static function emptyCartDiscountDraftFunction()
+    {
+        $uniqueCartDiscountString = self::uniqueCartDiscountString();
+
+        $draft = CartDiscountDraft::of();
+        $draft->setName(LocalizedString::ofLangAndText('en', 'test-' . $uniqueCartDiscountString . '-discount'));
 
         return $draft;
     }
@@ -97,6 +108,34 @@ class CartDiscountFixture extends ResourceFixture
     ) {
         if ($draftFunction == null) {
             $draftFunction = [__CLASS__, 'defaultCartDiscountDraftFunction'];
+        }
+        if ($createFunction == null) {
+            $createFunction = [__CLASS__, 'defaultCartDiscountCreateFunction'];
+        }
+        if ($deleteFunction == null) {
+            $deleteFunction = [__CLASS__, 'defaultCartDiscountDeleteFunction'];
+        }
+
+        parent::withDraftResource(
+            $client,
+            $draftBuilderFunction,
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
+        );
+    }
+
+    final public static function withEmptyDraftCartDiscount(
+        ApiClient $client,
+        callable $draftBuilderFunction,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
+        if ($draftFunction == null) {
+            $draftFunction = [__CLASS__, 'emptyCartDiscountDraftFunction'];
         }
         if ($createFunction == null) {
             $createFunction = [__CLASS__, 'defaultCartDiscountCreateFunction'];

@@ -21,11 +21,13 @@ class TaxCategoryUpdateRequestTest extends ApiTestCase
 {
     private function getTaxRate()
     {
+        $region = "r" . (string)mt_rand(1, TaxCategoryFixture::RAND_MAX);
+
         return TaxRate::of()->setName('test-' . TaxCategoryFixture::uniqueTaxCategoryString() . '-rate2')
             ->setAmount(0.3)
             ->setIncludedInPrice(true)
             ->setCountry('DE')
-            ->setState('new-' . $this->getRegion());
+            ->setState('new-' . $region);
     }
 
     public function testChangeName()

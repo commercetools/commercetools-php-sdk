@@ -19,6 +19,7 @@ use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryDraft;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\Zone\Zone;
+use Commercetools\Core\Model\Zone\ZoneDraft;
 use Commercetools\Core\Model\Zone\ZoneReference;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
@@ -143,9 +144,9 @@ class ShippingMethodFixture extends ResourceFixture
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-        TaxCategoryFixture::withTaxCategory(
+        ZoneFixture::withZone(
             $client,
-            function (TaxCategory $taxCategory) use (
+            function (Zone $zone) use (
                 $client,
                 $draftBuilderFunction,
                 $assertFunction,
@@ -153,11 +154,16 @@ class ShippingMethodFixture extends ResourceFixture
                 $deleteFunction,
                 $draftFunction
             ) {
-                ZoneFixture::withZone(
+                TaxCategoryFixture::withDraftTaxCategory(
                     $client,
-                    function (Zone $zone) use (
+                    function (TaxCategoryDraft $draft) use ($zone) {
+                        $draft->getRates()->current()->setState($zone->getLocations()->current()->getState());
+
+                        return $draft;
+                    },
+                    function (TaxCategory $taxCategory) use (
                         $client,
-                        $taxCategory,
+                        $zone,
                         $draftBuilderFunction,
                         $assertFunction,
                         $createFunction,
