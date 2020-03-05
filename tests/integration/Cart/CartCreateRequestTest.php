@@ -79,7 +79,7 @@ class CartCreateRequestTest extends ApiTestCase
      */
     public function testCreateOriginCustom($originType, $successful)
     {
-        if ($originType === 'invalidOrigin') {
+        if ($successful == false) {
             $this->expectException(FixtureException::class);
             $this->expectExceptionCode(400);
         }
@@ -92,11 +92,7 @@ class CartCreateRequestTest extends ApiTestCase
                 return $draft->setOrigin($originType);
             },
             function (Cart $cart) use ($client, $originType, $successful) {
-                if ($successful) {
-                    $this->assertSame($originType, $cart->getOrigin());
-                } else {
-                    $this->assertNull($cart);
-                }
+                $this->assertSame($originType, $cart->getOrigin());
             }
         );
     }
