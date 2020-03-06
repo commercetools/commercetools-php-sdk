@@ -77,7 +77,9 @@ class ZoneUpdateRequestTest extends ApiTestCase
         ZoneFixture::withUpdateableZone(
             $client,
             function (Zone $zone) use ($client) {
-                $location = Location::of()->setCountry('DE')->setState('new-' . $this->getRegion());
+                $region = "r" . (string)mt_rand(1, ZoneFixture::RAND_MAX);
+
+                $location = Location::of()->setCountry('DE')->setState('new-' . $region);
 
                 $request = RequestBuilder::of()->zones()->update($zone)
                     ->addAction(ZoneAddLocationAction::ofLocation($location));

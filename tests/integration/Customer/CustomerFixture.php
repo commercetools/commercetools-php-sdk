@@ -55,13 +55,11 @@ class CustomerFixture extends ResourceFixture
         $headers[self::EXTERNAL_USER_HEADER] = ['custom-external-user-id'];
 
         $request = CustomerCreateRequest::ofDraft($draft);
-
         try {
             $response = $client->execute($request, $headers);
         } catch (ApiServiceException $e) {
             throw self::toFixtureException($e);
         }
-
         $result = $request->mapFromResponse($response);
 
         return $result->getCustomer();

@@ -41,42 +41,9 @@ use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetLineItemCust
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetSlugAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetTextLineItemCustomFieldAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetTextLineItemCustomTypeAction;
-use Commercetools\Core\Request\ShoppingLists\ShoppingListCreateRequest;
-use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteRequest;
-use Commercetools\Core\Request\ShoppingLists\ShoppingListUpdateRequest;
 
 class ShoppingListUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @return ShoppingListDraft
-     */
-    protected function getDraft($name)
-    {
-        $draft = ShoppingListDraft::ofNameAndKey(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name),
-            'key-' . $this->getTestRun()
-        );
-
-        return $draft;
-    }
-
-    protected function createShoppingList(ShoppingListDraft $draft)
-    {
-        /**
-         * @var ShoppingList $shoppingList
-         */
-        $request = ShoppingListCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-
-        $shoppingList = $request->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = ShoppingListDeleteRequest::ofIdAndVersion(
-            $shoppingList->getId(),
-            $shoppingList->getVersion()
-        );
-
-        return $shoppingList;
-    }
-
     /**
      * @param Product $product
      * @return LineItemDraftCollection
