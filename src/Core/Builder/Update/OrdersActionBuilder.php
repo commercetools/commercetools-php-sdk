@@ -39,6 +39,7 @@ use Commercetools\Core\Request\Orders\Command\OrderSetParcelTrackingDataAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
+use Commercetools\Core\Request\Orders\Command\OrderSetStoreAction;
 use Commercetools\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderTransitionLineItemStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderTransitionStateAction;
@@ -431,6 +432,17 @@ class OrdersActionBuilder
     public function setShippingAddress($action = null)
     {
         $this->addAction($this->resolveAction(OrderSetShippingAddress::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-store-beta
+     * @param OrderSetStoreAction|callable $action
+     * @return $this
+     */
+    public function setStore($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetStoreAction::class, $action));
         return $this;
     }
 
