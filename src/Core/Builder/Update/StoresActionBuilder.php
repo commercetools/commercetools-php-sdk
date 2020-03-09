@@ -4,11 +4,23 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Request\Stores\Command\StoreSetLanguagesAction;
 use Commercetools\Core\Request\Stores\Command\StoreSetNameAction;
 
 class StoresActionBuilder
 {
     private $actions = [];
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-stores#set-languages
+     * @param StoreSetLanguagesAction|callable $action
+     * @return $this
+     */
+    public function setLanguages($action = null)
+    {
+        $this->addAction($this->resolveAction(StoreSetLanguagesAction::class, $action));
+        return $this;
+    }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-stores#set-name

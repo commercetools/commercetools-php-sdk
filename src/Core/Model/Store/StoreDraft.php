@@ -16,6 +16,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method StoreDraft setKey(string $key = null)
  * @method LocalizedString getName()
  * @method StoreDraft setName(LocalizedString $name = null)
+ * @method array getLanguages()
+ * @method StoreDraft setLanguages(array $languages = null)
  */
 class StoreDraft extends JsonObject
 {
@@ -24,6 +26,7 @@ class StoreDraft extends JsonObject
         return [
             'key' => [static::TYPE => 'string'],
             'name' => [static::TYPE => LocalizedString::class],
+            'languages' => [static::TYPE => 'array'],
         ];
     }
 
