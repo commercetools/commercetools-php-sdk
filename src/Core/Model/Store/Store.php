@@ -24,6 +24,8 @@ use DateTime;
  * @method Store setCreatedAt(DateTime $createdAt = null)
  * @method DateTimeDecorator getLastModifiedAt()
  * @method Store setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method array getLanguages()
+ * @method Store setLanguages(array $languages = null)
  * @method StoreReference getReference()
  */
 class Store extends Resource
@@ -43,6 +45,7 @@ class Store extends Resource
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
+            'languages' => [static::TYPE => 'array'],
         ];
     }
 }
