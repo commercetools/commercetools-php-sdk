@@ -82,4 +82,28 @@ class StoreUpdateRequestTest extends ApiTestCase
             }
         );
     }
+
+    public function testUpdateByKeyLanguages()
+    {
+        $client = $this->getApiClient();
+
+        StoreFixture::withUpdateableStore(
+            $client,
+            function (Store $store) use ($client) {
+                $language = 'en';
+
+                $request = RequestBuilder::of()->stores()->updateByKey($store)
+                    ->addAction(StoreSetLanguagesAction::ofLanguages([$language]));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Store::class, $result);
+                $this->assertSame($store->getKey(), $result->getKey());
+                $this->assertSame($language, current($result->getLanguages()));
+                $this->assertNotSame($store->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
+    }
 }

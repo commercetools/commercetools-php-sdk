@@ -7,6 +7,8 @@ namespace Commercetools\Core\IntegrationTests\Product;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Store\StoreFixture;
+use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
@@ -15,6 +17,8 @@ use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraftCollection;
+use Commercetools\Core\Model\Store\Store;
+use Commercetools\Core\Model\Store\StoreDraft;
 
 class ProductQueryRequestTest extends ApiTestCase
 {
@@ -301,6 +305,134 @@ class ProductQueryRequestTest extends ApiTestCase
                 $this->assertEmpty($result->getMasterVariant()->getPrice()->getCustomerGroup());
                 $this->assertSame('EUR', $result->getMasterVariant()->getPrice()->getValue()->getCurrencyCode());
                 $this->assertSame(100, $result->getMasterVariant()->getPrice()->getValue()->getCentAmount());
+            }
+        );
+    }
+
+    public function testLocaleProjectionGetById()
+    {
+        $client = $this->getApiClient();
+
+        ProductFixture::withProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $locale = key($product->getMasterData()->getCurrent()->getName()->toArray());
+
+                $request = RequestBuilder::of()->productProjections()
+                    ->getById($product->getId())
+                    ->localeProjection($locale)
+                    ->staged(true);
+
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $localeResult = key($result->getName()->toArray());
+
+                $this->assertInstanceOf(ProductProjection::class, $result);
+                $this->assertSame($locale, $localeResult);
+                $this->assertSame($product->getId(), $result->getId());
+            }
+        );
+    }
+
+    public function testFallbackLocaleProjectionGetById()
+    {
+        $client = $this->getApiClient();
+
+        ProductFixture::withProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $locale = key($product->getMasterData()->getCurrent()->getName()->toArray());
+
+                $request = RequestBuilder::of()->productProjections()
+                    ->getById($product->getId())
+                    ->localeProjection('de')
+                    ->staged(true);
+
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $localeResult = key($result->getName()->toArray());
+
+                $this->assertInstanceOf(ProductProjection::class, $result);
+                $this->assertNotEquals('de', $localeResult);
+                $this->assertSame($product->getId(), $result->getId());
+            }
+        );
+    }
+
+    public function testStoreProjectionGetById()
+    {
+        $client = $this->getApiClient();
+
+        StoreFixture::withDraftStore(
+            $client,
+            function (StoreDraft $storeDraft) {
+                return $storeDraft->setLanguages(['en']);
+            },
+            function (Store $store) use ($client) {
+                ProductFixture::withDraftProduct(
+                    $client,
+                    function (ProductDraft $draft) {
+                        return $draft
+                            ->setName(LocalizedString::ofLangAndText(
+                                'de',
+                                'test-' . ProductFixture::uniqueProductString() . '-Name'
+                            )->add('en', 'test-' . ProductFixture::uniqueProductString() . '-name'));
+                    },
+                    function (Product $product) use ($client, $store) {
+                        $request = RequestBuilder::of()->productProjections()
+                            ->getById($product->getId())
+                            ->storeProjection($store->getKey())
+                            ->staged(true);
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $keyNameResult = key($result->getName()->toArray());
+
+                        $this->assertInstanceOf(ProductProjection::class, $result);
+                        $this->assertSame('en', $keyNameResult);
+                        $this->assertSame($product->getId(), $result->getId());
+                    }
+                );
+            }
+        );
+    }
+
+    public function testFallbackStoreProjectionGetById()
+    {
+        $client = $this->getApiClient();
+
+        StoreFixture::withDraftStore(
+            $client,
+            function (StoreDraft $storeDraft) {
+                return $storeDraft->setLanguages(['en']);
+            },
+            function (Store $store) use ($client) {
+                ProductFixture::withDraftProduct(
+                    $client,
+                    function (ProductDraft $draft) {
+                        return $draft
+                            ->setName(LocalizedString::ofLangAndText(
+                                'de',
+                                'test-' . ProductFixture::uniqueProductString() . '-Name'
+                            )->add('it', 'test-' . ProductFixture::uniqueProductString() . '-nome'));
+                    },
+                    function (Product $product) use ($client, $store) {
+                        $request = RequestBuilder::of()->productProjections()
+                            ->getById($product->getId())
+                            ->storeProjection($store->getKey())
+                            ->staged(true);
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $keyNameResult = key($result->getName()->toArray());
+
+                        $this->assertInstanceOf(ProductProjection::class, $result);
+                        $this->assertNotEquals(current($store->getLanguages()), $keyNameResult);
+                        $this->assertSame($product->getId(), $result->getId());
+                    }
+                );
             }
         );
     }
