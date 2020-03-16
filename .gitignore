@@ -25,3 +25,4 @@ docroot/requests.log
 tests/integration/requests.log
 tests/fixtures/NotificationExtension.php
 tools/http-client.private.env.json
+yarn.lock
