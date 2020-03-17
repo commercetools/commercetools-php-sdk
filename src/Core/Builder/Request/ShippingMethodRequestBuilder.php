@@ -12,6 +12,8 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteByKeyRequest;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodMatchingLocationGetRequest;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodMatchingOrderEditGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateByKeyRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest;
@@ -100,6 +102,28 @@ class ShippingMethodRequestBuilder
     public function delete(ShippingMethod $shippingMethod)
     {
         $request = ShippingMethodDeleteRequest::ofIdAndVersion($shippingMethod->getId(), $shippingMethod->getVersion());
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-location
+     *
+     * @return ShippingMethodMatchingLocationGetRequest
+     */
+    public function matchingLocationGet()
+    {
+        $request = ShippingMethodMatchingLocationGetRequest::of();
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-an-orderedit
+     *
+     * @return ShippingMethodMatchingOrderEditGetRequest
+     */
+    public function matchingOrderEditGet()
+    {
+        $request = ShippingMethodMatchingOrderEditGetRequest::of();
         return $request;
     }
 

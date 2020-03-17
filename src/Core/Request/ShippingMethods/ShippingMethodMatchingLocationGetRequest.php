@@ -1,30 +1,26 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
 
 namespace Commercetools\Core\Request\ShippingMethods;
 
-use Commercetools\Core\Request\ExpandTrait;
-use Commercetools\Core\Response\ResourceResponse;
-use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequest;
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Request\AbstractApiRequest;
-use Commercetools\Core\Response\PagedQueryResponse;
-use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
-use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
+use Commercetools\Core\Request\AbstractApiRequest;
+use Commercetools\Core\Request\ExpandTrait;
+use Commercetools\Core\Response\ApiResponseInterface;
+use Commercetools\Core\Response\PagedQueryResponse;
+use Commercetools\Core\Response\ResourceResponse;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
- * @deprecated
  * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-location
  * @method ShippingMethodCollection mapResponse(ApiResponseInterface $response)
  * @method ShippingMethodCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
-class ShippingMethodByLocationGetRequest extends AbstractApiRequest
+class ShippingMethodMatchingLocationGetRequest extends AbstractApiRequest
 {
     use ExpandTrait;
 
@@ -103,10 +99,19 @@ class ShippingMethodByLocationGetRequest extends AbstractApiRequest
 
     /**
      * @param ResponseInterface $response
-     * @return ResourceResponse
+     * @return PagedQueryResponse
      */
     public function buildResponse(ResponseInterface $response)
     {
-        return new ResourceResponse($response, $this, $this->getContext());
+        return new PagedQueryResponse($response, $this, $this->getContext());
+    }
+
+    /**
+     * @return string
+     * @internal
+     */
+    protected function getPath()
+    {
+        return (string)$this->getEndpoint() . '/matching-location' .  $this->getParamString();
     }
 }
