@@ -96,8 +96,8 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
                     $result->current()->getZoneRates()->current()->getShippingRates()->current()->getIsMatching()
                 );
                 $this->assertInstanceOf(ShippingMethodCollection::class, $result);
-                $this->assertSame($shippingMethod->getId(), $result->getAt(3)->getId());
-                $this->assertInstanceOf(TaxCategory::class, $result->getAt(3)->getTaxCategory()->getObj());
+                $this->assertSame($shippingMethod->getId(), $result->current()->getId());
+                $this->assertInstanceOf(TaxCategory::class, $result->current()->getTaxCategory()->getObj());
             }
         );
     }

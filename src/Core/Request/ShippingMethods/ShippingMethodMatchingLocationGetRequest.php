@@ -4,7 +4,9 @@ namespace Commercetools\Core\Request\ShippingMethods;
 
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequest;
+use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\JsonObjectMapper;
 use Commercetools\Core\Model\MapperInterface;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
@@ -113,5 +115,23 @@ class ShippingMethodMatchingLocationGetRequest extends AbstractApiRequest
     protected function getPath()
     {
         return (string)$this->getEndpoint() . '/matching-location' .  $this->getParamString();
+    }
+
+    /**
+     * @param array $result
+     * @param Context $context
+     * @param MapperInterface $mapper
+     * @return Collection
+     */
+    public function map(array $result, Context $context = null, MapperInterface $mapper = null)
+    {
+        $data = [];
+        if (!empty($result['results'])) {
+            $data = $result['results'];
+        }
+        if (is_null($mapper)) {
+            $mapper = JsonObjectMapper::of($context);
+        }
+        return $mapper->map($data, $this->resultClass);
     }
 }
