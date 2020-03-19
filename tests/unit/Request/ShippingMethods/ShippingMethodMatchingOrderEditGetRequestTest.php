@@ -10,23 +10,27 @@ use Commercetools\Core\Response\PagedQueryResponse;
 class ShippingMethodMatchingOrderEditGetRequestTest extends RequestTestCase
 {
     const SHIPPING_METHOD_MATCHING_ORDER_EDIT_GET_REQUEST =
-        ShippingMethodMatchingOrderEditGetRequest::class;
+        ShippingMethodByMatchingOrderEditGetRequest::class;
 
     public function testMapResult()
     {
-        $result = $this->mapResult(ShippingMethodMatchingOrderEditGetRequest::ofCountry('DE'));
+        $result = $this->mapResult(
+            ShippingMethodByMatchingOrderEditGetRequest::ofOrderEditAndCountry('OrderEditId', 'DE')
+        );
         $this->assertInstanceOf(ShippingMethodCollection::class, $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(ShippingMethodMatchingOrderEditGetRequest::ofCountry('DE'));
-        $this->assertNull($result);
+        $result = $this->mapEmptyResult(
+            ShippingMethodByMatchingOrderEditGetRequest::ofOrderEditAndCountry('OrderEditId', 'DE')
+        );
+        $this->assertInstanceOf(ShippingMethodCollection::class, $result);
     }
 
     public function testHttpRequestMethod()
     {
-        $request = ShippingMethodMatchingOrderEditGetRequest::ofCountry('DE');
+        $request = ShippingMethodByMatchingOrderEditGetRequest::ofOrderEditAndCountry('OrderEditId', 'DE');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
@@ -34,45 +38,30 @@ class ShippingMethodMatchingOrderEditGetRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = ShippingMethodMatchingOrderEditGetRequest::ofCountry('DE');
-        $httpRequest = $request->httpRequest();
-
-        $this->assertSame('shipping-methods/matching-orderedit?country=DE', (string)$httpRequest->getUri());
-    }
-
-    public function testHttpRequestPathWithState()
-    {
-        $request = ShippingMethodMatchingOrderEditGetRequest::ofCountry('DE')->withState('Berlin');
+        $request = ShippingMethodByMatchingOrderEditGetRequest::ofOrderEditAndCountry('OrderEditId', 'DE');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(
-            'shipping-methods/matching-orderedit?country=DE&state=Berlin',
+            'shipping-methods/matching-orderedit?country=DE&orderEditId=OrderEditId',
             (string)$httpRequest->getUri()
         );
     }
 
-    public function testHttpRequestPathWithCurrency()
+    public function testHttpRequestPathWithState()
     {
-        $request = ShippingMethodMatchingOrderEditGetRequest::ofCountry('DE');
-        $httpRequest = $request->httpRequest();
-
-        $this->assertSame('shipping-methods/matching-orderedit?country=DE', (string)$httpRequest->getUri());
-    }
-
-    public function testHttpRequestPathWithStateAndCurrency()
-    {
-        $request = ShippingMethodMatchingOrderEditGetRequest::ofCountry('DE')->withState('Berlin');
+        $request = ShippingMethodByMatchingOrderEditGetRequest::ofOrderEditAndCountry('OrderEditId', 'DE')
+            ->withState('Berlin');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(
-            'shipping-methods/matching-orderedit?country=DE&state=Berlin',
+            'shipping-methods/matching-orderedit?country=DE&orderEditId=OrderEditId&state=Berlin',
             (string)$httpRequest->getUri()
         );
     }
 
     public function testHttpRequestObject()
     {
-        $request = ShippingMethodMatchingOrderEditGetRequest::ofCountry('DE');
+        $request = ShippingMethodByMatchingOrderEditGetRequest::ofOrderEditAndCountry('OrderEditId', 'DE');
         $httpRequest = $request->httpRequest();
 
         $this->assertEmpty((string)$httpRequest->getBody());
@@ -84,7 +73,7 @@ class ShippingMethodMatchingOrderEditGetRequestTest extends RequestTestCase
         $mockBuilder->disableOriginalConstructor();
         $guzzleResponse = $mockBuilder->getMock();
 
-        $request = ShippingMethodMatchingOrderEditGetRequest::ofCountry('DE');
+        $request = ShippingMethodByMatchingOrderEditGetRequest::ofOrderEditAndCountry('OrderEditId', 'DE');
         $response = $request->buildResponse($guzzleResponse);
 
         $this->assertInstanceOf(PagedQueryResponse::class, $response);

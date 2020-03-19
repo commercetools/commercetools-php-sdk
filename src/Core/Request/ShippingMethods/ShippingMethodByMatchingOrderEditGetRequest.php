@@ -8,7 +8,6 @@ use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\JsonObjectMapper;
 use Commercetools\Core\Model\MapperInterface;
-use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Request\ExpandTrait;
@@ -18,11 +17,11 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
- * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-location
+ * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-an-orderedit
  * @method ShippingMethodCollection mapResponse(ApiResponseInterface $response)
  * @method ShippingMethodCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
-class ShippingMethodMatchingLocationGetRequest extends AbstractApiRequest
+class ShippingMethodByMatchingOrderEditGetRequest extends AbstractApiRequest
 {
     use ExpandTrait;
 
@@ -36,20 +35,22 @@ class ShippingMethodMatchingLocationGetRequest extends AbstractApiRequest
     /**
      * @var string
      */
-    protected $state;
+    protected $orderEditId;
 
     /**
      * @var string
      */
-    protected $currency;
+    protected $state;
 
     /**
+     * @param string $orderEditId
      * @param string $country
      * @param Context $context
      */
-    public function __construct($country, Context $context = null)
+    public function __construct($orderEditId, $country, Context $context = null)
     {
         parent::__construct(ShippingMethodsEndpoint::endpoint(), $context);
+        $this->withOrderEditId($orderEditId);
         $this->withCountry($country);
     }
 
@@ -63,6 +64,15 @@ class ShippingMethodMatchingLocationGetRequest extends AbstractApiRequest
     }
 
     /**
+     * @param string $orderEditId
+     * @return $this
+     */
+    public function withOrderEditId($orderEditId)
+    {
+        return $this->addParam('orderEditId', $orderEditId);
+    }
+
+    /**
      * @param string $state
      * @return $this
      */
@@ -72,22 +82,14 @@ class ShippingMethodMatchingLocationGetRequest extends AbstractApiRequest
     }
 
     /**
-     * @param string $currency
-     * @return $this
-     */
-    public function withCurrency($currency)
-    {
-        return $this->addParam('currency', $currency);
-    }
-
-    /**
+     * @param string $orderEditId
      * @param string $country
      * @param Context $context
      * @return static
      */
-    public static function ofCountry($country, Context $context = null)
+    public static function ofOrderEditAndCountry($orderEditId, $country, Context $context = null)
     {
-        return new static($country, $context);
+        return new static($orderEditId, $country, $context);
     }
 
     /**
@@ -114,7 +116,7 @@ class ShippingMethodMatchingLocationGetRequest extends AbstractApiRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/matching-location' .  $this->getParamString();
+        return (string)$this->getEndpoint() . '/matching-orderedit' .  $this->getParamString();
     }
 
     /**

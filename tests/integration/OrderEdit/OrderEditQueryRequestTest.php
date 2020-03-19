@@ -12,6 +12,7 @@ use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Model\OrderEdit\OrderEditDraft;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\Type\TypeReference;
 use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Request\OrderEdits\OrderEditByIdGetRequest;
@@ -81,7 +82,7 @@ class OrderEditQueryRequestTest extends OrderQueryRequestTest
         $this->assertInstanceOf(OrderEdit::class, $result->getAt(0));
         $this->assertSame($orderEdit->getId(), $result->getAt(0)->getId());
     }
-//todo to collocate into ShippingMethodQueryRequestTest after migration
+//todo to collocate into ShippingMethodQueryRequestTest after migration and add some assertions
     public function testByMatchingOrderEdit()
     {
         $client = $this->getApiClient();
@@ -92,17 +93,14 @@ class OrderEditQueryRequestTest extends OrderQueryRequestTest
                 $orderEdit = $this->createOrderEdit();
                 $request = RequestBuilder::of()->shippingMethods()
                     ->getByMatchingOrderEdit($orderEdit->getId(), $zone->getLocations()->current()->getCountry());
-//                $request->expand('taxCategory.id');
                 $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
-//                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
-//                $this->assertTrue(
-//                    $result->current()->getZoneRates()->current()->getShippingRates()->current()->getIsMatching()
-//                );
+                $this->assertTrue(
+                    $result->current()->getZoneRates()->current()->getShippingRates()->current()->getIsMatching()
+                );
                 $this->assertInstanceOf(ShippingMethodCollection::class, $result);
-                $this->assertSame($shippingMethod->getId(), $result->current()->getId());
-//                $this->assertInstanceOf(TaxCategory::class, $result->current()->getTaxCategory()->getObj());
+                $this->assertInstanceOf(TaxCategoryReference::class, $result->current()->getTaxCategory());
             }
         );
     }

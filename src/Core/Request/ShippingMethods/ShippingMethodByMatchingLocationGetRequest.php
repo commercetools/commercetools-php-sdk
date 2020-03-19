@@ -4,8 +4,11 @@ namespace Commercetools\Core\Request\ShippingMethods;
 
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequest;
+use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\JsonObjectMapper;
 use Commercetools\Core\Model\MapperInterface;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Request\ExpandTrait;
@@ -15,11 +18,11 @@ use Psr\Http\Message\ResponseInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
- * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-an-orderedit
+ * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-location
  * @method ShippingMethodCollection mapResponse(ApiResponseInterface $response)
  * @method ShippingMethodCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
-class ShippingMethodMatchingOrderEditGetRequest extends AbstractApiRequest
+class ShippingMethodByMatchingLocationGetRequest extends AbstractApiRequest
 {
     use ExpandTrait;
 
@@ -33,23 +36,21 @@ class ShippingMethodMatchingOrderEditGetRequest extends AbstractApiRequest
     /**
      * @var string
      */
-    protected $orderEdit;
+    protected $state;
 
     /**
      * @var string
      */
-    protected $state;
+    protected $currency;
 
     /**
      * @param string $country
-     * @param string $orderEditId
      * @param Context $context
      */
-    public function __construct($country, $orderEditId, Context $context = null)
+    public function __construct($country, Context $context = null)
     {
         parent::__construct(ShippingMethodsEndpoint::endpoint(), $context);
         $this->withCountry($country);
-        $this->withOrderEditId($orderEditId);
     }
 
     /**
@@ -62,21 +63,21 @@ class ShippingMethodMatchingOrderEditGetRequest extends AbstractApiRequest
     }
 
     /**
-     * @param string $orderEditId
-     * @return $this
-     */
-    public function withOrderEditId($orderEditId)
-    {
-        return $this->addParam('orderEditId', $orderEditId);
-    }
-
-    /**
      * @param string $state
      * @return $this
      */
     public function withState($state)
     {
         return $this->addParam('state', $state);
+    }
+
+    /**
+     * @param string $currency
+     * @return $this
+     */
+    public function withCurrency($currency)
+    {
+        return $this->addParam('currency', $currency);
     }
 
     /**
@@ -87,17 +88,6 @@ class ShippingMethodMatchingOrderEditGetRequest extends AbstractApiRequest
     public static function ofCountry($country, Context $context = null)
     {
         return new static($country, $context);
-    }
-
-    /**
-     * @param string $orderEditId
-     * @param string $country
-     * @param Context $context
-     * @return static
-     */
-    public static function ofOrderEditAndCountry($orderEditId, $country, Context $context = null)
-    {
-        return new static($orderEditId, $country, $context);
     }
 
     /**
@@ -124,6 +114,24 @@ class ShippingMethodMatchingOrderEditGetRequest extends AbstractApiRequest
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/matching-orderedit' .  $this->getParamString();
+        return (string)$this->getEndpoint() . '/matching-location' .  $this->getParamString();
+    }
+
+    /**
+     * @param array $result
+     * @param Context $context
+     * @param MapperInterface $mapper
+     * @return Collection
+     */
+    public function map(array $result, Context $context = null, MapperInterface $mapper = null)
+    {
+        $data = [];
+        if (!empty($result['results'])) {
+            $data = $result['results'];
+        }
+        if (is_null($mapper)) {
+            $mapper = JsonObjectMapper::of($context);
+        }
+        return $mapper->map($data, $this->resultClass);
     }
 }

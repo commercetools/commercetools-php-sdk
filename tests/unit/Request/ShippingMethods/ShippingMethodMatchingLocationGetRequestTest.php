@@ -13,23 +13,23 @@ use Commercetools\Core\Response\PagedQueryResponse;
 class ShippingMethodMatchingLocationGetRequestTest extends RequestTestCase
 {
     const SHIPPING_METHOD_MATCHING_LOCATION_GET_REQUEST =
-        ShippingMethodMatchingLocationGetRequest::class;
+        ShippingMethodByMatchingLocationGetRequest::class;
 
     public function testMapResult()
     {
-        $result = $this->mapResult(ShippingMethodMatchingLocationGetRequest::ofCountry('DE'));
+        $result = $this->mapResult(ShippingMethodByMatchingLocationGetRequest::ofCountry('DE'));
         $this->assertInstanceOf(ShippingMethodCollection::class, $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(ShippingMethodMatchingLocationGetRequest::ofCountry('DE'));
-        $this->assertNull($result);
+        $result = $this->mapEmptyResult(ShippingMethodByMatchingLocationGetRequest::ofCountry('DE'));
+        $this->assertInstanceOf(ShippingMethodCollection::class, $result);
     }
 
     public function testHttpRequestMethod()
     {
-        $request = ShippingMethodMatchingLocationGetRequest::ofCountry('DE');
+        $request = ShippingMethodByMatchingLocationGetRequest::ofCountry('DE');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::GET, $httpRequest->getMethod());
@@ -37,7 +37,7 @@ class ShippingMethodMatchingLocationGetRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = ShippingMethodMatchingLocationGetRequest::ofCountry('DE');
+        $request = ShippingMethodByMatchingLocationGetRequest::ofCountry('DE');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('shipping-methods/matching-location?country=DE', (string)$httpRequest->getUri());
@@ -45,7 +45,7 @@ class ShippingMethodMatchingLocationGetRequestTest extends RequestTestCase
 
     public function testHttpRequestPathWithState()
     {
-        $request = ShippingMethodMatchingLocationGetRequest::ofCountry('DE')->withState('Berlin');
+        $request = ShippingMethodByMatchingLocationGetRequest::ofCountry('DE')->withState('Berlin');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('shipping-methods/matching-location?country=DE&state=Berlin', (string)$httpRequest->getUri());
@@ -53,7 +53,7 @@ class ShippingMethodMatchingLocationGetRequestTest extends RequestTestCase
 
     public function testHttpRequestPathWithCurrency()
     {
-        $request = ShippingMethodMatchingLocationGetRequest::ofCountry('DE')->withCurrency('EUR');
+        $request = ShippingMethodByMatchingLocationGetRequest::ofCountry('DE')->withCurrency('EUR');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('shipping-methods/matching-location?country=DE&currency=EUR', (string)$httpRequest->getUri());
@@ -61,7 +61,7 @@ class ShippingMethodMatchingLocationGetRequestTest extends RequestTestCase
 
     public function testHttpRequestPathWithStateAndCurrency()
     {
-        $request = ShippingMethodMatchingLocationGetRequest::ofCountry('DE')->withState('Berlin')->withCurrency('EUR');
+        $request = ShippingMethodByMatchingLocationGetRequest::ofCountry('DE')->withState('Berlin')->withCurrency('EUR');
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(
@@ -72,7 +72,7 @@ class ShippingMethodMatchingLocationGetRequestTest extends RequestTestCase
 
     public function testHttpRequestObject()
     {
-        $request = ShippingMethodMatchingLocationGetRequest::ofCountry('DE');
+        $request = ShippingMethodByMatchingLocationGetRequest::ofCountry('DE');
         $httpRequest = $request->httpRequest();
 
         $this->assertEmpty((string)$httpRequest->getBody());
@@ -84,7 +84,7 @@ class ShippingMethodMatchingLocationGetRequestTest extends RequestTestCase
         $mockBuilder->disableOriginalConstructor();
         $guzzleResponse = $mockBuilder->getMock();
 
-        $request = ShippingMethodMatchingLocationGetRequest::ofCountry('DE');
+        $request = ShippingMethodByMatchingLocationGetRequest::ofCountry('DE');
         $response = $request->buildResponse($guzzleResponse);
 
         $this->assertInstanceOf(PagedQueryResponse::class, $response);

@@ -7,13 +7,13 @@ use Commercetools\Core\Request\ShippingMethods\ShippingMethodByIdGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByKeyGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByLocationGetRequest;
 use Commercetools\Core\Model\Zone\Location;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodByMatchingLocationGetRequest;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodByMatchingOrderEditGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteByKeyRequest;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteRequest;
-use Commercetools\Core\Request\ShippingMethods\ShippingMethodMatchingLocationGetRequest;
-use Commercetools\Core\Request\ShippingMethods\ShippingMethodMatchingOrderEditGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodQueryRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateByKeyRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest;
@@ -73,6 +73,36 @@ class ShippingMethodRequestBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-location
+     * @param Location $location
+     * @param string $currency
+     * @return ShippingMethodByMatchingLocationGetRequest
+     */
+    public function getByMatchingLocation(Location $location, $currency = null)
+    {
+        $request = ShippingMethodByMatchingLocationGetRequest::ofCountry($location->getCountry());
+        if (!is_null($location->getState())) {
+            $request->withState($location->getState());
+        }
+        if (!is_null($currency)) {
+            $request->withCurrency($currency);
+        }
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-an-orderedit
+     * @param string $orderEditId
+     * @param string $country
+     * @return ShippingMethodByMatchingOrderEditGetRequest
+     */
+    public function getByMatchingOrderEdit($orderEditId, $country)
+    {
+        $request = ShippingMethodByMatchingOrderEditGetRequest::ofOrderEditAndCountry($orderEditId, $country);
+        return $request;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#create-shippingmethod
      * @param ShippingMethodDraft $shippingMethod
      * @return ShippingMethodCreateRequest
@@ -102,40 +132,6 @@ class ShippingMethodRequestBuilder
     public function delete(ShippingMethod $shippingMethod)
     {
         $request = ShippingMethodDeleteRequest::ofIdAndVersion($shippingMethod->getId(), $shippingMethod->getVersion());
-        return $request;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-location
-     *
-     * @param Location $location
-     * @param string $currency
-     * @return ShippingMethodMatchingLocationGetRequest
-     */
-    public function getByMatchingLocation(Location $location, $currency = null)
-    {
-        $request = ShippingMethodMatchingLocationGetRequest::ofCountry($location->getCountry());
-        if (!is_null($location->getState())) {
-            $request->withState($location->getState());
-        }
-        if (!is_null($currency)) {
-            $request->withCurrency($currency);
-        }
-
-        return $request;
-    }
-
-    /**
-     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-an-orderedit
-     *
-     * @param string $orderEditId
-     * @param string $country
-     * @return ShippingMethodMatchingOrderEditGetRequest
-     */
-    public function getByMatchingOrderEdit($orderEditId, $country)
-    {
-        $request = ShippingMethodMatchingOrderEditGetRequest::ofOrderEditAndCountry($orderEditId, $country);
-
         return $request;
     }
 
