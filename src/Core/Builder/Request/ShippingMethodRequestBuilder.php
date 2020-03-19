@@ -108,22 +108,34 @@ class ShippingMethodRequestBuilder
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-location
      *
+     * @param Location $location
+     * @param string $currency
      * @return ShippingMethodMatchingLocationGetRequest
      */
-    public function matchingLocationGet()
+    public function getByMatchingLocation(Location $location, $currency = null)
     {
-        $request = ShippingMethodMatchingLocationGetRequest::of();
+        $request = ShippingMethodMatchingLocationGetRequest::ofCountry($location->getCountry());
+        if (!is_null($location->getState())) {
+            $request->withState($location->getState());
+        }
+        if (!is_null($currency)) {
+            $request->withCurrency($currency);
+        }
+
         return $request;
     }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-an-orderedit
      *
+     * @param string $orderEditId
+     * @param string $country
      * @return ShippingMethodMatchingOrderEditGetRequest
      */
-    public function matchingOrderEditGet()
+    public function getByMatchingOrderEdit($orderEditId, $country)
     {
-        $request = ShippingMethodMatchingOrderEditGetRequest::of();
+        $request = ShippingMethodMatchingOrderEditGetRequest::ofOrderEditAndCountry($orderEditId, $country);
+
         return $request;
     }
 

@@ -6,12 +6,12 @@ use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\HttpRequest;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\MapperInterface;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Request\ExpandTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Response\PagedQueryResponse;
-use Commercetools\Core\Response\ResourceResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**

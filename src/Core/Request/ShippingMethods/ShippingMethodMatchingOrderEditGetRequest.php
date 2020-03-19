@@ -11,7 +11,6 @@ use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Request\ExpandTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Response\PagedQueryResponse;
-use Commercetools\Core\Response\ResourceResponse;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -34,16 +33,23 @@ class ShippingMethodMatchingOrderEditGetRequest extends AbstractApiRequest
     /**
      * @var string
      */
+    protected $orderEdit;
+
+    /**
+     * @var string
+     */
     protected $state;
 
     /**
      * @param string $country
+     * @param string $orderEditId
      * @param Context $context
      */
-    public function __construct($country, Context $context = null)
+    public function __construct($country, $orderEditId, Context $context = null)
     {
         parent::__construct(ShippingMethodsEndpoint::endpoint(), $context);
         $this->withCountry($country);
+        $this->withOrderEditId($orderEditId);
     }
 
     /**
@@ -83,6 +89,16 @@ class ShippingMethodMatchingOrderEditGetRequest extends AbstractApiRequest
         return new static($country, $context);
     }
 
+    /**
+     * @param string $orderEditId
+     * @param string $country
+     * @param Context $context
+     * @return static
+     */
+    public static function ofOrderEditAndCountry($orderEditId, $country, Context $context = null)
+    {
+        return new static($orderEditId, $country, $context);
+    }
 
     /**
      * @return HttpRequest
