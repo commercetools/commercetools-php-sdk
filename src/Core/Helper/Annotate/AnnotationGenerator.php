@@ -751,7 +751,7 @@ EOF;
         }';
                     break;
                 case 'byMatchingLocationGet':
-                    $methodName = 'getByMatchingLocation';
+                    $methodName = 'getMatchingLocation';
                     $uses[Location::class] = 'use ' . Location::class . ';';
                     $methodParams[] = [self::PARAM_TYPE => 'Location', self::PARAM_NAME => '$location'];
                     $methodParams[] = [
@@ -768,11 +768,11 @@ EOF;
         }';
                     break;
                 case 'byMatchingOrderEditGet':
-                    $methodName = 'getByMatchingOrderEdit';
+                    $methodName = 'getMatchingOrderEdit';
                     $uses[Location::class] = 'use ' . Location::class . ';';
                     $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$orderEditId'];
-                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$country'];
-                    $factoryCall = 'ofOrderEditAndCountry($orderEditId, $country);';
+                    $methodParams[] = [self::PARAM_TYPE => 'Location', self::PARAM_NAME => '$location'];
+                    $factoryCall = 'ofOrderEditAndCountry($orderEditId, $location);';
                     break;
                 case 'imageUpload':
                     $methodName = 'uploadImageBySKU';

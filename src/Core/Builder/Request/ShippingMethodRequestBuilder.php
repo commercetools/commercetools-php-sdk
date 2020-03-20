@@ -78,7 +78,7 @@ class ShippingMethodRequestBuilder
      * @param string $currency
      * @return ShippingMethodByMatchingLocationGetRequest
      */
-    public function getByMatchingLocation(Location $location, $currency = null)
+    public function getMatchingLocation(Location $location, $currency = null)
     {
         $request = ShippingMethodByMatchingLocationGetRequest::ofCountry($location->getCountry());
         if (!is_null($location->getState())) {
@@ -93,12 +93,12 @@ class ShippingMethodRequestBuilder
     /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-an-orderedit
      * @param string $orderEditId
-     * @param string $country
+     * @param Location $location
      * @return ShippingMethodByMatchingOrderEditGetRequest
      */
-    public function getByMatchingOrderEdit($orderEditId, $country)
+    public function getMatchingOrderEdit($orderEditId, Location $location)
     {
-        $request = ShippingMethodByMatchingOrderEditGetRequest::ofOrderEditAndCountry($orderEditId, $country);
+        $request = ShippingMethodByMatchingOrderEditGetRequest::ofOrderEditAndCountry($orderEditId, $location->getCountry());
         return $request;
     }
 

@@ -83,7 +83,7 @@ class OrderEditQueryRequestTest extends OrderQueryRequestTest
         $this->assertSame($orderEdit->getId(), $result->getAt(0)->getId());
     }
 //todo to collocate into ShippingMethodQueryRequestTest after migration and add some assertions
-    public function testByMatchingOrderEdit()
+    public function testMatchingOrderEdit()
     {
         $client = $this->getApiClient();
 
@@ -92,7 +92,7 @@ class OrderEditQueryRequestTest extends OrderQueryRequestTest
             function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
                 $orderEdit = $this->createOrderEdit();
                 $request = RequestBuilder::of()->shippingMethods()
-                    ->getByMatchingOrderEdit($orderEdit->getId(), $zone->getLocations()->current()->getCountry());
+                    ->getMatchingOrderEdit($orderEdit->getId(), $zone->getLocations()->current());
                 $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
                 $result = $request->mapFromResponse($response);
 

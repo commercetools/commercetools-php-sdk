@@ -79,7 +79,7 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
         );
     }
 
-    public function testByMatchingLocation()
+    public function testMatchingLocation()
     {
         $client = $this->getApiClient();
 
@@ -87,7 +87,7 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
             $client,
             function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
                 $request = RequestBuilder::of()->shippingMethods()
-                    ->getByMatchingLocation($zone->getLocations()->current());
+                    ->getMatchingLocation($zone->getLocations()->current());
                 $request->expand('taxCategory.id');
                 $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
                 $result = $request->mapFromResponse($response);
