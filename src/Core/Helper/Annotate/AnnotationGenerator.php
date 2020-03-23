@@ -772,7 +772,10 @@ EOF;
                     $uses[Location::class] = 'use ' . Location::class . ';';
                     $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$orderEditId'];
                     $methodParams[] = [self::PARAM_TYPE => 'Location', self::PARAM_NAME => '$location'];
-                    $factoryCall = 'ofOrderEditAndCountry($orderEditId, $location->getCountry());';
+                    $factoryCall = 'ofOrderEditAndCountry($orderEditId, $location->getCountry());
+        if (!is_null($location->getState())) {
+            $request->withState($location->getState());
+        }';
                     break;
                 case 'imageUpload':
                     $methodName = 'uploadImageBySKU';

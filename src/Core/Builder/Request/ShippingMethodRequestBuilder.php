@@ -99,6 +99,9 @@ class ShippingMethodRequestBuilder
     public function getMatchingOrderEdit($orderEditId, Location $location)
     {
         $request = ShippingMethodByMatchingOrderEditGetRequest::ofOrderEditAndCountry($orderEditId, $location->getCountry());
+        if (!is_null($location->getState())) {
+            $request->withState($location->getState());
+        }
         return $request;
     }
 
