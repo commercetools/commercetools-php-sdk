@@ -113,7 +113,7 @@ class CartTaxModeTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 CartFixture::withUpdateableDraftCart(
@@ -177,7 +177,7 @@ class CartTaxModeTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client, $testSubRates, $testTaxRate) {
                 CartFixture::withUpdateableDraftCart(
@@ -234,7 +234,7 @@ class CartTaxModeTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 CartFixture::withUpdateableDraftCart(
@@ -477,7 +477,7 @@ class CartTaxModeTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 CartFixture::withUpdateableDraftCart(
@@ -563,7 +563,7 @@ class CartTaxModeTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 CartFixture::withUpdateableDraftCart(

@@ -77,7 +77,7 @@ class CartCreateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 CartFixture::withUpdateableCart(

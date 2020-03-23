@@ -256,8 +256,7 @@ class ProductQueryRequestTest extends ApiTestCase
     public function testPriceSelectProductProjectionById()
     {
         $client = $this->getApiClient();
-
-
+        
         ProductFixture::withDraftProduct(
             $client,
             function (ProductDraft $draft) {

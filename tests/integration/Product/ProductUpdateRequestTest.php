@@ -110,11 +110,8 @@ class ProductUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withUpdateableDraftProduct(
+        ProductFixture::withUpdateablePublishedProduct(
             $client,
-            function (ProductDraft $draft) {
-                return $draft->setPublish(true);
-            },
             function (Product $product) use ($client) {
                 $this->assertTrue($product->getMasterData()->getPublished());
 
@@ -1318,11 +1315,8 @@ class ProductUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withUpdateableDraftProduct(
+        ProductFixture::withUpdateablePublishedProduct(
             $client,
-            function (ProductDraft $draft) {
-                return $draft->setPublish(true);
-            },
             function (Product $product) use ($client) {
                 $sku = $product->getMasterData()->getCurrent()->getMasterVariant()->getSku();
 
