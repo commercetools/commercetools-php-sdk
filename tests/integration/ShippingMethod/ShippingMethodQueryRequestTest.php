@@ -7,10 +7,17 @@ namespace Commercetools\Core\IntegrationTests\ShippingMethod;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\Order\OrderReference;
+use Commercetools\Core\Model\OrderEdit\OrderEditDraft;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Model\Type\TypeReference;
 use Commercetools\Core\Model\Zone\Zone;
+use Commercetools\Core\Request\AbstractDeleteRequest;
+use Commercetools\Core\Request\OrderEdits\OrderEditCreateRequest;
+use Commercetools\Core\Request\OrderEdits\OrderEditDeleteRequest;
 
 class ShippingMethodQueryRequestTest extends ApiTestCase
 {
@@ -59,9 +66,30 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
             function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
                 $request = RequestBuilder::of()->shippingMethods()->getByLocation($zone->getLocations()->current());
                 $request->expand('taxCategory.id');
-
                 $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
+                $result = $request->mapFromResponse($response);
 
+                $this->assertTrue(
+                    $result->current()->getZoneRates()->current()->getShippingRates()->current()->getIsMatching()
+                );
+                $this->assertInstanceOf(ShippingMethodCollection::class, $result);
+                $this->assertSame($shippingMethod->getId(), $result->current()->getId());
+                $this->assertInstanceOf(TaxCategory::class, $result->current()->getTaxCategory()->getObj());
+            }
+        );
+    }
+
+    public function testMatchingLocation()
+    {
+        $client = $this->getApiClient();
+
+        ShippingMethodFixture::withShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
+                $request = RequestBuilder::of()->shippingMethods()
+                    ->getMatchingLocation($zone->getLocations()->current());
+                $request->expand('taxCategory.id');
+                $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertTrue(
