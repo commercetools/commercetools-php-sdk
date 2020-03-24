@@ -270,11 +270,8 @@ class ErrorResponseTest extends ApiTestCase
 
         $client = $this->getApiClient();
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $draft) {
-                return $draft->setPublish(true);
-            },
             function (Product $product) use ($client) {
                 $sku = $product->getMasterData()->getCurrent()->getMasterVariant()->getSku();
 
@@ -296,11 +293,8 @@ class ErrorResponseTest extends ApiTestCase
 
         $client = $this->getApiClient();
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $draft) {
-                return $draft->setPublish(true);
-            },
             function (Product $product) use ($client) {
                 $request = RequestBuilder::of()->products()->update($product)
                     ->addAction(
@@ -332,11 +326,8 @@ class ErrorResponseTest extends ApiTestCase
 
         $client = $this->getApiClient();
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $draft) {
-                return $draft->setPublish(true);
-            },
             function (Product $product) use ($client) {
                 $request = RequestBuilder::of()->products()->update($product)
                     ->addAction(
@@ -378,11 +369,8 @@ class ErrorResponseTest extends ApiTestCase
 
         $client = $this->getApiClient();
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $draft) {
-                return $draft->setPublish(true);
-            },
             function (Product $product, ProductType $productType) use ($client) {
                         $request = RequestBuilder::of()->productTypes()->update($productType)
                             ->addAction(
@@ -467,11 +455,8 @@ class ErrorResponseTest extends ApiTestCase
             }
         );
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $draft) {
-                return $draft->setPublish(true);
-            },
             function (Product $product) use ($client) {
                 $request = RequestBuilder::of()->products()->update($product)
                     ->addAction(
@@ -509,11 +494,8 @@ class ErrorResponseTest extends ApiTestCase
 
         $client = $this->getApiClient();
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $draft) {
-                return $draft->setPublish(true);
-            },
             function (Product $product, ProductType $productType) use ($client) {
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(
@@ -573,11 +555,8 @@ class ErrorResponseTest extends ApiTestCase
 
         $client = $this->getApiClient();
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $draft) {
-                return $draft->setPublish(true);
-            },
             function (Product $product, ProductType $productType) use ($client) {
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(
@@ -623,11 +602,8 @@ class ErrorResponseTest extends ApiTestCase
 
         $client = $this->getApiClient('view_products');
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $draft) {
-                return $draft->setPublish(true);
-            },
             function (Product $product) use ($client) {
             }
         );

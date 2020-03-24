@@ -84,6 +84,11 @@ class ProductFixture extends ResourceFixture
         return $draft;
     }
 
+    final public static function publishedProductDraftBuilderFunction(ProductDraft $draft)
+    {
+        return $draft->setPublish(true);
+    }
+
     final public static function defaultProductCreateFunction(ApiClient $client, ProductDraft $draft)
     {
         return parent::defaultCreateFunction($client, self::CREATE_REQUEST_TYPE, $draft);
@@ -281,6 +286,23 @@ class ProductFixture extends ResourceFixture
         );
     }
 
+    final public static function withPublishedProduct(
+        ApiClient $client,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
+        self::withDraftProduct(
+            $client,
+            [__CLASS__, 'publishedProductDraftBuilderFunction'],
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
+        );
+    }
+
     final public static function withUpdateableProduct(
         ApiClient $client,
         callable $assertFunction,
@@ -291,6 +313,24 @@ class ProductFixture extends ResourceFixture
         self::withUpdateableDraftProduct(
             $client,
             [__CLASS__, 'defaultProductDraftBuilderFunction'],
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
+        );
+    }
+
+
+    final public static function withUpdateablePublishedProduct(
+        ApiClient $client,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
+        self::withDraftProduct(
+            $client,
+            [__CLASS__, 'publishedProductDraftBuilderFunction'],
             $assertFunction,
             $createFunction,
             $deleteFunction,

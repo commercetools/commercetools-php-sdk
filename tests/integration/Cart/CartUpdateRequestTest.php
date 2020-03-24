@@ -131,7 +131,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 CartFixture::withUpdateableCart(
@@ -194,7 +194,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 CartFixture::withUpdateableCart(
@@ -251,7 +251,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
@@ -284,7 +284,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
@@ -364,7 +364,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
@@ -440,7 +440,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
@@ -523,7 +523,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
@@ -599,7 +599,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
@@ -1129,7 +1129,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 CartFixture::withUpdateableCart(
@@ -1177,7 +1177,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 CartFixture::withUpdateableCart(
@@ -1316,7 +1316,7 @@ class CartUpdateRequestTest extends ApiTestCase
                 return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())->setResourceTypeIds(['line-item']);
             },
             function (Type $type) use ($client) {
-                ProductFixture::withProduct(
+                ProductFixture::withPublishedProduct(
                     $client,
                     function (Product $product) use ($client, $type) {
                         CartFixture::withUpdateableCart(
@@ -1367,7 +1367,7 @@ class CartUpdateRequestTest extends ApiTestCase
                 return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())->setResourceTypeIds(['line-item']);
             },
             function (Type $type) use ($client) {
-                ProductFixture::withProduct(
+                ProductFixture::withPublishedProduct(
                     $client,
                     function (Product $product) use ($client, $type) {
                         CartFixture::withUpdateableCart(
@@ -1480,7 +1480,7 @@ class CartUpdateRequestTest extends ApiTestCase
                     ->setResourceTypeIds(['line-item']);
             },
             function (Type $type) use ($client) {
-                ProductFixture::withProduct(
+                ProductFixture::withPublishedProduct(
                     $client,
                     function (Product $product) use ($client, $type) {
                         CartFixture::withUpdateableCart(
@@ -1663,7 +1663,7 @@ class CartUpdateRequestTest extends ApiTestCase
                 return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())->setResourceTypeIds(['order']);
             },
             function (Type $type) use ($client, $testField) {
-                ProductFixture::withProduct(
+                ProductFixture::withPublishedProduct(
                     $client,
                     function (Product $product) use ($client, $type, $testField) {
                         CartDiscountFixture::withEmptyDraftCartDiscount(
@@ -1760,7 +1760,7 @@ class CartUpdateRequestTest extends ApiTestCase
         $client = $this->getApiClient();
         $testField = CartFixture::uniqueCartString();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client, $testField) {
                 CartDiscountFixture::withEmptyDraftCartDiscount(
@@ -1955,7 +1955,7 @@ class CartUpdateRequestTest extends ApiTestCase
                 return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())->setResourceTypeIds(['line-item']);
             },
             function (Type $type) use ($client, $testField) {
-                ProductFixture::withProduct(
+                ProductFixture::withPublishedProduct(
                     $client,
                     function (Product $product) use ($client, $type, $testField) {
                         CartDiscountFixture::withEmptyDraftCartDiscount(
@@ -2263,7 +2263,7 @@ class CartUpdateRequestTest extends ApiTestCase
                         PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 1))->setMinimumQuantity(3)
                     ));
 
-                return $productDraft;
+                return $productDraft->setPublish(true);
             },
             function (Product $product) use ($client) {
                 $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
@@ -2359,11 +2359,8 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $productDraft) {
-                return $productDraft->setPublish(true);
-            },
             function (Product $product) use ($client) {
                 CartDiscountFixture::withEmptyDraftCartDiscount(
                     $client,
@@ -2437,7 +2434,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
@@ -2571,7 +2568,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
@@ -2647,7 +2644,7 @@ class CartUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withProduct(
+        ProductFixture::withPublishedProduct(
             $client,
             function (Product $product) use ($client) {
                 $variant = $product->getMasterData()->getCurrent()->getMasterVariant();

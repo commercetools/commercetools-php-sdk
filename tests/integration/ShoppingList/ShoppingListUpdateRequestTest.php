@@ -293,11 +293,8 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $productDraft) {
-                return $productDraft->setPublish(true);
-            },
             function (Product $product) use ($client) {
                 ShoppingListFixture::withUpdateableShoppingList(
                     $client,
@@ -325,11 +322,8 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $productDraft) {
-                return $productDraft->setPublish(true);
-            },
             function (Product $product) use ($client) {
                 ShoppingListFixture::withUpdateableDraftShoppingList(
                     $client,
@@ -358,11 +352,8 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $productDraft) {
-                return $productDraft->setPublish(true);
-            },
             function (Product $product) use ($client) {
                 ShoppingListFixture::withUpdateableDraftShoppingList(
                     $client,
@@ -401,11 +392,8 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
                     ->setResourceTypeIds(['line-item']);
             },
             function (Type $type) use ($client, $typeKey) {
-                ProductFixture::withDraftProduct(
+                ProductFixture::withPublishedProduct(
                     $client,
-                    function (ProductDraft $productDraft) {
-                        return $productDraft->setPublish(true);
-                    },
                     function (Product $product) use ($client, $type, $typeKey) {
                         ShoppingListFixture::withUpdateableDraftShoppingList(
                             $client,
@@ -450,11 +438,8 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
                     ->setResourceTypeIds(['line-item']);
             },
             function (Type $type) use ($client, $typeKey) {
-                ProductFixture::withDraftProduct(
+                ProductFixture::withPublishedProduct(
                     $client,
-                    function (ProductDraft $productDraft) {
-                        return $productDraft->setPublish(true);
-                    },
                     function (Product $product) use ($client, $type, $typeKey) {
                         ShoppingListFixture::withUpdateableDraftShoppingList(
                             $client,
@@ -703,11 +688,8 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProductFixture::withDraftProduct(
+        ProductFixture::withPublishedProduct(
             $client,
-            function (ProductDraft $productDraft) {
-                return $productDraft->setPublish(true);
-            },
             function (Product $product) use ($client) {
                 $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
