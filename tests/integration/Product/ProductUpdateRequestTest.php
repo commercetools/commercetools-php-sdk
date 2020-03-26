@@ -8,12 +8,15 @@ namespace Commercetools\Core\IntegrationTests\Product;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Cart\CartFixture;
 use Commercetools\Core\IntegrationTests\Category\CategoryFixture;
 use Commercetools\Core\IntegrationTests\ProductDiscount\ProductDiscountFixture;
 use Commercetools\Core\IntegrationTests\State\StateFixture;
 use Commercetools\Core\IntegrationTests\TaxCategory\TaxCategoryFixture;
 use Commercetools\Core\IntegrationTests\TestHelper;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
+use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
 use Commercetools\Core\Model\Category\Category;
@@ -80,32 +83,9 @@ use Commercetools\Core\Request\Products\Command\ProductSetSkuAction;
 use Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction;
 use Commercetools\Core\Request\Products\Command\ProductTransitionStateAction;
 use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
-use Commercetools\Core\Request\Products\ProductCreateRequest;
-use Commercetools\Core\Request\Products\ProductDeleteRequest;
-use Commercetools\Core\Request\Products\ProductUpdateRequest;
 
 class ProductUpdateRequestTest extends ApiTestCase
 {
-    private $productId;
-
-//    TODO to remove when all of the tests will be migrated
-    public function tearDown(): void
-    {
-        if (is_null($this->deleteRequest)) {
-            return;
-        }
-        $request = ProductUpdateRequest::ofIdAndVersion($this->productId, $this->deleteRequest->getVersion())
-            ->addAction(ProductUnpublishAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        if (!$response->isError()) {
-            $result = $request->mapResponse($response);
-            $this->deleteRequest->setVersion($result->getVersion());
-        }
-
-        parent::tearDown();
-    }
-
     public function testCreatePublish()
     {
         $client = $this->getApiClient();
@@ -1877,10 +1857,10 @@ class ProductUpdateRequestTest extends ApiTestCase
 
                         $this->assertInstanceOf(Product::class, $result);
                         $this->assertNotSame($product->getVersion(), $result->getVersion());
-                        $resultVariant = $result->getMasterData()->getStaged()->getMasterVariant();
+                        $variantResult = $result->getMasterData()->getStaged()->getMasterVariant();
                         $this->assertSame(
                             900,
-                            $resultVariant->getPrices()->current()->getCurrentValue()->getCentAmount()
+                            $variantResult->getPrices()->current()->getCurrentValue()->getCentAmount()
                         );
 
                         return $result;
@@ -1889,83 +1869,81 @@ class ProductUpdateRequestTest extends ApiTestCase
             }
         );
     }
-//todo migrate Cart first
+
     public function testSetDiscountedPriceWithCart()
     {
-        $discount = $this->getProductDiscount(ProductDiscountValue::of()->setType('external'));
-        $draft = $this->getDraft('set-discounted-price');
-        $draft->setTaxCategory($this->getTaxCategory()->getReference());
-        $draft->setMasterVariant(
-            ProductVariantDraft::ofPrices(
-                PriceDraftCollection::of()->add(
-                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 1000))
-                )
-            )
+        $client = $this->getApiClient();
+
+        ProductDiscountFixture::withDraftProductDiscount(
+            $client,
+            function (ProductDiscountDraft $productDiscountDraft) {
+                return $productDiscountDraft->setValue(ProductDiscountValue::of()->setType('external'))
+                    ->setIsActive(true);
+            },
+            function (ProductDiscount $productDiscount) use ($client) {
+                ProductFixture::withUpdateableDraftProduct(
+                    $client,
+                    function (ProductDraft $productDraft) {
+                        $productDraft->setMasterVariant(
+                            ProductVariantDraft::ofPrices(
+                                PriceDraftCollection::of()->add(
+                                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 1000))
+                                )
+                            )
+                        );
+
+                        return $productDraft;
+                    },
+                    function (Product $product) use ($client, $productDiscount) {
+                        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+                        $discountPrice = DiscountedPrice::ofMoneyAndDiscount(
+                            Money::ofCurrencyAndAmount('EUR', 900),
+                            $productDiscount->getReference()
+                        );
+
+                        $request = RequestBuilder::of()->products()->update($product)
+                            ->addAction(
+                                ProductSetDiscountedPriceAction::ofPriceId(
+                                    $variant->getPrices()->current()->getId()
+                                )->setDiscounted($discountPrice)
+                            )->addAction(
+                                ProductPublishAction::of()
+                            );
+                        sleep(1);
+                        $response = $this->execute($client, $request);
+                        $productResult = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Product::class, $productResult);
+                        $this->assertNotSame($product->getVersion(), $productResult->getVersion());
+
+                        $variantResult = $productResult->getMasterData()->getStaged()->getMasterVariant();
+                        $this->assertSame(
+                            900,
+                            $variantResult->getPrices()->current()->getCurrentValue()->getCentAmount()
+                        );
+
+                        CartFixture::withDraftCart(
+                            $client,
+                            function (CartDraft $cartDraft) use ($productResult, $variantResult) {
+                                 return $cartDraft->setLineItems(
+                                     LineItemDraftCollection::of()->add(
+                                         LineItemDraft::ofProductIdVariantIdAndQuantity(
+                                             $productResult->getId(),
+                                             $variantResult->getId(),
+                                             1
+                                         )
+                                     )
+                                 );
+                            },
+                            function (Cart $cart) use ($client) {
+                                $this->assertSame(900, $cart->getTotalPrice()->getCentAmount());
+                            }
+                        );
+
+                        return $productResult;
+                    }
+                );
+            }
         );
-        $product = $this->createProduct($draft);
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
-
-        $discountPrice = DiscountedPrice::ofMoneyAndDiscount(
-            Money::ofCurrencyAndAmount('EUR', 900),
-            $discount->getReference()
-        );
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductSetDiscountedPriceAction::ofPriceId(
-                    $variant->getPrices()->current()->getId()
-                )->setDiscounted($discountPrice)
-            )->addAction(
-                ProductPublishAction::of()
-            )
-        ;
-        sleep(1);
-
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Product::class, $result);
-        $this->assertNotSame($product->getVersion(), $result->getVersion());
-
-        $resultVariant = $result->getMasterData()->getStaged()->getMasterVariant();
-        $this->assertSame(900, $resultVariant->getPrices()->current()->getCurrentValue()->getCentAmount());
-
-        $cartDraft = $this->getCartDraft()->setLineItems(
-            LineItemDraftCollection::of()->add(
-                LineItemDraft::ofProductIdVariantIdAndQuantity($result->getId(), $resultVariant->getId(), 1)
-            )
-        );
-        $cart = $this->getCart($cartDraft);
-        $this->assertSame(900, $cart->getTotalPrice()->getCentAmount());
-    }
-
-    //    TODO to remove when all of the tests will be migrated
-    /**
-     * @return ProductDraft
-     */
-    protected function getDraft($name)
-    {
-        $draft = ProductDraft::ofTypeNameAndSlug(
-            $this->getProductType()->getReference(),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name)
-        );
-
-        return $draft;
-    }
-//    TODO to remove when all of the tests will be migrated
-    protected function createProduct(ProductDraft $draft)
-    {
-        $request = ProductCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $product = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = ProductDeleteRequest::ofIdAndVersion(
-            $product->getId(),
-            $product->getVersion()
-        );
-        $this->productId = $product->getId();
-
-        return $product;
     }
 }
