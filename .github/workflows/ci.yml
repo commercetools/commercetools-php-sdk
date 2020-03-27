@@ -185,7 +185,7 @@ jobs:
             php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-
 
       - name: Install highest dependencies with composer
-        if: github.event == push
+        if: github.event_name == "push"
         env:
           COMMERCETOOLS_CLIENT_ID: ${{ secrets.COMMERCETOOLS_CLIENT_ID }}
           COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.COMMERCETOOLS_CLIENT_SECRET }}
@@ -193,7 +193,7 @@ jobs:
         run: composer update --no-ansi --no-interaction --no-progress --no-suggest
 
       - name: Install highest dependencies with composer for PR
-        if: github.event == pull_request
+        if: github.event_name == "pull_request"
         env:
           COMMERCETOOLS_CLIENT_ID: ${{ secrets.PR_COMMERCETOOLS_CLIENT_ID }}
           COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.PR_COMMERCETOOLS_CLIENT_SECRET }}
