@@ -20,5 +20,4 @@ use Commercetools\Core\Model\Order\TrackingData;
  */
 class StagedOrderSetParcelTrackingDataAction extends OrderSetParcelTrackingDataAction implements StagedOrderUpdateAction
 {
-
 }

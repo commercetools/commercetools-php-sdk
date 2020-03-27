@@ -22,5 +22,4 @@ use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
  */
 class OrderSetCustomLineItemShippingDetailsAction extends CartSetCustomLineItemShippingDetailsAction
 {
-
 }

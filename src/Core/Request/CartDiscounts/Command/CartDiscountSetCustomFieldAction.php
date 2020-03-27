@@ -19,5 +19,4 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
  */
 class CartDiscountSetCustomFieldAction extends SetCustomFieldAction
 {
-
 }

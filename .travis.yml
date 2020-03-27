@@ -2,16 +2,10 @@ dist: xenial
 sudo: false
 language: php
 php:
-- 5.6
-- 7.1
-- 7.3
-- 7.4snapshot
+- 7.4
 env:
   - GUZZLE=5
   - GUZZLE=6
-matrix:
-  allow_failures:
-  - php: 7.4snapshot
 services:
 - redis-server
 cache:
@@ -24,18 +18,18 @@ before_install:
 - ssh-add github_deploy_key
 - rm github_deploy_key
 - PHP=$TRAVIS_PHP_VERSION
-- if [ $PHP != 'hhvm' ] ; then echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini ; fi
+- echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 before_script:
 - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
+- sed -i '/symplify/d' composer.json
 - if [ $GUZZLE == '5' ] ; then ./set_guzzle5.sh; fi
-- if [ $GUZZLE == '5' ] && [ $PHP == '5.6' ] ; then composer update -o --prefer-dist --prefer-lowest; else composer install -o --prefer-dist; fi
+- if [ $GUZZLE == '5' ] ; then composer update -o --prefer-dist --prefer-lowest; else composer install -o --prefer-dist; fi
 script:
-- if [ $PHP == '5.6' ] ; then vendor/bin/phpunit -c phpunit5.xml.dist --testsuite=unit; fi
-- if [ $PHP != '5.6' ] ; then vendor/bin/phpunit --testsuite=unit; fi
-- if [ $PHP == '7.3' ] && [ $GUZZLE == '6' ] && [ $TRAVIS_PULL_REQUEST == 'false' ]; then vendor/bin/phpunit --testsuite=integration; fi
+- vendor/bin/phpunit --testsuite=unit
+- if [ $GUZZLE == '6' ] && [ $TRAVIS_PULL_REQUEST == 'false' ]; then vendor/bin/phpunit --testsuite=integration; fi
 - bin/ctp-tlscheck.php
 before_deploy:
-  - if [ $PHP == '7.1' ] && [ $GUZZLE == '6' ] ; then ./install-apigen.sh && php apigen.phar generate --debug --config build/apigen.neon; fi
+  - if [ $GUZZLE == '5' ] ; then ./install-apigen.sh && php apigen.phar generate --debug --config build/apigen.neon; fi
 deploy:
   - provider: script
     skip_cleanup: true
@@ -43,14 +37,14 @@ deploy:
     on:
       branch: master
       condition: $GUZZLE = '6'
-      php: 7.1
+      php: 7.4
   - provider: script
     skip_cleanup: true
     script: ./push-docs-to-gh-pages.sh
     on:
       tags: true
       condition: $GUZZLE = '6'
-      php: 7.1
+      php: 7.4
 notifications:
   hipchat:
     rooms:

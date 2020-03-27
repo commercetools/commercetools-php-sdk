@@ -17,5 +17,4 @@ use Commercetools\Core\Request\Carts\Command\CartSetCountryAction;
  */
 class StagedOrderSetCountryAction extends CartSetCountryAction implements StagedOrderUpdateAction
 {
-
 }

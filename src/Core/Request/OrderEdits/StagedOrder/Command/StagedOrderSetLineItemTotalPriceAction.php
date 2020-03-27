@@ -22,5 +22,4 @@ use Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice;
  */
 class StagedOrderSetLineItemTotalPriceAction extends CartSetLineItemTotalPriceAction implements StagedOrderUpdateAction
 {
-
 }

@@ -102,7 +102,6 @@ class Formatter
         return preg_replace_callback(
             '/{\s*([A-Za-z_\-\.0-9]+)\s*}/',
             function (array $matches) use ($request, $response, $error, &$cache) {
-
                 if (isset($cache[$matches[1]])) {
                     return $cache[$matches[1]];
                 }

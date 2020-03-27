@@ -17,5 +17,4 @@ use Commercetools\Core\Request\Carts\Command\CartRemoveItemShippingAddressAction
  */
 class OrderRemoveItemShippingAddressAction extends CartRemoveItemShippingAddressAction
 {
-
 }

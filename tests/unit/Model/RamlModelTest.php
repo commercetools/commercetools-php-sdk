@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model;
 
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Message\Message;
+use Symfony\Component\Yaml\Tag\TaggedValue;
 use Symfony\Component\Yaml\Yaml;
 
 class RamlModelTest extends AbstractModelTest
@@ -360,12 +361,17 @@ class RamlModelTest extends AbstractModelTest
                 return [];
             }
 
-            $types = Yaml::parse(file_get_contents($ramlTypesFile));
+            $types = Yaml::parse(file_get_contents($ramlTypesFile), Yaml::PARSE_CUSTOM_TAGS);
 
+            $types = array_map(function ($t) {
+                if ($t instanceof TaggedValue) {
+                    return trim($t->getValue());
+                }
+                return trim(str_replace('!include', '', $t));
+            }, $types);
             $ramlTypes = [];
-            foreach ($types as $typeName => $typeFile) {
-                $ramlFile = trim(str_replace('!include', '', $typeFile));
-                $ramlType = Yaml::parse(file_get_contents(static::RAML_MODEL_PATH . $ramlFile));
+            foreach ($types as $typeName => $ramlFile) {
+                $ramlType = Yaml::parse(file_get_contents(static::RAML_MODEL_PATH . $ramlFile), Yaml::PARSE_CUSTOM_TAGS);
 
                 if (isset($ramlType['properties']) || isset($ramlType['type'])) {
                     $ramlTypes[$typeName] = $ramlType;
@@ -374,8 +380,7 @@ class RamlModelTest extends AbstractModelTest
 
             $ramlInfos = [];
             foreach ($ramlTypes as $typeName => $ramlType) {
-                $ramlFile = trim(str_replace('!include', '', $types[$typeName]));
-                $package = $this->pascalcase(dirname($ramlFile));
+                $package = $this->pascalcase(dirname($types[$typeName]));
                 $package = preg_replace('/\/updates$/', '', $package);
                 $domain = $this->mapRamlToDomain($package, $typeName);
                 $model = $this->mapRamlToModel($package, $typeName);
