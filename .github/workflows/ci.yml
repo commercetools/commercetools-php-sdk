@@ -119,6 +119,7 @@ jobs:
           key: php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('**/composer.json') }}
           restore-keys: |
             php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-
+
       - name: Install lowest dependencies with composer
         if: matrix.dependencies == 'lowest'
         run: composer update --no-ansi --no-interaction --no-progress --no-suggest --prefer-lowest
@@ -127,11 +128,13 @@ jobs:
         if: matrix.dependencies == 'highest'
         run: composer update --no-ansi --no-interaction --no-progress --no-suggest
 
+      - name: Install pcov clobber
+        run: composer require --dev pcov/clobber
+
       - name: Run tests with phpunit
         run: vendor/bin/phpunit --testsuite=unit --coverage-clover=coverage.xml
 
       - name: Send code coverage report to Codecov.io
-        if: matrix.dependencies == 'highest' && matrix.php-version == '7.4'
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: bash <(curl -s https://codecov.io/bash) || true
