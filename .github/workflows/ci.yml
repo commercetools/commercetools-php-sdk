@@ -184,6 +184,9 @@ jobs:
           restore-keys: |
             php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-
 
+      - name: Remove parameter handler
+        run: sed -i "/incenteev/d" composer.json
+
       - name: Install highest dependencies with composer
         run: composer update --no-ansi --no-interaction --no-progress --no-suggest
 
