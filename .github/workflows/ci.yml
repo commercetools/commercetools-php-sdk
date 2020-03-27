@@ -81,8 +81,8 @@ jobs:
 #      - name: Run psalm
 #        run: php -dmemory_limit=-1 vendor/bin/psalm
 
-  tests:
-    name: Tests
+  unit:
+    name: Unit tests
 
     runs-on: ubuntu-latest
 
@@ -146,6 +146,51 @@ jobs:
 
       - name: Send code coverage report to Codecov.io
         if: matrix.php-version != '5.6'
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: bash <(curl -s https://codecov.io/bash) || true
+
+  integration:
+    name: Integration tests
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version:
+          - "7.4"
+
+        dependencies:
+          - highest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: "Install PHP with extensions"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: pcov
+          extensions: json, mbstring, intl
+          tools: composer
+          ini-values: assert.exception=1, zend.assertions=1
+
+      - name: "Cache dependencies installed with composer"
+        uses: actions/cache@v1
+        with:
+          path: ~/.composer/cache
+          key: php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('**/composer.json') }}
+          restore-keys: |
+            php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-
+
+      - name: Install highest dependencies with composer
+        run: composer update --no-ansi --no-interaction --no-progress --no-suggest
+
+      - name: Run integration tests with phpunit
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml
+
+      - name: Send code coverage report to Codecov.io
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: bash <(curl -s https://codecov.io/bash) || true
