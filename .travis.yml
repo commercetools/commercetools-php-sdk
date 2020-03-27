@@ -5,13 +5,10 @@ php:
 - 5.6
 - 7.1
 - 7.3
-- 7.4snapshot
+- 7.4
 env:
   - GUZZLE=5
   - GUZZLE=6
-matrix:
-  allow_failures:
-  - php: 7.4snapshot
 services:
 - redis-server
 cache:
