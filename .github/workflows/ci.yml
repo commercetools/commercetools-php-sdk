@@ -129,7 +129,7 @@ jobs:
         run: composer update --no-ansi --no-interaction --no-progress --no-suggest
 
       - name: Install pcov clobber
-        run: composer require --dev pcov/clobber
+        run: composer require --dev pcov/clobber && vendor/bin/pcov clobber
 
       - name: Run tests with phpunit
         run: vendor/bin/phpunit --testsuite=unit --coverage-clover=coverage.xml
