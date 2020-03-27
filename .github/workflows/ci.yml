@@ -172,9 +172,9 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           coverage: pcov
-          extensions: json, mbstring, intl
+          extensions: json, mbstring, intl, apcu
           tools: composer
-          ini-values: assert.exception=1, zend.assertions=1
+          ini-values: assert.exception=1, zend.assertions=1, apc.enabled=1, apc.enable_cli=1
 
       - name: "Cache dependencies installed with composer"
         uses: actions/cache@v1
