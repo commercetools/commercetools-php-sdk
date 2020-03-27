@@ -363,8 +363,11 @@ class RamlModelTest extends AbstractModelTest
 
             $types = Yaml::parse(file_get_contents($ramlTypesFile), Yaml::PARSE_CUSTOM_TAGS);
 
-            $types = array_map(function (TaggedValue $t) {
-                return trim($t->getValue());
+            $types = array_map(function ($t) {
+                if ($t instanceof TaggedValue) {
+                    return trim($t->getValue());
+                }
+                return trim(str_replace('!include', '', $t));
             }, $types);
             $ramlTypes = [];
             foreach ($types as $typeName => $ramlFile) {
