@@ -322,14 +322,12 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
         if (!$this->getHttpClient() instanceof TokenProviderAware) {
             $token = $this->getOauthManager()->getToken();
             $httpRequest = $httpRequest
-                ->withHeader('Authorization', 'Bearer ' . $token->getToken())
-            ;
+                ->withHeader('Authorization', 'Bearer ' . $token->getToken());
         }
         if (is_array($headers)) {
             foreach ($headers as $headerName => $headerValues) {
                 $httpRequest = $httpRequest
-                    ->withAddedHeader($headerName, $headerValues)
-                ;
+                    ->withAddedHeader($headerName, $headerValues);
             }
         }
 
