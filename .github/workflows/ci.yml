@@ -108,7 +108,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-version }}
           coverage: pcov
-          extensions: json, mbstring, intl
+          extensions: json, mbstring, intl, apcu
           tools: composer
           ini-values: assert.exception=1, zend.assertions=1
 
