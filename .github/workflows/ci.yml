@@ -184,17 +184,14 @@ jobs:
           restore-keys: |
             php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-
 
-      - name: Remove parameter handler
-        run: sed -i "/incenteev/d" composer.json
-
       - name: Install highest dependencies with composer
-        run: composer update --no-ansi --no-interaction --no-progress --no-suggest
-
-      - name: Run integration tests with phpunit
         env:
           COMMERCETOOLS_CLIENT_ID: ${{ secrets.COMMERCETOOLS_CLIENT_ID }}
           COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.COMMERCETOOLS_CLIENT_SECRET }}
           COMMERCETOOLS_PROJECT: ${{ secrets.COMMERCETOOLS_PROJECT }}
+        run: composer update --no-ansi --no-interaction --no-progress --no-suggest
+
+      - name: Run integration tests with phpunit
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
       - name: Send code coverage report to Codecov.io
