@@ -21,5 +21,4 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 // phpcs:ignore
 class StagedOrderSetCustomLineItemTaxRateAction extends CartSetCustomLineItemTaxRateAction implements StagedOrderUpdateAction
 {
-
 }

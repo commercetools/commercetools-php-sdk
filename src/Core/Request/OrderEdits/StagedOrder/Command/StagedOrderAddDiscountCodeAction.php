@@ -17,5 +17,4 @@ use Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction;
  */
 class StagedOrderAddDiscountCodeAction extends CartAddDiscountCodeAction implements StagedOrderUpdateAction
 {
-
 }

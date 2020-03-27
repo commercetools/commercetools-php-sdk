@@ -75,7 +75,6 @@ class OrderTransitionCustomLineItemStateAction extends AbstractAction
             ->setCustomLineItemId($customLineItemId)
             ->setQuantity($quantity)
             ->setFromState($fromState)
-            ->setToState($toState)
-            ;
+            ->setToState($toState);
     }
 }

@@ -23,5 +23,4 @@ use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
 // phpcs:ignore
 class StagedOrderSetLineItemShippingDetailsAction extends OrderSetLineItemShippingDetailsAction implements StagedOrderUpdateAction
 {
-
 }

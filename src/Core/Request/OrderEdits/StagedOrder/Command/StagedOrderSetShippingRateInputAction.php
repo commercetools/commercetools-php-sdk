@@ -18,5 +18,4 @@ use Commercetools\Core\Model\Cart\ShippingRateInput;
  */
 class StagedOrderSetShippingRateInputAction extends CartSetShippingRateInputAction implements StagedOrderUpdateAction
 {
-
 }

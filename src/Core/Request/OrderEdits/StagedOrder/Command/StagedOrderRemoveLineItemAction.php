@@ -30,5 +30,4 @@ use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
  */
 class StagedOrderRemoveLineItemAction extends CartRemoveLineItemAction implements StagedOrderUpdateAction
 {
-
 }

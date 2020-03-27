@@ -18,5 +18,4 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
  */
 class StagedOrderSetShippingMethodAction extends CartSetShippingMethodAction implements StagedOrderUpdateAction
 {
-
 }

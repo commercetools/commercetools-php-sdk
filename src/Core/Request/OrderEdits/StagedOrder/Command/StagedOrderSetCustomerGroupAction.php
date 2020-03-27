@@ -18,5 +18,4 @@ use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
  */
 class StagedOrderSetCustomerGroupAction extends CartSetCustomerGroupAction implements StagedOrderUpdateAction
 {
-
 }

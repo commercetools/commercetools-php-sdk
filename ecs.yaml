@@ -1,0 +1,11 @@
+# easy-coding-standard.yml
+parameters:
+  cache_directory: .ecs_cache
+  paths:
+    - 'src'
+  exclude_files:
+    - 'src/Core/Builder/*'
+  sets:
+    - 'psr2'
+#services:
+#  Commercetools\Tools\SummaryOnlyOutputFormatter: ~

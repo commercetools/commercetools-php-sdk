@@ -75,7 +75,6 @@ class OrderTransitionLineItemStateAction extends AbstractAction
             ->setLineItemId($lineItemId)
             ->setQuantity($quantity)
             ->setFromState($fromState)
-            ->setToState($toState)
-            ;
+            ->setToState($toState);
     }
 }

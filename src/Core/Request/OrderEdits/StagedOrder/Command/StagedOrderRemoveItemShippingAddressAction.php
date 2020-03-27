@@ -18,5 +18,4 @@ use Commercetools\Core\Request\Orders\Command\OrderRemoveItemShippingAddressActi
 // phpcs:ignore
 class StagedOrderRemoveItemShippingAddressAction extends OrderRemoveItemShippingAddressAction implements StagedOrderUpdateAction
 {
-
 }

@@ -17,5 +17,4 @@ use Commercetools\Core\Request\Carts\Command\CartRemoveCustomLineItemAction;
  */
 class StagedOrderRemoveCustomLineItemAction extends CartRemoveCustomLineItemAction implements StagedOrderUpdateAction
 {
-
 }
