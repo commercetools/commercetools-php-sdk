@@ -12,39 +12,38 @@ cache:
   directories:
   - vendor
 before_install:
-- openssl aes-256-cbc -K $encrypted_17acaeff100f_key -iv $encrypted_17acaeff100f_iv -in github_deploy_key.enc -out github_deploy_key -d
-- chmod 600 github_deploy_key
-- eval $(ssh-agent -s)
-- ssh-add github_deploy_key
-- rm github_deploy_key
+#- openssl aes-256-cbc -K $encrypted_17acaeff100f_key -iv $encrypted_17acaeff100f_iv -in github_deploy_key.enc -out github_deploy_key -d
+#- chmod 600 github_deploy_key
+#- eval $(ssh-agent -s)
+#- ssh-add github_deploy_key
+#- rm github_deploy_key
 - PHP=$TRAVIS_PHP_VERSION
 - echo "extension = redis.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 before_script:
 - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
-- sed -i '/symplify/d' composer.json
 - if [ $GUZZLE == '5' ] ; then ./set_guzzle5.sh; fi
 - if [ $GUZZLE == '5' ] ; then composer update -o --prefer-dist --prefer-lowest; else composer install -o --prefer-dist; fi
 script:
 - vendor/bin/phpunit --testsuite=unit
 - if [ $GUZZLE == '6' ] && [ $TRAVIS_PULL_REQUEST == 'false' ]; then vendor/bin/phpunit --testsuite=integration; fi
-- bin/ctp-tlscheck.php
-before_deploy:
-  - if [ $GUZZLE == '5' ] ; then ./install-apigen.sh && php apigen.phar generate --debug --config build/apigen.neon; fi
-deploy:
-  - provider: script
-    skip_cleanup: true
-    script: ./push-docs-to-gh-pages.sh
-    on:
-      branch: master
-      condition: $GUZZLE = '6'
-      php: 7.4
-  - provider: script
-    skip_cleanup: true
-    script: ./push-docs-to-gh-pages.sh
-    on:
-      tags: true
-      condition: $GUZZLE = '6'
-      php: 7.4
+#- bin/ctp-tlscheck.php
+#before_deploy:
+#  - if [ $GUZZLE == '5' ] ; then ./install-apigen.sh && php apigen.phar generate --debug --config build/apigen.neon; fi
+#deploy:
+#  - provider: script
+#    skip_cleanup: true
+#    script: ./push-docs-to-gh-pages.sh
+#    on:
+#      branch: master
+#      condition: $GUZZLE = '6'
+#      php: 7.4
+#  - provider: script
+#    skip_cleanup: true
+#    script: ./push-docs-to-gh-pages.sh
+#    on:
+#      tags: true
+#      condition: $GUZZLE = '6'
+#      php: 7.4
 notifications:
   hipchat:
     rooms:
