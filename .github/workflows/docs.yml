@@ -2,7 +2,7 @@ name: Build and deploy docs
 on:
   push:
     branches:
-      - gh-workflows-docs
+      - master
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -31,9 +31,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           BASE_BRANCH: master
-          BRANCH: test-gh-pages
+          BRANCH: gh-pages
           FOLDER: build/docs
           CLEAN: true
           SSH: true
-          EMAIL: automation@commercetools.com
-          NAME: automation
