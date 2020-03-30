@@ -11,7 +11,7 @@ The SDK is licensed under the permissive [MIT License](LICENSE). Don't hesitate 
 
 ## Using the SDK
 
-The [PHP API documentation](http://commercetools.github.io/commercetools-php-sdk/docs/master) provides all the details you need in a searchable form (link points to latest stable release).
+The [PHP API documentation](http://commercetools.github.io/commercetools-php-sdk) provides all the details you need in a searchable form (link points to latest stable release).
 
 ### Install & Integrate the SDK into your Project
 
