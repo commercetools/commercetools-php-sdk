@@ -117,10 +117,6 @@ jobs:
         if: matrix.dependencies == 'lowest'
         run: ./set_guzzle5.sh
 
-      - name: Set PHPUnit5
-        if: matrix.php-version == '5.6'
-        run: sed -i "/symplify/d" composer.json &&  ./set_phpunit5.sh
-
       - name: Install lowest dependencies with composer
         if: matrix.dependencies == 'lowest'
         run: composer update --no-ansi --no-interaction --no-progress --no-suggest --prefer-lowest
@@ -130,15 +126,9 @@ jobs:
         run: composer update --no-ansi --no-interaction --no-progress --no-suggest
 
       - name: Run tests with phpunit
-        if: matrix.php-version != '5.6'
         run: vendor/bin/phpunit --testsuite=unit --coverage-clover=coverage.xml
 
-      - name: Run tests with phpunit5
-        if: matrix.php-version == '5.6'
-        run: vendor/bin/phpunit -c phpunit5.xml.dist --testsuite=unit
-
       - name: Send code coverage report to Codecov.io
-        if: matrix.php-version != '5.6'
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: bash <(curl -s https://codecov.io/bash) || true
