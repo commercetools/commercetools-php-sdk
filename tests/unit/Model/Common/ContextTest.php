@@ -65,7 +65,7 @@ class ContextTest extends \PHPUnit\Framework\TestCase
     {
         $context = Context::of();
         $contextStr = serialize($context);
-        $this->assertInternalType('string', $contextStr);
+        $this->assertIsString($contextStr);
     }
 
     public function testSetLocaleWithoutIntl()

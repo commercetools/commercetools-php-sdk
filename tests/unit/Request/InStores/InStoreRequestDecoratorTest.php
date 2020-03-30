@@ -6,9 +6,7 @@
 namespace Commercetools\Core\Request\InStores;
 
 use Commercetools\Core\Error\InvalidArgumentException;
-use Commercetools\Core\Request\AbstractByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
-use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
 use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\RequestTestCase;
@@ -35,12 +33,10 @@ class InStoreRequestDecoratorTest extends RequestTestCase
         $this->assertSame('in-store/key=store-key/orders/order-id', (string)$decoratedRequest->getUri());
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testInvalidRequest()
     {
         $request = ProjectGetRequest::of();
+        $this->expectException(InvalidArgumentException::class);
         InStoreRequestDecorator::ofStoreKeyAndRequest('store-key', $request);
     }
 }

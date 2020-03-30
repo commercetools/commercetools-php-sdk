@@ -73,7 +73,7 @@ class ProductsSuggestRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertStringStartsWith('product-projections/suggest', (string)$httpRequest->getUri());
-        $this->assertContains($expected, (string)$httpRequest->getUri());
+        $this->assertStringContainsString($expected, (string)$httpRequest->getUri());
     }
 
     public function testFuzzyKeyword()
@@ -86,9 +86,9 @@ class ProductsSuggestRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertStringStartsWith('product-projections/suggest', (string)$httpRequest->getUri());
-        $this->assertContains('fuzzy=true&searchKeywords.en=test', (string)$httpRequest->getUri());
+        $this->assertStringContainsString('fuzzy=true&searchKeywords.en=test', (string)$httpRequest->getUri());
     }
-    
+
     public function testAddKeyword()
     {
         $request = ProductsSuggestRequest::of();

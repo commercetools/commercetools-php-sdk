@@ -5,7 +5,7 @@
 
 namespace Commercetools\Core\Model\Common;
 
-use Commercetools\Core\Error\InvalidArgumentException;
+use InvalidArgumentException;
 use Commercetools\Core\Model\Product\ProductProjection;
 use Commercetools\Core\Model\Product\ProductProjectionCollection;
 
@@ -71,13 +71,11 @@ class CollectionTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf('\DateTime', $obj->getAt(0));
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testWrongType()
     {
         $obj = Collection::of();
         $obj->setType('\DateTime');
+        $this->expectException(InvalidArgumentException::class);
         $obj->add('test');
     }
 

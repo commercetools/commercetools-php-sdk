@@ -11,6 +11,7 @@ use Cache\Adapter\PHPArray\ArrayCachePool;
 use Cache\Adapter\Void\VoidCachePool;
 use Commercetools\Core\Cache\CacheAdapterFactory;
 use Commercetools\Core\Client\Adapter\ConfigAware;
+use Commercetools\Core\Error\InvalidClientCredentialsException;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -248,9 +249,6 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    /**
-     * @expectedException \Commercetools\Core\Error\InvalidClientCredentialsException
-     */
     public function testError()
     {
         $manager = $this->getManager(
@@ -264,6 +262,7 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
             true
         );
 
+        $this->expectException(InvalidClientCredentialsException::class);
         /**
          * @var Manager $manager
          */

@@ -30,11 +30,9 @@ class ProductProjectionBySlugGetRequestTest extends RequestTestCase
         return ['slug', $this->getContext()];
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testNoLanguages()
     {
+        $this->expectException(InvalidArgumentException::class);
         ProductProjectionBySlugGetRequest::ofSlugAndContext('slug', new Context());
     }
 
@@ -106,19 +104,15 @@ class ProductProjectionBySlugGetRequestTest extends RequestTestCase
         );
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testHttpRequestPathSingleLanguageTypeContext()
     {
+        $this->expectException(InvalidArgumentException::class);
         $request = ProductProjectionBySlugGetRequest::ofSlugAndLanguage('slug', $this->getContext());
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testHttpRequestPathSingleLanguageTypeArray()
     {
+        $this->expectException(InvalidArgumentException::class);
         $request = ProductProjectionBySlugGetRequest::ofSlugAndLanguage('slug', ['de']);
     }
 

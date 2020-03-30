@@ -14,10 +14,10 @@ class AttributeTest extends \PHPUnit\Framework\TestCase
     public function apiTypeProvider()
     {
         return [
-            'string' => ['string', ['name' => 'string', 'value' => 'bar']],
-            'int' => ['int', ['name' => 'int', 'value' => 1]],
-            'float' => ['float', ['name' => 'float', 'value' => 1.1]],
-            'bool' => ['bool', ['name' => 'bool', 'value' => true]],
+            'string' => ['string', ['name' => 'string', 'value' => 'bar'], 'assertIsString'],
+            'int' => ['int', ['name' => 'int', 'value' => 1], 'assertIsInt'],
+            'float' => ['float', ['name' => 'float', 'value' => 1.1], 'assertIsFloat'],
+            'bool' => ['bool', ['name' => 'bool', 'value' => true], 'assertIsBool'],
             'ltext' => [LocalizedString::class, ['name' => 'ltext', 'value' => ['en' => 'Foo']]],
             'enum' => [
                 Enum::class,
@@ -51,10 +51,10 @@ class AttributeTest extends \PHPUnit\Framework\TestCase
     public function valueTypeProvider()
     {
         return [
-            'string' => ['string', ['name' => 'value-string', 'value' => 'bar'], 'getValueAsString'],
-            'int' => ['int', ['name' => 'value-int', 'value' => 1], 'getValueAsNumber'],
-            'float' => ['float', ['name' => 'value-float', 'value' => 1.1], 'getValueAsNumber'],
-            'bool' => ['bool', ['name' => 'value-bool', 'value' => true], 'getValueAsBool'],
+            'string' => ['string', ['name' => 'value-string', 'value' => 'bar'], 'getValueAsString', null, 'assertIsString'],
+            'int' => ['int', ['name' => 'value-int', 'value' => 1], 'getValueAsNumber', null, 'assertIsInt'],
+            'float' => ['float', ['name' => 'value-float', 'value' => 1.1], 'getValueAsNumber', null, 'assertIsFloat'],
+            'bool' => ['bool', ['name' => 'value-bool', 'value' => true], 'getValueAsBool', null, 'assertIsBool'],
             'ltext' => [LocalizedString::class, ['name' => 'value-ltext', 'value' => ['en' => 'Foo']], 'getValueAsLocalizedString'],
             'enum' => [
                 Enum::class,
@@ -86,10 +86,10 @@ class AttributeTest extends \PHPUnit\Framework\TestCase
                 ],
                 'getValueAsNested'
             ],
-            'string-set' => [Set::class, ['name' => 'value-string-set', 'value' => ['value1', 'value2']], 'getValueAsStringSet', 'string'],
-            'int-set' => [Set::class, ['name' => 'value-int-set', 'value' => [1, 2]], 'getValueAsNumberSet', 'int'],
-            'float-set' => [Set::class, ['name' => 'value-float-set', 'value' => [1.1, 2.2]], 'getValueAsNumberSet', 'float'],
-            'bool-set' => [Set::class, ['name' => 'value-bool-set', 'value' => [true, false]], 'getValueAsBoolSet', 'bool'],
+            'string-set' => [Set::class, ['name' => 'value-string-set', 'value' => ['value1', 'value2']], 'getValueAsStringSet', 'string', 'assertIsString'],
+            'int-set' => [Set::class, ['name' => 'value-int-set', 'value' => [1, 2]], 'getValueAsNumberSet', 'int', 'assertIsInt'],
+            'float-set' => [Set::class, ['name' => 'value-float-set', 'value' => [1.1, 2.2]], 'getValueAsNumberSet', 'float', 'assertIsFloat'],
+            'bool-set' => [Set::class, ['name' => 'value-bool-set', 'value' => [true, false]], 'getValueAsBoolSet', 'bool', 'assertIsBool'],
             'ltext-set' => [Set::class, ['name' => 'value-ltext-set', 'value' => [['en' => 'Foo'], ['en' => 'Bar']]], 'getValueAsLocalizedStringSet', LocalizedString::class],
             'enum-set' => [Set::class, ['name' => 'value-enum-set', 'value' => [['key' => 'foo', 'label' => 'Foo'], ['key' => 'bar', 'label' => 'Bar']]], 'getValueAsEnumSet', Enum::class],
             'lenum-set' => [Set::class, ['name' => 'value-lenum-set', 'value' => [['key' => 'foo', 'label' => ['en' => 'Foo']], ['key' => 'bar', 'label' => ['en' => 'Bar']]]], 'getValueAsLocalizedEnumSet', LocalizedEnum::class],
@@ -115,23 +115,24 @@ class AttributeTest extends \PHPUnit\Framework\TestCase
      * @param string $type
      * @param array $data
      */
-    public function testFromArray($type, $data)
+    public function testFromArray($type, $data, $assertMethod = null)
     {
         $attribute = Attribute::fromArray($data);
 
         if (is_object($attribute->getValue())) {
             $this->assertInstanceOf($type, $attribute->getValue());
         } else {
-            $this->assertInternalType($type, $attribute->getValue());
+            $this->$assertMethod($attribute->getValue());
         }
     }
+
 
     /**
      * @dataProvider valueTypeProvider
      * @param string $type
      * @param array $data
      */
-    public function testGetValueAs($type, $data, $getter, $elementType = null)
+    public function testGetValueAs($type, $data, $getter, $elementType = null, $assertMethod = null)
     {
         $attribute = Attribute::fromArray($data);
 
@@ -139,14 +140,14 @@ class AttributeTest extends \PHPUnit\Framework\TestCase
         if (is_object($value)) {
             $this->assertInstanceOf($type, $value);
         } else {
-            $this->assertInternalType($type, $value);
+            $this->$assertMethod($value);
         }
         if (isset($elementType)) {
             $element = $value->current();
             if (is_object($element)) {
                 $this->assertInstanceOf($elementType, $element);
             } else {
-                $this->assertInternalType($elementType, $element);
+                $this->$assertMethod($element);
             }
         }
     }

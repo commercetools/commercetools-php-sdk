@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\ProductType;
 
+use BadMethodCallException;
 use Commercetools\Core\Model\Common\EnumCollection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedEnumCollection;
@@ -33,14 +34,12 @@ class AttributeTypeTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     */
     public function testTypeUnset()
     {
         $type = AttributeType::fromArray([
             'name' => 'text'
         ]);
+        $this->expectException(BadMethodCallException::class);
         $type->getValues();
     }
 }
