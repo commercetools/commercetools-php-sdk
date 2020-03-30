@@ -12,13 +12,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        php-version:
-          - "7.4"
-        dependencies:
-          - highest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -26,7 +19,7 @@ jobs:
       - name: "Install PHP with extensions"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
+          php-version: 7.4
           extensions: json, mbstring, intl
           tools: composer
 
@@ -34,9 +27,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.composer/cache
-          key: php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('**/composer.json') }}
+          key: php7.4-composer-highest-${{ hashFiles('**/composer.json') }}
           restore-keys: |
-            php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-
+            php7.4-composer-highest-
 
       - name: Install dependencies with composer
         run: composer update --no-ansi --no-interaction --no-progress --no-suggest
@@ -155,14 +148,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        php-version:
-          - "7.4"
-
-        dependencies:
-          - highest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -170,7 +155,7 @@ jobs:
       - name: "Install PHP with extensions"
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
+          php-version: 7.4
           coverage: pcov
           extensions: json, mbstring, intl, apcu
           tools: composer
@@ -180,9 +165,9 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.composer/cache
-          key: php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('**/composer.json') }}
+          key: php7.4-composer-highest-${{ hashFiles('**/composer.json') }}
           restore-keys: |
-            php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-
+            php7.4-composer-highest-
 
       - name: Install highest dependencies with composer
         if: github.event_name == 'push'
