@@ -95,9 +95,6 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         );
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidType()
     {
         $client = $this->getApiClient();
@@ -105,6 +102,7 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         CustomObjectFixture::withCustomObject(
             $client,
             function (CustomObject $customObject) use ($client) {
+                $this->expectException(\InvalidArgumentException::class);
                 RequestBuilder::of()->customObjects()->create(new \stdClass());
             }
         );
