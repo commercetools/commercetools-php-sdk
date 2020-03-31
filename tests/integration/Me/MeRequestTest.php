@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Me;
 
+use Commercetools\Core\Error\BadRequestException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Config;
@@ -59,9 +60,6 @@ class MeRequestTest extends ApiTestCase
         $this->assertSame($customer->getId(), $result->getId());
     }
 
-    /**
-     * @expectedException \Commercetools\Core\Error\BadRequestException
-     */
     public function testPasswordChangeRevokeToken()
     {
         $customerDraft = $this->getCustomerDraft();
@@ -94,6 +92,7 @@ class MeRequestTest extends ApiTestCase
         TestHelper::getInstance($this->getClient())->setCustomer($result);
 
         $request = MeGetRequest::of();
+        $this->expectException(BadRequestException::class);
         $request->executeWithClient($client);
     }
 
