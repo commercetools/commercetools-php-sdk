@@ -15,6 +15,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method CustomerSetDefaultBillingAddressAction setAddressId(string $addressId = null)
  * @method string getAction()
  * @method CustomerSetDefaultBillingAddressAction setAction(string $action = null)
+ * @method string getAddressKey()
+ * @method CustomerSetDefaultBillingAddressAction setAddressKey(string $addressKey = null)
  */
 class CustomerSetDefaultBillingAddressAction extends AbstractAction
 {
@@ -22,7 +24,8 @@ class CustomerSetDefaultBillingAddressAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'addressId' => [static::TYPE => 'string']
+            'addressId' => [static::TYPE => 'string'],
+            'addressKey' => [static::TYPE => 'string'],
         ];
     }
 

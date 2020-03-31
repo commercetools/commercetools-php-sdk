@@ -15,6 +15,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method CustomerAddShippingAddressAction setAddressId(string $addressId = null)
  * @method string getAction()
  * @method CustomerAddShippingAddressAction setAction(string $action = null)
+ * @method string getAddressKey()
+ * @method CustomerAddShippingAddressAction setAddressKey(string $addressKey = null)
  */
 class CustomerAddShippingAddressAction extends AbstractAction
 {
@@ -22,7 +24,8 @@ class CustomerAddShippingAddressAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'addressId' => [static::TYPE => 'string']
+            'addressId' => [static::TYPE => 'string'],
+            'addressKey' => [static::TYPE => 'string'],
         ];
     }
 

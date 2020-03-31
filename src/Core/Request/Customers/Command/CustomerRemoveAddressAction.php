@@ -15,6 +15,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method CustomerRemoveAddressAction setAddressId(string $addressId = null)
  * @method string getAction()
  * @method CustomerRemoveAddressAction setAction(string $action = null)
+ * @method string getAddressKey()
+ * @method CustomerRemoveAddressAction setAddressKey(string $addressKey = null)
  */
 class CustomerRemoveAddressAction extends AbstractAction
 {
@@ -22,7 +24,8 @@ class CustomerRemoveAddressAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'addressId' => [static::TYPE => 'string']
+            'addressId' => [static::TYPE => 'string'],
+            'addressKey' => [static::TYPE => 'string'],
         ];
     }
 
@@ -44,5 +47,10 @@ class CustomerRemoveAddressAction extends AbstractAction
     public static function ofAddressId($addressId, $context = null)
     {
         return static::of($context)->setAddressId($addressId);
+    }
+
+    public static function ofAddressKey($addressKey, $context = null)
+    {
+        return static::of($context)->setAddressKey($addressKey);
     }
 }

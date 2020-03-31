@@ -15,6 +15,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method CustomerRemoveBillingAddressAction setAddressId(string $addressId = null)
  * @method string getAction()
  * @method CustomerRemoveBillingAddressAction setAction(string $action = null)
+ * @method string getAddressKey()
+ * @method CustomerRemoveBillingAddressAction setAddressKey(string $addressKey = null)
  */
 class CustomerRemoveBillingAddressAction extends AbstractAction
 {
@@ -22,7 +24,8 @@ class CustomerRemoveBillingAddressAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'addressId' => [static::TYPE => 'string']
+            'addressId' => [static::TYPE => 'string'],
+            'addressKey' => [static::TYPE => 'string'],
         ];
     }
 
