@@ -25,7 +25,7 @@ class ManagerTest extends ApiTestCase
         $this->assertEmpty($config->getScope());
         $this->assertNotEmpty($token->getScope());
         $this->assertNotEmpty($token->getToken());
-        $this->assertContains('manage_project', $token->getScope());
+        $this->assertStringContainsString('manage_project', $token->getScope());
     }
 
     public function testCorrelationId()

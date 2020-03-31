@@ -9,6 +9,7 @@ namespace Commercetools\Core;
 use Commercetools\Core\Client\Adapter\AdapterOptionInterface;
 use Commercetools\Core\Client\Adapter\ConfigAware;
 use Commercetools\Core\Client\OAuth\Manager;
+use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\BadGatewayException;
 use Commercetools\Core\Error\ConcurrentModificationException;
 use Commercetools\Core\Error\ErrorContainer;
@@ -226,9 +227,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertTrue($response->isError());
     }
 
-    /**
-     * @expectedException \Commercetools\Core\Error\ApiException
-     */
     public function testUnexpectedException()
     {
         $oauthMockBuilder = $this->getMockBuilder(Manager::class);
@@ -255,6 +253,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             [$endpoint, 'id']
         );
 
+        $this->expectException(ApiException::class);
         $clientMock->execute($request);
     }
 
@@ -317,7 +316,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $record = current($handler->getRecords());
 
         $this->assertTrue($handler->hasInfo($record));
-        $this->assertContains('GET /project/test/id', (string)$record['message']);
+        $this->assertStringContainsString('GET /project/test/id', (string)$record['message']);
         $this->assertSame(Logger::INFO, $record['level']);
     }
 
@@ -340,7 +339,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $record = current($handler->getRecords());
         $this->assertTrue($handler->hasDebug($record));
-        $this->assertContains('GET /project/test/id', (string)$record['message']);
+        $this->assertStringContainsString('GET /project/test/id', (string)$record['message']);
         $this->assertSame(Logger::DEBUG, $record['level']);
     }
 
@@ -363,7 +362,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $record = current($handler->getRecords());
         $this->assertTrue($handler->hasInfo($record));
-        $this->assertContains('GET /project/test/id', (string)$record['message']);
+        $this->assertStringContainsString('GET /project/test/id', (string)$record['message']);
         $this->assertSame(Logger::INFO, $record['level']);
     }
 
@@ -514,9 +513,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertJsonStringEqualsJsonString($errorBody, $logEntry['context']['responseBody']);
     }
 
-    /**
-     * @expectedException \Commercetools\Core\Error\ApiException
-     */
     public function testBatchException()
     {
         $oauthMockBuilder = $this->getMockBuilder(Manager::class);
@@ -550,6 +546,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $clientMock->addBatchRequest($request1);
         $clientMock->addBatchRequest($request2);
 
+        $this->expectException(ApiException::class);
         $clientMock->executeBatch();
     }
 
@@ -661,7 +658,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      * @param $returnCode
      * @param $exceptionClass
      * @param $returnBody
-     * @expectedException \Commercetools\Core\Error\ApiException
      */
     public function testExceptions($returnCode, $exceptionClass, $returnBody)
     {
@@ -678,6 +674,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
          */
         $request = $this->getMockForAbstractClass(AbstractQueryRequest::class, [$endpoint]);
 
+        $this->expectException(ApiException::class);
         try {
             $client->execute($request);
         } catch (\Exception $e) {

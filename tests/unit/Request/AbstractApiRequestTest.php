@@ -97,12 +97,10 @@ class AbstractApiRequestTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testNoParamKey()
     {
         $request = $this->getRequest(static::ABSTRACT_API_REQUEST);
+        $this->expectException(\InvalidArgumentException::class);
         $request->addParam('', '');
     }
 

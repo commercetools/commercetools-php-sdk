@@ -562,7 +562,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Category::class, $result);
-                $this->assertContains(
+                $this->assertStringContainsString(
                     $newSource->getUri(),
                     $result->getAssets()->current()->getSources()->current()->getUri()
                 );
@@ -806,7 +806,7 @@ class CategoryUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Category::class, $result);
-                $this->assertContains(
+                $this->assertStringContainsString(
                     $newSource->getUri(),
                     $result->getAssets()->current()->getSources()->current()->getUri()
                 );

@@ -39,11 +39,9 @@ class LocalizedStringTest extends \PHPUnit\Framework\TestCase
         return $context;
     }
 
-    /**
-     * @expectedException \Commercetools\Core\Error\InvalidArgumentException
-     */
     public function testGetUnknownLocale()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getString()->get($this->getContext('de'));
     }
 
