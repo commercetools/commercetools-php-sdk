@@ -55,7 +55,7 @@ class CustomerChangeAddressAction extends AbstractAction
     }
 
     /**
-     * @param $addressKey
+     * @param string $addressKey
      * @param Address $address
      * @param Context|callable $context
      * @return CustomerChangeAddressAction

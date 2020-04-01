@@ -38,4 +38,24 @@ class CustomerAddBillingAddressAction extends AbstractAction
         parent::__construct($data, $context);
         $this->setAction('addBillingAddressId');
     }
+
+    /**
+     * @param string $addressId
+     * @param Context|callable $context
+     * @return CustomerAddBillingAddressAction
+     */
+    public static function ofAddressId($addressId, $context = null)
+    {
+        return static::of($context)->setAddressId($addressId);
+    }
+
+    /**
+     * @param string $addressKey
+     * @param Context|callable $context
+     * @return CustomerAddBillingAddressAction
+     */
+    public static function ofAddressKey($addressKey, $context = null)
+    {
+        return static::of($context)->setAddressKey($addressKey);
+    }
 }

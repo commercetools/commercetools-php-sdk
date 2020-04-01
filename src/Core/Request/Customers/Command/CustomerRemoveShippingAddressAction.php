@@ -38,4 +38,24 @@ class CustomerRemoveShippingAddressAction extends AbstractAction
         parent::__construct($data, $context);
         $this->setAction('removeShippingAddressId');
     }
+
+    /**
+     * @param string $addressId
+     * @param Context|callable $context
+     * @return CustomerRemoveShippingAddressAction
+     */
+    public static function ofAddressId($addressId, $context = null)
+    {
+        return static::of($context)->setAddressId($addressId);
+    }
+
+    /**
+     * @param string $addressKey
+     * @param Context|callable $context
+     * @return CustomerRemoveShippingAddressAction
+     */
+    public static function ofAddressKey($addressKey, $context = null)
+    {
+        return static::of($context)->setAddressKey($addressKey);
+    }
 }

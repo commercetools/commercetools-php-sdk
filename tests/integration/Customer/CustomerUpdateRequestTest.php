@@ -312,57 +312,6 @@ class CustomerUpdateRequestTest extends ApiTestCase
         );
     }
 
-    public function testAddressWithKey()
-    {
-        $client = $this->getApiClient();
-
-        CustomerFixture::withUpdateableCustomer(
-            $client,
-            function (Customer $customer) use ($client) {
-                $address = $this->getAddress()->setKey('key-' . CustomerFixture::uniqueCustomerString());
-
-                $request = RequestBuilder::of()->customers()->update($customer)
-                    ->addAction(CustomerAddAddressAction::ofAddress($address));
-                $response = $this->execute($client, $request);
-                $customer = $request->mapFromResponse($response);
-
-                $this->assertCount(1, $customer->getAddresses());
-                $this->assertSame($address->getFirstName(), $customer->getAddresses()->current()->getFirstName());
-
-                $address = Address::of()
-                    ->setKey('key-' . CustomerFixture::uniqueCustomerString())
-                    ->setCountry('DE')
-                    ->setLastName('new-' . CustomerFixture::uniqueCustomerString() . '-lastName');
-
-                $request = RequestBuilder::of()->customers()->update($customer)
-                    ->addAction(
-                        CustomerChangeAddressAction::ofAddressKeyAndAddress(
-                            $customer->getAddresses()->current()->getKey(),
-                            $address
-                        )
-                    );
-                $response = $this->execute($client, $request);
-                $customer = $request->mapFromResponse($response);
-
-                $this->assertNull($customer->getAddresses()->current()->getFirstName());
-                $this->assertSame($address->getLastName(), $customer->getAddresses()->current()->getLastName());
-
-                $request = RequestBuilder::of()->customers()->update($customer)
-                    ->addAction(
-                        CustomerRemoveAddressAction::ofAddressKey(
-                            $customer->getAddresses()->current()->getKey()
-                        )
-                    );
-                $response = $this->execute($client, $request);
-                $result = $request->mapFromResponse($response);
-
-                $this->assertCount(0, $result->getAddresses());
-
-                return $result;
-            }
-        );
-    }
-
     public function testAddressExternalId()
     {
         $client = $this->getApiClient();
@@ -404,7 +353,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
                 $request = RequestBuilder::of()->customers()->update($customer)
                     ->addAction(
-                        CustomerSetDefaultShippingAddressAction::of()->setAddressId(
+                        CustomerSetDefaultShippingAddressAction::ofAddressId(
                             $customer->getAddresses()->current()->getId()
                         )
                     );
@@ -457,7 +406,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
                 $request = RequestBuilder::of()->customers()->update($customer)
                     ->addAction(
-                        CustomerAddShippingAddressAction::of()->setAddressId(
+                        CustomerAddShippingAddressAction::ofAddressId(
                             $customer->getAddresses()->current()->getId()
                         )
                     );
@@ -471,7 +420,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
                 $request = RequestBuilder::of()->customers()->update($customer)
                     ->addAction(
-                        CustomerRemoveShippingAddressAction::of()->setAddressId(
+                        CustomerRemoveShippingAddressAction::ofAddressId(
                             $customer->getAddresses()->current()->getId()
                         )
                     );
@@ -503,7 +452,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
                 $request = RequestBuilder::of()->customers()->update($customer)
                     ->addAction(
-                        CustomerAddBillingAddressAction::of()->setAddressId(
+                        CustomerAddBillingAddressAction::ofAddressId(
                             $customer->getAddresses()->current()->getId()
                         )
                     );
@@ -517,7 +466,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
                 $request = RequestBuilder::of()->customers()->update($customer)
                     ->addAction(
-                        CustomerRemoveBillingAddressAction::of()->setAddressId(
+                        CustomerRemoveBillingAddressAction::ofAddressId(
                             $customer->getAddresses()->current()->getId()
                         )
                     );
@@ -549,7 +498,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
 
                 $request = RequestBuilder::of()->customers()->update($customer)
                     ->addAction(
-                        CustomerSetDefaultBillingAddressAction::of()->setAddressId(
+                        CustomerSetDefaultBillingAddressAction::ofAddressId(
                             $customer->getAddresses()->current()->getId()
                         )
                     );
@@ -1004,6 +953,186 @@ class CustomerUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertEmpty($result->getStores());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testAddressWithKey()
+    {
+        $client = $this->getApiClient();
+
+        CustomerFixture::withUpdateableCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                $address = $this->getAddress()->setKey('key-' . CustomerFixture::uniqueCustomerString());
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(CustomerAddAddressAction::ofAddress($address));
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
+
+                $this->assertCount(1, $customer->getAddresses());
+                $this->assertSame($address->getFirstName(), $customer->getAddresses()->current()->getFirstName());
+
+                $address = Address::of()
+                    ->setKey('new-key-' . CustomerFixture::uniqueCustomerString())
+                    ->setCountry('DE')
+                    ->setLastName('new-' . CustomerFixture::uniqueCustomerString() . '-lastName');
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerChangeAddressAction::ofAddressKeyAndAddress(
+                            $customer->getAddresses()->current()->getKey(),
+                            $address
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
+
+                $this->assertNull($customer->getAddresses()->current()->getFirstName());
+                $this->assertSame($address->getLastName(), $customer->getAddresses()->current()->getLastName());
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerRemoveAddressAction::ofAddressKey(
+                            $customer->getAddresses()->current()->getKey()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertCount(0, $result->getAddresses());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testAddressUpdateWithNewKey()
+    {
+        $client = $this->getApiClient();
+        $address = Address::of()
+            ->setCountry('DE')
+            ->setKey('key-' . CustomerFixture::uniqueCustomerString());
+
+        CustomerFixture::withUpdateableDraftCustomer(
+            $client,
+            function (CustomerDraft $customerDraft) use ($address) {
+                return $customerDraft->setAddresses(AddressCollection::of()->add($address));
+            },
+            function (Customer $customer) use ($client, $address) {
+                $this->assertCount(1, $customer->getAddresses());
+
+                $newAddress = Address::of()
+                    ->setKey('new-key-' . CustomerFixture::uniqueCustomerString())
+                    ->setCountry('DE')
+                    ->setLastName('new-' . CustomerFixture::uniqueCustomerString() . '-lastName');
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerChangeAddressAction::ofAddressKeyAndAddress(
+                            $customer->getAddresses()->current()->getKey(),
+                            $newAddress
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
+
+                $this->assertSame($newAddress->getKey(), $customer->getAddresses()->current()->getKey());
+                $this->assertCount(1, $customer->getAddresses());
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerRemoveAddressAction::ofAddressKey(
+                            $customer->getAddresses()->current()->getKey()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertCount(0, $result->getAddresses());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testAddBillingAddressWithKey()
+    {
+        $client = $this->getApiClient();
+        $address = Address::of()
+            ->setCountry('DE')
+            ->setKey('key-' . CustomerFixture::uniqueCustomerString());
+
+        CustomerFixture::withUpdateableDraftCustomer(
+            $client,
+            function (CustomerDraft $customerDraft) use ($address) {
+                return $customerDraft->setAddresses(AddressCollection::of()->add($address));
+            },
+            function (Customer $customer) use ($client, $address) {
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerAddBillingAddressAction::ofAddressKey(
+                            $customer->getAddresses()->current()->getKey()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
+
+                $this->assertCount(1, $customer->getAddresses());
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerRemoveBillingAddressAction::ofAddressKey(
+                            $customer->getAddresses()->current()->getKey()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertEmpty($result->getBillingAddressIds());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testAddShippingAddressWithKey()
+    {
+        $client = $this->getApiClient();
+        $address = Address::of()
+            ->setCountry('DE')
+            ->setKey('key-' . CustomerFixture::uniqueCustomerString());
+
+        CustomerFixture::withUpdateableDraftCustomer(
+            $client,
+            function (CustomerDraft $customerDraft) use ($address) {
+                return $customerDraft->setAddresses(AddressCollection::of()->add($address));
+            },
+            function (Customer $customer) use ($client, $address) {
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerAddShippingAddressAction::ofAddressKey(
+                            $customer->getAddresses()->current()->getKey()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $customer = $request->mapFromResponse($response);
+
+                $this->assertCount(1, $customer->getAddresses());
+
+                $request = RequestBuilder::of()->customers()->update($customer)
+                    ->addAction(
+                        CustomerRemoveShippingAddressAction::ofAddressKey(
+                            $customer->getAddresses()->current()->getKey()
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertEmpty($result->getShippingAddressIds());
 
                 return $result;
             }
