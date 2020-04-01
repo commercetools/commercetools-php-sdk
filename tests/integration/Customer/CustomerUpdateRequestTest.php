@@ -60,7 +60,6 @@ class CustomerUpdateRequestTest extends ApiTestCase
     protected function getAddress()
     {
         return Address::of()
-            ->setKey('key-' . CustomerFixture::uniqueCustomerString())
             ->setCountry('DE')
             ->setFirstName('new-' . CustomerFixture::uniqueCustomerString() . '-firstName');
     }
@@ -320,7 +319,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
         CustomerFixture::withUpdateableCustomer(
             $client,
             function (Customer $customer) use ($client) {
-                $address = $this->getAddress();
+                $address = $this->getAddress()->setKey('key-' . CustomerFixture::uniqueCustomerString());
 
                 $request = RequestBuilder::of()->customers()->update($customer)
                     ->addAction(CustomerAddAddressAction::ofAddress($address));
