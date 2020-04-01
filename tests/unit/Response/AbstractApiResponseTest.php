@@ -19,6 +19,7 @@ use Commercetools\Core\Client\Adapter\Guzzle6Adapter;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Request\AbstractApiRequest;
+use BadMethodCallException;
 
 /**
  * Class AbstractApiResponseTest
@@ -154,21 +155,17 @@ class AbstractApiResponseTest extends \PHPUnit\Framework\TestCase
         $this->assertNull($response->toObject());
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     */
     public function testThenFail()
     {
         $response = $this->getResponse('{"key":"value"}');
+        $this->expectException(BadMethodCallException::class);
         $response->then();
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     */
     public function testWaitFail()
     {
         $response = $this->getResponse('{"key":"value"}');
+        $this->expectException(BadMethodCallException::class);
         $response->wait();
     }
 

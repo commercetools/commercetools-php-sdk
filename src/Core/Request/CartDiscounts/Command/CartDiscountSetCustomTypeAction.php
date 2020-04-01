@@ -21,5 +21,4 @@ use Commercetools\Core\Model\CustomField\FieldContainer;
  */
 class CartDiscountSetCustomTypeAction extends SetCustomTypeAction
 {
-
 }

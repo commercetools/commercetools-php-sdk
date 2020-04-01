@@ -21,5 +21,4 @@ use Commercetools\Core\Model\Order\ItemStateCollection;
 // phpcs:ignore
 class StagedOrderImportCustomLineItemStateAction extends OrderImportCustomLineItemStateAction implements StagedOrderUpdateAction
 {
-
 }

@@ -34,14 +34,14 @@ done
 if [ "$FILES" != "" ]
 then
     echo "Running Code Sniffer..."
-    ./vendor/bin/phpcs --standard=PSR2 --extensions=php --encoding=utf-8 -n -p $FILES
+    ./vendor/bin/ecs check $FILES
     if [ $? != 0 ]
     then
         echo "Coding standards errors have been detected. Running phpcbf..."
-        ./vendor/bin/phpcbf --standard=PSR2 --extensions=php --encoding=utf-8 -n -p $FILES
+        ./vendor/bin/ecs check --fix $FILES
         git add $FILES
         echo "Running Code Sniffer again..."
-        ./vendor/bin/phpcs --standard=PSR2 --extensions=php --encoding=utf-8 -n -p $FILES
+        ./vendor/bin/ecs check $FILES
         if [ $? != 0 ]
         then
             echo "Errors found not fixable automatically"

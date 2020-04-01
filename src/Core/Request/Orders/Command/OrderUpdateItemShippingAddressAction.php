@@ -18,5 +18,4 @@ use Commercetools\Core\Model\Common\Address;
  */
 class OrderUpdateItemShippingAddressAction extends CartUpdateItemShippingAddressAction
 {
-
 }

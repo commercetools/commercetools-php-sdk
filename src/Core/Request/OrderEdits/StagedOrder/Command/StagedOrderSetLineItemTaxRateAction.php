@@ -20,5 +20,4 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  */
 class StagedOrderSetLineItemTaxRateAction extends CartSetLineItemTaxRateAction implements StagedOrderUpdateAction
 {
-
 }

@@ -5,7 +5,7 @@
 
 namespace Commercetools\Core\Model\Product;
 
-use Commercetools\Core\Error\InvalidArgumentException;
+use InvalidArgumentException;
 use Commercetools\Core\Model\Common\Context;
 
 class LocalizedSearchKeywordsTest extends \PHPUnit\Framework\TestCase
@@ -27,11 +27,9 @@ class LocalizedSearchKeywordsTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('', (string)$collection->en);
     }
 
-    /**
-     * @expectedException InvalidArgumentException
-     */
     public function testGetNoLocale()
     {
+        $this->expectException(InvalidArgumentException::class);
         $collection = LocalizedSearchKeywords::of();
         $collection->get();
     }

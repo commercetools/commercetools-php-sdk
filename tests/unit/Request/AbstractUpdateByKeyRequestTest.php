@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Request;
 
+use Commercetools\Core\Error\UpdateActionLimitException;
 use Commercetools\Core\Response\ResourceResponse;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
@@ -120,12 +121,10 @@ class AbstractUpdateByKeyRequestTest extends \PHPUnit\Framework\TestCase
         $this->assertCount(AbstractUpdateRequest::ACTION_MAX_LIMIT, $request->getActions());
     }
 
-    /**
-     * @expectedException \Commercetools\Core\Error\UpdateActionLimitException
-     */
     public function testLogLimitException()
     {
         $request = $this->getUpdateRequest();
+        $this->expectException(UpdateActionLimitException::class);
         for ($i = 0; $i <= (AbstractUpdateRequest::ACTION_MAX_LIMIT); $i++) {
             $request->addActionAsArray(['key' => 'value']);
         }

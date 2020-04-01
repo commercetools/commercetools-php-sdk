@@ -6,6 +6,8 @@
 
 namespace Commercetools\Core;
 
+use Commercetools\Core\Error\InvalidArgumentException;
+
 class ConfigTest extends \PHPUnit\Framework\TestCase
 {
     protected function getConfig()
@@ -80,22 +82,18 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('https://api.europe-west1.gcp.commercetools.com', $config->getApiUrl());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testUnknownEntry()
     {
         $config = new Config();
+        $this->expectException(InvalidArgumentException::class);
         $config->fromArray(['key' => 'value']);
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testInvalidConfig()
     {
         $config = new Config();
         $config->fromArray([]);
+        $this->expectException(InvalidArgumentException::class);
         $config->check();
     }
 
@@ -110,7 +108,6 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @dataProvider mandatoryConfig
-     * @expectedException \InvalidArgumentException
      */
     public function testNoClientIdSet($mandatoryField)
     {
@@ -118,6 +115,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
         unset($testConfig[$mandatoryField]);
         $config = new Config();
         $config->fromArray($testConfig);
+        $this->expectException(InvalidArgumentException::class);
         $config->check();
     }
 

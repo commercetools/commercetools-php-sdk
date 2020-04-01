@@ -20,5 +20,4 @@ use Commercetools\Core\Request\Carts\Command\CartChangeCustomLineItemQuantityAct
 // phpcs:ignore
 class StagedOrderChangeCustomLineItemQuantityAction extends CartChangeCustomLineItemQuantityAction implements StagedOrderUpdateAction
 {
-
 }

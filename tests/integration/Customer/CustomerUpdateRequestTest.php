@@ -825,7 +825,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidInput/");
+        $this->expectExceptionMessageMatches("/InvalidInput/");
 
         $client = $this->getApiClient();
 

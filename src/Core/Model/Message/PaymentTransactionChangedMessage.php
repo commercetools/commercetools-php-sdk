@@ -39,5 +39,4 @@ use Commercetools\Core\Model\Common\Reference;
  */
 class PaymentTransactionChangedMessage extends PaymentTransactionStateChangedMessage
 {
-
 }

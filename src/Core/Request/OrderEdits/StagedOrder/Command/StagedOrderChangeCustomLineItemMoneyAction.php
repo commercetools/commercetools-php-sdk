@@ -21,5 +21,4 @@ use Commercetools\Core\Model\Common\Money;
 // phpcs:ignore
 class StagedOrderChangeCustomLineItemMoneyAction extends CartChangeCustomLineItemMoneyAction implements StagedOrderUpdateAction
 {
-
 }

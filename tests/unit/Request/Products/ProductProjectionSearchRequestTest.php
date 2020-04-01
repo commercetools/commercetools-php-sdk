@@ -27,7 +27,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains('fuzzy=true', (string)$httpRequest->getBody());
+        $this->assertStringContainsString('fuzzy=true', (string)$httpRequest->getBody());
     }
 
     public function testMarkMatchingVariant()
@@ -94,7 +94,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains($expected, (string)$httpRequest->getBody());
+        $this->assertStringContainsString($expected, (string)$httpRequest->getBody());
     }
 
     public function testMapResult()
@@ -126,7 +126,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains('filter=key%3A%22value%22', (string)$httpRequest->getBody());
+        $this->assertStringContainsString('filter=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testAddMultiFilterString()
@@ -140,7 +140,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains('filter=foo%3A%22bar%22&filter=key%3A%22value%22', (string)$httpRequest->getBody());
+        $this->assertStringContainsString('filter=foo%3A%22bar%22&filter=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testAddFilterInt()
@@ -153,7 +153,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains('filter=key%3A10', (string)$httpRequest->getBody());
+        $this->assertStringContainsString('filter=key%3A10', (string)$httpRequest->getBody());
     }
 
     public function testAddFilterArray()
@@ -166,7 +166,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains('filter=key%3A10%2C20%2C30', (string)$httpRequest->getBody());
+        $this->assertStringContainsString('filter=key%3A10%2C20%2C30', (string)$httpRequest->getBody());
     }
 
     public function testAddFilterQuery()
@@ -179,7 +179,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains('filter.query=key%3A%22value%22', (string)$httpRequest->getBody());
+        $this->assertStringContainsString('filter.query=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testAddFilterQueryFacet()
@@ -193,7 +193,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains('facet=key%3A%22value%22&filter.query=key%3A%22value%22', (string)$httpRequest->getBody());
+        $this->assertStringContainsString('facet=key%3A%22value%22&filter.query=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testAddMultiFilterQuery()
@@ -207,7 +207,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'filter.query=foo%3A%22bar%22&filter.query=key%3A%22value%22',
             (string)$httpRequest->getBody()
         );
@@ -223,7 +223,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains('filter.facets=key%3A%22value%22', (string)$httpRequest->getBody());
+        $this->assertStringContainsString('filter.facets=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testAddMultiFilterFacets()
@@ -237,7 +237,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'filter.facets=foo%3A%22bar%22&filter.facets=key%3A%22value%22',
             (string)$httpRequest->getBody()
         );
@@ -253,7 +253,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains('facet=key%3A%22value%22', (string)$httpRequest->getBody());
+        $this->assertStringContainsString('facet=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testAddMultiFacet()
@@ -267,7 +267,7 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
-        $this->assertContains('facet=foo%3A%22bar%22&facet=key%3A%22value%22', (string)$httpRequest->getBody());
+        $this->assertStringContainsString('facet=foo%3A%22bar%22&facet=key%3A%22value%22', (string)$httpRequest->getBody());
     }
 
     public function testHttpRequestMethod()
