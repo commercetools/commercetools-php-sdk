@@ -54,6 +54,12 @@ class CustomerChangeAddressAction extends AbstractAction
         return static::of($context)->setAddressId($addressId)->setAddress($address);
     }
 
+    /**
+     * @param $addressKey
+     * @param Address $address
+     * @param Context|callable $context
+     * @return CustomerChangeAddressAction
+     */
     public static function ofAddressKeyAndAddress($addressKey, Address $address, $context = null)
     {
         return static::of($context)->setAddressKey($addressKey)->setAddress($address);

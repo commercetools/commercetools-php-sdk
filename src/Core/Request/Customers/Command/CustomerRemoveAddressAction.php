@@ -49,6 +49,11 @@ class CustomerRemoveAddressAction extends AbstractAction
         return static::of($context)->setAddressId($addressId);
     }
 
+    /**
+     * @param $addressKey
+     * @param Context|callable $context
+     * @return CustomerRemoveAddressAction
+     */
     public static function ofAddressKey($addressKey, $context = null)
     {
         return static::of($context)->setAddressKey($addressKey);

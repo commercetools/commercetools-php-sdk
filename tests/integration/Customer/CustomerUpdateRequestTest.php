@@ -284,7 +284,6 @@ class CustomerUpdateRequestTest extends ApiTestCase
                 $this->assertSame($address->getFirstName(), $customer->getAddresses()->current()->getFirstName());
 
                 $address = Address::of()
-                    ->setKey('key-' . CustomerFixture::uniqueCustomerString())
                     ->setCountry('DE')
                     ->setLastName('new-' . CustomerFixture::uniqueCustomerString() . '-lastName');
 
