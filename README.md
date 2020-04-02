@@ -166,18 +166,7 @@ foreach ($products as $product) {
 }
 ```
 
-#### Instantiation
-
-```php
-$config = Config::fromArray(
- ['client_id' => '<client_id>', 'client_secret' => '<client_secret>', 'project' => '<project>']
-);
-$client = ClientFactory::of()->createClient($config);
-```
-
-#### Execution
-
-##### Synchronous
+#### Synchronous execution
 
 ```php
 $request = ProductProjectionSearchRequest::of();
@@ -185,7 +174,7 @@ $response = $client->execute($request);
 $products = $request->mapFromResponse($response);
 ```
 
-##### Asynchronous
+##### Asynchronous execution
 The asynchronous execution will return a promise to fulfill the request.
 
 ```php
@@ -193,19 +182,17 @@ $response = $client->executeAsync(ProductProjectionSearchRequest::of());
 $products = $request->mapFromResponse($response->wait());
 ```
 
-##### Batch
+#### Batch execution
 By filling the batch queue and starting the execution all requests will be executed in parallel.
 
 ```php
-$responses = Pool::batch(
+$responses = GuzzleHttp\Pool::batch(
     $client,
     [ProductProjectionSearchRequest::of()->httpRequest(), CartByIdGetRequest::ofId($cartId)->httpRequest()]
 );
 ```
 
-#### Instantiation options
-
-##### Using a logger
+#### Using a logger
 
 The client uses the PSR-3 logger interface for logging requests and deprecation notices. To enable
 logging provide a PSR-3 compliant logger (e.g. Monolog).
@@ -216,7 +203,7 @@ $logger->pushHandler(new StreamHandler('./requests.log'));
 $client = ClientFactory::of()->createClient($config, $logger);
 ```
 
-##### Using a cache adapter
+#### Using a cache adapter
 
 The client will automatically request an OAuth token and store the token in the provided cache.
 
@@ -227,49 +214,22 @@ E.g. Redis:
 ```php
 $redis = new \Redis();
 $redis->connect('localhost');
-$cache = new CacheAdapterFactory()->get($redis);
-$client = ClientFactory::of()->createClient($config, null, $cache);
+$client = ClientFactory::of()->createClient($config, $logger, $redis);
 ```
 
-##### Using cache and logger
+#### Using cache and logger
 
 ```php
 $client = ClientFactory::of()->createClient($config, $logger, $cache);
 ```
 
-##### Using a custom cache adapter
-
-```php
-class <CacheClass>Adapter implements \Psr\Cache\CacheItemPoolInterface {
-    protected $cache;
-    public function __construct(<CacheClass> $cache) {
-        $this->cache = $cache;
-    }
-}
-
-$client->getAdapterFactory()->registerCallback(function ($cache) {
-    if ($cache instanceof <CacheClass>) {
-        return new <CacheClass>Adapter($cache);
-    }
-    return null;
-});
-```
-
-#### Using a custom client class
-
-If some additional configuration is needed or the client should have custom logic you could provide a class name
-to be used for the client instance. This class has to be an extended Guzzle client.
-
-```php
-$client = ClientFactory::of()->createCustomClient(MyCustomClient::class, $config);
-```
 
 #### Middlewares
 
 Adding middlewares to the clients for platform as well for the authentication can be done using the config
 by setting client options.
 
-##### Using a HandlerStack
+For using a custom HandlerStack
 
 ```php
 $handler = HandlerStack::create();
@@ -280,7 +240,7 @@ $handler->push(Middleware::mapRequest(function (RequestInterface $request) {
 $config = Config::of()->setClientOptions(['handler' => $handler])
 ```
 
-##### Using a middleware array
+For using an array of middlewares
 
 ```php
 $middlewares = [
@@ -292,7 +252,7 @@ $middlewares = [
 $config = Config::of()->setClientOptions(['middlewares' => $middlewares])
 ```
 
-#### Using the phar distribution
+### Using the phar distribution
 
 Since version 1.6 the SDK is also released as a PHAR. You can find them in the [releases section](https://github.com/commercetools/commercetools-php-sdk/releases) at Github.
 

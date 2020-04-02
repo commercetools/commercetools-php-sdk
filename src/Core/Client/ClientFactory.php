@@ -98,7 +98,6 @@ use Psr\SimpleCache\CacheInterface;
  * ```php
  * $redis = new \Redis();
  * $redis->connect('localhost');
- * $cache = new CacheAdapterFactory()->get($redis);
  * $client = ClientFactory::of()->createClient($config, null, $cache);
  * ```
  *
