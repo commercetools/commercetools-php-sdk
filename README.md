@@ -174,7 +174,7 @@ $response = $client->execute($request);
 $products = $request->mapFromResponse($response);
 ```
 
-##### Asynchronous execution
+#### Asynchronous execution
 The asynchronous execution will return a promise to fulfill the request.
 
 ```php
