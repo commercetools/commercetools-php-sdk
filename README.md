@@ -117,11 +117,11 @@ $config = [
 ];
 ```
 
-In real world, you will not put your API credentials directly into code but use a config file or your framework's config or dependency injection system for that.
+In projects you will not put your API credentials directly into code but use a config file or your framework's config or dependency injection system for that.
 
-#### Using the client factory
+### Using the client factory
 
-When using at Guzzle greater then version 6, it's also possible to use a preconfigured Guzzle client using the client factory. At the moment this is limited to client credentials authentication flow.
+When using a Guzzle version greater than 6, it's also possible to use a preconfigured Guzzle client using the client factory. At the moment this is limited to client credentials authentication flow.
 
 ```php
 <?php
@@ -166,7 +166,93 @@ foreach ($products as $product) {
 }
 ```
 
-#### Using the phar distribution
+#### Synchronous execution
+
+```php
+$request = ProductProjectionSearchRequest::of();
+$response = $client->execute($request);
+$products = $request->mapFromResponse($response);
+```
+
+#### Asynchronous execution
+The asynchronous execution will return a promise to fulfill the request.
+
+```php
+$response = $client->executeAsync(ProductProjectionSearchRequest::of());
+$products = $request->mapFromResponse($response->wait());
+```
+
+#### Batch execution
+By filling the batch queue and starting the execution all requests will be executed in parallel.
+
+```php
+$responses = GuzzleHttp\Pool::batch(
+    $client,
+    [ProductProjectionSearchRequest::of()->httpRequest(), CartByIdGetRequest::ofId($cartId)->httpRequest()]
+);
+```
+
+#### Using a logger
+
+The client uses the PSR-3 logger interface for logging requests and deprecation notices. To enable
+logging provide a PSR-3 compliant logger (e.g. Monolog).
+
+```php
+$logger = new \Monolog\Logger('name');
+$logger->pushHandler(new StreamHandler('./requests.log'));
+$client = ClientFactory::of()->createClient($config, $logger);
+```
+
+#### Using a cache adapter
+
+The client will automatically request an OAuth token and store the token in the provided cache.
+
+It's also possible to use a different cache adapter. The SDK provides a Doctrine, a Redis and an APCu cache adapter.
+By default the SDK tries to instantiate the APCu or a PSR-6 filesystem cache adapter if there is no cache given.
+E.g. Redis:
+
+```php
+$redis = new \Redis();
+$redis->connect('localhost');
+$client = ClientFactory::of()->createClient($config, $logger, $redis);
+```
+
+#### Using cache and logger
+
+```php
+$client = ClientFactory::of()->createClient($config, $logger, $cache);
+```
+
+
+#### Middlewares
+
+Adding middlewares to the clients for platform as well for the authentication can be done using the config
+by setting client options.
+
+For using a custom HandlerStack
+
+```php
+$handler = HandlerStack::create();
+$handler->push(Middleware::mapRequest(function (RequestInterface $request) {
+    ...
+    return $request; })
+);
+$config = Config::of()->setClientOptions(['handler' => $handler])
+```
+
+For using an array of middlewares
+
+```php
+$middlewares = [
+    Middleware::mapRequest(function (RequestInterface $request) {
+    ...
+    return $request; }),
+    ...
+]
+$config = Config::of()->setClientOptions(['middlewares' => $middlewares])
+```
+
+### Using the phar distribution
 
 Since version 1.6 the SDK is also released as a PHAR. You can find them in the [releases section](https://github.com/commercetools/commercetools-php-sdk/releases) at Github.
 
@@ -176,13 +262,16 @@ Usage example:
 
 require __DIR__ . '/commercetools-php-sdk.phar';
 
+use Commercetools\Core\Client\ClientFactory;
+use Commercetools\Core\Builder\Request\RequestBuilder;
+
 $config = \Commercetools\Core\Config::fromArray([
     'client_id' => 'myClientId',
     'client_secret' => 'myClientSecret',
     'project' => 'myProjectId'
 ]);
-$client = \Commercetools\Core\Client::ofConfig($config);
-$request = \Commercetools\Core\Request\Project\ProjectGetRequest::of();
+$client = ClientFactory::of()->createClient($config);
+$request = RequestBuilder::of()->project()->get();
 
 $response = $client->execute($request);
 
