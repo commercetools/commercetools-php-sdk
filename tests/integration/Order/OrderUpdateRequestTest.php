@@ -77,6 +77,7 @@ use Commercetools\Core\Request\Orders\Command\OrderSetParcelTrackingDataAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
+use Commercetools\Core\Request\Orders\Command\OrderSetStoreAction;
 use Commercetools\Core\Request\Orders\Command\OrderUpdateItemShippingAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction;
 use Commercetools\Core\Request\Orders\OrderByOrderNumberGetRequest;
@@ -1448,5 +1449,22 @@ class OrderUpdateRequestTest extends ApiTestCase
 
         $this->assertInstanceOf(Order::class, $result);
         $this->assertSame($order->getId(), $result->getId());
+    }
+
+    public function testSetStore()
+    {
+        $store = $this->getStore();
+        $draft = $this->getCartDraft();
+        $order = $this->createOrder($draft);
+
+        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
+            ->addAction(OrderSetStoreAction::of()->setStore(StoreReference::ofId($store->getId())));
+        $response = $request->executeWithClient($this->getClient());
+        $result = $request->mapFromResponse($response);
+        $this->deleteRequest->setVersion($result->getVersion());
+
+        $this->assertInstanceOf(Order::class, $result);
+        $this->assertNotSame($order->getVersion(), $result->getVersion());
+        $this->assertSame($store->getKey(), $result->getStore()->getKey());
     }
 }

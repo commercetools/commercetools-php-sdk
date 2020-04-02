@@ -5,67 +5,65 @@
 
 namespace Commercetools\Core\IntegrationTests\Category;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Category\CategoryDraft;
 use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Request\Categories\CategoryCreateRequest;
-use Commercetools\Core\Request\Categories\CategoryDeleteByKeyRequest;
-use Commercetools\Core\Request\Categories\CategoryDeleteRequest;
 
 class CategoryCreateRequestTest extends ApiTestCase
 {
-    /**
-     * @param $name
-     * @param $slug
-     * @return CategoryDraft
-     */
-    protected function getDraft($name, $slug)
-    {
-        $draft = CategoryDraft::ofNameAndSlug(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $slug)
-        );
-
-        return $draft;
-    }
-
-    protected function createCategory(CategoryDraft $draft)
-    {
-        $request = CategoryCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $category = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = CategoryDeleteRequest::ofIdAndVersion(
-            $category->getId(),
-            $category->getVersion()
-        );
-
-        return $category;
-    }
-
-
     public function testCreate()
     {
-        $draft = $this->getDraft('myCategory', 'my-category');
-        $category = $this->createCategory($draft);
-        $this->assertSame($draft->getName()->en, $category->getName()->en);
-        $this->assertSame($draft->getSlug()->en, $category->getSlug()->en);
-        $this->assertNotEmpty($category->getId());
-        $this->assertSame(1, $category->getVersion());
+        $client = $this->getApiClient();
+
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                $nameAndSlug = LocalizedString::ofLangAndText('en', 'myCategory');
+
+                return $draft->setName($nameAndSlug)->setSlug($nameAndSlug);
+            },
+            function (Category $category) use ($client) {
+                $request = RequestBuilder::of()->categories()->query()
+                    ->where('name(en=:name)', ['name' => $category->getName()->en]);
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($category->getName()->en, $result->current()->getName()->en);
+                $this->assertSame($category->getSlug()->en, $result->current()->getSlug()->en);
+                $this->assertNotEmpty($result->current()->getId());
+                $this->assertSame(1, $result->current()->getVersion());
+            }
+        );
     }
 
     public function testDeleteByKey()
     {
-        $draft = $this->getDraft('myCategory', 'my-category')->setKey($this->getTestRun());
-        $category = $this->createCategory($draft);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(404);
 
-        $request = CategoryDeleteByKeyRequest::ofKeyAndVersion(
-            $category->getKey(),
-            $category->getVersion()
+        $client = $this->getApiClient();
+
+        CategoryFixture::withDraftCategory(
+            $client,
+            function (CategoryDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'myCategory'))
+                    ->setKey(CategoryFixture::uniqueCategoryString());
+            },
+            function (Category $category) use ($client) {
+                $request = RequestBuilder::of()->categories()->deleteByKey($category);
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($category->getId(), $result->getId());
+                $this->assertInstanceOf(Category::class, $result);
+
+                $request = RequestBuilder::of()->categories()->getByKey($result->getKey());
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
+            }
         );
-        $result = $this->getClient()->execute($request);
-        $response = $request->mapFromResponse($result);
-
-        $this->assertSame($category->getId(), $response->getId());
     }
 }

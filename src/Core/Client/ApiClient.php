@@ -30,8 +30,7 @@ class ApiClient extends Client implements ContextAwareInterface
         if (is_array($headers)) {
             foreach ($headers as $headerName => $headerValues) {
                 $httpRequest = $httpRequest
-                    ->withAddedHeader($headerName, $headerValues)
-                ;
+                    ->withAddedHeader($headerName, $headerValues);
             }
         }
         return parent::send($httpRequest, $options);
@@ -52,8 +51,7 @@ class ApiClient extends Client implements ContextAwareInterface
         if (is_array($headers)) {
             foreach ($headers as $headerName => $headerValues) {
                 $httpRequest = $httpRequest
-                    ->withAddedHeader($headerName, $headerValues)
-                ;
+                    ->withAddedHeader($headerName, $headerValues);
             }
         }
         return parent::sendAsync($httpRequest, $options);

@@ -7,6 +7,8 @@ use Commercetools\Core\Request\ShippingMethods\ShippingMethodByIdGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByKeyGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByLocationGetRequest;
 use Commercetools\Core\Model\Zone\Location;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodByMatchingLocationGetRequest;
+use Commercetools\Core\Request\ShippingMethods\ShippingMethodByMatchingOrderEditGetRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodCreateRequest;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodDraft;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodDeleteByKeyRequest;
@@ -66,6 +68,39 @@ class ShippingMethodRequestBuilder
         }
         if (!is_null($currency)) {
             $request->withCurrency($currency);
+        }
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-location
+     * @param Location $location
+     * @param string $currency
+     * @return ShippingMethodByMatchingLocationGetRequest
+     */
+    public function getMatchingLocation(Location $location, $currency = null)
+    {
+        $request = ShippingMethodByMatchingLocationGetRequest::ofCountry($location->getCountry());
+        if (!is_null($location->getState())) {
+            $request->withState($location->getState());
+        }
+        if (!is_null($currency)) {
+            $request->withCurrency($currency);
+        }
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-an-orderedit
+     * @param string $orderEditId
+     * @param Location $location
+     * @return ShippingMethodByMatchingOrderEditGetRequest
+     */
+    public function getMatchingOrderEdit($orderEditId, Location $location)
+    {
+        $request = ShippingMethodByMatchingOrderEditGetRequest::ofOrderEditAndCountry($orderEditId, $location->getCountry());
+        if (!is_null($location->getState())) {
+            $request->withState($location->getState());
         }
         return $request;
     }

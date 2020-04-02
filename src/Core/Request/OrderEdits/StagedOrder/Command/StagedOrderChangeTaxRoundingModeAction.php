@@ -17,5 +17,4 @@ use Commercetools\Core\Request\Carts\Command\CartChangeTaxRoundingModeAction;
  */
 class StagedOrderChangeTaxRoundingModeAction extends CartChangeTaxRoundingModeAction implements StagedOrderUpdateAction
 {
-
 }

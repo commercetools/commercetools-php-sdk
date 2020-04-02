@@ -5,30 +5,25 @@
 
 namespace Commercetools\Core\IntegrationTests\CartDiscount;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\IntegrationTests\TestHelper;
+use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\CartDiscount;
+use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
+use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
-use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
-use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountByKeyGetRequest;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteByKeyRequest;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountUpdateByKeyRequest;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeCartPredicateAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeIsActiveAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeNameAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeRequiresDiscountCodeAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeSortOrderAction;
-use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeStackingModeAction;
+use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeTargetAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountChangeValueAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetDescriptionAction;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountDeleteRequest;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountUpdateRequest;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetKeyAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAction;
 use Commercetools\Core\Request\CartDiscounts\Command\CartDiscountSetValidFromAndUntilAction;
@@ -38,400 +33,420 @@ class CartDiscountUpdateRequestTest extends ApiTestCase
 {
     public function testChangeValue()
     {
-        $draft = $this->getDraft('change-value');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
 
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'change-value'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $value = AbsoluteCartDiscountValue::of()->setMoney(
+                    MoneyCollection::of()
+                        ->add(Money::ofCurrencyAndAmount('EUR', 200))
+                );
 
-        $value = CartDiscountValue::of()->setType('absolute')->setMoney(
-            MoneyCollection::of()
-                ->add(
-                    Money::ofCurrencyAndAmount('EUR', 200)
-                )
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(CartDiscountChangeValueAction::ofCartDiscountValue($value));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $this->assertSame(
+                    $value->getMoney()->current()->getCentAmount(),
+                    $result->getValue()->getMoney()->current()->getCentAmount()
+                );
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(CartDiscountChangeValueAction::ofCartDiscountValue($value))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $this->assertSame(
-            $value->getMoney()->current()->getCentAmount(),
-            $result->getValue()->getMoney()->current()->getCentAmount()
-        );
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
     }
 
     public function testChangeCartPredicate()
     {
-        $draft = $this->getDraft('change-predicate');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
 
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'change-predicate'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(CartDiscountChangeCartPredicateAction::ofCartPredicate('2=2'));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $predicate = '2=2';
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(
-                CartDiscountChangeCartPredicateAction::ofCartPredicate($predicate)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $this->assertSame('2=2', $result->getCartPredicate());
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $this->assertSame($predicate, $result->getCartPredicate());
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testChangeTarget()
     {
-        $draft = $this->getDraft('change-predicate');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
 
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'change-predicate'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $target = CartDiscountTarget::of()->setType('lineItems')->setPredicate('2=2');
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                   ->addAction(CartDiscountChangeTargetAction::ofTarget($target));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $target = CartDiscountTarget::of()->setType('lineItems')->setPredicate('2=2');
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(
-                CartDiscountChangeTargetAction::ofTarget($target)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $this->assertSame($target->getPredicate(), $result->getTarget()->getPredicate());
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $this->assertSame($target->getPredicate(), $result->getTarget()->getPredicate());
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+                return $result;
+            }
+        );
     }
 
-    public function testChangeIsActive()
+    public function testChangeIsActiveFromDefaultToFalse()
     {
-        $draft = $this->getDraft('change-is-active');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
 
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'change-is-active'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(CartDiscountChangeIsActiveAction::ofIsActive(false));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $isActive = true;
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(
-                CartDiscountChangeIsActiveAction::ofIsActive($isActive)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $this->assertSame(false, $result->getIsActive());
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $this->assertSame($isActive, $result->getIsActive());
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testChangeName()
     {
-        $draft = $this->getDraft('change-name');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
 
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'change-name'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $name = LocalizedString::ofLangAndText(
+                    'en',
+                    'new-name-' . CartDiscountFixture::uniqueCartDiscountString()
+                );
 
-        $name = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-name');
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(CartDiscountChangeNameAction::ofName($name))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(CartDiscountChangeNameAction::ofName($name));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $this->assertSame($name->en, $result->getName()->en);
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $this->assertSame($name->en, $result->getName()->en);
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetDescription()
     {
-        $draft = $this->getDraft('set-description');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
 
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setDescription(LocalizedString::ofLangAndText('en', 'set-description'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $description = LocalizedString::ofLangAndText(
+                    'en',
+                    'new-description-' . CartDiscountFixture::uniqueCartDiscountString()
+                );
 
-        $description = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-description');
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(CartDiscountSetDescriptionAction::of()->setDescription($description))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(CartDiscountSetDescriptionAction::of()->setDescription($description));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $this->assertSame($description->en, $result->getDescription()->en);
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $this->assertSame($description->en, $result->getDescription()->en);
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeSortOrder()
     {
-        $draft = $this->getDraft('change-sort-order');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
 
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'change-sort-order'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $sortOrder = '0.90' . trim((string)mt_rand(1, CartDiscountFixture::RAND_MAX), '0');
 
-        $sortOrder = '0.90' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0');
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(CartDiscountChangeSortOrderAction::ofSortOrder($sortOrder))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(CartDiscountChangeSortOrderAction::ofSortOrder($sortOrder));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $this->assertSame($sortOrder, $result->getSortOrder());
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $this->assertSame($sortOrder, $result->getSortOrder());
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeRequiresDiscountCode()
     {
-        $draft = $this->getDraft('change-requires-discount-code');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
 
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'change-requires-discount-code'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(CartDiscountChangeRequiresDiscountCodeAction::ofRequiresDiscountCode(true));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $requiresDiscountCode = true;
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(CartDiscountChangeRequiresDiscountCodeAction::ofRequiresDiscountCode($requiresDiscountCode))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $this->assertEquals(true, $result->getRequiresDiscountCode());
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $this->assertEquals($requiresDiscountCode, $result->getRequiresDiscountCode());
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+                return $result;
+            }
+        );
     }
 
     public function testSetValidFrom()
     {
-        $draft = $this->getDraft('set-valid-from');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
 
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set-valid-from'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $validFrom = new \DateTime();
 
-        $validFrom = new \DateTime();
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(CartDiscountSetValidFromAction::of()->setValidFrom($validFrom))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(CartDiscountSetValidFromAction::of()->setValidFrom($validFrom));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $validFrom->setTimezone(new \DateTimeZone('UTC'));
-        $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $validFrom->setTimezone(new \DateTimeZone('UTC'));
+                $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetValidUntil()
     {
-        $draft = $this->getDraft('set-valid-from');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
 
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set-valid-until'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $validUntil = new \DateTime();
 
-        $validUntil = new \DateTime();
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(CartDiscountSetValidUntilAction::of()->setValidUntil($validUntil))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(CartDiscountSetValidUntilAction::of()->setValidUntil($validUntil));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $validUntil->setTimezone(new \DateTimeZone('UTC'));
-        $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $validUntil->setTimezone(new \DateTimeZone('UTC'));
+                $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testStackingMode()
     {
-        $draft = $this->getDraft('stacking-mode');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
 
-        $this->assertSame(CartDiscount::MODE_STACKING, $cartDiscount->getStackingMode());
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'stacking-mode'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $this->assertSame(CartDiscount::MODE_STACKING, $cartDiscount->getStackingMode());
 
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(CartDiscountChangeStackingModeAction::ofStackingMode(CartDiscount::MODE_STOP))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(CartDiscountChangeStackingModeAction::ofStackingMode(CartDiscount::MODE_STOP));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame(CartDiscount::MODE_STOP, $result->getStackingMode());
-        $cartDiscount = $result;
+                $this->assertSame(CartDiscount::MODE_STOP, $result->getStackingMode());
 
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(CartDiscountChangeStackingModeAction::ofStackingMode(CartDiscount::MODE_STACKING))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $cartDiscount = $result;
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(CartDiscountChangeStackingModeAction::ofStackingMode(CartDiscount::MODE_STACKING));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame(CartDiscount::MODE_STACKING, $result->getStackingMode());
+                $this->assertSame(CartDiscount::MODE_STACKING, $result->getStackingMode());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetValidFromAndUntil()
     {
-        $draft = $this->getDraft('set-valid-from-until');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
 
-        $validFrom = new \DateTime();
-        $validUntil = new \DateTime('+1 second');
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(CartDiscountSetValidFromAndUntilAction::of()->setValidFrom($validFrom)->setValidUntil($validUntil))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set-valid-from-until'));
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $validFrom = new \DateTime();
+                $validUntil = new \DateTime('+1 second');
 
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $validUntil->setTimezone(new \DateTimeZone('UTC'));
-        $validFrom->setTimezone(new \DateTimeZone('UTC'));
-        $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
-        $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(
+                        CartDiscountSetValidFromAndUntilAction::of()
+                            ->setValidFrom($validFrom)
+                            ->setValidUntil($validUntil)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $validUntil->setTimezone(new \DateTimeZone('UTC'));
+                $validFrom->setTimezone(new \DateTimeZone('UTC'));
+                $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
+                $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetKey()
     {
-        $draft = $this->getDraft('set-key')->setKey('test-' . $this->getTestRun() . '-foo');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
+        $keyBar = 'test-' . CartDiscountFixture::uniqueCartDiscountString() . '-bar';
+        $keyFoo = 'test-' . CartDiscountFixture::uniqueCartDiscountString() . '-foo';
 
-        $this->assertSame('test-' . $this->getTestRun() . '-foo', $cartDiscount->getKey());
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) use ($keyFoo) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'set-key'))
+                    ->setKey($keyFoo);
+            },
+            function (CartDiscount $cartDiscount) use ($client, $keyFoo, $keyBar) {
+                $this->assertSame($keyFoo, $cartDiscount->getKey());
 
-        $request = CartDiscountUpdateRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(CartDiscountSetKeyAction::ofKey('test-' . $this->getTestRun() . '-bar'))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(CartDiscountSetKeyAction::ofKey($keyBar));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $this->assertSame('test-' . $this->getTestRun() . '-bar', $result->getKey());
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $this->assertSame($keyBar, $result->getKey());
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testUpdateByKey()
     {
-        $draft = $this->getDraft('update-by-key')->setKey('test-' . $this->getTestRun() . '-update');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $client = $this->getApiClient();
+        $updateName = 'test-' . CartDiscountFixture::uniqueCartDiscountString() . '-updated-name';
 
-        $this->assertSame('test-' . $this->getTestRun() . '-update-by-key', $cartDiscount->getName()->en);
+        CartDiscountFixture::withUpdateableDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'update-by-key'))
+                    ->setKey('test-' . CartDiscountFixture::uniqueCartDiscountString() . '-update');
+            },
+            function (CartDiscount $cartDiscount) use ($client, $updateName) {
+                $this->assertSame('update-by-key', $cartDiscount->getName()->en);
 
-        $request = CartDiscountUpdateByKeyRequest::ofKeyAndVersion(
-            $cartDiscount->getKey(),
-            $cartDiscount->getVersion()
-        )
-            ->addAction(
-                CartDiscountChangeNameAction::ofName(
-                    LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-updated-name')
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->cartDiscounts()->update($cartDiscount)
+                    ->addAction(
+                        CartDiscountChangeNameAction::ofName(LocalizedString::ofLangAndText('en', $updateName))
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(CartDiscount::class, $result);
-        $this->assertSame('test-' . $this->getTestRun() . '-updated-name', $result->getName()->en);
-        $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(CartDiscount::class, $result);
+                $this->assertSame($updateName, $result->getName()->en);
+                $this->assertNotSame($cartDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testDeleteByKey()
     {
-        $draft = $this->getDraft('delete-by-key')->setKey('test-' . $this->getTestRun() . '-delete');
-        $cartDiscount = $this->createCartDiscount($draft);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(404);
 
-        $request = CartDiscountDeleteByKeyRequest::ofKeyAndVersion(
-            $cartDiscount->getKey(),
-            $cartDiscount->getVersion()
+        $client = $this->getApiClient();
+
+        CartDiscountFixture::withDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $draft) {
+                return $draft->setName(LocalizedString::ofLangAndText('en', 'delete-by-key'))
+                    ->setKey('test-' . CartDiscountFixture::uniqueCartDiscountString() . '-delete');
+            },
+            function (CartDiscount $cartDiscount) use ($client) {
+                $request = RequestBuilder::of()->cartDiscounts()->deleteByKey($cartDiscount);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(CartDiscount::class, $result);
+
+                $request = RequestBuilder::of()->cartDiscounts()->getByKey($result->getKey());
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
+            }
         );
-
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertInstanceOf(CartDiscount::class, $result);
-
-        $request = CartDiscountByKeyGetRequest::ofKey($result->getKey());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertNull($result);
-    }
-
-    /**
-     * @param $name
-     * @return CartDiscountDraft
-     */
-    protected function getDraft($name)
-    {
-        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name),
-            CartDiscountValue::of()->setType('absolute')->setMoney(
-                MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
-            ),
-            '1=1',
-            CartDiscountTarget::of()->setType('lineItems')->setPredicate('1=1'),
-            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
-            false,
-            false
-        );
-
-        return $draft;
-    }
-
-    protected function createCartDiscount(CartDiscountDraft $draft)
-    {
-        $request = CartDiscountCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $cartDiscount = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = CartDiscountDeleteRequest::ofIdAndVersion(
-            $cartDiscount->getId(),
-            $cartDiscount->getVersion()
-        );
-
-        return $cartDiscount;
     }
 }

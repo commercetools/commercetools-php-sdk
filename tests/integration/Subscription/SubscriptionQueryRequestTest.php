@@ -3,20 +3,11 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-
 namespace Commercetools\Core\IntegrationTests\Subscription;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\Model\Subscription\IronMQDestination;
-use Commercetools\Core\Model\Subscription\MessageSubscription;
-use Commercetools\Core\Model\Subscription\MessageSubscriptionCollection;
 use Commercetools\Core\Model\Subscription\Subscription;
-use Commercetools\Core\Model\Subscription\SubscriptionDraft;
-use Commercetools\Core\Request\Subscriptions\SubscriptionByIdGetRequest;
-use Commercetools\Core\Request\Subscriptions\SubscriptionByKeyGetRequest;
-use Commercetools\Core\Request\Subscriptions\SubscriptionCreateRequest;
-use Commercetools\Core\Request\Subscriptions\SubscriptionDeleteRequest;
-use Commercetools\Core\Request\Subscriptions\SubscriptionQueryRequest;
 
 class SubscriptionQueryRequestTest extends ApiTestCase
 {
@@ -28,70 +19,57 @@ class SubscriptionQueryRequestTest extends ApiTestCase
         }
     }
 
-    /**
-     * @return SubscriptionDraft
-     */
-    protected function getDraft()
-    {
-        $uri = getenv('IRONMQ_URI');
-        $destination = IronMQDestination::ofUri($uri);
-        $messages = MessageSubscriptionCollection::of()->add(MessageSubscription::of()->setResourceTypeId('product'));
-        $key = 'test-' . $this->getTestRun();
-        $draft = SubscriptionDraft::ofKeyDestinationAndMessages($key, $destination, $messages);
-
-        return $draft;
-    }
-
-    protected function createSubscription(SubscriptionDraft $draft)
-    {
-        $request = SubscriptionCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $subscription = $request->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = SubscriptionDeleteRequest::ofIdAndVersion(
-            $subscription->getId(),
-            $subscription->getVersion()
-        );
-
-        return $subscription;
-    }
-
     public function testQuery()
     {
-        $draft = $this->getDraft();
-        $subscription = $this->createSubscription($draft);
+        $client = $this->getApiClient();
 
-        $request = SubscriptionQueryRequest::of()->where('key="' . $draft->getKey() . '"');
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        SubscriptionFixture::withSubscription(
+            $client,
+            function (Subscription $subscription) use ($client) {
+                $request = RequestBuilder::of()->subscriptions()->query()
+                    ->where('key=:key', ['key' => $subscription->getKey()]);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(Subscription::class, $result->getAt(0));
-        $this->assertSame($subscription->getId(), $result->getAt(0)->getId());
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Subscription::class, $result->current());
+                $this->assertSame($subscription->getId(), $result->current()->getId());
+            }
+        );
     }
 
     public function testGetById()
     {
-        $draft = $this->getDraft();
-        $subscription = $this->createSubscription($draft);
+        $client = $this->getApiClient();
 
-        $request = SubscriptionByIdGetRequest::ofId($subscription->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        SubscriptionFixture::withSubscription(
+            $client,
+            function (Subscription $subscription) use ($client) {
+                $request = RequestBuilder::of()->subscriptions()->getById($subscription->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Subscription::class, $subscription);
-        $this->assertSame($subscription->getId(), $result->getId());
+                $this->assertInstanceOf(Subscription::class, $result);
+                $this->assertSame($subscription->getId(), $result->getId());
+            }
+        );
     }
 
     public function testGetByKey()
     {
-        $draft = $this->getDraft();
-        $subscription = $this->createSubscription($draft);
+        $client = $this->getApiClient();
 
-        $request = SubscriptionByKeyGetRequest::ofKey($subscription->getKey());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        SubscriptionFixture::withSubscription(
+            $client,
+            function (Subscription $subscription) use ($client) {
+                $request = RequestBuilder::of()->subscriptions()->getByKey($subscription->getKey());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Subscription::class, $subscription);
-        $this->assertSame($subscription->getId(), $result->getId());
+                $this->assertInstanceOf(Subscription::class, $result);
+                $this->assertSame($subscription->getId(), $result->getId());
+                $this->assertSame($subscription->getKey(), $result->getKey());
+            }
+        );
     }
 }

@@ -3,17 +3,11 @@
 namespace Commercetools\Core\Client;
 
 use Commercetools\Core\Cache\CacheAdapterFactory;
-use Commercetools\Core\Client\OAuth\AnonymousFlowTokenProvider;
-use Commercetools\Core\Client\OAuth\AnonymousIdProvider;
 use Commercetools\Core\Client\OAuth\CacheTokenProvider;
 use Commercetools\Core\Client\OAuth\ClientCredentials;
 use Commercetools\Core\Client\OAuth\CredentialTokenProvider;
 use Commercetools\Core\Client\OAuth\OAuth2Handler;
-use Commercetools\Core\Client\OAuth\PasswordFlowTokenProvider;
-use Commercetools\Core\Client\OAuth\RefreshFlowTokenProvider;
 use Commercetools\Core\Client\OAuth\TokenProvider;
-use Commercetools\Core\Client\OAuth\TokenStorage;
-use Commercetools\Core\Client\OAuth\TokenStorageProvider;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\DeprecatedException;
@@ -36,6 +30,140 @@ use Psr\Log\LoggerInterface;
 use Psr\Log\LogLevel;
 use Psr\SimpleCache\CacheInterface;
 
+/**
+ * The factory to create a Client for communicating with the commercetools platform
+ *
+ * @description
+ * This factory will create a Guzzle HTTP Client preconfigured for talking to the commercetools platform
+ *
+ * ## Instantiation
+ *
+ * ```php
+ * $config = Config::fromArray(
+ *  ['client_id' => '<client_id>', 'client_secret' => '<client_secret>', 'project' => '<project>']
+ * );
+ * $client = ClientFactory::of()->createClient($config);
+ * ```
+ *
+ * ## Execution
+ *
+ * ### Synchronous
+ *
+ * ```php
+ * $request = ProductProjectionSearchRequest::of();
+ * $response = $client->execute($request);
+ * $products = $request->mapFromResponse($response);
+ * ```
+ *
+ * ### Asynchronous
+ * The asynchronous execution will return a promise to fulfill the request.
+ *
+ * ```php
+ * $request = ProductProjectionSearchRequest::of();
+ * $response = $client->executeAsync($request);
+ * $products = $request->mapFromResponse($response->wait());
+ * ```
+ *
+ * ### Batch
+ * By filling the batch queue and starting the execution all requests will be executed in parallel.
+ *
+ * ```php
+ * $responses = Pool::batch(
+ *     $client,
+ *     [ProductProjectionSearchRequest::of()->httpRequest(), CartByIdGetRequest::ofId($cartId)->httpRequest()]
+ * );
+ * ```
+ *
+ * ## Instantiation options
+ *
+ * ### Using a logger
+ *
+ * The client uses the PSR-3 logger interface for logging requests and deprecation notices. To enable
+ * logging provide a PSR-3 compliant logger (e.g. Monolog).
+ *
+ * ```php
+ * $logger = new \Monolog\Logger('name');
+ * $logger->pushHandler(new StreamHandler('./requests.log'));
+ * $client = ClientFactory::of()->createClient($config, $logger);
+ * ```
+ *
+ * ### Using a cache adapter ###
+ *
+ * The client will automatically request an OAuth token and store the token in the provided cache.
+ *
+ * It's also possible to use a different cache adapter. The SDK provides a Doctrine, a Redis and an APCu cache adapter.
+ * By default the SDK tries to instantiate the APCu or a PSR-6 filesystem cache adapter if there is no cache given.
+ * E.g. Redis:
+ *
+ * ```php
+ * $redis = new \Redis();
+ * $redis->connect('localhost');
+ * $client = ClientFactory::of()->createClient($config, null, $cache);
+ * ```
+ *
+ * #### Using cache and logger ####
+ *
+ * ```php
+ * $client = ClientFactory::of()->createClient($config, $logger, $cache);
+ * ```
+ *
+ * #### Using a custom cache adapter ####
+ *
+ * ```php
+ * class <CacheClass>Adapter implements \Psr\Cache\CacheItemPoolInterface {
+ *     protected $cache;
+ *     public function __construct(<CacheClass> $cache) {
+ *         $this->cache = $cache;
+ *     }
+ * }
+ *
+ * $client->getAdapterFactory()->registerCallback(function ($cache) {
+ *     if ($cache instanceof <CacheClass>) {
+ *         return new <CacheClass>Adapter($cache);
+ *     }
+ *     return null;
+ * });
+ * ```
+ *
+ * ### Using a custom client class
+ *
+ * If some additional configuration is needed or the client should have custom logic you could provide a class name
+ * to be used for the client instance. This class has to be an extended Guzzle client.
+ *
+ * ```php
+ * $client = ClientFactory::of()->createCustomClient(MyCustomClient::class, $config);
+ * ```
+ *
+ * ## Middlewares
+ *
+ * Adding middlewares to the clients for platform as well for the authentication can be done using the config
+ * by setting client options.
+ *
+ * ### Using a HandlerStack
+ *
+ * ```php
+ * $handler = HandlerStack::create();
+ * $handler->push(Middleware::mapRequest(function (RequestInterface $request) {
+ *     ...
+ *     return $request; })
+ * );
+ * $config = Config::of()->setClientOptions(['handler' => $handler])
+ * ```
+ *
+ * ### Using a middleware array
+ *
+ * ```php
+ * $middlewares = [
+ *     Middleware::mapRequest(function (RequestInterface $request) {
+ *     ...
+ *     return $request; }),
+ *     ...
+ * ]
+ * $config = Config::of()->setClientOptions(['middlewares' => $middlewares])
+ * ```
+ *
+ * @package Commercetools\Core\Client
+ */
 class ClientFactory
 {
     /**
@@ -75,6 +203,9 @@ class ClientFactory
     ) {
         $config = $this->createConfig($config);
 
+        if (is_null($context)) {
+            $context = $config->getContext();
+        }
         if (is_null($cacheAdapterFactory)) {
             $cacheDir = $config->getCacheDir();
             $cacheDir = !is_null($cacheDir) ? $cacheDir : realpath(__DIR__ . '/../../..');
@@ -150,6 +281,9 @@ class ClientFactory
             $handler = HandlerStack::create();
             $options['handler'] = $handler;
         }
+
+        $handler->remove("http_errors");
+        $handler->unshift(self::httpErrors(), 'ctp_http_errors');
 
         $this->setCorrelationIdMiddleware($handler, $correlationIdProvider);
 

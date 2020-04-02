@@ -5,7 +5,20 @@
 
 namespace Commercetools\Core\IntegrationTests\Cart;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\CartDiscount\CartDiscountFixture;
+use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
+use Commercetools\Core\IntegrationTests\CustomerGroup\CustomerGroupFixture;
+use Commercetools\Core\IntegrationTests\DiscountCode\DiscountCodeFixture;
+use Commercetools\Core\IntegrationTests\Payment\PaymentFixture;
+use Commercetools\Core\IntegrationTests\Product\ProductFixture;
+use Commercetools\Core\IntegrationTests\Project\ProjectFixture;
+use Commercetools\Core\IntegrationTests\ShippingMethod\ShippingMethodFixture;
+use Commercetools\Core\IntegrationTests\Store\StoreFixture;
+use Commercetools\Core\IntegrationTests\TaxCategory\TaxCategoryFixture;
+use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
@@ -21,9 +34,11 @@ use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
 use Commercetools\Core\Model\Cart\ScoreShippingRateInput;
 use Commercetools\Core\Model\CartDiscount\AbsoluteCartDiscountValue;
+use Commercetools\Core\Model\CartDiscount\CartDiscount;
 use Commercetools\Core\Model\CartDiscount\CartDiscountDraft;
+use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
 use Commercetools\Core\Model\CartDiscount\CartDiscountTarget;
-use Commercetools\Core\Model\CartDiscount\CartDiscountValue;
+use Commercetools\Core\Model\CartDiscount\GiftLineItemCartDiscountValue;
 use Commercetools\Core\Model\CartDiscount\LineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\MultiBuyCustomLineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\MultiBuyLineItemsTarget;
@@ -36,20 +51,29 @@ use Commercetools\Core\Model\Common\MoneyCollection;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceTier;
 use Commercetools\Core\Model\Common\PriceTierCollection;
+use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Model\Customer\CustomerDraft;
+use Commercetools\Core\Model\CustomerGroup\CustomerGroup;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
+use Commercetools\Core\Model\DiscountCode\DiscountCode;
+use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
+use Commercetools\Core\Model\Payment\Payment;
+use Commercetools\Core\Model\Product\Product;
+use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Project\CartScoreType;
 use Commercetools\Core\Model\Project\Project;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
+use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
-use Commercetools\Core\Request\CartDiscounts\CartDiscountCreateRequest;
+use Commercetools\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Model\Type\TypeDraft;
+use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
-use Commercetools\Core\Request\Carts\CartCreateRequest;
-use Commercetools\Core\Request\Carts\CartDeleteRequest;
-use Commercetools\Core\Request\Carts\CartQueryRequest;
-use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\Command\CartAddCustomLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartAddDiscountCodeAction;
 use Commercetools\Core\Request\Carts\Command\CartAddItemShippingAddressAction;
@@ -93,1327 +117,1936 @@ use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingRateInputAction;
 use Commercetools\Core\Request\Carts\Command\CartUpdateItemShippingAddressAction;
-use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use Commercetools\Core\Request\Products\Command\ProductChangeNameAction;
 use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
 use Commercetools\Core\Request\Products\Command\ProductPublishAction;
-use Commercetools\Core\Request\Products\ProductUpdateRequest;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
-use Commercetools\Core\Request\Project\ProjectGetRequest;
-use Commercetools\Core\Request\Project\ProjectUpdateRequest;
-use Commercetools\Core\IntegrationTests\TestHelper;
 
 class CartUpdateRequestTest extends ApiTestCase
 {
     public function testLineItemsOfRemovedProducts()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $product) {
+                        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                    $product->getId(),
+                                    $variant->getId(),
+                                    1
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $this->assertFalse($response->isError());
+                        $request = RequestBuilder::of()->carts()->getById($cart->getId());
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $this->deleteProduct();
+                        $this->assertNotEmpty($cart->getLineItems());
 
-        $request = CartByIdGetRequest::ofId($cart->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->assertNotEmpty($cart->getLineItems());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartRecalculateAction::of());
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartRecalculateAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                        if ($response->getStatusCode() !== 200) {
+                            $this->expectException(FixtureException::class);
+                        }
 
-        if (!$response->isError()) {
-            $this->deleteRequest->setVersion($result->getVersion());
-            $this->markTestSkipped('Recalculation for removed products not erroring anymore');
-        }
-        $this->assertTrue($response->isError());
+                        $request = RequestBuilder::of()->carts()->getById($cart->getId());
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $request = CartByIdGetRequest::ofId($cart->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
+                        $lineItem = $cart->getLineItems()->current()->getId();
 
-        $lineItem = $cart->getLineItems()->current()->getId();
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartRemoveLineItemAction::ofLineItemId($lineItem))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartRemoveLineItemAction::ofLineItemId($lineItem));
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $this->assertFalse($response->isError());
-        $this->assertEmpty($cart->getLineItems());
+                        $this->assertEmpty($cart->getLineItems());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartRecalculateAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-        $this->assertFalse($response->isError());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartRecalculateAction::of());
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testLineItem()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $product) {
+                        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                    $product->getId(),
+                                    $variant->getId(),
+                                    1
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
-        $this->assertSame(
-            $product->getProductType()->getId(),
-            $cart->getLineItems()->current()->getProductType()->getId()
+                        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+                        $this->assertSame(
+                            $product->getProductType()->getId(),
+                            $cart->getLineItems()->current()->getProductType()->getId()
+                        );
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity(
+                                    $cart->getLineItems()->current()->getId(),
+                                    2
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
+
+                        $this->assertSame(2, $cart->getLineItems()->current()->getQuantity());
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartRemoveLineItemAction::ofLineItemId($cart->getLineItems()->current()->getId())
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertCount(0, $result->getLineItems());
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity($cart->getLineItems()->current()->getId(), 2)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $this->assertSame(2, $cart->getLineItems()->current()->getQuantity());
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartRemoveLineItemAction::ofLineItemId($cart->getLineItems()->current()->getId())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $this->assertCount(0, $cart->getLineItems());
     }
 
     public function testLineItemBySku()
     {
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        $client = $this->getApiClient();
 
-        $draft = $this->getDraft();
-        $draft->setLineItems(LineItemDraftCollection::of()->add(LineItemDraft::ofSku($variant->getSku())));
-        $cart = $this->createCart($draft);
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $this->assertSame(1, $cart->getLineItems()->current()->getQuantity());
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofSkuAndQuantity($variant->getSku(), 1)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $cartDraft) use ($variant) {
+                        return $cartDraft->setLineItems(
+                            LineItemDraftCollection::of()->add(LineItemDraft::ofSku($variant->getSku()))
+                        );
+                    },
+                    function (Cart $cart) use ($client, $product, $variant) {
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddLineItemAction::ofSkuAndQuantity($variant->getSku(), 1)
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertSame(2, $cart->getLineItems()->current()->getQuantity());
+                        $this->assertSame(2, $result->getLineItems()->current()->getQuantity());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSetExternalLineItemTotalPrice()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $product, $variant) {
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                    $product->getId(),
+                                    $variant->getId(),
+                                    1
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
-        $this->assertSame(LineItem::PRICE_MODE_PLATFORM, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(100, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(100, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_PLATFORM,
+                            $cart->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            100,
+                            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(100, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetLineItemTotalPriceAction::ofLineItemId($cart->getLineItems()->current()->getId())
-                    ->setExternalTotalPrice(
-                        ExternalLineItemTotalPrice::of()
-                            ->setPrice(Money::ofCurrencyAndAmount('EUR', 12345))
-                            ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 12345678))
-                    )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetLineItemTotalPriceAction::ofLineItemId($cart->getLineItems()->current()->getId())
+                                    ->setExternalTotalPrice(
+                                        ExternalLineItemTotalPrice::of()
+                                            ->setPrice(Money::ofCurrencyAndAmount('EUR', 12345))
+                                            ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 12345678))
+                                    )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $this->assertSame(LineItem::PRICE_MODE_EXTERNAL_TOTAL, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(12345, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(12345678, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_EXTERNAL_TOTAL,
+                            $cart->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            12345,
+                            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(12345678, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetLineItemTotalPriceAction::ofLineItemId($cart->getLineItems()->current()->getId())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetLineItemTotalPriceAction::ofLineItemId($cart->getLineItems()->current()->getId())
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertSame(LineItem::PRICE_MODE_PLATFORM, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(100, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(100, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_PLATFORM,
+                            $result->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            100,
+                            $result->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(100, $result->getLineItems()->current()->getTotalPrice()->getCentAmount());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSetExternalLineItemPrice()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 2)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $product, $variant) {
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                    $product->getId(),
+                                    $variant->getId(),
+                                    2
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
-        $this->assertSame(LineItem::PRICE_MODE_PLATFORM, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(100, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(200, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_PLATFORM,
+                            $cart->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            100,
+                            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(200, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetLineItemPriceAction::ofLineItemId($cart->getLineItems()->current()->getId())
-                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', 12345))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetLineItemPriceAction::ofLineItemId($cart->getLineItems()->current()->getId())
+                                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', 12345))
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $this->assertSame(LineItem::PRICE_MODE_EXTERNAL_PRICE, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(12345, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(24690, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_EXTERNAL_PRICE,
+                            $cart->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            12345,
+                            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(24690, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetLineItemPriceAction::ofLineItemId($cart->getLineItems()->current()->getId())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetLineItemPriceAction::ofLineItemId($cart->getLineItems()->current()->getId())
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertSame(LineItem::PRICE_MODE_PLATFORM, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(100, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(200, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_PLATFORM,
+                            $result->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            100,
+                            $result->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(200, $result->getLineItems()->current()->getTotalPrice()->getCentAmount());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testUnsetExternalLineItemTotalPriceQuantityChange()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $product, $variant) {
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                    $product->getId(),
+                                    $variant->getId(),
+                                    1
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
-        $this->assertSame(LineItem::PRICE_MODE_PLATFORM, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(100, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(100, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_PLATFORM,
+                            $cart->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            100,
+                            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(100, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetLineItemTotalPriceAction::ofLineItemId($cart->getLineItems()->current()->getId())
-                    ->setExternalTotalPrice(
-                        ExternalLineItemTotalPrice::of()
-                            ->setPrice(Money::ofCurrencyAndAmount('EUR', 12345))
-                            ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 12345678))
-                    )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetLineItemTotalPriceAction::ofLineItemId($cart->getLineItems()->current()->getId())
+                                    ->setExternalTotalPrice(
+                                        ExternalLineItemTotalPrice::of()
+                                            ->setPrice(Money::ofCurrencyAndAmount('EUR', 12345))
+                                            ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 12345678))
+                                    )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $this->assertSame(LineItem::PRICE_MODE_EXTERNAL_TOTAL, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(12345, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(12345678, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_EXTERNAL_TOTAL,
+                            $cart->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            12345,
+                            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(12345678, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity($cart->getLineItems()->current()->getId(), 2)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity(
+                                    $cart->getLineItems()->current()->getId(),
+                                    2
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertSame(LineItem::PRICE_MODE_PLATFORM, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(100, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(200, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_PLATFORM,
+                            $result->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            100,
+                            $result->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(200, $result->getLineItems()->current()->getTotalPrice()->getCentAmount());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testExternalLineItemTotalPriceQuantityChange()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 2)
-                    ->setExternalTotalPrice(
-                        ExternalLineItemTotalPrice::of()
-                            ->setPrice(Money::ofCurrencyAndAmount('EUR', 12345))
-                            ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 12345678))
-                    )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $product, $variant) {
+                        $price = 12345;
 
-        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
-        $this->assertSame(LineItem::PRICE_MODE_EXTERNAL_TOTAL, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(12345, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(12345678, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                    $product->getId(),
+                                    $variant->getId(),
+                                    2
+                                )
+                                    ->setExternalTotalPrice(
+                                        ExternalLineItemTotalPrice::of()
+                                            ->setPrice(Money::ofCurrencyAndAmount('EUR', $price))
+                                            ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 12345678))
+                                    )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity($cart->getLineItems()->current()->getId(), 3)
-                    ->setExternalTotalPrice(
-                        ExternalLineItemTotalPrice::of()
-                            ->setPrice(Money::ofCurrencyAndAmount('EUR', 12345))
-                            ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 12345679))
-                    )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_EXTERNAL_TOTAL,
+                            $cart->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            $price,
+                            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(12345678, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
 
-        $this->assertSame(LineItem::PRICE_MODE_EXTERNAL_TOTAL, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(12345, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(12345679, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity(
+                                    $cart->getLineItems()->current()->getId(),
+                                    3
+                                )
+                                    ->setExternalTotalPrice(
+                                        ExternalLineItemTotalPrice::of()
+                                            ->setPrice(Money::ofCurrencyAndAmount('EUR', $price))
+                                            ->setTotalPrice(Money::ofCurrencyAndAmount('EUR', 12345679))
+                                    )
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_EXTERNAL_TOTAL,
+                            $result->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            $price,
+                            $result->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(
+                            12345679,
+                            $result->getLineItems()->current()->getTotalPrice()->getCentAmount()
+                        );
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testExternalLineItemPriceQuantityChange()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 2)
-                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', 12345))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $product, $variant) {
+                        $externalPrice = 12345;
 
-        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
-        $this->assertSame(LineItem::PRICE_MODE_EXTERNAL_PRICE, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(12345, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(24690, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                    $product->getId(),
+                                    $variant->getId(),
+                                    2
+                                )
+                                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', $externalPrice))
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity($cart->getLineItems()->current()->getId(), 3)
-                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', 12345))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_EXTERNAL_PRICE,
+                            $cart->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            $externalPrice,
+                            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(24690, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
 
-        $this->assertSame(LineItem::PRICE_MODE_EXTERNAL_PRICE, $cart->getLineItems()->current()->getPriceMode());
-        $this->assertSame(12345, $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount());
-        $this->assertSame(37035, $cart->getLineItems()->current()->getTotalPrice()->getCentAmount());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity(
+                                    $cart->getLineItems()->current()->getId(),
+                                    3
+                                )
+                                    ->setExternalPrice(Money::ofCurrencyAndAmount('EUR', $externalPrice))
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame(
+                            LineItem::PRICE_MODE_EXTERNAL_PRICE,
+                            $result->getLineItems()->current()->getPriceMode()
+                        );
+                        $this->assertSame(
+                            $externalPrice,
+                            $result->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+                        $this->assertSame(37035, $result->getLineItems()->current()->getTotalPrice()->getCentAmount());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testCustomLineItem()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $name = LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun());
+        TaxCategoryFixture::withTaxCategory(
+            $client,
+            function (TaxCategory $taxCategory) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $taxCategory) {
+                        $name = LocalizedString::ofLangAndText('en', 'test-' . CartFixture::uniqueCartString());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddCustomLineItemAction::ofNameQuantityMoneySlugAndTaxCategory(
-                    $name,
-                    1,
-                    Money::ofCurrencyAndAmount('EUR', 100),
-                    $name->en,
-                    $this->getTaxCategory()->getReference()
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddCustomLineItemAction::ofNameQuantityMoneySlugAndTaxCategory(
+                                    $name,
+                                    1,
+                                    Money::ofCurrencyAndAmount('EUR', 100),
+                                    $name->en,
+                                    $taxCategory->getReference()
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $this->assertSame($name->en, $cart->getCustomLineItems()->current()->getName()->en);
+                        $this->assertSame($name->en, $cart->getCustomLineItems()->current()->getName()->en);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartRemoveCustomLineItemAction::ofCustomLineItemId($cart->getCustomLineItems()->current()->getId())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartRemoveCustomLineItemAction::ofCustomLineItemId(
+                                    $cart->getCustomLineItems()->current()->getId()
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertCount(0, $cart->getLineItems());
+                        $this->assertCount(0, $cart->getLineItems());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testCustomLineItemChangeQuantity()
     {
-        $name = LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun());
+        $client = $this->getApiClient();
+        $name = LocalizedString::ofLangAndText('en', 'test-' . CartFixture::uniqueCartString());
 
-        $draft = $this->getDraft();
-        $draft->setCustomLineItems(
-            CustomLineItemDraftCollection::of()
-                ->add(
-                    CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-                        $name,
-                        Money::ofCurrencyAndAmount('EUR', 100),
-                        $name->en,
-                        $this->getTaxCategory()->getReference(),
-                        1
-                    )
-                )
+        TaxCategoryFixture::withTaxCategory(
+            $client,
+            function (TaxCategory $taxCategory) use ($client, $name) {
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $draft) use ($name, $taxCategory) {
+                        return $draft->setCustomLineItems(
+                            CustomLineItemDraftCollection::of()
+                                ->add(
+                                    CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                                        $name,
+                                        Money::ofCurrencyAndAmount('EUR', 100),
+                                        $name->en,
+                                        $taxCategory->getReference(),
+                                        1
+                                    )
+                                )
+                        );
+                    },
+                    function (Cart $cart) use ($client, $taxCategory) {
+                        $this->assertSame(
+                            100,
+                            $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount()
+                        );
+                        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartChangeCustomLineItemQuantityAction::ofCustomLineItemIdAndQuantity(
+                                    $cart->getCustomLineItems()->current()->getId(),
+                                    2
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame(2, $result->getCustomLineItems()->current()->getQuantity());
+                        $this->assertSame(
+                            200,
+                            $result->getCustomLineItems()->current()->getTotalPrice()->getCentAmount()
+                        );
+                        $this->assertSame(200, $result->getTotalPrice()->getCentAmount());
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $cart = $this->createCart($draft);
-
-        $this->assertSame(100, $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount());
-        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartChangeCustomLineItemQuantityAction::ofCustomLineItemIdAndQuantity(
-                    $cart->getCustomLineItems()->current()->getId(),
-                    2
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $this->assertSame(2, $cart->getCustomLineItems()->current()->getQuantity());
-        $this->assertSame(200, $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount());
-        $this->assertSame(200, $cart->getTotalPrice()->getCentAmount());
     }
 
     public function testCustomLineItemChangeMoney()
     {
-        $name = LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun());
+        $client = $this->getApiClient();
+        $name = LocalizedString::ofLangAndText('en', 'test-' . CartFixture::uniqueCartString());
 
-        $draft = $this->getDraft();
-        $draft->setCustomLineItems(
-            CustomLineItemDraftCollection::of()
-                ->add(
-                    CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-                        $name,
-                        Money::ofCurrencyAndAmount('EUR', 100),
-                        $name->en,
-                        $this->getTaxCategory()->getReference(),
-                        2
-                    )
-                )
+        TaxCategoryFixture::withTaxCategory(
+            $client,
+            function (TaxCategory $taxCategory) use ($client, $name) {
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $draft) use ($name, $taxCategory) {
+                        return $draft->setCustomLineItems(
+                            CustomLineItemDraftCollection::of()
+                                ->add(
+                                    CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                                        $name,
+                                        Money::ofCurrencyAndAmount('EUR', 100),
+                                        $name->en,
+                                        $taxCategory->getReference(),
+                                        2
+                                    )
+                                )
+                        );
+                    },
+                    function (Cart $cart) use ($client, $taxCategory) {
+                        $this->assertSame(100, $cart->getCustomLineItems()->current()->getMoney()->getCentAmount());
+                        $this->assertSame(
+                            200,
+                            $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount()
+                        );
+                        $this->assertSame(200, $cart->getTotalPrice()->getCentAmount());
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartChangeCustomLineItemMoneyAction::ofCustomLineItemIdAndMoney(
+                                    $cart->getCustomLineItems()->current()->getId(),
+                                    Money::ofCurrencyAndAmount('EUR', 200)
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame(2, $result->getCustomLineItems()->current()->getQuantity());
+                        $this->assertSame(200, $result->getCustomLineItems()->current()->getMoney()->getCentAmount());
+                        $this->assertSame(
+                            400,
+                            $result->getCustomLineItems()->current()->getTotalPrice()->getCentAmount()
+                        );
+                        $this->assertSame(400, $result->getTotalPrice()->getCentAmount());
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $cart = $this->createCart($draft);
-
-        $this->assertSame(100, $cart->getCustomLineItems()->current()->getMoney()->getCentAmount());
-        $this->assertSame(200, $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount());
-        $this->assertSame(200, $cart->getTotalPrice()->getCentAmount());
-
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartChangeCustomLineItemMoneyAction::ofCustomLineItemIdAndMoney(
-                    $cart->getCustomLineItems()->current()->getId(),
-                    Money::ofCurrencyAndAmount('EUR', 200)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $this->assertSame(2, $cart->getCustomLineItems()->current()->getQuantity());
-        $this->assertSame(200, $cart->getCustomLineItems()->current()->getMoney()->getCentAmount());
-        $this->assertSame(400, $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount());
-        $this->assertSame(400, $cart->getTotalPrice()->getCentAmount());
     }
 
     public function testCustomLineItemMerge()
     {
-        $name = LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun());
-        $anonName = LocalizedString::ofLangAndText('en', 'anon-' . $this->getTestRun());
-        $customerDraft = $this->getCustomerDraft();
-        $customer = $this->getCustomer($customerDraft);
+        $client = $this->getApiClient();
+        $anonName = LocalizedString::ofLangAndText('en', 'anon-' . CartFixture::uniqueCartString());
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
 
-        $draft = $this->getDraft();
-        $draft->setCustomerId($customer->getId());
-        $customerCart = $this->createCart($draft);
+        TaxCategoryFixture::withTaxCategory(
+            $client,
+            function (TaxCategory $taxCategory) use ($client, $anonName, $password) {
+                CustomerFixture::withDraftCustomer(
+                    $client,
+                    function (CustomerDraft $customerDraft) use ($password) {
+                        return $customerDraft->setPassword($password);
+                    },
+                    function (Customer $customer) use ($client, $taxCategory, $anonName, $password) {
+                        CartFixture::withDraftCart(
+                            $client,
+                            function (CartDraft $customerCartDraft) use ($customer) {
+                                return $customerCartDraft->setCustomerId($customer->getId());
+                            },
+                            function (Cart $customerCart) use ($client, $customer, $taxCategory, $anonName, $password) {
+                                $this->assertCount(0, $customerCart->getCustomLineItems());
 
-        $this->assertCount(0, $customerCart->getCustomLineItems());
+                                CartFixture::withDraftCart(
+                                    $client,
+                                    function (CartDraft $anonCartDraft) use ($taxCategory, $anonName, $password) {
+                                        return $anonCartDraft->setCustomLineItems(
+                                            CustomLineItemDraftCollection::of()
+                                                ->add(
+                                                    CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                                                        $anonName,
+                                                        Money::ofCurrencyAndAmount('EUR', 100),
+                                                        $anonName->en,
+                                                        $taxCategory->getReference(),
+                                                        1
+                                                    )
+                                                )
+                                        );
+                                    },
+                                    function (Cart $anonCart) use (
+                                        $client,
+                                        $customerCart,
+                                        $customer,
+                                        $anonName,
+                                        $password
+                                    ) {
+                                        $this->assertSame(CartState::ACTIVE, $anonCart->getCartState());
+                                        $this->assertNotSame($customerCart->getId(), $anonCart->getId());
 
-        $anonCartDraft = $this->getDraft();
-        $anonCartDraft->setCustomLineItems(
-            CustomLineItemDraftCollection::of()
-                ->add(
-                    CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-                        $anonName,
-                        Money::ofCurrencyAndAmount('EUR', 100),
-                        $anonName->en,
-                        $this->getTaxCategory()->getReference(),
-                        1
-                    )
-                )
+                                        $request = RequestBuilder::of()->customers()->login(
+                                            $customer->getEmail(),
+                                            $password,
+                                            false,
+                                            $anonCart->getId()
+                                        );
+                                        $response = $this->execute($client, $request);
+                                        $result = $request->mapFromResponse($response);
+                                        $loginCart = $result->getCart();
+
+                                        $this->assertSame(CartState::ACTIVE, $loginCart->getCartState());
+                                        $this->assertNotSame($customerCart->getId(), $anonCart->getId());
+
+                                        $this->assertCount(1, $loginCart->getCustomLineItems());
+                                        $this->assertSame(
+                                            $anonName->en,
+                                            $loginCart->getCustomLineItems()->current()->getSlug()
+                                        );
+
+                                        $anonCartRequest = RequestBuilder::of()->carts()->getById($anonCart->getId());
+                                        $response = $this->execute($client, $anonCartRequest);
+                                        $anonCart = $anonCartRequest->mapFromResponse($response);
+
+                                        $customerCartRequest = CartByIdGetRequest::ofId($anonCart->getId());
+                                        $response = $this->execute($client, $customerCartRequest);
+                                        $customerCartRequest->mapFromResponse($response);
+
+                                        $this->assertSame(CartState::MERGED, $anonCart->getCartState());
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
         );
-        $request = CartCreateRequest::ofDraft($anonCartDraft);
-        $response = $request->executeWithClient($this->getClient());
-        $anonCart = $request->mapResponse($response);
-        $this->assertSame(CartState::ACTIVE, $anonCart->getCartState());
-
-        $this->assertNotSame($customerCart->getId(), $anonCart->getId());
-
-        $loginRequest = CustomerLoginRequest::ofEmailAndPassword(
-            $customerDraft->getEmail(),
-            $customerDraft->getPassword(),
-            $anonCart->getId()
-        );
-        $response = $loginRequest->executeWithClient($this->getClient());
-        $result = $loginRequest->mapResponse($response);
-        $loginCart = $result->getCart();
-        $this->assertSame(CartState::ACTIVE, $loginCart->getCartState());
-
-        if ($loginCart->getCustomLineItems()->count() == 0) {
-            $this->markTestSkipped(
-                'Merging custom line items from anon carts to customer cart not yet supported by API.'
-            );
-        }
-        $this->assertCount(1, $loginCart->getCustomLineItems());
-        $this->assertSame($anonName->en, $loginCart->getCustomLineItems()->current()->getSlug());
-
-        $anonCartRequest = CartByIdGetRequest::ofId($anonCart->getId());
-        $response = $anonCartRequest->executeWithClient($this->getClient());
-        $anonCart = $request->mapResponse($response);
-
-        $customerCartRequest = CartByIdGetRequest::ofId($anonCart->getId());
-        $response = $customerCartRequest->executeWithClient($this->getClient());
-        $customerCart = $request->mapResponse($response);
-
-        $this->deleteRequest->setVersion($customerCart->getVersion());
-        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($anonCart->getId(), $anonCart->getVersion());
-
-        $this->assertSame(CartState::MERGED, $anonCart->getCartState());
     }
 
     public function testCustomerEmail()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $email = 'test-' . $this->getTestRun() . '@example.com';
+        CartFixture::withUpdateableCart(
+            $client,
+            function (Cart $cart) use ($client) {
+                $email = 'test-' . CartFixture::uniqueCartString() . '@example.com';
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartSetCustomerEmailAction::of()->setEmail($email))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartSetCustomerEmailAction::of()->setEmail($email));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($email, $cart->getCustomerEmail());
+                $this->assertSame($email, $result->getCustomerEmail());
+
+                return $result;
+            }
+        );
     }
 
     public function testShippingAddress()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $address = Address::of()
-            ->setFirstName('test-' . $this->getTestRun() . '@example.com')
-            ->setCountry('DE')
-        ;
+        CartFixture::withUpdateableCart(
+            $client,
+            function (Cart $cart) use ($client) {
+                $address = Address::of()
+                    ->setFirstName('test-' . CartFixture::uniqueCartString() . '@example.com')
+                    ->setCountry('DE');
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartSetShippingAddressAction::of()->setAddress($address))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartSetShippingAddressAction::of()->setAddress($address));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($address->getFirstName(), $cart->getShippingAddress()->getFirstName());
+                $this->assertSame($address->getFirstName(), $result->getShippingAddress()->getFirstName());
+
+                return $result;
+            }
+        );
     }
 
     public function testBillingAddress()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $address = Address::of()
-            ->setFirstName('test-' . $this->getTestRun() . '@example.com')
-            ->setCountry('DE')
-        ;
+        CartFixture::withUpdateableCart(
+            $client,
+            function (Cart $cart) use ($client) {
+                $address = Address::of()
+                    ->setFirstName('test-' . CartFixture::uniqueCartString() . '@example.com')
+                    ->setCountry('DE');
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartSetBillingAddressAction::of()->setAddress($address))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartSetBillingAddressAction::of()->setAddress($address));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($address->getFirstName(), $cart->getBillingAddress()->getFirstName());
+                $this->assertSame($address->getFirstName(), $result->getBillingAddress()->getFirstName());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetCountry()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $country = 'UK';
+        CartFixture::withUpdateableCart(
+            $client,
+            function (Cart $cart) use ($client) {
+                $country = 'UK';
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartSetCountryAction::of()->setCountry($country))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartSetCountryAction::of()->setCountry($country));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($country, $cart->getCountry());
+                $this->assertSame($country, $result->getCountry());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetAnonymousId()
     {
+        $client = $this->getApiClient();
         $anonymousId = uniqid();
-        $draft = $this->getDraft();
-        $draft->setAnonymousId($anonymousId);
-        $cart = $this->createCart($draft);
-        $this->assertSame($anonymousId, $cart->getAnonymousId());
-
         $newAnonymousId = uniqid();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartSetAnonymousIdAction::of()->setAnonymousId($newAnonymousId))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+        CartFixture::withUpdateableDraftCart(
+            $client,
+            function (CartDraft $draft) use ($anonymousId) {
+                return $draft->setAnonymousId($anonymousId);
+            },
+            function (Cart $cart) use ($client, $newAnonymousId) {
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartSetAnonymousIdAction::of()->setAnonymousId($newAnonymousId));
+                $response = $this->execute($client, $request);
+                $cart = $request->mapFromResponse($response);
 
-        $this->assertSame($newAnonymousId, $cart->getAnonymousId());
+                $this->assertSame($newAnonymousId, $cart->getAnonymousId());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartSetAnonymousIdAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartSetAnonymousIdAction::of());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertNull($cart->getAnonymousId());
+                $this->assertNull($result->getAnonymousId());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetShippingMethod()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $shippingMethod = $this->getShippingMethod();
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetShippingAddressAction::of()->setAddress(
-                    Address::of()->setCountry('DE')->setState($this->getRegion())
-                )
-            )
-            ->addAction(
-                CartSetShippingMethodAction::of()->setShippingMethod($shippingMethod->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+        ShippingMethodFixture::withShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod, Zone $zone, TaxCategory $taxCategory) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $shippingMethod, $zone, $taxCategory) {
+                        $region = $zone->getLocations()->current()->getState();
 
-        $this->assertSame($shippingMethod->getName(), $cart->getShippingInfo()->getShippingMethodName());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetShippingAddressAction::of()->setAddress(
+                                    Address::of()->setCountry('DE')
+                                        ->setState($region)
+                                )
+                            )->addAction(
+                                CartSetShippingMethodAction::of()->setShippingMethod($shippingMethod->getReference())
+                            );
+
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame(
+                            $shippingMethod->getName(),
+                            $result->getShippingInfo()->getShippingMethodName()
+                        );
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSetCustomShippingMethod()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $shippingMethod = 'test-' . $this->getTestRun();
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetShippingAddressAction::of()->setAddress(
-                    Address::of()->setCountry('DE')->setState($this->getRegion())
-                )
-            )
-            ->addAction(
-                CartSetCustomShippingMethodAction::of()->setShippingMethodName($shippingMethod)
-                    ->setShippingRate(ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100)))
-                    ->setTaxCategory($this->getTaxCategory()->getReference())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+        ShippingMethodFixture::withShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod, Zone $zone, TaxCategory $taxCategory) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $shippingMethod, $zone, $taxCategory) {
+                        $region = $zone->getLocations()->current()->getState();
 
-        $this->assertSame($shippingMethod, $cart->getShippingInfo()->getShippingMethodName());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetShippingAddressAction::of()->setAddress(
+                                    Address::of()->setCountry('DE')->setState($region)
+                                )
+                            )->addAction(
+                                CartSetCustomShippingMethodAction::of()
+                                    ->setShippingMethodName($shippingMethod->getName())
+                                    ->setShippingRate(
+                                        ShippingRate::of()
+                                            ->setPrice(Money::ofCurrencyAndAmount('EUR', 100))
+                                    )->setTaxCategory($taxCategory->getReference())
+                            );
+
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame(
+                            $shippingMethod->getName(),
+                            $result->getShippingInfo()->getShippingMethodName()
+                        );
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testCustomerId()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $customer = $this->getCustomer();
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartSetCustomerIdAction::of()->setCustomerId($customer->getId()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+        CustomerFixture::withCustomer(
+            $client,
+            function (Customer $customer) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $customer) {
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartSetCustomerIdAction::of()->setCustomerId($customer->getId()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertSame($customer->getId(), $cart->getCustomerId());
+                        $this->assertSame($customer->getId(), $result->getCustomerId());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testRecalculate()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $product) {
+                        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                    $product->getId(),
+                                    $variant->getId(),
+                                    1
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductChangePriceAction::ofPriceIdAndPrice(
-                    $variant->getPrices()->current()->getId(),
-                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 200))
-                )
-            )
-            ->addAction(ProductPublishAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        TestHelper::getInstance($this->getClient())->setProduct($request->mapResponse($response));
+                        $request = RequestBuilder::of()->products()->update($product)
+                            ->addAction(
+                                ProductChangePriceAction::ofPriceIdAndPrice(
+                                    $variant->getPrices()->current()->getId(),
+                                    PriceDraft::ofMoney(Money::ofCurrencyAndAmount('EUR', 200))
+                                )
+                            )
+                            ->addAction(ProductPublishAction::of());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartRecalculateAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $client->execute($request);
 
-        $this->assertSame(200, $cart->getTotalPrice()->getCentAmount());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartRecalculateAction::of());
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame(200, $result->getTotalPrice()->getCentAmount());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testRecalculateChangedProduct()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $product) {
+                        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                    $product->getId(),
+                                    $variant->getId(),
+                                    1
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $request = CartQueryRequest::of()->where('id = "' . $cart->getId() . '"')->limit(1);
-        $response = $request->executeWithClient($this->getClient());
+                        $request = RequestBuilder::of()->carts()->query()
+                            ->where('id=:id', ['id' => $cart->getId()]);
+                        $response = $this->execute($client, $request);
+                        $cart2 = $request->mapFromResponse($response);
 
-        $cart2 = $request->mapResponse($response)->current();
-        $this->assertNotEmpty((string)$cart2->getLineItems()->current()->getProductSlug());
+                        $this->assertNotEmpty((string)$cart2->current()->getLineItems()->current()->getProductSlug());
 
-        $newName = 'new-name-' . $this->getTestRun();
-        $request = ProductUpdateRequest::ofIdAndVersion($product->getId(), $product->getVersion())
-            ->addAction(
-                ProductChangeNameAction::ofName(
-                    LocalizedString::ofLangAndText('en', $newName)
-                )
-            )
-            ->addAction(ProductPublishAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        TestHelper::getInstance($this->getClient())->setProduct($request->mapResponse($response));
+                        $newName = 'new-name-' . CartFixture::uniqueCartString();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartRecalculateAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->products()->update($product)
+                            ->addAction(
+                                ProductChangeNameAction::ofName(
+                                    LocalizedString::ofLangAndText('en', $newName)
+                                )
+                            )
+                            ->addAction(ProductPublishAction::of());
+                        $client->execute($request);
 
-        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
-        $this->assertSame(
-            (string)$product->getMasterData()->getCurrent()->getName(),
-            (string)$cart->getLineItems()->current()->getName()
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartRecalculateAction::of());
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
+
+                        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
+                        $this->assertSame(
+                            (string)$product->getMasterData()->getCurrent()->getName(),
+                            (string)$cart->getLineItems()->current()->getName()
+                        );
+                        $this->assertNotEmpty((string)$cart->getLineItems()->current()->getProductSlug());
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartRecalculateAction::of()->setUpdateProductData(true));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame(100, $result->getTotalPrice()->getCentAmount());
+                        $this->assertSame($newName, (string)$result->getLineItems()->current()->getName());
+                        $this->assertNotEmpty((string)$result->getLineItems()->current()->getProductSlug());
+
+                        return $result;
+                    }
+                );
+            }
         );
-
-        $this->assertNotEmpty((string)$cart->getLineItems()->current()->getProductSlug());
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartRecalculateAction::of()->setUpdateProductData(true))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
-        $this->assertSame($newName, (string)$cart->getLineItems()->current()->getName());
-        $this->assertNotEmpty((string)$cart->getLineItems()->current()->getProductSlug());
     }
 
     public function testCustomType()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $type = $this->getType('key-' . $this->getTestRun(), 'order');
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())->setResourceTypeIds(['order']);
+            },
+            function (Type $type) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $type) {
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                SetCustomTypeAction::ofTypeKey($type->getKey())
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                SetCustomTypeAction::ofTypeKey($type->getKey())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $this->assertSame($type->getId(), $result->getCustom()->getType()->getId());
 
-        $this->assertSame($type->getId(), $cart->getCustom()->getType()->getId());
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testCustomField()
     {
-        $type = $this->getType('key-' . $this->getTestRun(), 'order');
-        $draft = $this->getDraft();
-        $draft->setCustom(CustomFieldObjectDraft::ofType($type->getReference()));
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())->setResourceTypeIds(['order']);
+            },
+            function (Type $type) use ($client) {
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $cartDraft) use ($type) {
+                        return $cartDraft->setCustom(CustomFieldObjectDraft::ofType($type->getReference()));
+                    },
+                    function (Cart $cart) use ($client, $type) {
+                        $value = CartFixture::uniqueCartString();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                SetCustomFieldAction::ofName('testField')
-                    ->setValue($this->getTestRun())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                SetCustomFieldAction::ofName('testField')
+                                    ->setValue($value)
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertSame($this->getTestRun(), $cart->getCustom()->getFields()->getTestField());
+                        $this->assertSame($value, $result->getCustom()->getFields()->getTestField());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testLineItemCustomType()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $type = $this->getType('key-' . $this->getTestRun(), 'line-item');
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())->setResourceTypeIds(['line-item']);
+            },
+            function (Type $type) use ($client) {
+                ProductFixture::withPublishedProduct(
+                    $client,
+                    function (Product $product) use ($client, $type) {
+                        CartFixture::withUpdateableCart(
+                            $client,
+                            function (Cart $cart) use ($client, $type, $product) {
+                                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                            $product->getId(),
+                                            $variant->getId(),
+                                            1
+                                        )
+                                    );
+                                $response = $this->execute($client, $request);
+                                $cart = $request->mapFromResponse($response);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetLineItemCustomTypeAction::ofTypeKey($type->getKey())
-                    ->setLineItemId($cart->getLineItems()->current()->getId())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartSetLineItemCustomTypeAction::ofTypeKey($type->getKey())
+                                            ->setLineItemId($cart->getLineItems()->current()->getId())
+                                    );
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($type->getId(), $cart->getLineItems()->current()->getCustom()->getType()->getId());
+                                $this->assertSame(
+                                    $type->getId(),
+                                    $result->getLineItems()->current()->getCustom()->getType()->getId()
+                                );
+
+                                return $result;
+                            }
+                        );
+                    }
+                );
+            }
+        );
     }
 
     public function testAddLineItemWithCustomType()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $type = $this->getType('key-' . $this->getTestRun(), 'line-item');
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())->setResourceTypeIds(['line-item']);
+            },
+            function (Type $type) use ($client) {
+                ProductFixture::withPublishedProduct(
+                    $client,
+                    function (Product $product) use ($client, $type) {
+                        CartFixture::withUpdateableCart(
+                            $client,
+                            function (Cart $cart) use ($client, $product, $type) {
+                                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-                    ->setCustom(
-                        CustomFieldObjectDraft::ofTypeKeyAndFields(
-                            $type->getKey(),
-                            FieldContainer::of()->setTestField('1')
-                        )
-                    )
-            )
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-                    ->setCustom(
-                        CustomFieldObjectDraft::ofTypeKeyAndFields(
-                            $type->getKey(),
-                            FieldContainer::of()->setTestField('2')
-                        )
-                    )
-            )
-        ;
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                            $product->getId(),
+                                            $variant->getId(),
+                                            1
+                                        )->setCustom(
+                                            CustomFieldObjectDraft::ofTypeKeyAndFields(
+                                                $type->getKey(),
+                                                FieldContainer::of()->setTestField('1')
+                                            )
+                                        )
+                                    )->addAction(
+                                        CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                            $product->getId(),
+                                            $variant->getId(),
+                                            1
+                                        )->setCustom(
+                                            CustomFieldObjectDraft::ofTypeKeyAndFields(
+                                                $type->getKey(),
+                                                FieldContainer::of()->setTestField('2')
+                                            )
+                                        )
+                                    );
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
 
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                $this->assertCount(2, $result->getLineItems());
+                                $this->assertSame(1, $result->getLineItems()->getAt(0)->getQuantity());
+                                $this->assertSame(1, $result->getLineItems()->getAt(1)->getQuantity());
 
-        $this->assertCount(2, $cart->getLineItems());
-        $this->assertSame(1, $cart->getLineItems()->getAt(0)->getQuantity());
-        $this->assertSame(1, $cart->getLineItems()->getAt(1)->getQuantity());
+                                return $result;
+                            }
+                        );
+                    }
+                );
+            }
+        );
     }
 
     public function testCustomLineItemCustomType()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $type = $this->getType('key-' . $this->getTestRun(), 'custom-line-item');
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())
+                    ->setResourceTypeIds(['custom-line-item']);
+            },
+            function (Type $type) use ($client) {
+                TaxCategoryFixture::withTaxCategory(
+                    $client,
+                    function (TaxCategory $taxCategory) use ($client, $type) {
+                        CartFixture::withUpdateableCart(
+                            $client,
+                            function (Cart $cart) use ($client, $type, $taxCategory) {
+                                $item = 'item-' . CartFixture::uniqueCartString();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddCustomLineItemAction::ofNameQuantityMoneySlugAndTaxCategory(
-                    LocalizedString::ofLangAndText('en', 'item-' . $this->getTestRun()),
-                    1,
-                    Money::ofCurrencyAndAmount('EUR', 100),
-                    'item-' . $this->getTestRun(),
-                    $this->getTaxCategory()->getReference()
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartAddCustomLineItemAction::ofNameQuantityMoneySlugAndTaxCategory(
+                                            LocalizedString::ofLangAndText('en', $item),
+                                            1,
+                                            Money::ofCurrencyAndAmount('EUR', 100),
+                                            $item,
+                                            $taxCategory->getReference()
+                                        )
+                                    );
+                                $response = $this->execute($client, $request);
+                                $cart = $request->mapFromResponse($response);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetCustomLineItemCustomTypeAction::ofTypeKey($type->getKey())
-                    ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartSetCustomLineItemCustomTypeAction::ofTypeKey($type->getKey())
+                                            ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
+                                    );
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
 
-        $this->assertSame($type->getId(), $cart->getCustomLineItems()->current()->getCustom()->getType()->getId());
+                                $this->assertSame(
+                                    $type->getId(),
+                                    $result->getCustomLineItems()->current()->getCustom()->getType()->getId()
+                                );
+
+                                return $result;
+                            }
+                        );
+                    }
+                );
+            }
+        );
     }
 
     public function testLineItemCustomField()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $type = $this->getType('key-' . $this->getTestRun(), 'line-item');
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())
+                    ->setResourceTypeIds(['line-item']);
+            },
+            function (Type $type) use ($client) {
+                ProductFixture::withPublishedProduct(
+                    $client,
+                    function (Product $product) use ($client, $type) {
+                        CartFixture::withUpdateableCart(
+                            $client,
+                            function (Cart $cart) use ($client, $type, $product) {
+                                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-                    ->setCustom(CustomFieldObjectDraft::ofType($type->getReference()))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                            $product->getId(),
+                                            $variant->getId(),
+                                            1
+                                        )->setCustom(CustomFieldObjectDraft::ofType($type->getReference()))
+                                    );
+                                $response = $this->execute($client, $request);
+                                $cart = $request->mapFromResponse($response);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetLineItemCustomFieldAction::ofName('testField')
-                    ->setLineItemId($cart->getLineItems()->current()->getId())
-                    ->setValue($this->getTestRun())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                $value = CartFixture::uniqueCartString();
 
-        $this->assertSame(
-            $this->getTestRun(),
-            $cart->getLineItems()->current()->getCustom()->getFields()->getTestField()
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartSetLineItemCustomFieldAction::ofName('testField')
+                                            ->setLineItemId($cart->getLineItems()->current()->getId())
+                                            ->setValue($value)
+                                    );
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
+
+                                $this->assertSame(
+                                    $value,
+                                    $result->getLineItems()->current()->getCustom()->getFields()->getTestField()
+                                );
+
+                                return $result;
+                            }
+                        );
+                    }
+                );
+            }
         );
     }
 
     public function testCustomLineItemCustomField()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $type = $this->getType('key-' . $this->getTestRun(), 'custom-line-item');
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())
+                    ->setResourceTypeIds(['custom-line-item']);
+            },
+            function (Type $type) use ($client) {
+                TaxCategoryFixture::withTaxCategory(
+                    $client,
+                    function (TaxCategory $taxCategory) use ($client, $type) {
+                        CartFixture::withUpdateableCart(
+                            $client,
+                            function (Cart $cart) use ($client, $type, $taxCategory) {
+                                $name  = 'item-' . CartFixture::uniqueCartString();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddCustomLineItemAction::ofNameQuantityMoneySlugAndTaxCategory(
-                    LocalizedString::ofLangAndText('en', 'item-' . $this->getTestRun()),
-                    1,
-                    Money::ofCurrencyAndAmount('EUR', 100),
-                    'item-' . $this->getTestRun(),
-                    $this->getTaxCategory()->getReference()
-                )
-                    ->setCustom(CustomFieldObjectDraft::ofType($type->getReference()))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartAddCustomLineItemAction::ofNameQuantityMoneySlugAndTaxCategory(
+                                            LocalizedString::ofLangAndText('en', $name),
+                                            1,
+                                            Money::ofCurrencyAndAmount('EUR', 100),
+                                            $name,
+                                            $taxCategory->getReference()
+                                        )->setCustom(CustomFieldObjectDraft::ofType($type->getReference()))
+                                    );
+                                $response = $this->execute($client, $request);
+                                $cart = $request->mapFromResponse($response);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetCustomLineItemCustomFieldAction::ofName('testField')
-                    ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
-                    ->setValue($this->getTestRun())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                $value = CartFixture::uniqueCartString();
 
-        $this->assertSame(
-            $this->getTestRun(),
-            $cart->getCustomLineItems()->current()->getCustom()->getFields()->getTestField()
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartSetCustomLineItemCustomFieldAction::ofName('testField')
+                                            ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
+                                            ->setValue($value)
+                                    );
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
+
+                                $this->assertSame(
+                                    $value,
+                                    $result->getCustomLineItems()->current()->getCustom()->getFields()->getTestField()
+                                );
+
+                                return $result;
+                            }
+                        );
+                    }
+                );
+            }
         );
     }
 
     public function testPayment()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $payment = $this->getPayment();
+        PaymentFixture::withPayment(
+            $client,
+            function (Payment $payment) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $payment) {
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartAddPaymentAction::of()->setPayment($payment->getReference()));
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartAddPaymentAction::of()->setPayment($payment->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $this->assertSame(
+                            $payment->getId(),
+                            $cart->getPaymentInfo()->getPayments()->current()->getId()
+                        );
 
-        $this->assertSame($payment->getId(), $cart->getPaymentInfo()->getPayments()->current()->getId());
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartRemovePaymentAction::of()->setPayment($payment->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-        $this->assertNull($cart->getPaymentInfo());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartRemovePaymentAction::of()->setPayment($payment->getReference()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertNull($result->getPaymentInfo());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testDiscountCode()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $discountCode = $this->getDiscountCode();
+        DiscountCodeFixture::withDraftDiscountCode(
+            $client,
+            function (DiscountCodeDraft $discountCodeDraft) {
+                return $discountCodeDraft->setIsActive(true);
+            },
+            function (DiscountCode $discountCode) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $discountCode) {
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()));
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $this->assertSame(
+                            $discountCode->getId(),
+                            $cart->getDiscountCodes()->current()->getDiscountCode()->getId()
+                        );
 
-        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartRemoveDiscountCodeAction::ofDiscountCode($discountCode->getReference()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartRemoveDiscountCodeAction::ofDiscountCode($discountCode->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-        $this->assertEmpty($cart->getDiscountCodes());
+                        $this->assertEmpty($result->getDiscountCodes());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testDiscountCodeCustomPredicate()
     {
-        $type = $this->getType('key-' . $this->getTestRun(), 'order');
-        $draft = $this->getDraft();
-        $draft->setCustom(
-            CustomFieldObjectDraft::ofTypeAndFields(
-                $type->getReference(),
-                FieldContainer::of()->set('testField', $this->getTestRun())
-            )
-        );
-        $draft->setLineItems(
-            LineItemDraftCollection::of()
-                ->add(LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1))
-        );
+        $client = $this->getApiClient();
+        $testField = CartFixture::uniqueCartString();
 
-        $cart = $this->createCart($draft);
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())->setResourceTypeIds(['order']);
+            },
+            function (Type $type) use ($client, $testField) {
+                ProductFixture::withPublishedProduct(
+                    $client,
+                    function (Product $product) use ($client, $type, $testField) {
+                        CartDiscountFixture::withEmptyDraftCartDiscount(
+                            $client,
+                            function (CartDiscountDraft $cartDiscountDraft) use ($testField) {
+                                $cartDiscountDraft =
+                                    CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+                                        LocalizedString::ofLangAndText('en', 'test-' . $testField . '-discount'),
+                                        AbsoluteCartDiscountValue::of()->setMoney(
+                                            MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
+                                        ),
+                                        'custom.testField = "' . $testField . '"',
+                                        LineItemsTarget::of()->setPredicate('1=1'),
+                                        '0.9' . trim((string)mt_rand(1, CartDiscountFixture::RAND_MAX), '0'),
+                                        true,
+                                        true
+                                    );
 
-        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-            AbsoluteCartDiscountValue::of()->setMoney(
-                MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
-            ),
-            'custom.testField = "' . $this->getTestRun() . '"',
-            LineItemsTarget::of()->setPredicate('1=1'),
-            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
-            true,
-            true
-        );
-        $request = CartDiscountCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $cartDiscount = $request->mapFromResponse($response);
-        TestHelper::getInstance($this->getClient())->setCartDiscount($cartDiscount);
-        $discountCode = $this->getDiscountCode();
+                                return $cartDiscountDraft;
+                            },
+                            function (CartDiscount $cartDiscount) use ($client, $type, $product, $testField) {
+                                DiscountCodeFixture::withDraftDiscountCodeWithoutCartDiscount(
+                                    $client,
+                                    function (DiscountCodeDraft $discountCodeDraft) use ($cartDiscount) {
+                                        $discountCodeDraft->setCartDiscounts(
+                                            CartDiscountReferenceCollection::of()->add($cartDiscount->getReference())
+                                        );
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                        return $discountCodeDraft;
+                                    },
+                                    function (DiscountCode $discountCode) use (
+                                        $client,
+                                        $type,
+                                        $product,
+                                        $cartDiscount,
+                                        $testField
+                                    ) {
+                                        CartFixture::withUpdateableDraftCart(
+                                            $client,
+                                            function (CartDraft $cartDraft) use ($type, $product, $testField) {
+                                                $cartDraft->setCustom(
+                                                    CustomFieldObjectDraft::ofTypeAndFields(
+                                                        $type->getReference(),
+                                                        FieldContainer::of()->set('testField', $testField)
+                                                    )
+                                                )->setLineItems(
+                                                    LineItemDraftCollection::of()
+                                                        ->add(
+                                                            LineItemDraft::ofProductIdVariantIdAndQuantity(
+                                                                $product->getId(),
+                                                                1,
+                                                                1
+                                                            )
+                                                        )
+                                                );
 
-        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+                                                return $cartDraft;
+                                            },
+                                            function (Cart $cart) use ($client, $discountCode, $cartDiscount) {
+                                                $request = RequestBuilder::of()->carts()->update($cart)
+                                                    ->addAction(
+                                                        CartAddDiscountCodeAction::ofCode($discountCode->getCode())
+                                                    );
+                                                $response = $this->execute($client, $request);
+                                                $cart = $request->mapFromResponse($response);
 
-        $this->assertSame(
-            $cartDiscount->getId(),
-            $cart->getLineItems()->current()
-                ->getDiscountedPricePerQuantity()->current()
-                ->getDiscountedPrice()->getIncludedDiscounts()->current()
-                ->getDiscount()->getId()
+                                                $this->assertSame(
+                                                    $discountCode->getId(),
+                                                    $cart->getDiscountCodes()->current()->getDiscountCode()->getId()
+                                                );
+                                                $this->assertSame(
+                                                    $cartDiscount->getId(),
+                                                    $cart->getLineItems()->current()
+                                                        ->getDiscountedPricePerQuantity()->current()
+                                                        ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                                                        ->getDiscount()->getId()
+                                                );
+
+                                                return $cart;
+                                            }
+                                        );
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
         );
     }
 
     public function testMultiBuyDiscount()
     {
-        $draft = $this->getDraft();
-        $draft->setLineItems(
-            LineItemDraftCollection::of()
-                ->add(LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 3))
-        );
+        $client = $this->getApiClient();
+        $testField = CartFixture::uniqueCartString();
 
-        $cart = $this->createCart($draft);
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client, $testField) {
+                CartDiscountFixture::withEmptyDraftCartDiscount(
+                    $client,
+                    function (CartDiscountDraft $cartDiscountDraft) use ($testField) {
+                        $cartDiscountDraft =
+                            CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+                                LocalizedString::ofLangAndText('en', 'test-' . $testField . '-discount'),
+                                RelativeCartDiscountValue::of()->setPermyriad(10000),
+                                '1=1',
+                                MultiBuyLineItemsTarget::ofPredicateTriggerDiscountedAndMode(
+                                    '1=1',
+                                    3,
+                                    1,
+                                    MultiBuyLineItemsTarget::MODE_CHEAPEST
+                                ),
+                                '0.9' . trim((string)mt_rand(1, CartDiscountFixture::RAND_MAX), '0'),
+                                true,
+                                true
+                            );
 
-        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-            RelativeCartDiscountValue::of()->setPermyriad(10000),
-            '1=1',
-            MultiBuyLineItemsTarget::ofPredicateTriggerDiscountedAndMode(
-                '1=1',
-                3,
-                1,
-                MultiBuyLineItemsTarget::MODE_CHEAPEST
-            ),
-            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
-            true,
-            true
-        );
-        $request = CartDiscountCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        TestHelper::getInstance($this->getClient())->setCartDiscount($request->mapResponse($response));
+                        return $cartDiscountDraft;
+                    },
+                    function (CartDiscount $cartDiscount) use ($client, $product, $testField) {
+                        DiscountCodeFixture::withDraftDiscountCodeWithoutCartDiscount(
+                            $client,
+                            function (DiscountCodeDraft $discountCodeDraft) use ($cartDiscount) {
+                                $discountCodeDraft->setCartDiscounts(
+                                    CartDiscountReferenceCollection::of()->add($cartDiscount->getReference())
+                                );
 
-        $discountCode = $this->getDiscountCode();
+                                return $discountCodeDraft;
+                            },
+                            function (DiscountCode $discountCode) use (
+                                $client,
+                                $product,
+                                $cartDiscount,
+                                $testField
+                            ) {
+                                CartFixture::withUpdateableDraftCart(
+                                    $client,
+                                    function (CartDraft $cartDraft) use ($product, $testField) {
+                                        $cartDraft->setLineItems(
+                                            LineItemDraftCollection::of()
+                                                ->add(LineItemDraft::ofProductIdVariantIdAndQuantity(
+                                                    $product->getId(),
+                                                    1,
+                                                    3
+                                                ))
+                                        );
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                        return $cartDraft;
+                                    },
+                                    function (Cart $cart) use ($client, $discountCode, $cartDiscount) {
+                                        $request = RequestBuilder::of()->carts()->update($cart)
+                                            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()));
+                                        $response = $this->execute($client, $request);
+                                        $cart = $request->mapFromResponse($response);
 
-        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+                                         $this->assertSame(
+                                             $discountCode->getId(),
+                                             $cart->getDiscountCodes()->current()->getDiscountCode()->getId()
+                                         );
+                                        $this->assertSame(
+                                            $cartDiscount->getId(),
+                                            $cart->getLineItems()->current()
+                                                ->getDiscountedPricePerQuantity()->current()
+                                                ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                                                ->getDiscount()->getId()
+                                        );
+                                        $this->assertSame(
+                                            $cart->getLineItems()->current()->getPrice()
+                                                ->getValue()->getCentAmount() * 2,
+                                            $cart->getLineItems()->current()->getTotalPrice()->getCentAmount()
+                                        );
 
-        $this->assertSame(
-            TestHelper::getInstance($this->getClient())->getCartDiscount()->getId(),
-            $cart->getLineItems()->current()
-                ->getDiscountedPricePerQuantity()->current()
-                ->getDiscountedPrice()->getIncludedDiscounts()->current()
-                ->getDiscount()->getId()
-        );
-        $this->assertSame(
-            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount() * 2,
-            $cart->getLineItems()->current()->getTotalPrice()->getCentAmount()
+                                        return $cart;
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
         );
     }
 
     public function testMultiBuyCustomLineItemDiscount()
     {
-        $draft = $this->getDraft();
-        $draft->setCustomLineItems(
-            CustomLineItemDraftCollection::of()
-                ->add(
-                    CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-                        LocalizedString::ofLangAndText('en', 'Test'),
-                        Money::ofCurrencyAndAmount('EUR', 1000),
-                        'test',
-                        $this->getTaxCategory()->getReference(),
-                        3
-                    )
-                )
-        );
+        $client = $this->getApiClient();
+        $testField = CartFixture::uniqueCartString();
 
-        $cart = $this->createCart($draft);
+        TaxCategoryFixture::withTaxCategory(
+            $client,
+            function (TaxCategory $taxCategory) use ($client, $testField) {
+                CartDiscountFixture::withEmptyDraftCartDiscount(
+                    $client,
+                    function (CartDiscountDraft $cartDiscountDraft) use ($testField) {
+                        $cartDiscountDraft =
+                            CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+                                LocalizedString::ofLangAndText('en', 'test-' . $testField . '-discount'),
+                                RelativeCartDiscountValue::of()->setPermyriad(10000),
+                                '1=1',
+                                MultiBuyCustomLineItemsTarget::ofPredicateTriggerDiscountedAndMode(
+                                    '1=1',
+                                    3,
+                                    1,
+                                    MultiBuyCustomLineItemsTarget::MODE_CHEAPEST
+                                ),
+                                '0.9' . trim((string)mt_rand(1, CartDiscountFixture::RAND_MAX), '0'),
+                                true,
+                                true
+                            );
 
-        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-            RelativeCartDiscountValue::of()->setPermyriad(10000),
-            '1=1',
-            MultiBuyCustomLineItemsTarget::ofPredicateTriggerDiscountedAndMode(
-                '1=1',
-                3,
-                1,
-                MultiBuyCustomLineItemsTarget::MODE_CHEAPEST
-            ),
-            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
-            true,
-            true
-        );
-        $request = CartDiscountCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        TestHelper::getInstance($this->getClient())->setCartDiscount($request->mapResponse($response));
+                        return $cartDiscountDraft;
+                    },
+                    function (CartDiscount $cartDiscount) use ($client, $testField, $taxCategory) {
+                        DiscountCodeFixture::withDraftDiscountCodeWithoutCartDiscount(
+                            $client,
+                            function (DiscountCodeDraft $discountCodeDraft) use ($cartDiscount) {
+                                $discountCodeDraft->setCartDiscounts(
+                                    CartDiscountReferenceCollection::of()->add($cartDiscount->getReference())
+                                );
 
-        $discountCode = $this->getDiscountCode();
+                                return $discountCodeDraft;
+                            },
+                            function (DiscountCode $discountCode) use (
+                                $client,
+                                $cartDiscount,
+                                $testField,
+                                $taxCategory
+                            ) {
+                                CartFixture::withUpdateableDraftCart(
+                                    $client,
+                                    function (CartDraft $cartDraft) use ($testField, $taxCategory) {
+                                        $cartDraft->setCustomLineItems(
+                                            CustomLineItemDraftCollection::of()
+                                                ->add(
+                                                    CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                                                        LocalizedString::ofLangAndText('en', 'Test'),
+                                                        Money::ofCurrencyAndAmount('EUR', 1000),
+                                                        'test',
+                                                        $taxCategory->getReference(),
+                                                        3
+                                                    )
+                                                )
+                                        );
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                        return $cartDraft;
+                                    },
+                                    function (Cart $cart) use ($client, $discountCode, $cartDiscount) {
+                                        $request = RequestBuilder::of()->carts()->update($cart)
+                                            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()));
+                                        $response = $this->execute($client, $request);
+                                        $cart = $request->mapFromResponse($response);
 
-        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+                                        $this->assertSame(
+                                            $discountCode->getId(),
+                                            $cart->getDiscountCodes()->current()->getDiscountCode()->getId()
+                                        );
+                                        $this->assertSame(
+                                            $cartDiscount->getId(),
+                                            $cart->getCustomLineItems()->current()
+                                                ->getDiscountedPricePerQuantity()->current()
+                                                ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                                                ->getDiscount()->getId()
+                                        );
+                                        $this->assertSame(
+                                            $cart->getCustomLineItems()->current()->getMoney()->getCentAmount() * 2,
+                                            $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount()
+                                        );
 
-        $this->assertSame(
-            TestHelper::getInstance($this->getClient())->getCartDiscount()->getId(),
-            $cart->getCustomLineItems()->current()
-                ->getDiscountedPricePerQuantity()->current()
-                ->getDiscountedPrice()->getIncludedDiscounts()->current()
-                ->getDiscount()->getId()
-        );
-        $this->assertSame(
-            $cart->getCustomLineItems()->current()->getMoney()->getCentAmount() * 2,
-            $cart->getCustomLineItems()->current()->getTotalPrice()->getCentAmount()
+                                        return $cart;
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
         );
     }
 
     public function testDiscountCodeCustomLineItemPredicate()
     {
-        $type = $this->getType('key-' . $this->getTestRun(), 'line-item');
-        $draft = $this->getDraft();
-        $draft->setLineItems(
-            LineItemDraftCollection::of()
-                ->add(
-                    LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1)
-                        ->setCustom(
-                            CustomFieldObject::of()
-                                ->setType($type->getReference())
-                                ->setFields(FieldContainer::of()->set('testField', $this->getTestRun()))
-                        )
-                )
-        );
+        $client = $this->getApiClient();
+        $testField = CartFixture::uniqueCartString();
 
-        $cart = $this->createCart($draft);
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())->setResourceTypeIds(['line-item']);
+            },
+            function (Type $type) use ($client, $testField) {
+                ProductFixture::withPublishedProduct(
+                    $client,
+                    function (Product $product) use ($client, $type, $testField) {
+                        CartDiscountFixture::withEmptyDraftCartDiscount(
+                            $client,
+                            function (CartDiscountDraft $cartDiscountDraft) use ($testField) {
+                                $cartDiscountDraft =
+                                    CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
+                                        LocalizedString::ofLangAndText('en', 'test-' . $testField . '-discount'),
+                                        AbsoluteCartDiscountValue::of()->setMoney(
+                                            MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
+                                        ),
+                                        '1=1',
+                                        CartDiscountTarget::of()->setType('lineItems')
+                                            ->setPredicate('custom.testField = "' . $testField . '"'),
+                                        '0.9' . trim((string)mt_rand(1, CartDiscountFixture::RAND_MAX), '0'),
+                                        true,
+                                        true
+                                    );
 
-        $draft = CartDiscountDraft::ofNameValuePredicateTargetOrderActiveAndDiscountCode(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-discount'),
-            CartDiscountValue::of()->setType('absolute')->setMoney(
-                MoneyCollection::of()->add(Money::ofCurrencyAndAmount('EUR', 100))
-            ),
-            '1=1',
-            CartDiscountTarget::of()->setType('lineItems')->setPredicate('custom.testField = "' . $this->getTestRun() . '"'),
-            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
-            true,
-            true
-        );
-        $request = CartDiscountCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        TestHelper::getInstance($this->getClient())->setCartDiscount($request->mapResponse($response));
+                                return $cartDiscountDraft;
+                            },
+                            function (CartDiscount $cartDiscount) use ($client, $type, $product, $testField) {
+                                DiscountCodeFixture::withDraftDiscountCodeWithoutCartDiscount(
+                                    $client,
+                                    function (DiscountCodeDraft $discountCodeDraft) use ($cartDiscount) {
+                                        $discountCodeDraft->setCartDiscounts(
+                                            CartDiscountReferenceCollection::of()->add($cartDiscount->getReference())
+                                        );
 
-        $discountCode = $this->getDiscountCode();
+                                        return $discountCodeDraft;
+                                    },
+                                    function (DiscountCode $discountCode) use (
+                                        $client,
+                                        $type,
+                                        $product,
+                                        $cartDiscount,
+                                        $testField
+                                    ) {
+                                        CartFixture::withUpdateableDraftCart(
+                                            $client,
+                                            function (CartDraft $cartDraft) use ($type, $product, $testField) {
+                                                $cartDraft->setLineItems(
+                                                    LineItemDraftCollection::of()
+                                                        ->add(
+                                                            LineItemDraft::ofProductIdVariantIdAndQuantity(
+                                                                $product->getId(),
+                                                                1,
+                                                                1
+                                                            )->setCustom(
+                                                                CustomFieldObject::of()
+                                                                        ->setType($type->getReference())
+                                                                        ->setFields(
+                                                                            FieldContainer::of()
+                                                                                ->set('testField', $testField)
+                                                                        )
+                                                            )
+                                                        )
+                                                );
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartAddDiscountCodeAction::ofCode($discountCode->getCode()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                                return $cartDraft;
+                                            },
+                                            function (Cart $cart) use ($client, $discountCode, $cartDiscount) {
+                                                $request = RequestBuilder::of()->carts()->update($cart)
+                                                    ->addAction(
+                                                        CartAddDiscountCodeAction::ofCode($discountCode->getCode())
+                                                    );
+                                                $response = $this->execute($client, $request);
+                                                $cart = $request->mapFromResponse($response);
 
-        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+                                                $this->assertSame(
+                                                    $discountCode->getId(),
+                                                    $cart->getDiscountCodes()->current()->getDiscountCode()->getId()
+                                                );
+                                                $this->assertSame(
+                                                    $cartDiscount->getId(),
+                                                    $cart->getLineItems()->current()
+                                                        ->getDiscountedPricePerQuantity()->current()
+                                                        ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                                                        ->getDiscount()->getId()
+                                                );
 
-        $this->assertSame(
-            TestHelper::getInstance($this->getClient())->getCartDiscount()->getId(),
-            $cart->getLineItems()->current()
-                ->getDiscountedPricePerQuantity()->current()
-                ->getDiscountedPrice()->getIncludedDiscounts()->current()
-                ->getDiscount()->getId()
+                                                return $cart;
+                                            }
+                                        );
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
         );
     }
 
@@ -1434,38 +2067,50 @@ class CartUpdateRequestTest extends ApiTestCase
      */
     public function testLocale($locale, $expectedLocale)
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartSetLocaleAction::ofLocale($locale))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
+        CartFixture::withUpdateableCart(
+            $client,
+            function (Cart $cart) use ($client, $locale, $expectedLocale) {
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartSetLocaleAction::ofLocale($locale));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($cart->getVersion());
+                $this->assertSame($expectedLocale, $result->getLocale());
 
-        $this->assertSame($expectedLocale, $cart->getLocale());
+                return $result;
+            }
+        );
     }
 
     public function testCustomerGroup()
     {
-        $customerGroup = $this->getCustomerGroup();
-        $draft = $this->getDraft();
-        $draft->setCustomerGroup($customerGroup->getReference());
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $this->assertSame($customerGroup->getId(), $cart->getCustomerGroup()->getId());
+        CustomerGroupFixture::withCustomerGroup(
+            $client,
+            function (CustomerGroup $customerGroup) use ($client) {
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $cartDraft) use ($customerGroup) {
+                        return $cartDraft->setCustomerGroup($customerGroup->getReference());
+                    },
+                    function (Cart $cart) use ($client, $customerGroup) {
+                        $this->assertSame($customerGroup->getId(), $cart->getCustomerGroup()->getId());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartSetCustomerGroupAction::of())
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartSetCustomerGroupAction::of());
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $this->assertNotNull($cart->getCustomerGroup());
 
-        $this->assertNull($cart->getCustomerGroup());
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function invalidLocaleProvider()
@@ -1484,653 +2129,836 @@ class CartUpdateRequestTest extends ApiTestCase
      */
     public function testInvalidLocale($locale)
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartSetLocaleAction::ofLocale($locale))
-        ;
-        $response = $request->executeWithClient($this->getClient());
+        $client = $this->getApiClient();
 
-        $this->assertTrue($response->isError());
+        CartFixture::withUpdateableCart(
+            $client,
+            function (Cart $cart) use ($client, $locale) {
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartSetLocaleAction::ofLocale($locale));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                return $result;
+            }
+        );
     }
 
     public function testTaxRoundingMode()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $this->assertSame(Cart::TAX_ROUNDING_MODE_HALF_EVEN, $cart->getTaxRoundingMode());
+        CartFixture::withUpdateableCart(
+            $client,
+            function (Cart $cart) use ($client) {
+                $this->assertSame(Cart::TAX_ROUNDING_MODE_HALF_EVEN, $cart->getTaxRoundingMode());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartChangeTaxRoundingModeAction::ofTaxRoundingMode(Cart::TAX_ROUNDING_MODE_HALF_DOWN))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartChangeTaxRoundingModeAction::ofTaxRoundingMode(Cart::TAX_ROUNDING_MODE_HALF_DOWN));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($cart->getVersion());
+                $this->assertSame(Cart::TAX_ROUNDING_MODE_HALF_DOWN, $result->getTaxRoundingMode());
 
-        $this->assertSame(Cart::TAX_ROUNDING_MODE_HALF_DOWN, $cart->getTaxRoundingMode());
+                return $result;
+            }
+        );
     }
 
     public function testCreateWithTaxRoundingMode()
     {
-        $draft = $this->getDraft();
-        $draft->setTaxRoundingMode(Cart::TAX_ROUNDING_MODE_HALF_DOWN);
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $this->assertSame(Cart::TAX_ROUNDING_MODE_HALF_DOWN, $cart->getTaxRoundingMode());
+        CartFixture::withDraftCart(
+            $client,
+            function (CartDraft $draft) {
+                return $draft->setTaxRoundingMode(Cart::TAX_ROUNDING_MODE_HALF_DOWN);
+            },
+            function (Cart $cart) use ($client) {
+                $this->assertSame(Cart::TAX_ROUNDING_MODE_HALF_DOWN, $cart->getTaxRoundingMode());
+            }
+        );
     }
 
     public function testTaxCalculationModeUnitPrice()
     {
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $this->assertSame(Cart::TAX_CALCULATION_MODE_LINE_ITEM_LEVEL, $cart->getTaxCalculationMode());
+        CartFixture::withUpdateableCart(
+            $client,
+            function (Cart $cart) use ($client) {
+                $this->assertSame(Cart::TAX_CALCULATION_MODE_LINE_ITEM_LEVEL, $cart->getTaxCalculationMode());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartChangeTaxCalculationModeAction::ofTaxCalculationMode(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(
+                        CartChangeTaxCalculationModeAction::ofTaxCalculationMode(
+                            Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($cart->getVersion());
+                $this->assertSame(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL, $result->getTaxCalculationMode());
 
-        $this->assertSame(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL, $cart->getTaxCalculationMode());
+                return $result;
+            }
+        );
     }
 
     public function testCreateWithTaxCalculationMode()
     {
-        $draft = $this->getDraft();
-        $draft->setTaxCalculationMode(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL);
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $this->assertSame(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL, $cart->getTaxCalculationMode());
+        CartFixture::withDraftCart(
+            $client,
+            function (CartDraft $draft) {
+                return $draft->setTaxCalculationMode(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL);
+            },
+            function (Cart $cart) use ($client) {
+                $this->assertSame(Cart::TAX_CALCULATION_MODE_UNIT_PRICE_LEVEL, $cart->getTaxCalculationMode());
+            }
+        );
     }
 
 
     public function testAutomaticDelete()
     {
-        $draft = $this->getDraft();
-        $draft->setDeleteDaysAfterLastModification(1);
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $this->assertSame(1, $cart->getDeleteDaysAfterLastModification());
+        CartFixture::withUpdateableDraftCart(
+            $client,
+            function (CartDraft $draft) {
+                return $draft->setDeleteDaysAfterLastModification(1);
+            },
+            function (Cart $cart) use ($client) {
+                $this->assertSame(1, $cart->getDeleteDaysAfterLastModification());
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartSetDeleteDaysAfterLastModificationAction::ofDays(2))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartSetDeleteDaysAfterLastModificationAction::ofDays(2));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($cart->getVersion());
+                $this->assertSame(2, $result->getDeleteDaysAfterLastModification());
 
-        $this->assertSame(2, $cart->getDeleteDaysAfterLastModification());
+                return $result;
+            }
+        );
     }
 
     public function testPriceTiersOnAddLineItem()
     {
-        $productDraft = $this->getProductDraft();
-        $productDraft->getMasterVariant()->getPrices()->current()->setTiers(PriceTierCollection::of()
-            ->add(
-                PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 10))->setMinimumQuantity(2)
-            )
-            ->add(
-                PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 1))->setMinimumQuantity(3)
-            ));
-        $product = $this->getProduct($productDraft);
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        $client = $this->getApiClient();
 
-        $draft = $this->getDraft();
-        $draft->setLineItems(
-            LineItemDraftCollection::of()
-                ->add(LineItemDraft::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1))
+        ProductFixture::withDraftProduct(
+            $client,
+            function (ProductDraft $productDraft) {
+                $productDraft->getMasterVariant()->getPrices()->current()->setTiers(PriceTierCollection::of()
+                    ->add(
+                        PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 10))->setMinimumQuantity(2)
+                    )
+                    ->add(
+                        PriceTier::of()->setValue(Money::ofCurrencyAndAmount('EUR', 1))->setMinimumQuantity(3)
+                    ));
+
+                return $productDraft->setPublish(true);
+            },
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+                CartFixture::withUpdateabledraftCart(
+                    $client,
+                    function (CartDraft $cartDraft) use ($product, $variant) {
+                        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+                        return $cartDraft->setLineItems(
+                            LineItemDraftCollection::of()
+                                ->add(LineItemDraft::ofProductIdVariantIdAndQuantity(
+                                    $product->getId(),
+                                    $variant->getId(),
+                                    1
+                                ))
+                        );
+                    },
+                    function (Cart $cart) use ($client, $product, $variant) {
+                        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+                        $this->assertSame(
+                            $product->getProductType()->getId(),
+                            $cart->getLineItems()->current()->getProductType()->getId()
+                        );
+                        $this->assertSame(
+                            100,
+                            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                $product->getId(),
+                                $variant->getId(),
+                                1
+                            ));
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
+
+                        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+                        $this->assertSame(
+                            $product->getProductType()->getId(),
+                            $cart->getLineItems()->current()->getProductType()->getId()
+                        );
+                        $this->assertSame(
+                            10,
+                            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity(
+                                $cart->getLineItems()->current()->getId(),
+                                3
+                            ));
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
+
+                        $this->assertSame(3, $cart->getLineItems()->current()->getQuantity());
+                        $this->assertSame(
+                            1,
+                            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartRemoveLineItemAction::ofLineItemId(
+                                $cart->getLineItems()->current()->getId()
+                            )->setQuantity(1));
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
+
+                        $this->assertSame(2, $cart->getLineItems()->current()->getQuantity());
+                        $this->assertSame(
+                            10,
+                            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
+                        );
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartRemoveLineItemAction::ofLineItemId(
+                                $cart->getLineItems()->current()->getId()
+                            ));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertCount(0, $result->getLineItems());
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $cart = $this->createCart($draft);
-
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
-        $this->assertSame(
-            $product->getProductType()->getId(),
-            $cart->getLineItems()->current()->getProductType()->getId()
-        );
-        $this->assertSame(
-            100,
-            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
-        );
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-            );
-
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
-        $this->assertSame(
-            $product->getProductType()->getId(),
-            $cart->getLineItems()->current()->getProductType()->getId()
-        );
-        $this->assertSame(
-            10,
-            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
-        );
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartChangeLineItemQuantityAction::ofLineItemIdAndQuantity($cart->getLineItems()->current()->getId(), 3)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-        $this->assertSame(3, $cart->getLineItems()->current()->getQuantity());
-        $this->assertSame(
-            1,
-            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
-        );
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartRemoveLineItemAction::ofLineItemId($cart->getLineItems()->current()->getId())->setQuantity(1)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $this->assertSame(2, $cart->getLineItems()->current()->getQuantity());
-        $this->assertSame(
-            10,
-            $cart->getLineItems()->current()->getPrice()->getValue()->getCentAmount()
-        );
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartRemoveLineItemAction::ofLineItemId($cart->getLineItems()->current()->getId())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-        $this->assertCount(0, $cart->getLineItems());
     }
 
     public function testGiftLineItem()
     {
-        $cartDiscount = $this->getGiftLineItemCartDiscount();
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                CartDiscountFixture::withEmptyDraftCartDiscount(
+                    $client,
+                    function (CartDiscountDraft $cartDiscountDraft) use ($product) {
+                        $cartDiscountDraft = CartDiscountDraft::ofNameValuePredicateOrderActiveAndDiscountCode(
+                            LocalizedString::ofLangAndText(
+                                'en',
+                                'test-' . CartDiscountFixture::uniqueCartDiscountString() . '-gift-line-item-discount'
+                            ),
+                            GiftLineItemCartDiscountValue::of()
+                                ->setProduct($product->getReference())
+                                ->setVariantId($product->getMasterData()->getCurrent()->getMasterVariant()->getId()),
+                            '1=1',
+                            '0.9' . trim((string)mt_rand(1, CartDiscountFixture::RAND_MAX), '0'),
+                            true,
+                            false
+                        );
 
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
+                        return $cartDiscountDraft;
+                    },
+                    function (CartDiscount $cartDiscount) use ($client, $product) {
+                        CartFixture::withUpdateableCart(
+                            $client,
+                            function (Cart $cart) use ($client, $product, $cartDiscount) {
+                                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-            );
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                            $product->getId(),
+                                            $variant->getId(),
+                                            1
+                                        )
+                                    );
+                                $response = $this->execute($client, $request);
+                                $cart = $request->mapFromResponse($response);
 
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                                $this->assertCount(2, $cart->getLineItems());
+                                $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
 
-        $this->assertCount(2, $cart->getLineItems());
+                                $giftLineItemIncluded = false;
+                                foreach ($cart->getLineItems() as $lineItem) {
+                                    $this->assertSame(
+                                        $product->getReference()->getId(),
+                                        $lineItem->getProductId()
+                                    );
+                                    $this->assertSame($variant->getId(), $lineItem->getVariant()->getId());
 
-        $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
-
-        $giftLineItemIncluded = false;
-        foreach ($cart->getLineItems() as $lineItem) {
-            $this->assertSame($product->getReference()->getId(), $lineItem->getProductId());
-            $this->assertSame($variant->getId(), $lineItem->getVariant()->getId());
-            if ($lineItem->getLineItemMode() == LineItem::LINE_ITEM_MODE_GIFT_LINE_ITEM) {
-                $giftLineItemIncluded = true;
-                $this->assertSame(0, $lineItem->getTotalPrice()->getCentAmount());
-                $this->assertCount(1, $lineItem->getDiscountedPricePerQuantity());
-                $this->assertSame(
-                    $cartDiscount->getId(),
-                    $lineItem->getDiscountedPricePerQuantity()->current()
-                            ->getDiscountedPrice()->getIncludedDiscounts()->current()
-                            ->getDiscount()->getId()
+                                    if ($lineItem->getLineItemMode() == LineItem::LINE_ITEM_MODE_GIFT_LINE_ITEM) {
+                                        $giftLineItemIncluded = true;
+                                        $this->assertSame(0, $lineItem->getTotalPrice()->getCentAmount());
+                                        $this->assertCount(1, $lineItem->getDiscountedPricePerQuantity());
+                                        $this->assertSame(
+                                            $cartDiscount->getId(),
+                                            $lineItem->getDiscountedPricePerQuantity()->current()
+                                                ->getDiscountedPrice()->getIncludedDiscounts()->current()
+                                                ->getDiscount()->getId()
+                                        );
+                                    }
+                                }
+                                $this->assertTrue($giftLineItemIncluded);
+                            }
+                        );
+                    }
                 );
             }
-        }
-        $this->assertTrue($giftLineItemIncluded);
+        );
     }
 
     public function testSetLineItemTaxAmount()
     {
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        $client = $this->getApiClient();
 
-        $draft = $this->getDraft();
-        $draft->setLineItems(LineItemDraftCollection::of()->add(LineItemDraft::ofSku($variant->getSku())));
-        $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
-        $cart = $this->createCart($draft);
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $taxAmount = mt_rand(1, 100000);
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetLineItemTaxAmountAction::of()
-                    ->setLineItemId($cart->getLineItems()->current()->getId())
-                    ->setExternalTaxAmount(
-                        ExternalTaxAmountDraft::ofTotalGrossAndTaxRate(
-                            Money::ofCurrencyAndAmount('EUR', $taxAmount),
-                            ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0)
-                        )
-                    )
-            );
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $draft) use ($variant) {
+                        return $draft
+                            ->setLineItems(LineItemDraftCollection::of()->add(LineItemDraft::ofSku($variant->getSku())))
+                            ->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
+                    },
+                    function (Cart $cart) use ($client, $variant, $product) {
+                        $taxAmount = mt_rand(1, 100000);
 
-        $this->assertSame($taxAmount, $cart->getLineItems()->current()->getTaxedPrice()->getTotalGross()->getCentAmount());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetLineItemTaxAmountAction::of()
+                                    ->setLineItemId($cart->getLineItems()->current()->getId())
+                                    ->setExternalTaxAmount(
+                                        ExternalTaxAmountDraft::ofTotalGrossAndTaxRate(
+                                            Money::ofCurrencyAndAmount('EUR', $taxAmount),
+                                            ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0)
+                                        )
+                                    )
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame(
+                            $taxAmount,
+                            $result->getLineItems()->current()->getTaxedPrice()->getTotalGross()->getCentAmount()
+                        );
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSetCustomLineItemTaxAmount()
     {
-        $draft = $this->getDraft();
-        $draft->setCustomLineItems(
-            CustomLineItemDraftCollection::of()
-                ->add(
-                    CustomLineItemDraft::ofNameMoneySlugAndQuantity(
-                        LocalizedString::ofLangAndText('en', 'test'),
-                        Money::ofCurrencyAndAmount('EUR', 100),
-                        'test-124',
-                        1
-                    )
-                )
-        );
-        $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $taxAmount = mt_rand(1, 100000);
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetCustomLineItemTaxAmountAction::of()
-                    ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
-                    ->setExternalTaxAmount(
-                        ExternalTaxAmountDraft::ofTotalGrossAndTaxRate(
-                            Money::ofCurrencyAndAmount('EUR', $taxAmount),
-                            ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0)
+        CartFixture::withUpdateableDraftCart(
+            $client,
+            function (CartDraft $draft) {
+                return $draft->setCustomLineItems(
+                    CustomLineItemDraftCollection::of()
+                        ->add(
+                            CustomLineItemDraft::ofNameMoneySlugAndQuantity(
+                                LocalizedString::ofLangAndText('en', 'test'),
+                                Money::ofCurrencyAndAmount('EUR', 100),
+                                'test-124',
+                                1
+                            )
                         )
-                    )
-            );
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                )->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
+            },
+            function (Cart $cart) use ($client) {
+                $taxAmount = mt_rand(1, 100000);
 
-        $this->assertSame($taxAmount, $cart->getCustomLineItems()->current()->getTaxedPrice()->getTotalGross()->getCentAmount());
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(
+                        CartSetCustomLineItemTaxAmountAction::of()
+                            ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
+                            ->setExternalTaxAmount(
+                                ExternalTaxAmountDraft::ofTotalGrossAndTaxRate(
+                                    Money::ofCurrencyAndAmount('EUR', $taxAmount),
+                                    ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0)
+                                )
+                            )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame(
+                    $taxAmount,
+                    $result->getCustomLineItems()->current()->getTaxedPrice()->getTotalGross()->getCentAmount()
+                );
+
+                return $result;
+            }
+        );
     }
 
     public function testSetShippingMethodTaxAmount()
     {
-        $shippingMethod = $this->getShippingMethod();
-        $draft = $this->getDraft();
-        $draft->setShippingAddress(Address::of()->setCountry('DE')->setState($this->getRegion()));
-        $draft->setShippingMethod($shippingMethod->getReference());
-        $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $taxAmount = mt_rand(1, 100000);
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetShippingMethodTaxAmountAction::of()
-                    ->setExternalTaxAmount(
-                        ExternalTaxAmountDraft::ofTotalGrossAndTaxRate(
-                            Money::ofCurrencyAndAmount('EUR', $taxAmount),
-                            ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0)
-                        )
-                    )
-            );
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+        ShippingMethodFixture::withShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $draft) use ($shippingMethod, $zone) {
+                        return $draft->setShippingAddress(
+                            Address::of()->setCountry('DE')->setState($zone->getLocations()->current()->getState())
+                        )->setShippingMethod($shippingMethod->getReference())
+                            ->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
+                    },
+                    function (Cart $cart) use ($client, $shippingMethod) {
+                        $taxAmount = mt_rand(1, 100000);
 
-        $this->assertSame($taxAmount, $cart->getShippingInfo()->getTaxedPrice()->getTotalGross()->getCentAmount());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetShippingMethodTaxAmountAction::of()
+                                    ->setExternalTaxAmount(
+                                        ExternalTaxAmountDraft::ofTotalGrossAndTaxRate(
+                                            Money::ofCurrencyAndAmount('EUR', $taxAmount),
+                                            ExternalTaxRateDraft::ofNameCountryAndAmount('test', 'DE', 1.0)
+                                        )
+                                    )
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame(
+                            $taxAmount,
+                            $result->getShippingInfo()->getTaxedPrice()->getTotalGross()->getCentAmount()
+                        );
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSetTotalTaxAmount()
     {
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        $client = $this->getApiClient();
 
-        $draft = $this->getDraft();
-        $draft->setLineItems(LineItemDraftCollection::of()->add(LineItemDraft::ofSku($variant->getSku())));
-        $draft->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
-        $cart = $this->createCart($draft);
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $taxAmount = mt_rand(1, 100000);
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetCartTotalTaxAction::of()
-                    ->setExternalTotalGross(
-                        Money::ofCurrencyAndAmount('EUR', $taxAmount)
-                    )
-            );
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $draft) use ($variant) {
+                        return $draft
+                            ->setLineItems(LineItemDraftCollection::of()->add(LineItemDraft::ofSku($variant->getSku())))
+                            ->setTaxMode(Cart::TAX_MODE_EXTERNAL_AMOUNT);
+                    },
+                    function (Cart $cart) use ($client) {
+                        $taxAmount = mt_rand(1, 100000);
 
-        $this->assertSame($taxAmount, $cart->getTaxedPrice()->getTotalGross()->getCentAmount());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetCartTotalTaxAction::of()
+                                    ->setExternalTotalGross(
+                                        Money::ofCurrencyAndAmount('EUR', $taxAmount)
+                                    )
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertSame($taxAmount, $result->getTaxedPrice()->getTotalGross()->getCentAmount());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testSetShippingRateInput()
     {
-        $request = ProjectGetRequest::of();
-        $response = $request->executeWithClient($this->getClient());
-        $project = $request->mapResponse($response);
+        $client = $this->getApiClient();
 
-        $this->assertInstanceOf(Project::class, $project);
+        ProjectFixture::withProject(
+            $client,
+            function (Project $project) use ($client) {
+                CartFixture::withUpdateableCart(
+                    $client,
+                    function (Cart $cart) use ($client, $project) {
+                        $this->assertInstanceOf(Project::class, $project);
 
-        $request = ProjectUpdateRequest::ofVersion($project->getVersion());
-        $request->addAction(
-            ProjectSetShippingRateInputTypeAction::of()
-                ->setShippingRateInputType(CartScoreType::of())
+                        $request = RequestBuilder::of()->project()->update($project)
+                            ->addAction(
+                                ProjectSetShippingRateInputTypeAction::of()
+                                    ->setShippingRateInputType(CartScoreType::of())
+                            );
+                        $response = $this->execute($client, $request);
+                        $request->mapFromResponse($response);
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetShippingRateInputAction::of()
+                                    ->setShippingRateInput(ScoreShippingRateInput::ofScore(1))
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ScoreShippingRateInput::class, $result->getShippingRateInput());
+                        $this->assertSame(1, $result->getShippingRateInput()->getScore());
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $request->executeWithClient($this->getClient());
-
-        $draft = $this->getDraft();
-        $cart = $this->createCart($draft);
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetShippingRateInputAction::of()
-                    ->setShippingRateInput(ScoreShippingRateInput::ofScore(1))
-            );
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $this->assertInstanceOf(ScoreShippingRateInput::class, $cart->getShippingRateInput());
-        $this->assertSame(1, $cart->getShippingRateInput()->getScore());
     }
 
     public function testCartAddLineItemWithShippingDetailsAndApplyDelta()
     {
-        $draft = $this->getDraft();
-        $draft->setItemShippingAddresses(AddressCollection::of()->add(
-            Address::of()->setCountry('DE')->setKey('key1')
-        ));
-        $cart = $this->createCart($draft);
+        $client = $this->getApiClient();
 
-        $product = $this->getProduct();
-        $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::ofProductIdVariantIdAndQuantity($product->getId(), $variant->getId(), 1)
-                    ->setShippingDetails(ItemShippingDetailsDraft::ofTargets(
-                        ItemShippingTargetCollection::of()
-                            ->add(ItemShippingTarget::of()
-                                ->setQuantity(10)->setAddressKey('key1'))
-                    ))
-            );
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $draft) {
+                        return $draft->setItemShippingAddresses(
+                            AddressCollection::of()->add(
+                                Address::of()->setCountry('DE')->setKey('key1')
+                            )
+                        );
+                    },
+                    function (Cart $cart) use ($client, $product, $variant) {
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                    $product->getId(),
+                                    $variant->getId(),
+                                    1
+                                )
+                                    ->setShippingDetails(ItemShippingDetailsDraft::ofTargets(
+                                        ItemShippingTargetCollection::of()
+                                            ->add(ItemShippingTarget::of()
+                                                ->setQuantity(10)->setAddressKey('key1'))
+                                    ))
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
+                        $itemShippingAddresses = $cart->getItemShippingAddresses();
+                        $addressKey = $cart->getLineItems()->current()->getShippingDetails()
+                                            ->getTargets()->current()->getAddressKey();
 
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+                        $this->assertSame('DE', $itemShippingAddresses->current()->getCountry());
+                        $this->assertSame('key1', $itemShippingAddresses->current()->getKey());
+                        $this->assertSame('key1', $addressKey);
 
-        $itemShippingAddresses = $cart->getItemShippingAddresses();
-        $addressKey = $cart->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey();
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartApplyDeltaToLineItemShippingDetailsTargetsAction::of()
+                                    ->setLineItemId($cart->getLineItems()->current()->getId())
+                                    ->setTargetsDelta(ItemShippingTargetCollection::of()->add(
+                                        ItemShippingTarget::of()->setQuantity(15)->setAddressKey('key1')
+                                    ))
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
-        $this->assertSame('DE', $itemShippingAddresses->current()->getCountry());
-        $this->assertSame('key1', $itemShippingAddresses->current()->getKey());
-        $this->assertSame('key1', $addressKey);
+                        $this->assertSame(
+                            'key1',
+                            $cart->getLineItems()->current()->getShippingDetails()
+                                ->getTargets()->current()->getAddressKey()
+                        );
+                        $this->assertSame(
+                            25,
+                            $cart->getLineItems()->current()->getShippingDetails()
+                                ->getTargets()->current()->getQuantity()
+                        );
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartApplyDeltaToLineItemShippingDetailsTargetsAction::of()
-                    ->setLineItemId($cart->getLineItems()->current()->getId())
-                    ->setTargetsDelta(ItemShippingTargetCollection::of()->add(
-                        ItemShippingTarget::of()->setQuantity(15)->setAddressKey('key1')
-                    ))
-            );
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetLineItemShippingDetailsAction::ofLineItemIdAndShippingDetails(
+                                    $cart->getLineItems()->current()->getId(),
+                                    ItemShippingDetailsDraft::ofTargets(
+                                        ItemShippingTargetCollection::of()->add(
+                                            ItemShippingTarget::of()->setQuantity(20)->setAddressKey('key1')
+                                        )
+                                    )
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $this->assertSame(
+                            'key1',
+                            $result->getLineItems()->current()->getShippingDetails()
+                                ->getTargets()->current()->getAddressKey()
+                        );
+                        $this->assertSame(
+                            20,
+                            $result->getLineItems()->current()->getShippingDetails()
+                                ->getTargets()->current()->getQuantity()
+                        );
 
-        $this->assertSame(
-            'key1',
-            $cart->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
-        );
-        $this->assertSame(
-            25,
-            $cart->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
-        );
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartSetLineItemShippingDetailsAction::ofLineItemIdAndShippingDetails(
-                    $cart->getLineItems()->current()->getId(),
-                    ItemShippingDetailsDraft::ofTargets(
-                        ItemShippingTargetCollection::of()->add(
-                            ItemShippingTarget::of()->setQuantity(20)->setAddressKey('key1')
-                        )
-                    )
-                )
-            );
-
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $this->assertSame(
-            'key1',
-            $cart->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
-        );
-        $this->assertSame(
-            20,
-            $cart->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
+                        return $result;
+                    }
+                );
+            }
         );
     }
 
     public function testCartAddItemShippingAddressAction()
     {
-        $draft = $this->getDraft();
-        $draft->setItemShippingAddresses(
-            AddressCollection::of()->add(Address::of()->setCountry('DE')->setKey('key1'))
+        $client = $this->getApiClient();
+
+        CartFixture::withUpdateableDraftCart(
+            $client,
+            function (CartDraft $draft) {
+                return $draft->setItemShippingAddresses(
+                    AddressCollection::of()->add(Address::of()->setCountry('DE')->setKey('key1'))
+                );
+            },
+            function (Cart $cart) use ($client) {
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartAddItemShippingAddressAction::of()
+                        ->setAddress(Address::of()->setKey('key2')->setCountry('US')));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $itemShippingAddresses = $result->getItemShippingAddresses();
+
+                $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+                $this->assertSame(2, $itemShippingAddresses->count());
+                $this->assertSame('US', $itemShippingAddresses->getAt(1)->getCountry());
+                $this->assertSame('key2', $itemShippingAddresses->getAt(1)->getKey());
+
+                return $result;
+            }
         );
-        $cart = $this->createCart($draft);
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartAddItemShippingAddressAction::of()
-                ->setAddress(Address::of()->setKey('key2')->setCountry('US')));
-
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-
-        $itemShippingAddresses = $cart->getItemShippingAddresses();
-
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
-        $this->assertSame(2, $itemShippingAddresses->count());
-        $this->assertSame('US', $itemShippingAddresses->getAt(1)->getCountry());
-        $this->assertSame('key2', $itemShippingAddresses->getAt(1)->getKey());
     }
 
     public function testCartRemoveItemShippingAddressAction()
     {
-        $draft = $this->getDraft();
-        $draft->setItemShippingAddresses(
-            AddressCollection::of()
-                ->add(Address::of()->setCountry('DE')->setKey('key1'))
-                ->add(Address::of()->setCountry('US')->setKey('key2'))
+        $client = $this->getApiClient();
+
+        CartFixture::withUpdateableDraftCart(
+            $client,
+            function (CartDraft $draft) {
+                return $draft->setItemShippingAddresses(
+                    AddressCollection::of()
+                        ->add(Address::of()->setCountry('DE')->setKey('key1'))
+                        ->add(Address::of()->setCountry('US')->setKey('key2'))
+                );
+            },
+            function (Cart $cart) use ($client) {
+                $itemShippingAddresses = $cart->getItemShippingAddresses();
+
+                $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+                $this->assertSame(2, $itemShippingAddresses->count());
+
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartRemoveItemShippingAddressAction::of()->setAddressKey('key1'));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $itemShippingAddresses = $result->getItemShippingAddresses();
+
+                $this->assertSame(1, $itemShippingAddresses->count());
+                $this->assertSame('US', $itemShippingAddresses->current()->getCountry());
+                $this->assertSame('key2', $itemShippingAddresses->current()->getKey());
+
+                return $result;
+            }
         );
-        $cart = $this->createCart($draft);
-
-        $itemShippingAddresses = $cart->getItemShippingAddresses();
-        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
-        $this->assertSame(2, $itemShippingAddresses->count());
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartRemoveItemShippingAddressAction::of()->setAddressKey('key1'));
-
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $itemShippingAddresses = $cart->getItemShippingAddresses();
-        $this->assertSame(1, $itemShippingAddresses->count());
-        $this->assertSame('US', $itemShippingAddresses->getAt(0)->getCountry());
-        $this->assertSame('key2', $itemShippingAddresses->getAt(0)->getKey());
     }
 
     public function testCartUpdateItemShippingAddressAction()
     {
-        $draft = $this->getDraft();
-        $draft->setItemShippingAddresses(
-            AddressCollection::of()
-                ->add(Address::of()->setCountry('DE')->setKey('key1'))
+        $client = $this->getApiClient();
+
+        CartFixture::withUpdateableDraftCart(
+            $client,
+            function (CartDraft $draft) {
+                return $draft->setItemShippingAddresses(
+                    AddressCollection::of()
+                        ->add(Address::of()->setCountry('DE')->setKey('key1'))
+                );
+            },
+            function (Cart $cart) use ($client) {
+                $itemShippingAddresses = $cart->getItemShippingAddresses();
+                $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+                $this->assertSame(1, $itemShippingAddresses->count());
+                $this->assertSame('DE', $itemShippingAddresses->getAt(0)->getCountry());
+
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(CartUpdateItemShippingAddressAction::of()->setAddress(
+                        Address::of()->setCountry('US')->setKey('key1')
+                    ));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $itemShippingAddresses = $result->getItemShippingAddresses();
+
+                $this->assertSame(1, $itemShippingAddresses->count());
+                $this->assertSame('US', $itemShippingAddresses->current()->getCountry());
+                $this->assertSame('key1', $itemShippingAddresses->current()->getKey());
+
+                return $result;
+            }
         );
-        $cart = $this->createCart($draft);
-
-        $itemShippingAddresses = $cart->getItemShippingAddresses();
-        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
-        $this->assertSame(1, $itemShippingAddresses->count());
-        $this->assertSame('DE', $itemShippingAddresses->getAt(0)->getCountry());
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartUpdateItemShippingAddressAction::of()->setAddress(
-                Address::of()->setCountry('US')->setKey('key1')
-            ));
-
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $itemShippingAddresses = $cart->getItemShippingAddresses();
-        $this->assertSame(1, $itemShippingAddresses->count());
-        $this->assertSame('US', $itemShippingAddresses->getAt(0)->getCountry());
-        $this->assertSame('key1', $itemShippingAddresses->getAt(0)->getKey());
     }
 
     public function testCustomLineItemSetShippingDetailsAndApplyDelta()
     {
-        $draft = $this->getDraft();
-        $name = LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun());
+        $client = $this->getApiClient();
+        $name = LocalizedString::ofLangAndText('en', 'test-' . CartFixture::uniqueCartString());
 
-        $customLineItem = CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-            $name,
-            Money::ofCurrencyAndAmount('EUR', 100),
-            $name->en,
-            $this->getTaxCategory()->getReference(),
-            1
-        );
-        $draft->setCustomLineItems(CustomLineItemDraftCollection::of()->add($customLineItem));
+        TaxCategoryFixture::withTaxCategory(
+            $client,
+            function (TaxCategory $taxCategory) use ($client, $name) {
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $draft) use ($taxCategory, $name) {
+                        $customLineItem = CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
+                            $name,
+                            Money::ofCurrencyAndAmount('EUR', 100),
+                            $name->en,
+                            $taxCategory->getReference(),
+                            1
+                        );
+                        return $draft->setCustomLineItems(CustomLineItemDraftCollection::of()->add($customLineItem));
+                    },
+                    function (Cart $cart) use ($client, $taxCategory, $name) {
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartAddItemShippingAddressAction::of()
+                                ->setAddress(Address::of()->setKey('key1')->setCountry('US')))
+                            ->addAction(
+                                CartSetCustomLineItemShippingDetailsAction::ofCustomLineItemIdAndShippingDetails(
+                                    $cart->getCustomLineItems()->current()->getId(),
+                                    ItemShippingDetailsDraft::ofTargets(
+                                        ItemShippingTargetCollection::of()->add(
+                                            ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
+                                        )
+                                    )
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $cart = $request->mapFromResponse($response);
 
-        $cart = $this->createCart($draft);
+                        $this->assertSame($name->en, $cart->getCustomLineItems()->current()->getName()->en);
+                        $this->assertSame(
+                            'key1',
+                            $cart->getCustomLineItems()->current()->getShippingDetails()
+                                ->getTargets()->current()->getAddressKey()
+                        );
+                        $this->assertSame(
+                            10,
+                            $cart->getCustomLineItems()->current()->getShippingDetails()
+                                ->getTargets()->current()->getQuantity()
+                        );
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartAddItemShippingAddressAction::of()
-                ->setAddress(Address::of()->setKey('key1')->setCountry('US')))
-            ->addAction(
-                CartSetCustomLineItemShippingDetailsAction::ofCustomLineItemIdAndShippingDetails(
-                    $cart->getCustomLineItems()->current()->getId(),
-                    ItemShippingDetailsDraft::ofTargets(
-                        ItemShippingTargetCollection::of()->add(
-                            ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
-                        )
-                    )
-                )
-            );
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction::of()
+                                    ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
+                                    ->setTargetsDelta(ItemShippingTargetCollection::of()->add(
+                                        ItemShippingTarget::of()->setQuantity(20)->setAddressKey('key1')
+                                    ))
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
+                        $this->assertSame(
+                            'key1',
+                            $result->getCustomLineItems()->current()->getShippingDetails()
+                                ->getTargets()->current()->getAddressKey()
+                        );
+                        $this->assertSame(
+                            30,
+                            $result->getCustomLineItems()->current()->getShippingDetails()
+                                ->getTargets()->current()->getQuantity()
+                        );
 
-        $this->assertSame($name->en, $cart->getCustomLineItems()->current()->getName()->en);
-        $this->assertSame(
-            'key1',
-            $cart->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
-        );
-        $this->assertSame(
-            10,
-            $cart->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
-        );
-
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartApplyDeltaToCustomLineItemShippingDetailsTargetsAction::of()
-                    ->setCustomLineItemId($cart->getCustomLineItems()->current()->getId())
-                    ->setTargetsDelta(ItemShippingTargetCollection::of()->add(
-                        ItemShippingTarget::of()->setQuantity(20)->setAddressKey('key1')
-                    ))
-            );
-
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($cart->getVersion());
-
-        $this->assertSame(
-            'key1',
-            $cart->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
-        );
-        $this->assertSame(
-            30,
-            $cart->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
+                        return $result;
+                    }
+                );
+            }
         );
     }
 
     public function testUpdateAndDeleteForCartInStore()
     {
-        $store = $this->getStore();
-        $cartDraft = $this->getDraft()->setStore(StoreReference::ofKey($store->getKey()));
-        $cart = $this->createCart($cartDraft);
+        $client = $this->getApiClient();
 
-        $email = 'test-' . $this->getTestRun() . '@example.com';
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client) {
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $draft) use ($store) {
+                        return $draft->setStore(StoreReference::ofKey($store->getKey()));
+                    },
+                    function (Cart $cart) use ($client, $store) {
+                        $email = 'test-' . CartFixture::uniqueCartString() . '@example.com';
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(CartSetCustomerEmailAction::of()->setEmail($email))
-            ->inStore($store->getKey());
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartSetCustomerEmailAction::of()->setEmail($email))
+                            ->inStore($store->getKey());
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                        $this->assertInstanceOf(Cart::class, $result);
+                        $this->assertSame($cart->getId(), $result->getId());
+                        $this->assertSame($email, $result->getCustomerEmail());
+                        $this->assertSame(
+                            'in-store/key=' . $store->getKey() . '/carts/' . $result->getId(),
+                            (string)$request->httpRequest()->getUri()
+                        );
+                        $this->assertSame($store->getKey(), $result->getStore()->getKey());
 
-        $this->assertInstanceOf(Cart::class, $result);
-        $this->assertSame($cart->getId(), $result->getId());
-        $this->assertSame($email, $result->getCustomerEmail());
-        $this->assertSame('in-store/key='.$store->getKey().'/carts/'.$result->getId(), (string)$request->httpRequest()->getUri());
-        $this->assertSame($store->getKey(), $result->getStore()->getKey());
+                        $cartRequest = RequestBuilder::of()->carts()->delete($result);
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), $cartRequest);
+                        $response = $request->executeWithClient($this->getClient());
+                        $result = $request->mapResponse($response);
 
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), CartDeleteRequest::ofIdAndVersion($result->getId(), $result->getVersion()));
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                        $this->assertInstanceOf(Cart::class, $result);
+                        $this->assertSame($cart->getId(), $result->getId());
 
-        $this->assertInstanceOf(Cart::class, $result);
-        $this->assertSame($cart->getId(), $result->getId());
-    }
-
-    /**
-     * @return CartDraft
-     */
-    protected function getDraft()
-    {
-        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
-
-        return $draft;
-    }
-
-    protected function createCart(CartDraft $draft)
-    {
-        $request = CartCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-
-        $this->deleteRequest = CartDeleteRequest::ofIdAndVersion($cart->getId(), $cart->getVersion());
-        $this->cleanupRequests[] = $this->deleteRequest;
-
-        return $cart;
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 }

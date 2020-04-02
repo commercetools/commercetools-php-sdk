@@ -12,14 +12,20 @@ use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\ErrorContainer;
 use Commercetools\Core\Error\ErrorResponseException;
+use Commercetools\Core\Error\InvalidClientCredentialsException;
 use Commercetools\Core\Error\InvalidOperationError;
+use Commercetools\Core\Error\NotFoundException;
 use Commercetools\Core\Model\Category\CategoryCollection;
 use Commercetools\Core\Request\Categories\CategoryByIdGetRequest;
 use Commercetools\Core\Request\Categories\CategoryQueryRequest;
 use Commercetools\Core\Request\Categories\CategoryUpdateRequest;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
 use Commercetools\Core\Client\ApiClient;
+use Commercetools\Core\Request\Project\ProjectGetRequest;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Response as PsrResponse;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
@@ -66,7 +72,7 @@ class ClientFactoryTest extends ApiTestCase
 
         $record = current($handler->getRecords());
         $this->assertStringStartsWith($config->getProject(), $record['context']['X-Correlation-ID'][0]);
-        $this->assertContains((new UserAgentProvider())->getUserAgent(), $record['message']);
+        $this->assertStringContainsString((new UserAgentProvider())->getUserAgent(), $record['message']);
     }
 
     public function testExecute()
@@ -92,7 +98,7 @@ class ClientFactoryTest extends ApiTestCase
 
         $record = current($handler->getRecords());
         $this->assertStringStartsWith($config->getProject(), $record['context']['X-Correlation-ID'][0]);
-        $this->assertContains((new UserAgentProvider())->getUserAgent(), $record['message']);
+        $this->assertStringContainsString((new UserAgentProvider())->getUserAgent(), $record['message']);
     }
 
     public function testExecuteAsync()
@@ -118,7 +124,7 @@ class ClientFactoryTest extends ApiTestCase
 
         $record = current($handler->getRecords());
         $this->assertStringStartsWith($config->getProject(), $record['context']['X-Correlation-ID'][0]);
-        $this->assertContains((new UserAgentProvider())->getUserAgent(), $record['message']);
+        $this->assertStringContainsString((new UserAgentProvider())->getUserAgent(), $record['message']);
     }
 
     public function testClientNoException()
@@ -143,9 +149,6 @@ class ClientFactoryTest extends ApiTestCase
         $this->assertNull($category);
     }
 
-    /**
-     * @expectedException \Commercetools\Core\Error\NotFoundException
-     */
     public function testClientException()
     {
         $handler = new TestHandler();
@@ -160,6 +163,7 @@ class ClientFactoryTest extends ApiTestCase
         $this->assertInstanceOf(ApiClient::class, $client);
 
         $request = CategoryByIdGetRequest::ofId("abc");
+        $this->expectException(NotFoundException::class);
         $client->send($request->httpRequest());
     }
 
@@ -221,7 +225,7 @@ class ClientFactoryTest extends ApiTestCase
 
         $record = current($handler->getRecords());
         $this->assertStringStartsWith($config->getProject(), $record['context']['X-Correlation-ID'][0]);
-        $this->assertContains((new UserAgentProvider())->getUserAgent(), $record['message']);
+        $this->assertStringContainsString((new UserAgentProvider())->getUserAgent(), $record['message']);
     }
 
     public function testPreAuthProvider()
@@ -239,5 +243,18 @@ class ClientFactoryTest extends ApiTestCase
         $this->assertInstanceOf(PsrResponse::class, $response);
 
         $this->assertSame(401, $response->getStatusCode());
+    }
+
+    public function testInvalidCredentialsOAuthException()
+    {
+        $client = ClientFactory::of()->createClient(new Config());
+
+        $this->assertInstanceOf(ApiClient::class, $client);
+
+        $this->expectException(InvalidClientCredentialsException::class);
+        $this->expectExceptionCode(401);
+
+        $request = ProjectGetRequest::of();
+        $client->execute($request);
     }
 }

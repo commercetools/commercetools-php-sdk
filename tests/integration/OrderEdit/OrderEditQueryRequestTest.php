@@ -4,11 +4,17 @@
 
 namespace Commercetools\Core\IntegrationTests\Order;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\IntegrationTests\ShippingMethod\ShippingMethodFixture;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Order\OrderReference;
 use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Model\OrderEdit\OrderEditDraft;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
+use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\Type\TypeReference;
+use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Request\OrderEdits\OrderEditByIdGetRequest;
 use Commercetools\Core\Request\OrderEdits\OrderEditCreateRequest;
 use Commercetools\Core\Request\OrderEdits\OrderEditDeleteRequest;
@@ -75,5 +81,27 @@ class OrderEditQueryRequestTest extends OrderQueryRequestTest
         $this->assertCount(1, $result);
         $this->assertInstanceOf(OrderEdit::class, $result->getAt(0));
         $this->assertSame($orderEdit->getId(), $result->getAt(0)->getId());
+    }
+//todo to collocate into ShippingMethodQueryRequestTest after migration and add some assertions
+    public function testMatchingOrderEdit()
+    {
+        $client = $this->getApiClient();
+
+        ShippingMethodFixture::withShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
+                $orderEdit = $this->createOrderEdit();
+                $request = RequestBuilder::of()->shippingMethods()
+                    ->getMatchingOrderEdit($orderEdit->getId(), $zone->getLocations()->current());
+                $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertTrue(
+                    $result->current()->getZoneRates()->current()->getShippingRates()->current()->getIsMatching()
+                );
+                $this->assertInstanceOf(ShippingMethodCollection::class, $result);
+                $this->assertInstanceOf(TaxCategoryReference::class, $result->current()->getTaxCategory());
+            }
+        );
     }
 }

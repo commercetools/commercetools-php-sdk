@@ -10,6 +10,8 @@ use Commercetools\Core\Client\ClientFactory;
 use Commercetools\Core\Client\ProviderFactory;
 use Commercetools\Core\Client\OAuth\AnonymousIdProvider;
 use Commercetools\Core\Config;
+use Commercetools\Core\Error\ApiServiceException;
+use Commercetools\Core\Error\ServiceUnavailableException;
 use Commercetools\Core\Fixtures\InstanceTokenStorage;
 use Commercetools\Core\Fixtures\ManuelActivationStrategy;
 use Commercetools\Core\Fixtures\ProfilerMiddleware;
@@ -38,6 +40,8 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfiguratio
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
+use GuzzleHttp\Exception\ServerException;
+use GuzzleHttp\Middleware;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Monolog\Handler\ErrorLogHandler;
@@ -45,6 +49,8 @@ use Monolog\Handler\FingersCrossedHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LogLevel;
 use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Yaml\Yaml;
@@ -54,6 +60,7 @@ class ApiTestCase extends TestCase
 {
     private static $testRun;
     private static $client = [];
+    private static $apiClient = [];
     private static $errorHandler;
     private static $profiler;
     /**
@@ -208,6 +215,56 @@ class ApiTestCase extends TestCase
         }
 
         return self::$client[$scope];
+    }
+
+    /**
+     * @param string $scope
+     * @return Client\ApiClient
+     */
+    public function getApiClient($scope = 'manage_project')
+    {
+        if (!isset(self::$apiClient[$scope])) {
+            $config = $this->getClientConfig($scope);
+            $config->setThrowExceptions(true);
+            $config->setOAuthClientOptions(['verify' => $this->getVerifySSL(), 'timeout' => '15']);
+
+            $maxRetries = 3;
+            $clientOptions = [
+                'verify' => $this->getVerifySSL(),
+                'timeout' => '15',
+                'middlewares' => [
+                    'retry' => Middleware::retry(function ($retries, RequestInterface $request, ResponseInterface $response = null, $error = null) use ($maxRetries) {
+                        if ($response instanceof ResponseInterface && $response->getStatusCode() < 500) {
+                            return false;
+                        }
+                        if ($retries > $maxRetries) {
+                            return false;
+                        }
+                        if ($error instanceof ServiceUnavailableException) {
+                            return true;
+                        }
+                        if ($error instanceof ServerException && $error->getCode() == 503) {
+                            return true;
+                        }
+                        if ($response instanceof ResponseInterface && $response->getStatusCode() == 503) {
+                            return true;
+                        }
+                        return false;
+                    })
+                ]
+            ];
+            $enableProfiler = getenv('PHP_SDK_PROFILE');
+            if ($enableProfiler === 'true') {
+                $clientOptions['middlewares'][] = $this->getProfiler();
+            }
+            $config->setClientOptions($clientOptions);
+
+            $client = ClientFactory::of()->createClient($config, $this->getLogger());
+
+            self::$apiClient[$scope] = $client;
+        }
+
+        return self::$apiClient[$scope];
     }
 
     private function getProfiler()
@@ -616,5 +673,16 @@ class ApiTestCase extends TestCase
 
         $provider = ProviderFactory::of()->createTokenStorageProviderFor($config, new HttpClient(), $storage);
         return ClientFactory::of()->createClient($config, $this->getLogger(), $this->getCache(), $provider);
+    }
+
+    protected function execute(Client\ApiClient $client, $request, array $headers = null)
+    {
+        try {
+            $response = $client->execute($request, $headers);
+        } catch (ApiServiceException $e) {
+            throw ResourceFixture::toFixtureException($e);
+        }
+
+        return $response;
     }
 }

@@ -116,5 +116,4 @@ use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
  */
 class StagedOrder extends Order
 {
-
 }

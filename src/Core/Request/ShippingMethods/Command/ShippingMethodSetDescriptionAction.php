@@ -10,6 +10,7 @@ use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods\Command
+ * @deprecated
  * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-description
  * @method string getAction()
  * @method ShippingMethodSetDescriptionAction setAction(string $action = null)

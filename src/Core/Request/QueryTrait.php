@@ -30,6 +30,9 @@ trait QueryTrait
         if (!is_null($where)) {
             $this->addParamObject(new MultiParameter('where', $where));
             foreach ($params as $paramName => $paramValue) {
+                if (strpos($paramName, "var.") === false) {
+                    $paramName = "var.$paramName";
+                }
                 $this->addParam($paramName, $paramValue);
             }
         }

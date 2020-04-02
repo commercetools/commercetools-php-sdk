@@ -1,3 +1,25 @@
+# [2.10.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.9.0...v2.10.0) (2020-04-02)
+
+
+### Bug Fixes
+
+* **Query:** fix query predicate variables to be forward compatible ([bb50caa](https://github.com/commercetools/commercetools-php-sdk/commit/bb50caa8e6166117ebffb6b27bc56f3f1fae6ff1))
+
+
+### Features
+
+* **ApiClient:** oauth handler maps authentication errors to ApiException ([7a2e887](https://github.com/commercetools/commercetools-php-sdk/commit/7a2e887b905427924cc61c27a27cf4ec34244f40))
+* **Config:** remove legacy hostnames ([27f3769](https://github.com/commercetools/commercetools-php-sdk/commit/27f37690caf1790aee4fe05445be89fc7ae847ff)), closes [#537](https://github.com/commercetools/commercetools-php-sdk/issues/537)
+* **CustomerAddress:** add addressKey to actions and add one test ([04b453a](https://github.com/commercetools/commercetools-php-sdk/commit/04b453a4ce868eab7ac152e9c782f708da2cf3f4))
+* **CustomerStore:** add set add remove action for store in customer and add tests ([cedb0b0](https://github.com/commercetools/commercetools-php-sdk/commit/cedb0b017a9daf655fdfba031174992558858650))
+* **InventoryEntry:** add message for InventoryEntryCreated ([5c7319f](https://github.com/commercetools/commercetools-php-sdk/commit/5c7319fa67e7b176879e8f650e0a0ab7dda5f670))
+* **OrderStore:** add setStore action and message ([b375bfe](https://github.com/commercetools/commercetools-php-sdk/commit/b375bfe22eed819ebc4ed52e9ecbd62e79dd7ea9))
+* **ProductFixture:** update all methods relative to Cart with Published Product ([7c3fb2a](https://github.com/commercetools/commercetools-php-sdk/commit/7c3fb2a686cb6687b1da094248c64a6a3ea4d8fc))
+* **ShippingMethods:** add localized description to shippingMethods ([747179d](https://github.com/commercetools/commercetools-php-sdk/commit/747179dc1d1e1832185fbc96600eac0c731126a2))
+* **Store:** add Languages field to store ([b74172f](https://github.com/commercetools/commercetools-php-sdk/commit/b74172f15d12e1c47dc91e8e615d72953505e312))
+
+
+
 # [2.9.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.8.0...v2.9.0) (2019-12-02)
 
 

@@ -45,7 +45,6 @@ use DateTime;
  */
 class OrderEdit extends Resource
 {
-
     public function fieldDefinitions()
     {
         return [

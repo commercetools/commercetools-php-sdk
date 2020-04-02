@@ -19,6 +19,7 @@ use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ShippingMethods
+ * @deprecated
  * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#get-shippingmethods-for-a-location
  * @method ShippingMethodCollection mapResponse(ApiResponseInterface $response)
  * @method ShippingMethodCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)

@@ -23,5 +23,4 @@ use Commercetools\Core\Model\Channel\ChannelReference;
  */
 class StagedOrderAddShoppingListAction extends CartAddShoppingListAction implements StagedOrderUpdateAction
 {
-
 }

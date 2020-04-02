@@ -1,70 +1,109 @@
 <?php
-/**
- */
 
 namespace Commercetools\Core\IntegrationTests\Store;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Store\Store;
+use Commercetools\Core\Request\Stores\Command\StoreSetLanguagesAction;
 use Commercetools\Core\Request\Stores\Command\StoreSetNameAction;
-use Commercetools\Core\Request\Stores\StoreCreateRequest;
-use Commercetools\Core\Request\Stores\StoreDeleteByKeyRequest;
-use Commercetools\Core\Request\Stores\StoreDeleteRequest;
-use Commercetools\Core\Request\Stores\StoreUpdateByKeyRequest;
-use Commercetools\Core\Request\Stores\StoreUpdateRequest;
 
 class StoreUpdateRequestTest extends ApiTestCase
 {
-    protected function createStore($draft)
-    {
-        $request = StoreCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $store = $request->mapResponse($response);
-
-        $this->cleanupRequests[] = $this->deleteRequest = StoreDeleteRequest::ofIdAndVersion(
-            $store->getId(),
-            $store->getVersion()
-        );
-
-        return $store;
-    }
-
     public function testUpdateName()
     {
-        $store = $this->createStore($this->getStoreDraft('store-name'));
+        $client = $this->getApiClient();
 
-        $request = StoreUpdateRequest::ofIdAndVersion($store->getId(), $store->getVersion())
-            ->addAction(StoreSetNameAction::ofName(LocalizedString::ofLangAndText('en', 'another-name')));
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
+        StoreFixture::withUpdateableStore(
+            $client,
+            function (Store $store) use ($client) {
+                $name = 'new-name' . StoreFixture::uniqueStoreString();
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->stores()->update($store)
+                    ->addAction(StoreSetNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Store::class, $result);
-        $this->assertSame($store->getId(), $result->getId());
-        $this->assertSame('another-name', $result->getName()->en);
-        $this->assertNotSame($store->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Store::class, $result);
+                $this->assertSame($store->getId(), $result->getId());
+                $this->assertSame($name, $result->getName()->en);
+                $this->assertNotSame($store->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
-    public function testUpdateAndDeleteByKey()
+    public function testUpdateByKey()
     {
-        $store = $this->createStore($this->getStoreDraft('store-name'));
+        $client = $this->getApiClient();
 
-        $request = StoreUpdateByKeyRequest::ofKeyAndVersion($store->getKey(), $store->getVersion())
-            ->addAction(StoreSetNameAction::ofName(LocalizedString::ofLangAndText('en', 'another-name')));
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
+        StoreFixture::withUpdateableStore(
+            $client,
+            function (Store $store) use ($client) {
+                $name = 'new-name' . StoreFixture::uniqueStoreString();
 
-        $this->assertInstanceOf(Store::class, $result);
-        $this->assertSame($store->getId(), $result->getId());
-        $this->assertSame('another-name', $result->getName()->en);
-        $this->assertNotSame($store->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->stores()->updateByKey($store)
+                    ->addAction(StoreSetNameAction::ofName(LocalizedString::ofLangAndText('en', $name)));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $deleteRequest = StoreDeleteByKeyRequest::ofKeyAndVersion($result->getKey(), $result->getVersion());
-        $deleteResponse = $deleteRequest->executeWithClient($this->getClient());
-        $deleteResult = $deleteRequest->mapFromResponse($deleteResponse);
+                $this->assertInstanceOf(Store::class, $result);
+                $this->assertSame($store->getId(), $result->getId());
+                $this->assertSame($name, $result->getName()->en);
+                $this->assertNotSame($store->getVersion(), $result->getVersion());
 
-        $this->assertInstanceOf(Store::class, $deleteResult);
+                return $result;
+            }
+        );
+    }
+
+    public function testUpdateLanguages()
+    {
+        $client = $this->getApiClient();
+
+        StoreFixture::withUpdateableStore(
+            $client,
+            function (Store $store) use ($client) {
+                $language = 'en';
+
+                $request = RequestBuilder::of()->stores()->update($store)
+                    ->addAction(StoreSetLanguagesAction::ofLanguages([$language]));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Store::class, $result);
+                $this->assertSame($store->getId(), $result->getId());
+                $this->assertSame($language, current($result->getLanguages()));
+                $this->assertNotSame($store->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testUpdateByKeyLanguages()
+    {
+        $client = $this->getApiClient();
+
+        StoreFixture::withUpdateableStore(
+            $client,
+            function (Store $store) use ($client) {
+                $language = 'en';
+
+                $request = RequestBuilder::of()->stores()->updateByKey($store)
+                    ->addAction(StoreSetLanguagesAction::ofLanguages([$language]));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Store::class, $result);
+                $this->assertSame($store->getKey(), $result->getKey());
+                $this->assertSame($language, current($result->getLanguages()));
+                $this->assertNotSame($store->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 }

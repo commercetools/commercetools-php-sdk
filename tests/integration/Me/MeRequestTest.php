@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Me;
 
+use Commercetools\Core\Error\BadRequestException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Client;
 use Commercetools\Core\Config;
@@ -55,13 +56,10 @@ class MeRequestTest extends ApiTestCase
         $response = $request->executeWithClient($client);
         $result = $request->mapResponse($response);
 
-        $this->assertContains('customers/token', current($handler->getRecords())['message']);
+        $this->assertStringContainsString('customers/token', current($handler->getRecords())['message']);
         $this->assertSame($customer->getId(), $result->getId());
     }
 
-    /**
-     * @expectedException \Commercetools\Core\Error\BadRequestException
-     */
     public function testPasswordChangeRevokeToken()
     {
         $customerDraft = $this->getCustomerDraft();
@@ -89,11 +87,12 @@ class MeRequestTest extends ApiTestCase
         $response = $request->executeWithClient($client);
         $result = $request->mapResponse($response);
 
-        $this->assertContains('customers/token', current($handler->getRecords())['message']);
+        $this->assertStringContainsString('customers/token', current($handler->getRecords())['message']);
         $this->assertSame($customer->getId(), $result->getId());
         TestHelper::getInstance($this->getClient())->setCustomer($result);
 
         $request = MeGetRequest::of();
+        $this->expectException(BadRequestException::class);
         $request->executeWithClient($client);
     }
 
@@ -125,7 +124,7 @@ class MeRequestTest extends ApiTestCase
         $response = $request->executeWithClient($client);
         $result = $request->mapResponse($response);
 
-        $this->assertContains('customers/token', current($handler->getRecords())['message']);
+        $this->assertStringContainsString('customers/token', current($handler->getRecords())['message']);
         $this->assertSame($customer->getId(), $result->getId());
         TestHelper::getInstance($this->getClient())->setCustomer($result);
 
@@ -135,7 +134,7 @@ class MeRequestTest extends ApiTestCase
         $response = $request->executeWithClient($client);
         $result = $request->mapResponse($response);
 
-        $this->assertContains('customers/token', current($handler->getRecords())['message']);
+        $this->assertStringContainsString('customers/token', current($handler->getRecords())['message']);
         $this->assertSame($customer->getId(), $result->getId());
     }
 
@@ -172,7 +171,7 @@ class MeRequestTest extends ApiTestCase
         $response = $request->executeWithClient($client);
         $result = $request->mapResponse($response);
 
-        $this->assertContains('anonymous/token', current($handler->getRecords())['message']);
+        $this->assertStringContainsString('anonymous/token', current($handler->getRecords())['message']);
         $this->assertSame($customer->getId(), $result->getId());
         TestHelper::getInstance($this->getClient())->setCustomer($result);
 
@@ -194,7 +193,7 @@ class MeRequestTest extends ApiTestCase
         $response = $request->executeWithClient($client);
         $result = $request->mapResponse($response);
 
-        $this->assertContains('customers/token', current($handler->getRecords())['message']);
+        $this->assertStringContainsString('customers/token', current($handler->getRecords())['message']);
         $this->assertSame($customer->getId(), $result->getId());
     }
 

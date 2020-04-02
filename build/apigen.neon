@@ -1,5 +1,5 @@
 title: PHP SDK
-baseUrl: http://commercetools.github.io/commercetools-php-sdk/docs/master
+baseUrl: http://commercetools.github.io/commercetools-php-sdk
 
 source: [src/]
 destination: build/docs

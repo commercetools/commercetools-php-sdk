@@ -4,8 +4,8 @@
 
 namespace Commercetools\Core\IntegrationTests\Extension;
 
-use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Extension\Extension;
 use Commercetools\Core\Model\Extension\ExtensionDraft;
 use Commercetools\Core\Model\Extension\HttpDestination;
@@ -15,141 +15,150 @@ use Commercetools\Core\Request\Extensions\Command\ExtensionChangeDestinationActi
 use Commercetools\Core\Request\Extensions\Command\ExtensionChangeTriggersAction;
 use Commercetools\Core\Request\Extensions\Command\ExtensionSetKeyAction;
 use Commercetools\Core\Request\Extensions\Command\ExtensionSetTimeoutInMsAction;
-use Commercetools\Core\Request\Extensions\ExtensionCreateRequest;
-use Commercetools\Core\Request\Extensions\ExtensionDeleteRequest;
 
 class ExtensionUpdateRequestTest extends ApiTestCase
 {
-    private function getExtensionDraft()
-    {
-        return ExtensionDraft::ofDestinationAndTriggers(
-            HttpDestination::of()->setUrl('https://api.sphere.io'),
-            TriggerCollection::of()->add(
-                Trigger::of()->setResourceTypeId('cart')->setActions([Trigger::ACTION_CREATE])
-            )
-        )->setKey('test-' .$this->getTestRun());
-    }
-
-    private function createExtension(ExtensionDraft $draft)
-    {
-        $request = ExtensionCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $extension = $request->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = ExtensionDeleteRequest::ofIdAndVersion(
-            $extension->getId(),
-            $extension->getVersion()
-        );
-
-        return $extension;
-    }
-
     public function testSetKey()
     {
-        $draft = $this->getExtensionDraft();
-        $extension = $this->createExtension($draft);
+        $client = $this->getApiClient();
 
-        $key = 'new-key-' . $this->getTestRun();
-        $request = RequestBuilder::of()->extensions()->update($extension)
-            ->addAction(
-                ExtensionSetKeyAction::of()->setKey($key)
-            );
-        $response = $this->getClient()->execute($request);
-        $result = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ExtensionFixture::withUpdateableExtension(
+            $client,
+            function (Extension $extension) use ($client) {
+                $key = 'new-key-' . ExtensionFixture::uniqueExtensionString();
 
-        $this->assertNotSame($extension->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Extension::class, $result);
-        $this->assertSame($key, $result->getKey());
+                $request = RequestBuilder::of()->extensions()->update($extension)
+                    ->addAction(
+                        ExtensionSetKeyAction::of()->setKey($key)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($extension->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Extension::class, $result);
+                $this->assertSame($key, $result->getKey());
+
+                return $result;
+            }
+        );
     }
 
     public function testUpdateByKey()
     {
-        $draft = $this->getExtensionDraft();
-        $extension = $this->createExtension($draft);
+        $client = $this->getApiClient();
 
-        $key = 'new-key-' . $this->getTestRun();
-        $request = RequestBuilder::of()->extensions()->updateByKey($extension)
-            ->addAction(
-                ExtensionSetKeyAction::of()->setKey($key)
-            );
-        $response = $this->getClient()->execute($request);
-        $result = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ExtensionFixture::withUpdateableExtension(
+            $client,
+            function (Extension $extension) use ($client) {
+                $key = 'new-key-' . ExtensionFixture::uniqueExtensionString();
 
-        $this->assertNotSame($extension->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Extension::class, $result);
-        $this->assertSame($key, $result->getKey());
+                $request = RequestBuilder::of()->extensions()->updateByKey($extension)
+                    ->addAction(
+                        ExtensionSetKeyAction::of()->setKey($key)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($extension->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Extension::class, $result);
+                $this->assertSame($key, $result->getKey());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeTriggers()
     {
-        $draft = $this->getExtensionDraft();
-        $extension = $this->createExtension($draft);
+        $client = $this->getApiClient();
 
-        $request = RequestBuilder::of()->extensions()->update($extension)
-            ->addAction(
-                ExtensionChangeTriggersAction::of()->setTriggers(
-                    TriggerCollection::of()->add(
-                        Trigger::of()->setResourceTypeId(Trigger::TYPE_ORDER)
-                            ->setActions([Trigger::ACTION_CREATE])
-                    )
-                )
-            );
-        $response = $this->getClient()->execute($request);
-        $result = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ExtensionFixture::withUpdateableExtension(
+            $client,
+            function (Extension $extension) use ($client) {
+                $request = RequestBuilder::of()->extensions()->update($extension)
+                    ->addAction(
+                        ExtensionChangeTriggersAction::of()->setTriggers(
+                            TriggerCollection::of()->add(
+                                Trigger::of()->setResourceTypeId(Trigger::TYPE_ORDER)
+                                    ->setActions([Trigger::ACTION_CREATE])
+                            )
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertNotSame($extension->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Extension::class, $result);
-        $this->assertSame(Trigger::TYPE_ORDER, $result->getTriggers()->current()->getResourceTypeId());
+                $this->assertNotSame($extension->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Extension::class, $result);
+                $this->assertSame(Trigger::TYPE_ORDER, $result->getTriggers()->current()->getResourceTypeId());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeDestination()
     {
-        $draft = $this->getExtensionDraft();
-        $extension = $this->createExtension($draft);
+        $client = $this->getApiClient();
 
-        $request = RequestBuilder::of()->extensions()->update($extension)
-            ->addAction(
-                ExtensionChangeDestinationAction::of()->setDestination(
-                    HttpDestination::of()->setUrl('https://api.commercetools.com')
-                )
-            );
-        $response = $this->getClient()->execute($request);
-        $result = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ExtensionFixture::withUpdateableExtension(
+            $client,
+            function (Extension $extension) use ($client) {
+                $url = ExtensionFixture::EXTENSION_RESPONDER . '/test';
+                $request = RequestBuilder::of()->extensions()->update($extension)
+                    ->addAction(
+                        ExtensionChangeDestinationAction::of()->setDestination(
+                            HttpDestination::of()->setUrl($url)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertNotSame($extension->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Extension::class, $result);
-        $this->assertSame('https://api.commercetools.com', $result->getDestination()->getUrl());
+                $this->assertNotSame($extension->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Extension::class, $result);
+                $this->assertSame($url, $result->getDestination()->getUrl());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetTimeoutInMs()
     {
-        $draft = $this->getExtensionDraft();
-        $extension = $this->createExtension($draft);
+        $client = $this->getApiClient();
 
-        $this->assertNull($extension->getTimeoutInMs());
+        ExtensionFixture::withUpdateableExtension(
+            $client,
+            function (Extension $extension) use ($client) {
+                $this->assertNull($extension->getTimeoutInMs());
 
-        $request = RequestBuilder::of()->extensions()->update($extension)
-            ->addAction(
-                ExtensionSetTimeoutInMsAction::of()->setTimeoutInMs(1000)
-            );
-        $response = $this->getClient()->execute($request);
-        $result = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->extensions()->update($extension)
+                    ->addAction(
+                        ExtensionSetTimeoutInMsAction::of()->setTimeoutInMs(1000)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertNotSame($extension->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Extension::class, $result);
-        $this->assertSame(1000, $result->getTimeoutInMs());
+                $this->assertNotSame($extension->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Extension::class, $result);
+                $this->assertSame(1000, $result->getTimeoutInMs());
+
+                return $result;
+            }
+        );
     }
 
     public function testCreateWithTimeoutMs()
     {
-        $draft = $this->getExtensionDraft();
-        $draft->setTimeoutInMs(600);
-        $extension = $this->createExtension($draft);
+        $client = $this->getApiClient();
 
-        $this->assertSame(600, $extension->getTimeoutInMs());
+        ExtensionFixture::withUpdateableDraftExtension(
+            $client,
+            function (ExtensionDraft $draft) {
+                return $draft->setTimeoutInMs(600);
+            },
+            function (Extension $extension) use ($client) {
+                $this->assertSame(600, $extension->getTimeoutInMs());
+            }
+        );
     }
 }

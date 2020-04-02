@@ -20,7 +20,7 @@ jobs:
           coverage: none
 
       - name: Install and Build 🔧
-        run: ./install-apigen.sh && php apigen.phar generate --debug --config build/apigen.neon;
+        run: ./install-apigen.sh && php apigen.phar generate --debug --config build/apigen.neon
 
       - name: Install SSH Client 🔑
         uses: webfactory/ssh-agent@v0.2.0

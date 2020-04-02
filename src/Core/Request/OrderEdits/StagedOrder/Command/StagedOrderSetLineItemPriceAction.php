@@ -20,5 +20,4 @@ use Commercetools\Core\Model\Common\Money;
  */
 class StagedOrderSetLineItemPriceAction extends CartSetLineItemPriceAction implements StagedOrderUpdateAction
 {
-
 }

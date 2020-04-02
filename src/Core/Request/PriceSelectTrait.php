@@ -64,4 +64,22 @@ trait PriceSelectTrait
     {
         return $this->select('priceCustomerGroup', $customerGroup->getId());
     }
+
+    /**
+     * @param string $localeProjection
+     * @return $this
+     */
+    public function localeProjection($localeProjection)
+    {
+        return $this->select('localeProjection', $localeProjection);
+    }
+
+    /**
+     * @param string $storeProjection
+     * @return $this
+     */
+    public function storeProjection($storeProjection)
+    {
+        return $this->select('storeProjection', $storeProjection);
+    }
 }

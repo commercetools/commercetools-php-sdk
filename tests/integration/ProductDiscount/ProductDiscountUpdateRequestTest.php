@@ -5,13 +5,14 @@
 
 namespace Commercetools\Core\IntegrationTests\ProductDiscount;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\IntegrationTests\TestHelper;
+use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\MoneyCollection;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountDraft;
-use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscountValue;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeIsActiveAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeNameAction;
@@ -23,314 +24,371 @@ use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetKeyAct
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidFromAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidFromAndUntilAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountSetValidUntilAction;
-use Commercetools\Core\Request\ProductDiscounts\ProductDiscountCreateRequest;
-use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteByKeyRequest;
-use Commercetools\Core\Request\ProductDiscounts\ProductDiscountDeleteRequest;
-use Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateByKeyRequest;
-use Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest;
 
 class ProductDiscountUpdateRequestTest extends ApiTestCase
 {
-    /**
-     * @param $name
-     * @return ProductDiscountDraft
-     */
-    protected function getDraft($name)
-    {
-        $draft = ProductDiscountDraft::ofNameDiscountPredicateOrderAndActive(
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-' . $name),
-            ProductDiscountValue::of()->setType('absolute')->setMoney(
-                MoneyCollection::of()
-                    ->add(Money::ofCurrencyAndAmount('EUR', 100))
-            ),
-            '1=1',
-            '0.9' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0'),
-            false
-        );
-
-        return $draft;
-    }
-
-    protected function createProductDiscount(ProductDiscountDraft $draft)
-    {
-        $request = ProductDiscountCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $productDiscount = $request->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = ProductDiscountDeleteRequest::ofIdAndVersion(
-            $productDiscount->getId(),
-            $productDiscount->getVersion()
-        );
-
-        return $productDiscount;
-    }
-
     public function testChangeIsActive()
     {
-        $draft = $this->getDraft('change-is-active');
-        $productDiscount = $this->createProductDiscount($draft);
+        $client = $this->getApiClient();
 
+        ProductDiscountFixture::withUpdateableDraftProductDiscount(
+            $client,
+            function (ProductDiscountDraft $draft) {
+                $name = 'change-is-active';
 
-        $isActive = true;
-        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
-            $productDiscount->getId(),
-            $productDiscount->getVersion()
-        )
-            ->addAction(
-                ProductDiscountChangeIsActiveAction::of()->setIsActive($isActive)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                return $draft->setName(LocalizedString::ofLangAndText(
+                    'en',
+                    'test-' . ProductDiscountFixture::uniqueProductDiscountString() . $name
+                ));
+            },
+            function (ProductDiscount $productDiscount) use ($client) {
+                $isActive = true;
 
-        $this->assertInstanceOf(ProductDiscount::class, $result);
-        $this->assertSame($isActive, $result->getIsActive());
-        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->productDiscounts()->update($productDiscount)
+                    ->addAction(ProductDiscountChangeIsActiveAction::of()->setIsActive($isActive));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductDiscount::class, $result);
+                $this->assertSame($isActive, $result->getIsActive());
+                $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangePredicate()
     {
-        $draft = $this->getDraft('change-predicate');
-        $productDiscount = $this->createProductDiscount($draft);
+        $client = $this->getApiClient();
 
+        ProductDiscountFixture::withUpdateableDraftProductDiscount(
+            $client,
+            function (ProductDiscountDraft $draft) {
+                $name = 'change-predicate';
 
-        $predicate = '2=2';
-        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
-            $productDiscount->getId(),
-            $productDiscount->getVersion()
-        )
-            ->addAction(
-                ProductDiscountChangePredicateAction::ofPredicate($predicate)
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                return $draft->setName(LocalizedString::ofLangAndText(
+                    'en',
+                    'test-' . ProductDiscountFixture::uniqueProductDiscountString() . $name
+                ));
+            },
+            function (ProductDiscount $productDiscount) use ($client) {
+                $predicate = '2=2';
 
-        $this->assertInstanceOf(ProductDiscount::class, $result);
-        $this->assertSame($predicate, $result->getPredicate());
-        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->productDiscounts()->update($productDiscount)
+                    ->addAction(ProductDiscountChangePredicateAction::ofPredicate($predicate));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(ProductDiscount::class, $result);
+                $this->assertSame($predicate, $result->getPredicate());
+                $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
-
-
 
     public function testChangeName()
     {
-        $draft = $this->getDraft('change-name');
-        $productDiscount = $this->createProductDiscount($draft);
+        $client = $this->getApiClient();
 
+        ProductDiscountFixture::withdraftProductDiscount(
+            $client,
+            function (ProductDiscountDraft $draft) {
+                $name = 'change-name';
 
-        $name = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-name');
-        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
-            $productDiscount->getId(),
-            $productDiscount->getVersion()
-        )
-            ->addAction(ProductDiscountChangeNameAction::ofName($name))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                return $draft->setName(LocalizedString::ofLangAndText(
+                    'en',
+                    'test-' . ProductDiscountFixture::uniqueProductDiscountString() . $name
+                ));
+            },
+            function (ProductDiscount $productDiscount) use ($client) {
+                $name = LocalizedString::ofLangAndText(
+                    'en',
+                    ProductDiscountFixture::uniqueProductDiscountString() . '-new-name'
+                );
 
-        $this->assertInstanceOf(ProductDiscount::class, $result);
-        $this->assertSame($name->en, $result->getName()->en);
-        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->productDiscounts()->update($productDiscount)
+                    ->addAction(ProductDiscountChangeNameAction::ofName($name));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(ProductDiscount::class, $result);
+                $this->assertSame($name->en, $result->getName()->en);
+                $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetDescription()
     {
-        $draft = $this->getDraft('set-description');
-        $productDiscount = $this->createProductDiscount($draft);
+        $client = $this->getApiClient();
 
+        ProductDiscountFixture::withUpdateableDraftProductDiscount(
+            $client,
+            function (ProductDiscountDraft $draft) {
+                $name = 'set-description';
 
-        $description = LocalizedString::ofLangAndText('en', $this->getTestRun() . '-new-description');
-        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
-            $productDiscount->getId(),
-            $productDiscount->getVersion()
-        )
-            ->addAction(ProductDiscountSetDescriptionAction::of()->setDescription($description))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                return $draft->setName(LocalizedString::ofLangAndText(
+                    'en',
+                    'test-' . ProductDiscountFixture::uniqueProductDiscountString() . $name
+                ));
+            },
+            function (ProductDiscount $productDiscount) use ($client) {
+                $description = LocalizedString::ofLangAndText(
+                    'en',
+                    ProductDiscountFixture::uniqueProductDiscountString() . '-new-description'
+                );
 
-        $this->assertInstanceOf(ProductDiscount::class, $result);
-        $this->assertSame($description->en, $result->getDescription()->en);
-        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->productDiscounts()->update($productDiscount)
+                    ->addAction(ProductDiscountSetDescriptionAction::of()->setDescription($description));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(ProductDiscount::class, $result);
+                $this->assertSame($description->en, $result->getDescription()->en);
+                $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeSortOrder()
     {
-        $draft = $this->getDraft('change-sort-order');
-        $productDiscount = $this->createProductDiscount($draft);
+        $client = $this->getApiClient();
 
+        ProductDiscountFixture::withUpdateableDraftProductDiscount(
+            $client,
+            function (ProductDiscountDraft $draft) {
+                $name = 'change-sort-order';
 
-        $sortOrder = '0.90' . trim((string)mt_rand(1, TestHelper::RAND_MAX), '0');
-        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
-            $productDiscount->getId(),
-            $productDiscount->getVersion()
-        )
-            ->addAction(ProductDiscountChangeSortOrderAction::ofSortOrder($sortOrder))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+                return $draft->setName(LocalizedString::ofLangAndText(
+                    'en',
+                    'test-' . ProductDiscountFixture::uniqueProductDiscountString() . $name
+                ));
+            },
+            function (ProductDiscount $productDiscount) use ($client) {
+                $sortOrder = '0.90' . trim((string)mt_rand(1, ProductDiscountFixture::RAND_MAX), '0');
 
-        $this->assertInstanceOf(ProductDiscount::class, $result);
-        $this->assertSame($sortOrder, $result->getSortOrder());
-        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->productDiscounts()->update($productDiscount)
+                    ->addAction(ProductDiscountChangeSortOrderAction::ofSortOrder($sortOrder));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertInstanceOf(ProductDiscount::class, $result);
+                $this->assertSame($sortOrder, $result->getSortOrder());
+                $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangeValue()
     {
-        $draft = $this->getDraft('change-value');
-        $productDiscount = $this->createProductDiscount($draft);
+        $client = $this->getApiClient();
 
+        ProductDiscountFixture::withUpdateableDraftProductDiscount(
+            $client,
+            function (ProductDiscountDraft $draft) {
+                $name = 'change-value';
 
-        $value = ProductDiscountValue::of()->setType('absolute')->setMoney(
-            MoneyCollection::of()
-                ->add(
-                    Money::ofCurrencyAndAmount('EUR', 200)
-                )
+                return $draft->setName(LocalizedString::ofLangAndText(
+                    'en',
+                    'test-' . ProductDiscountFixture::uniqueProductDiscountString() . $name
+                ));
+            },
+            function (ProductDiscount $productDiscount) use ($client) {
+                $value = ProductDiscountValue::of()->setType('absolute')->setMoney(
+                    MoneyCollection::of()
+                        ->add(
+                            Money::ofCurrencyAndAmount('EUR', 200)
+                        )
+                );
+
+                $request = RequestBuilder::of()->productDiscounts()->update($productDiscount)
+                    ->addAction(ProductDiscountChangeValueAction::ofProductDiscountValue($value));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductDiscount::class, $result);
+                $this->assertSame(
+                    $value->getMoney()->current()->getCentAmount(),
+                    $result->getValue()->getMoney()->current()->getCentAmount()
+                );
+                $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
         );
-        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
-            $productDiscount->getId(),
-            $productDiscount->getVersion()
-        )
-            ->addAction(ProductDiscountChangeValueAction::ofProductDiscountValue($value))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertInstanceOf(ProductDiscount::class, $result);
-        $this->assertSame(
-            $value->getMoney()->current()->getCentAmount(),
-            $result->getValue()->getMoney()->current()->getCentAmount()
-        );
-        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
-
-        $this->deleteRequest->setVersion($result->getVersion());
     }
 
     public function testSetValidFrom()
     {
-        $draft = $this->getDraft('set-valid-from');
-        $productDiscount = $this->createProductDiscount($draft);
+        $client = $this->getApiClient();
 
+        ProductDiscountFixture::withUpdateableDraftProductDiscount(
+            $client,
+            function (ProductDiscountDraft $draft) {
+                $name = 'set-valid-from';
 
-        $validFrom = new \DateTime();
-        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
-            $productDiscount->getId(),
-            $productDiscount->getVersion()
-        )
-            ->addAction(ProductDiscountSetValidFromAction::of()->setValidFrom($validFrom))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $draft->setName(LocalizedString::ofLangAndText(
+                    'en',
+                    'test-' . ProductDiscountFixture::uniqueProductDiscountString() . $name
+                ));
+            },
+            function (ProductDiscount $productDiscount) use ($client) {
+                $validFrom = new \DateTime();
 
-        $this->assertInstanceOf(ProductDiscount::class, $result);
-        $validFrom->setTimezone(new \DateTimeZone('UTC'));
-        $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
-        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->productDiscounts()->update($productDiscount)
+                    ->addAction(ProductDiscountSetValidFromAction::of()->setValidFrom($validFrom));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductDiscount::class, $result);
+                $validFrom->setTimezone(new \DateTimeZone('UTC'));
+                $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
+                $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetValidUntil()
     {
-        $draft = $this->getDraft('set-valid-from');
-        $productDiscount = $this->createProductDiscount($draft);
+        $client = $this->getApiClient();
 
+        ProductDiscountFixture::withUpdateableDraftProductDiscount(
+            $client,
+            function (ProductDiscountDraft $draft) {
+                $name = 'set-valid-from';
 
-        $validUntil = new \DateTime();
-        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
-            $productDiscount->getId(),
-            $productDiscount->getVersion()
-        )
-            ->addAction(ProductDiscountSetValidUntilAction::of()->setValidUntil($validUntil))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                return $draft->setName(LocalizedString::ofLangAndText(
+                    'en',
+                    'test-' . ProductDiscountFixture::uniqueProductDiscountString() . $name
+                ));
+            },
+            function (ProductDiscount $productDiscount) use ($client) {
+                $validUntil = new \DateTime();
 
-        $this->assertInstanceOf(ProductDiscount::class, $result);
-        $validUntil->setTimezone(new \DateTimeZone('UTC'));
-        $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
-        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+                $request = RequestBuilder::of()->productDiscounts()->update($productDiscount)
+                    ->addAction(ProductDiscountSetValidUntilAction::of()->setValidUntil($validUntil));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductDiscount::class, $result);
+                $validUntil->setTimezone(new \DateTimeZone('UTC'));
+                $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
+                $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetValidFromAndUntil()
     {
-        $draft = $this->getDraft('set-valid-from-until');
-        $productDiscount = $this->createProductDiscount($draft);
+        $client = $this->getApiClient();
 
-        $validFrom = new \DateTime();
-        $validUntil = new \DateTime('+1 second');
-        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
-            $productDiscount->getId(),
-            $productDiscount->getVersion()
-        )
-            ->addAction(ProductDiscountSetValidFromAndUntilAction::of()->setValidFrom($validFrom)->setValidUntil($validUntil))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ProductDiscountFixture::withUpdateableDraftProductDiscount(
+            $client,
+            function (ProductDiscountDraft $draft) {
+                $name = 'set-valid-from-until';
 
-        $this->assertInstanceOf(ProductDiscount::class, $result);
-        $validUntil->setTimezone(new \DateTimeZone('UTC'));
-        $validFrom->setTimezone(new \DateTimeZone('UTC'));
-        $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
-        $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
-        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+                return $draft->setName(LocalizedString::ofLangAndText(
+                    'en',
+                    'test-' . ProductDiscountFixture::uniqueProductDiscountString() . $name
+                ));
+            },
+            function (ProductDiscount $productDiscount) use ($client) {
+                $validFrom = new \DateTime();
+                $validUntil = new \DateTime('+1 second');
+
+                $request = RequestBuilder::of()->productDiscounts()->update($productDiscount)
+                    ->addAction(
+                        ProductDiscountSetValidFromAndUntilAction::of()
+                            ->setValidFrom($validFrom)->setValidUntil($validUntil)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductDiscount::class, $result);
+                $validUntil->setTimezone(new \DateTimeZone('UTC'));
+                $validFrom->setTimezone(new \DateTimeZone('UTC'));
+                $this->assertSame($validUntil->format('c'), $result->getValidUntil()->format('c'));
+                $this->assertSame($validFrom->format('c'), $result->getValidFrom()->format('c'));
+                $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetKey()
     {
-        $draft = $this->getDraft('set-key')->setKey('key-' .$this->getTestRun());
-        $productDiscount = $this->createProductDiscount($draft);
+        $client = $this->getApiClient();
 
-        $newKey = 'another-key-' . $this->getTestRun();
-        $request = ProductDiscountUpdateRequest::ofIdAndVersion(
-            $productDiscount->getId(),
-            $productDiscount->getVersion()
-        )
-            ->addAction(ProductDiscountSetKeyAction::ofKey($newKey))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        ProductDiscountFixture::withUpdateableDraftProductDiscount(
+            $client,
+            function (ProductDiscountDraft $draft) {
+                $name = 'set-key';
 
-        $this->assertInstanceOf(ProductDiscount::class, $result);
-        $this->assertSame($newKey, $result->getKey());
-        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+                return $draft->setName(LocalizedString::ofLangAndText(
+                    'en',
+                    'test-' . ProductDiscountFixture::uniqueProductDiscountString() . $name
+                ))->setKey('key-' . ProductDiscountFixture::uniqueProductDiscountString());
+            },
+            function (ProductDiscount $productDiscount) use ($client) {
+                $newKey = 'another-key-' . ProductDiscountFixture::uniqueProductDiscountString();
 
-        $this->deleteRequest->setVersion($result->getVersion());
+                $request = RequestBuilder::of()->productDiscounts()->update($productDiscount)
+                    ->addAction(ProductDiscountSetKeyAction::ofKey($newKey));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ProductDiscount::class, $result);
+                $this->assertSame($newKey, $result->getKey());
+                $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
     }
 
-    public function testUpdateAndDeleteByKey()
+    public function testDeleteByKey()
     {
-        $draft = $this->getDraft('set-key')->setKey('key-' .$this->getTestRun());
-        $productDiscount = $this->createProductDiscount($draft);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(404);
 
-        $newKey = 'another-key-' . $this->getTestRun();
-        $request = ProductDiscountUpdateByKeyRequest::ofKeyAndVersion(
-            $productDiscount->getKey(),
-            $productDiscount->getVersion()
-        )
-            ->addAction(ProductDiscountSetKeyAction::ofKey($newKey))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        $client = $this->getApiClient();
 
-        $this->assertInstanceOf(ProductDiscount::class, $result);
-        $this->assertSame($newKey, $result->getKey());
-        $this->assertNotSame($productDiscount->getVersion(), $result->getVersion());
+        ProductDiscountFixture::withDraftProductDiscount(
+            $client,
+            function (ProductDiscountDraft $draft) {
+                $name = 'set-key';
 
-        $deleteRequest = ProductDiscountDeleteByKeyRequest::ofKeyAndVersion($newKey, $result->getVersion());
-        $response = $deleteRequest->executeWithClient($this->getClient());
-        $result = $deleteRequest->mapResponse($response);
+                return $draft->setName(LocalizedString::ofLangAndText(
+                    'en',
+                    'test-' . ProductDiscountFixture::uniqueProductDiscountString() . $name
+                ))->setKey('key-' . ProductDiscountFixture::uniqueProductDiscountString());
+            },
+            function (ProductDiscount $productDiscount) use ($client) {
+                $request = RequestBuilder::of()->productDiscounts()->deleteByKey($productDiscount);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(ProductDiscount::class, $result);
+                $this->assertSame($productDiscount->getId(), $result->getId());
+                $this->assertInstanceOf(ProductDiscount::class, $result);
+
+                $request = RequestBuilder::of()->productDiscounts()->getByKey($result->getKey());
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
+            }
+        );
     }
 }

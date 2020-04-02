@@ -39,12 +39,12 @@ class CustomObjectRequestBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-custom-objects.html#create-a-customobject
-     * @param CustomObjectDraft $customObject
+     * @param CustomObjectDraft|CustomObject $customObject
      * @return CustomObjectCreateRequest
      */
-    public function create(CustomObjectDraft $customObject)
+    public function create($customObject)
     {
-        $request = CustomObjectCreateRequest::ofDraft($customObject);
+        $request = CustomObjectCreateRequest::ofObject($customObject);
         return $request;
     }
 
