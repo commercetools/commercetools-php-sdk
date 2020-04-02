@@ -610,6 +610,9 @@
 	<h1>Class ClientFactory</h1>
 
 
+	<div class="description">
+	<p>The factory to create a Client for communicating with the commercetools platform</p>
+	</div>
 
 
 
@@ -624,7 +627,115 @@
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Client.html">Client</a><br>
 
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.ClientFactory.html#39-467" title="Go to source code">Core/Client/ClientFactory.php</a>
+				<b>Description:</b>
+				<p>This factory will create a Guzzle HTTP Client preconfigured for talking to the commercetools platform</p>
+
+<h2>Instantiation</h2>
+
+<pre><span class="php-var">$config</span> = Config::fromArray(
+ [<span class="php-quote">'client_id'</span> =&gt; <span class="php-quote">'&lt;client_id&gt;'</span>, <span class="php-quote">'client_secret'</span> =&gt; <span class="php-quote">'&lt;client_secret&gt;'</span>, <span class="php-quote">'project'</span> =&gt; <span class="php-quote">'&lt;project&gt;'</span>]
+);
+<span class="php-var">$client</span> = ClientFactory::of()-&gt;createClient(<span class="php-var">$config</span>);</pre>
+
+<h2>Execution</h2>
+
+<h3>Synchronous</h3>
+
+<pre><span class="php-var">$request</span> = ProductProjectionSearchRequest::of();
+<span class="php-var">$response</span> = <span class="php-var">$client</span>-&gt;execute(<span class="php-var">$request</span>);
+<span class="php-var">$products</span> = <span class="php-var">$request</span>-&gt;mapFromResponse(<span class="php-var">$response</span>);</pre>
+
+<h3>Asynchronous</h3>
+
+<p>The asynchronous execution will return a promise to fulfill the request.</p>
+
+<pre><span class="php-var">$request</span> = ProductProjectionSearchRequest::of();
+<span class="php-var">$response</span> = <span class="php-var">$client</span>-&gt;executeAsync(<span class="php-var">$request</span>);
+<span class="php-var">$products</span> = <span class="php-var">$request</span>-&gt;mapFromResponse(<span class="php-var">$response</span>-&gt;wait());</pre>
+
+<h3>Batch</h3>
+
+<p>By filling the batch queue and starting the execution all requests will be executed in parallel.</p>
+
+<pre><span class="php-var">$responses</span> = Pool::batch(
+    <span class="php-var">$client</span>,
+    [ProductProjectionSearchRequest::of()-&gt;httpRequest(), CartByIdGetRequest::ofId(<span class="php-var">$cartId</span>)-&gt;httpRequest()]
+);</pre>
+
+<h2>Instantiation options</h2>
+
+<h3>Using a logger</h3>
+
+<p>The client uses the PSR-3 logger interface for logging requests and deprecation notices. To enable
+logging provide a PSR-3 compliant logger (e.g. Monolog).</p>
+
+<pre><span class="php-var">$logger</span> = <span class="php-keyword1">new</span> \Monolog\Logger(<span class="php-quote">'name'</span>);
+<span class="php-var">$logger</span>-&gt;pushHandler(<span class="php-keyword1">new</span> StreamHandler(<span class="php-quote">'./requests.log'</span>));
+<span class="php-var">$client</span> = ClientFactory::of()-&gt;createClient(<span class="php-var">$config</span>, <span class="php-var">$logger</span>);</pre>
+
+<h3>Using a cache adapter</h3>
+
+<p>The client will automatically request an OAuth token and store the token in the provided cache.</p>
+
+<p>It's also possible to use a different cache adapter. The SDK provides a Doctrine, a Redis and an APCu cache adapter.
+By default the SDK tries to instantiate the APCu or a PSR-6 filesystem cache adapter if there is no cache given.
+E.g. Redis:</p>
+
+<pre><span class="php-var">$redis</span> = <span class="php-keyword1">new</span> \Redis();
+<span class="php-var">$redis</span>-&gt;connect(<span class="php-quote">'localhost'</span>);
+<span class="php-var">$client</span> = ClientFactory::of()-&gt;createClient(<span class="php-var">$config</span>, <span class="php-keyword1">null</span>, <span class="php-var">$cache</span>);</pre>
+
+<h4>Using cache and logger</h4>
+
+<pre><span class="php-var">$client</span> = ClientFactory::of()-&gt;createClient(<span class="php-var">$config</span>, <span class="php-var">$logger</span>, <span class="php-var">$cache</span>);</pre>
+
+<h4>Using a custom cache adapter</h4>
+
+<pre><span class="php-keyword1">class</span> &lt;CacheClass&gt;Adapter <span class="php-keyword1">implements</span> \Psr\Cache\CacheItemPoolInterface {
+    <span class="php-keyword1">protected</span> <span class="php-var">$cache</span>;
+    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> __construct(&lt;CacheClass&gt; <span class="php-var">$cache</span>) {
+        <span class="php-var">$this</span>-&gt;cache = <span class="php-var">$cache</span>;
+    }
+}
+
+<span class="php-var">$client</span>-&gt;getAdapterFactory()-&gt;registerCallback(<span class="php-keyword1">function</span> (<span class="php-var">$cache</span>) {
+    <span class="php-keyword1">if</span> (<span class="php-var">$cache</span> <span class="php-keyword1">instanceof</span> &lt;CacheClass&gt;) {
+        <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> &lt;CacheClass&gt;Adapter(<span class="php-var">$cache</span>);
+    }
+    <span class="php-keyword1">return</span> <span class="php-keyword1">null</span>;
+});</pre>
+
+<h3>Using a custom client class</h3>
+
+<p>If some additional configuration is needed or the client should have custom logic you could provide a class name
+to be used for the client instance. This class has to be an extended Guzzle client.</p>
+
+<pre><span class="php-var">$client</span> = ClientFactory::of()-&gt;createCustomClient(MyCustomClient::<span class="php-keyword1">class</span>, <span class="php-var">$config</span>);</pre>
+
+<h2>Middlewares</h2>
+
+<p>Adding middlewares to the clients for platform as well for the authentication can be done using the config
+by setting client options.</p>
+
+<h3>Using a HandlerStack</h3>
+
+<pre><span class="php-var">$handler</span> = HandlerStack::create();
+<span class="php-var">$handler</span>-&gt;push(Middleware::mapRequest(<span class="php-keyword1">function</span> (RequestInterface <span class="php-var">$request</span>) {
+    ...
+    <span class="php-keyword1">return</span> <span class="php-var">$request</span>; })
+);
+<span class="php-var">$config</span> = Config::of()-&gt;setClientOptions([<span class="php-quote">'handler'</span> =&gt; <span class="php-var">$handler</span>])</pre>
+
+<h3>Using a middleware array</h3>
+
+<pre><span class="php-var">$middlewares</span> = [
+    Middleware::mapRequest(<span class="php-keyword1">function</span> (RequestInterface <span class="php-var">$request</span>) {
+    ...
+    <span class="php-keyword1">return</span> <span class="php-var">$request</span>; }),
+    ...
+]
+<span class="php-var">$config</span> = Config::of()-&gt;setClientOptions([<span class="php-quote">'middlewares'</span> =&gt; <span class="php-var">$middlewares</span>])</pre><br>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.ClientFactory.html#33-601" title="Go to source code">Core/Client/ClientFactory.php</a>
 		<br>
 	</div>
 
@@ -644,7 +755,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#46-55" title="Go to source code">__construct</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#174-183" title="Go to source code">__construct</a>( )</code>
 
 			<div class="description short">
 				<p>ClientFactory constructor.</p>
@@ -677,7 +788,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createCustomClient">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#57-113" title="Go to source code">createCustomClient</a>( <span>string <var>$clientClass</var></span>, <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code>|array <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code> <var>$cacheAdapterFactory</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#185-244" title="Go to source code">createCustomClient</a>( <span>string <var>$clientClass</var></span>, <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code>|array <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code> <var>$cacheAdapterFactory</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -727,7 +838,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createClient">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#115-141" title="Go to source code">createClient</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code>|array <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code> <var>$cacheAdapterFactory</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#246-272" title="Go to source code">createClient</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code>|array <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code> <var>$cacheAdapterFactory</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -775,7 +886,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createAuthClient">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#143-159" title="Go to source code">createAuthClient</a>( <span>array <var>$options</var> = []</span>, <span><code><a href="class-Commercetools.Core.Helper.CorrelationIdProvider.html">Commercetools\Core\Helper\CorrelationIdProvider</a></code> <var>$correlationIdProvider</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#274-293" title="Go to source code">createAuthClient</a>( <span>array <var>$options</var> = []</span>, <span><code><a href="class-Commercetools.Core.Helper.CorrelationIdProvider.html">Commercetools\Core\Helper\CorrelationIdProvider</a></code> <var>$correlationIdProvider</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -804,7 +915,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reauthenticate">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#304-343" title="Go to source code">reauthenticate</a>( <span><code><a href="class-Commercetools.Core.Client.OAuth.OAuth2Handler.html">Commercetools\Core\Client\OAuth\OAuth2Handler</a></code> <var>$oauthHandler</var></span>, <span>integer <var>$maxRetries</var> = <span class="php-num">1</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#438-477" title="Go to source code">reauthenticate</a>( <span><code><a href="class-Commercetools.Core.Client.OAuth.OAuth2Handler.html">Commercetools\Core\Client\OAuth\OAuth2Handler</a></code> <var>$oauthHandler</var></span>, <span>integer <var>$maxRetries</var> = <span class="php-num">1</span></span> )</code>
 
 			<div class="description short">
 				<p>Middleware that reauthenticates on invalid token error</p>
@@ -844,7 +955,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_httpErrors">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#345-369" title="Go to source code">httpErrors</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#479-503" title="Go to source code">httpErrors</a>( )</code>
 
 			<div class="description short">
 				<p>Middleware that throws exceptions for 4xx or 5xx responses when the
@@ -879,7 +990,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_of">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#460-466" title="Go to source code">of</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#594-600" title="Go to source code">of</a>( )</code>
 
 			<div class="description short">
 				
@@ -922,6 +1033,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?d87ce1214c0cb147e1bc172c43b4565d99939e17"></script>
-<script src="elementlist.js?7b7b254b99cbd29c1cb519f623a0bf95aea42ba5"></script>
+<script src="elementlist.js?106e99cc94a1f690357bc6dbdad75b3b37e618b9"></script>
 </body>
 </html>

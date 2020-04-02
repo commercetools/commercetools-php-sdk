@@ -626,6 +626,7 @@
 				<li><a href="class-Commercetools.Core.Error.ConcurrentModificationException.html">ConcurrentModificationException</a></li>
 				<li><a href="class-Commercetools.Core.Error.DeprecatedException.html">DeprecatedException</a></li>
 				<li><a href="class-Commercetools.Core.Error.ErrorResponseException.html">ErrorResponseException</a></li>
+				<li><a href="class-Commercetools.Core.Error.ForbiddenException.html">ForbiddenException</a></li>
 				<li><a href="class-Commercetools.Core.Error.GatewayTimeoutException.html">GatewayTimeoutException</a></li>
 				<li><a href="class-Commercetools.Core.Error.InternalServerErrorException.html">InternalServerErrorException</a></li>
 				<li><a href="class-Commercetools.Core.Error.InvalidArgumentException.html">InvalidArgumentException</a></li>
@@ -684,17 +685,18 @@ Exception
 		<p class="elementList">
 			<code><a href="class-Commercetools.Core.Error.BadGatewayException.html">Commercetools\Core\Error\BadGatewayException</a></code>, 
 			<code><a href="class-Commercetools.Core.Error.BadRequestException.html">Commercetools\Core\Error\BadRequestException</a></code>, 
+			<code><a href="class-Commercetools.Core.Error.NotFoundException.html">Commercetools\Core\Error\NotFoundException</a></code>, 
 			<code><a href="class-Commercetools.Core.Error.ServerErrorException.html">Commercetools\Core\Error\ServerErrorException</a></code>, 
 			<code><a href="class-Commercetools.Core.Error.ServiceUnavailableException.html">Commercetools\Core\Error\ServiceUnavailableException</a></code>, 
 			<code><a href="class-Commercetools.Core.Error.UnauthorizedException.html">Commercetools\Core\Error\UnauthorizedException</a></code>, 
 			<code><a href="class-Commercetools.Core.Error.ClientErrorException.html">Commercetools\Core\Error\ClientErrorException</a></code>, 
 			<code><a href="class-Commercetools.Core.Error.ConcurrentModificationException.html">Commercetools\Core\Error\ConcurrentModificationException</a></code>, 
 			<code><a href="class-Commercetools.Core.Error.ErrorResponseException.html">Commercetools\Core\Error\ErrorResponseException</a></code>, 
+			<code><a href="class-Commercetools.Core.Error.ForbiddenException.html">Commercetools\Core\Error\ForbiddenException</a></code>, 
 			<code><a href="class-Commercetools.Core.Error.GatewayTimeoutException.html">Commercetools\Core\Error\GatewayTimeoutException</a></code>, 
 			<code><a href="class-Commercetools.Core.Error.InternalServerErrorException.html">Commercetools\Core\Error\InternalServerErrorException</a></code>, 
 			<code><a href="class-Commercetools.Core.Error.InvalidClientCredentialsException.html">Commercetools\Core\Error\InvalidClientCredentialsException</a></code>, 
-			<code><a href="class-Commercetools.Core.Error.InvalidTokenException.html">Commercetools\Core\Error\InvalidTokenException</a></code>, 
-			<code><a href="class-Commercetools.Core.Error.NotFoundException.html">Commercetools\Core\Error\NotFoundException</a></code>
+			<code><a href="class-Commercetools.Core.Error.InvalidTokenException.html">Commercetools\Core\Error\InvalidTokenException</a></code>
 		</p>
 	</div>
 
@@ -707,7 +709,7 @@ Exception
 		
 		<b>Namespace:</b> <a href="namespace-Commercetools.html">Commercetools</a>\<a href="namespace-Commercetools.Core.html">Core</a>\<a href="namespace-Commercetools.Core.Error.html">Error</a><br>
 
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Error.ApiException.html#12-148" title="Go to source code">Core/Error/ApiException.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Error.ApiException.html#12-150" title="Go to source code">Core/Error/ApiException.php</a>
 		<br>
 	</div>
 
@@ -758,7 +760,7 @@ Exception
 
 			<td class="name"><div>
 			<a class="anchor" href="#_create">#</a>
-			<code><a href="source-class-Commercetools.Core.Error.ApiException.html#40-90" title="Go to source code">create</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var> = <span class="php-keyword1">null</span></span>, <span>Exception <var>$previous</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-Commercetools.Core.Error.ApiException.html#40-92" title="Go to source code">create</a>( <span>Psr\Http\Message\RequestInterface <var>$request</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$response</var> = <span class="php-keyword1">null</span></span>, <span>Exception <var>$previous</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -796,7 +798,7 @@ Exception
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getRequest">#</a>
-			<code><a href="source-class-Commercetools.Core.Error.ApiException.html#92-98" title="Go to source code">getRequest</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Error.ApiException.html#94-100" title="Go to source code">getRequest</a>( )</code>
 
 			<div class="description short">
 				
@@ -829,7 +831,7 @@ Exception
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getResponse">#</a>
-			<code><a href="source-class-Commercetools.Core.Error.ApiException.html#100-106" title="Go to source code">getResponse</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Error.ApiException.html#102-108" title="Go to source code">getResponse</a>( )</code>
 
 			<div class="description short">
 				
@@ -862,7 +864,7 @@ Exception
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getErrors">#</a>
-			<code><a href="source-class-Commercetools.Core.Error.ApiException.html#119-127" title="Go to source code">getErrors</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Error.ApiException.html#121-129" title="Go to source code">getErrors</a>( )</code>
 
 			<div class="description short">
 				
@@ -895,7 +897,7 @@ Exception
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getResponseMessage">#</a>
-			<code><a href="source-class-Commercetools.Core.Error.ApiException.html#129-137" title="Go to source code">getResponseMessage</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Error.ApiException.html#131-139" title="Go to source code">getResponseMessage</a>( )</code>
 
 			<div class="description short">
 				
@@ -928,7 +930,7 @@ Exception
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getResponseStatusCode">#</a>
-			<code><a href="source-class-Commercetools.Core.Error.ApiException.html#139-147" title="Go to source code">getResponseStatusCode</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Error.ApiException.html#141-149" title="Go to source code">getResponseStatusCode</a>( )</code>
 
 			<div class="description short">
 				
@@ -985,6 +987,6 @@ Exception
 	</div>
 </div>
 <script src="resources/combined.js?d87ce1214c0cb147e1bc172c43b4565d99939e17"></script>
-<script src="elementlist.js?7b7b254b99cbd29c1cb519f623a0bf95aea42ba5"></script>
+<script src="elementlist.js?106e99cc94a1f690357bc6dbdad75b3b37e618b9"></script>
 </body>
 </html>
