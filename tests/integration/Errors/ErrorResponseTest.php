@@ -525,7 +525,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidOperation/");
+        $this->expectExceptionMessageMatches("/InvalidOperation/");
 
         $client = $this->getApiClient();
 
