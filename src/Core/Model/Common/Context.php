@@ -94,7 +94,6 @@ class Context implements \ArrayAccess
 
     public function __construct()
     {
-
         $context = $this;
         $this->currencyFormatter = new CurrencyFormatter($context);
         $this->locale = null;

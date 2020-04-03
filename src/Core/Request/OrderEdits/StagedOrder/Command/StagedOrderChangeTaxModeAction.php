@@ -17,5 +17,4 @@ use Commercetools\Core\Request\Carts\Command\CartChangeTaxModeAction;
  */
 class StagedOrderChangeTaxModeAction extends CartChangeTaxModeAction implements StagedOrderUpdateAction
 {
-
 }

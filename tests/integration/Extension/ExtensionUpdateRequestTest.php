@@ -103,10 +103,11 @@ class ExtensionUpdateRequestTest extends ApiTestCase
         ExtensionFixture::withUpdateableExtension(
             $client,
             function (Extension $extension) use ($client) {
+                $url = ExtensionFixture::EXTENSION_RESPONDER . '/test';
                 $request = RequestBuilder::of()->extensions()->update($extension)
                     ->addAction(
                         ExtensionChangeDestinationAction::of()->setDestination(
-                            HttpDestination::of()->setUrl('https://api.commercetools.com')
+                            HttpDestination::of()->setUrl($url)
                         )
                     );
                 $response = $this->execute($client, $request);
@@ -114,7 +115,7 @@ class ExtensionUpdateRequestTest extends ApiTestCase
 
                 $this->assertNotSame($extension->getVersion(), $result->getVersion());
                 $this->assertInstanceOf(Extension::class, $result);
-                $this->assertSame('https://api.commercetools.com', $result->getDestination()->getUrl());
+                $this->assertSame($url, $result->getDestination()->getUrl());
 
                 return $result;
             }

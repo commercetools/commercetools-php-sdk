@@ -28,5 +28,4 @@ use Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice;
 // phpcs:ignore
 class StagedOrderChangeLineItemQuantityAction extends CartChangeLineItemQuantityAction implements StagedOrderUpdateAction
 {
-
 }

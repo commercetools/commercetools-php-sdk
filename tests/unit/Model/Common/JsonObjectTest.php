@@ -6,6 +6,8 @@
 
 namespace Commercetools\Core\Model\Type;
 
+use InvalidArgumentException;
+use BadMethodCallException;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
@@ -98,29 +100,23 @@ class JsonObjectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('newValue', $this->getObject()->setKey('newValue')->getKey());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testWrongType()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getObject()->setKey(1);
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage field
-     */
     public function testGetUnknownField()
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('field');
         $this->getObject()->getUnknown();
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage field
-     */
     public function testSetUnknownField()
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('unknown');
         $this->getObject()->setUnknown('unknown');
     }
 
@@ -136,12 +132,10 @@ class JsonObjectTest extends \PHPUnit\Framework\TestCase
         $this->assertSame(['key' => 'value'], $obj->toArray());
     }
 
-    /**
-     * @expectedException \BadMethodCallException
-     * @expectedExceptionMessage method
-     */
     public function testUnknownAction()
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('method');
         $this->getObject()->hasKey();
     }
 
@@ -160,11 +154,9 @@ class JsonObjectTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(JsonObject::class, JsonObject::of());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testSetNull()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getObject()->setKey(null);
     }
 
@@ -194,7 +186,7 @@ class JsonObjectTest extends \PHPUnit\Framework\TestCase
     public function testGetReturnRaw()
     {
         $obj = $this->getMockBuilder(JsonObject::class)
-            ->setMethods(['initialize'])->setConstructorArgs( [['key' => 'value']])
+            ->setMethods(['initialize'])->setConstructorArgs([['key' => 'value']])
             ->getMock();
         $this->assertSame('value', $obj->get('key'));
     }

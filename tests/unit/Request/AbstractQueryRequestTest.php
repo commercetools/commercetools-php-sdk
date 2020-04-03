@@ -182,4 +182,13 @@ class AbstractQueryRequestTest extends \PHPUnit\Framework\TestCase
         $result = $request->mapResult([]);
         $this->assertInstanceOf(Collection::class, $result);
     }
+
+    public function testParametrizedWhere()
+    {
+        $request = $this->getQueryRequest();
+        $request->where('test=:foo', ['foo' => 'bar']);
+        $request->where('test2=:foz', ['var.foz' => 'baz']);
+        $httpRequest = $request->httpRequest();
+        $this->assertSame('test?var.foo=bar&var.foz=baz&where=test%3D%3Afoo&where=test2%3D%3Afoz', (string)$httpRequest->getUri());
+    }
 }

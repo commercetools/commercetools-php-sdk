@@ -15,6 +15,7 @@ use Commercetools\Core\Request\Extensions\ExtensionDeleteRequest;
 
 class ExtensionFixture extends ResourceFixture
 {
+    const EXTENSION_RESPONDER = 'https://1i4axkp5vh.execute-api.eu-west-1.amazonaws.com/dev';
     const CREATE_REQUEST_TYPE = ExtensionCreateRequest::class;
     const DELETE_REQUEST_TYPE = ExtensionDeleteRequest::class;
 
@@ -27,7 +28,7 @@ class ExtensionFixture extends ResourceFixture
     {
         $uniqueExtensionString = self::uniqueExtensionString();
         $draft = ExtensionDraft::ofDestinationAndTriggers(
-            HttpDestination::of()->setUrl('https://api.europe-west1.gcp.commercetools.com'),
+            HttpDestination::of()->setUrl(self::EXTENSION_RESPONDER),
             TriggerCollection::of()->add(
                 Trigger::of()->setResourceTypeId('cart')->setActions([Trigger::ACTION_CREATE])
             )

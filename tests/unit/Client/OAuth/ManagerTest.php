@@ -6,10 +6,12 @@
 
 namespace Commercetools\Core\Client\OAuth;
 
+use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Cache\Adapter\Void\VoidCachePool;
 use Commercetools\Core\Cache\CacheAdapterFactory;
 use Commercetools\Core\Client\Adapter\ConfigAware;
+use Commercetools\Core\Error\InvalidClientCredentialsException;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -18,20 +20,13 @@ use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Subscriber\Mock;
 use Commercetools\Core\Cache\NullCacheAdapter;
 use Commercetools\Core\Config;
+use League\Flysystem\Adapter\Local;
+use League\Flysystem\Filesystem;
 use Prophecy\Argument;
 use Psr\SimpleCache\CacheInterface;
 
 class ManagerTest extends \PHPUnit\Framework\TestCase
 {
-    public function setUp(): void
-    {
-        if (!extension_loaded('apcu') && !extension_loaded('apc')) {
-            $this->markTestSkipped(
-                'The APCU extension is not available.'
-            );
-        }
-    }
-
     protected function getConfig()
     {
         $config = Config::fromArray([
@@ -52,7 +47,10 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
         if ($noCache) {
             $manager = new Manager($config, new ArrayCachePool());
         } else {
-            $manager = new Manager($config);
+            $filesystemAdapter = new Local(realpath(__DIR__ . '/../../..'));
+            $filesystem        = new Filesystem($filesystemAdapter);
+            $cache = new FilesystemCachePool($filesystem);
+            $manager = new Manager($config, $cache);
         }
 
         if (is_array($returnValue)) {
@@ -251,9 +249,6 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
     }
 
 
-    /**
-     * @expectedException \Commercetools\Core\Error\InvalidClientCredentialsException
-     */
     public function testError()
     {
         $manager = $this->getManager(
@@ -267,6 +262,7 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
             true
         );
 
+        $this->expectException(InvalidClientCredentialsException::class);
         /**
          * @var Manager $manager
          */

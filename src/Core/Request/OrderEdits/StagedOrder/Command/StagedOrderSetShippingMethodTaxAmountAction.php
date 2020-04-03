@@ -21,5 +21,4 @@ use Commercetools\Core\Model\Cart\ExternalTaxAmountDraft;
 // phpcs:ignore
 class StagedOrderSetShippingMethodTaxAmountAction extends CartSetShippingMethodTaxAmountAction implements StagedOrderUpdateAction
 {
-
 }

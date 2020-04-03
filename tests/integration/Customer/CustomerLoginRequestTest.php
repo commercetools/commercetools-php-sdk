@@ -109,7 +109,7 @@ class CustomerLoginRequestTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidCredentials/");
+        $this->expectExceptionMessageMatches("/InvalidCredentials/");
 
         $client = $this->getApiClient();
 
@@ -128,7 +128,7 @@ class CustomerLoginRequestTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidCredentials/");
+        $this->expectExceptionMessageMatches("/InvalidCredentials/");
 
         $client = $this->getApiClient();
 
@@ -172,7 +172,7 @@ class CustomerLoginRequestTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidCurrentPassword/");
+        $this->expectExceptionMessageMatches("/InvalidCurrentPassword/");
 
         $client = $this->getApiClient();
         $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
@@ -194,7 +194,7 @@ class CustomerLoginRequestTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidCredentials/");
+        $this->expectExceptionMessageMatches("/InvalidCredentials/");
 
         $client = $this->getApiClient();
         $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
@@ -271,7 +271,7 @@ class CustomerLoginRequestTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidCredentials/");
+        $this->expectExceptionMessageMatches("/InvalidCredentials/");
 
         $client = $this->getApiClient();
         $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
@@ -367,7 +367,7 @@ class CustomerLoginRequestTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/DuplicateField/");
+        $this->expectExceptionMessageMatches("/DuplicateField/");
 
         $client = $this->getApiClient();
         $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
@@ -568,7 +568,7 @@ class CustomerLoginRequestTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidCredentials/");
+        $this->expectExceptionMessageMatches("/InvalidCredentials/");
 
         $client = $this->getApiClient();
         $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';

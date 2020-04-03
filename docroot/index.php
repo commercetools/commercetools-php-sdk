@@ -7,6 +7,7 @@ namespace Commercetools\Core;
 
 use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Client\ClientFactory;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Monolog\Handler\StreamHandler;
@@ -43,7 +44,7 @@ $filesystemAdapter = new Local(__DIR__.'/');
 $filesystem        = new Filesystem($filesystemAdapter);
 $cache = new FilesystemCachePool($filesystem);
 
-$client = Client::ofConfigCacheAndLogger($config, $cache, $log);
+$client = ClientFactory::of()->createClient($config, $log, $cache);
 
 $response = $client->execute($request);
 $products = $request->mapFromResponse($response);

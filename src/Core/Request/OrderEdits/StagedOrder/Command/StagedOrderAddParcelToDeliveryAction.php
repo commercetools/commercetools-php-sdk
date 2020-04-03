@@ -26,5 +26,4 @@ use Commercetools\Core\Model\Order\DeliveryItemCollection;
  */
 class StagedOrderAddParcelToDeliveryAction extends OrderAddParcelToDeliveryAction implements StagedOrderUpdateAction
 {
-
 }

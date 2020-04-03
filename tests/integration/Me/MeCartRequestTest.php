@@ -7,6 +7,7 @@
 namespace Commercetools\Core\IntegrationTests\Me;
 
 use Commercetools\Core\Client\ClientFactory;
+use Commercetools\Core\Error\BadRequestException;
 use Commercetools\Core\Fixtures\AnonymousId;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Client;
@@ -124,7 +125,7 @@ class MeCartRequestTest extends ApiTestCase
         $this->assertSame($token->getToken(), $manager->getToken()->getToken());
 
         $this->assertCount(1, $testHandler->getRecords());
-        $this->assertContains('anonymous', current($testHandler->getRecords())['message']);
+        $this->assertStringContainsString('anonymous', current($testHandler->getRecords())['message']);
     }
 
     public function testCustomerOAuth()
@@ -249,9 +250,6 @@ class MeCartRequestTest extends ApiTestCase
         $this->assertSame($cart->getAnonymousId(), $result->getById($cart->getId())->getAnonymousId());
     }
 
-    /**
-     * @expectedException \Commercetools\Core\Error\BadRequestException
-     */
     public function testAnonCartExistsForId()
     {
         $anonId = uniqid();
@@ -265,6 +263,7 @@ class MeCartRequestTest extends ApiTestCase
 
         $manager = new Manager($config, $this->getCache());
         $manager->getHttpClient(['verify' => $this->getVerifySSL()]);
+        $this->expectException(BadRequestException::class);
         $manager->refreshToken();
     }
 
@@ -344,7 +343,7 @@ class MeCartRequestTest extends ApiTestCase
         $response = $request->executeWithClient($client);
         $result = $request->mapResponse($response);
 
-        $this->assertContains('customers/token', current($handler->getRecords())['message']);
+        $this->assertStringContainsString('customers/token', current($handler->getRecords())['message']);
         $this->assertSame($cart->getId(), $result->getId());
     }
 
@@ -488,7 +487,7 @@ class MeCartRequestTest extends ApiTestCase
         $response = $request->executeWithClient($client);
         $result = $request->mapResponse($response);
 
-        $this->assertContains('customers/token', current($handler->getRecords())['message']);
+        $this->assertStringContainsString('customers/token', current($handler->getRecords())['message']);
         $this->assertSame($cart1->getId(), $result->getId());
 
         $cartDraft = $this->getMyCartDraft();
@@ -547,7 +546,7 @@ class MeCartRequestTest extends ApiTestCase
         $request = MeActiveCartRequest::of();
         $response = $request->executeWithClient($client);
 
-        $this->assertContains('customers/token', current($handler->getRecords())['message']);
+        $this->assertStringContainsString('customers/token', current($handler->getRecords())['message']);
 
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(

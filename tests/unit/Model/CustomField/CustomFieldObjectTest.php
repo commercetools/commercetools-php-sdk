@@ -125,11 +125,15 @@ class CustomFieldObjectTest extends \PHPUnit\Framework\TestCase
         return [
             'active' => [
                 ['active' => false],
-                'boolean'
+                'boolean',
+                null,
+                'assertIsBool',
             ],
             'description' => [
                 ['description' => 'my description'],
-                'string'
+                'string',
+                null,
+                'assertIsString',
             ],
             'name' => [
                 ['name' => ['en' => 'My awesome Shirt']],
@@ -137,7 +141,9 @@ class CustomFieldObjectTest extends \PHPUnit\Framework\TestCase
             ],
             'size' => [
                 ['size' => 48],
-                'integer'
+                'integer',
+                null,
+                'assertIsInt',
             ],
             'price' => [
                 ['price' => ['centAmount' => 100, 'currency' => 'EUR']],
@@ -158,7 +164,7 @@ class CustomFieldObjectTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider getCustomFields
      */
-    public function testData($dataArray, $type, $elementType = null)
+    public function testData($dataArray, $type, $elementType = null, $assertMethod = null)
     {
         $key = key($dataArray);
         $value = current($dataArray);
@@ -174,7 +180,7 @@ class CustomFieldObjectTest extends \PHPUnit\Framework\TestCase
         if (is_object($field)) {
             $this->assertInstanceOf($type, $field);
         } else {
-            $this->assertInternalType($type, $field);
+            $this->$assertMethod($field);
         }
         $this->assertJsonStringEqualsJsonString(json_encode($value), json_encode($field));
     }
@@ -193,10 +199,10 @@ class CustomFieldObjectTest extends \PHPUnit\Framework\TestCase
     public function valueTypeProvider()
     {
         return [
-            'string' => ['string', 'getFieldAsString', 'string'],
-            'int' => ['int', 'getFieldAsInteger', 'int'],
-            'float' => ['float', 'getFieldAsNumber', 'float'],
-            'bool' => ['bool', 'getFieldAsBool', 'bool'],
+            'string' => ['string', 'getFieldAsString', 'string', null, 'assertIsString'],
+            'int' => ['int', 'getFieldAsInteger', 'int', null, 'assertIsInt'],
+            'float' => ['float', 'getFieldAsNumber', 'float', null, 'assertIsFloat'],
+            'bool' => ['bool', 'getFieldAsBool', 'bool', null, 'assertIsBool'],
             'ltext' => [LocalizedString::class, 'getFieldAsLocalizedString', LocalizedStringType::NAME],
             'enum' => [Enum::class, 'getFieldAsEnum', EnumType::NAME],
             'lenum' => [LocalizedEnum::class, 'getFieldAsLocalizedEnum', LocalizedEnumType::NAME],
@@ -205,10 +211,10 @@ class CustomFieldObjectTest extends \PHPUnit\Framework\TestCase
             'time' => [TimeDecorator::class, 'getFieldAsTime', TimeType::NAME],
             'datetime' => [DateTimeDecorator::class, 'getFieldAsDateTime', DateTimeType::NAME],
             'reference' => [CategoryReference::class, 'getFieldAsReference', ReferenceType::NAME],
-            'string-set' => [Set::class, 'getFieldAsStringSet', 'string-' . SetType::NAME, 'string'],
-            'int-set' => [Set::class, 'getFieldAsIntegerSet', 'int-' . SetType::NAME, 'int'],
-            'float-set' => [Set::class, 'getFieldAsNumberSet', 'float-' . SetType::NAME, 'float'],
-            'bool-set' => [Set::class, 'getFieldAsBoolSet', 'bool-' . SetType::NAME, 'bool'],
+            'string-set' => [Set::class, 'getFieldAsStringSet', 'string-' . SetType::NAME, 'string', 'assertIsString'],
+            'int-set' => [Set::class, 'getFieldAsIntegerSet', 'int-' . SetType::NAME, 'int', 'assertIsInt'],
+            'float-set' => [Set::class, 'getFieldAsNumberSet', 'float-' . SetType::NAME, 'float', 'assertIsFloat'],
+            'bool-set' => [Set::class, 'getFieldAsBoolSet', 'bool-' . SetType::NAME, 'bool', 'assertIsBool'],
             'ltext-set' => [Set::class, 'getFieldAsLocalizedStringSet', LocalizedStringType::NAME . '-' . SetType::NAME, LocalizedString::class],
             'enum-set' => [Set::class, 'getFieldAsEnumSet', EnumType::NAME . '-' . SetType::NAME, Enum::class],
             'lenum-set' => [Set::class, 'getFieldAsLocalizedEnumSet', LocalizedEnumType::NAME . '-' . SetType::NAME, LocalizedEnum::class],
@@ -224,7 +230,7 @@ class CustomFieldObjectTest extends \PHPUnit\Framework\TestCase
      * @dataProvider valueTypeProvider
      * @param string $expectedType
      */
-    public function testFieldContainer($expectedType, $getter, $field, $expectedElementType = null)
+    public function testFieldContainer($expectedType, $getter, $field, $expectedElementType = null, $assertMethod = null)
     {
         $fields = [
             'string' => 'test',
@@ -260,16 +266,15 @@ class CustomFieldObjectTest extends \PHPUnit\Framework\TestCase
         if (is_object($value)) {
             $this->assertInstanceOf($expectedType, $value);
         } else {
-            $this->assertInternalType($expectedType, $value);
+            $this->$assertMethod($value);
         }
         if (isset($expectedElementType)) {
             $element = $value->current();
             if (is_object($element)) {
                 $this->assertInstanceOf($expectedElementType, $element);
             } else {
-                $this->assertInternalType($expectedElementType, $element);
+                $this->$assertMethod($element);
             }
         }
-
     }
 }

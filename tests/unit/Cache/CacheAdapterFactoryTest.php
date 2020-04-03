@@ -10,6 +10,7 @@ use Cache\Adapter\Doctrine\DoctrineCachePool;
 use Cache\Adapter\Filesystem\FilesystemCachePool;
 use Cache\Adapter\PHPArray\ArrayCachePool;
 use Cache\Adapter\Redis\RedisCachePool;
+use Commercetools\Core\Error\InvalidArgumentException;
 use Doctrine\Common\Cache\ArrayCache;
 use Psr\SimpleCache\CacheInterface;
 
@@ -84,21 +85,19 @@ class CacheAdapterFactoryTest extends \PHPUnit\Framework\TestCase
 
     /**
      * test correct type handling
-     *
-     * @expectedException \Commercetools\Core\Error\InvalidArgumentException
      */
     public function testNoObjectException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getFactory()->get([]);
     }
 
     /**
      * test correct type handling
-     *
-     * @expectedException \Commercetools\Core\Error\InvalidArgumentException
      */
     public function testNoAdapterException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->getFactory()->get(new \ArrayObject());
     }
 

@@ -16,7 +16,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class InStoreRequestDecorator implements ClientRequestInterface
 {
-
     private $request;
     private $endpoint;
 

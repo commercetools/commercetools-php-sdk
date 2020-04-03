@@ -180,7 +180,7 @@ class MeOrderRequestTest extends ApiTestCase
         $response = $request->executeWithClient($client);
         $result = $request->mapResponse($response);
 
-        $this->assertContains('customers/token', current($handler->getRecords())['message']);
+        $this->assertStringContainsString('customers/token', current($handler->getRecords())['message']);
         $this->assertSame($order->getId(), $result->getId());
     }
 
@@ -211,7 +211,7 @@ class MeOrderRequestTest extends ApiTestCase
         $request = MeOrderByIdRequest::ofId($order->getId());
         $response = $request->executeWithClient($client);
 
-        $this->assertContains('customers/token', current($handler->getRecords())['message']);
+        $this->assertStringContainsString('customers/token', current($handler->getRecords())['message']);
         $this->assertTrue($response->isError());
         $this->assertInstanceOf(ResourceNotFoundError::class, $response->getErrors()->current());
     }
