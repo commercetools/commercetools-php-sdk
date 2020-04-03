@@ -13,15 +13,15 @@ use Commercetools\Core\Client\OAuth\Manager;
 use Commercetools\Core\Error\AccessDeniedError;
 use Commercetools\Core\Error\ApiException;
 use Commercetools\Core\Error\ErrorContainer;
-use Commercetools\Core\Error\InvalidOperationError;
 use Commercetools\Core\Error\InvalidTokenError;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Cart\CartFixture;
 use Commercetools\Core\IntegrationTests\Category\CategoryFixture;
 use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
 use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\IntegrationTests\ProductType\ProductTypeFixture;
-use Commercetools\Core\IntegrationTests\TestHelper;
+use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Category\Category;
 use Commercetools\Core\Model\Common\Attribute;
 use Commercetools\Core\Model\Common\AttributeCollection;
@@ -41,7 +41,6 @@ use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\EnumType;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\ProductType\StringType;
-use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
 use Commercetools\Core\Request\Products\Command\ProductAddPriceAction;
@@ -386,7 +385,6 @@ class ErrorResponseTest extends ApiTestCase
                         $response = $this->execute($client, $request);
                         $result = $request->mapFromResponse($response);
 
-                        TestHelper::getInstance($this->getClient())->setProductType($result);
                         $request = RequestBuilder::of()->products()->update($product)
                             ->addAction(
                                 ProductTypeAddAttributeDefinitionAction::ofAttribute(
@@ -449,8 +447,6 @@ class ErrorResponseTest extends ApiTestCase
                 $response = $this->execute($client, $request);
                 $result  = $request->mapFromResponse($response);
 
-                TestHelper::getInstance($this->getClient())->setProductType($result);
-
                 return $result;
             }
         );
@@ -509,7 +505,6 @@ class ErrorResponseTest extends ApiTestCase
                     );
                 $response = $this->execute($client, $request);
                 $result  = $request->mapFromResponse($response);
-                TestHelper::getInstance($this->getClient())->setProductType($result);
 
                 $request = RequestBuilder::of()->products()->update($product)
                     ->addAction(
@@ -525,26 +520,28 @@ class ErrorResponseTest extends ApiTestCase
             }
         );
     }
-// todo migrate Cart
+
     public function testInvalidOperation()
     {
-        $cart = $this->getCart();
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageRegExp("/InvalidOperation/");
 
-        $request = CartUpdateRequest::ofIdAndVersion($cart->getId(), $cart->getVersion())
-            ->addAction(
-                CartAddLineItemAction::of()
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $this->assertTrue($response->isError());
-        $this->assertInstanceOf(ErrorResponse::class, $response);
-        $this->assertSame(400, $response->getStatusCode());
-        $error = $response->getErrors()->current();
-        $this->assertInstanceOf(
-            InvalidOperationError::class,
-            $error
+        $client = $this->getApiClient();
+
+        CartFixture::withUpdateableCart(
+            $client,
+            function (Cart $cart) use ($client) {
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(
+                        CartAddLineItemAction::of()
+                    );
+                $response = $this->execute($client, $request);
+                $result  = $request->mapFromResponse($response);
+
+                return $result;
+            }
         );
-        $this->assertSame(InvalidOperationError::CODE, $error->getCode());
     }
 
     public function testInvalidField()
@@ -576,7 +573,6 @@ class ErrorResponseTest extends ApiTestCase
                     );
                 $response = $this->execute($client, $request);
                 $result  = $request->mapFromResponse($response);
-                TestHelper::getInstance($this->getClient())->setProductType($result);
 
                 $request = RequestBuilder::of()->products()->update($product)
                     ->addAction(
