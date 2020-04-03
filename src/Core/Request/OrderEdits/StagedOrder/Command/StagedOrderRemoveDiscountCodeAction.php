@@ -18,5 +18,4 @@ use Commercetools\Core\Model\DiscountCode\DiscountCodeReference;
  */
 class StagedOrderRemoveDiscountCodeAction extends CartRemoveDiscountCodeAction implements StagedOrderUpdateAction
 {
-
 }

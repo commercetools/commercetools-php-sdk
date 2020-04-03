@@ -388,7 +388,7 @@ class CategoryQueryRequestTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidField/");
+        $this->expectExceptionMessageMatches("/InvalidField/");
 
         $client = $this->getApiClient();
 
@@ -424,7 +424,7 @@ class CategoryQueryRequestTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidField/");
+        $this->expectExceptionMessageMatches("/InvalidField/");
 
         $client = $this->getApiClient();
 

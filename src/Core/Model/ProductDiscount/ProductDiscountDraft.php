@@ -78,7 +78,6 @@ class ProductDiscountDraft extends JsonObject
             ->setValue($value)
             ->setPredicate($predicate)
             ->setSortOrder($sortOrder)
-            ->setIsActive($isActive)
-        ;
+            ->setIsActive($isActive);
     }
 }

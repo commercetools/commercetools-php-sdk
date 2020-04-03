@@ -43,5 +43,4 @@ use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
  */
 class StagedOrderAddLineItemAction extends CartAddLineItemAction implements StagedOrderUpdateAction
 {
-
 }

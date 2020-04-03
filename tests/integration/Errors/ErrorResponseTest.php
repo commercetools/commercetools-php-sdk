@@ -119,7 +119,7 @@ class ErrorResponseTest extends ApiTestCase
 
                 $this->expectException(FixtureException::class);
                 $this->expectExceptionCode(409);
-                $this->expectExceptionMessageRegExp("/ConcurrentModification/");
+                $this->expectExceptionMessageMatches("/ConcurrentModification/");
 
                 $newName = CategoryFixture::uniqueCategoryString() . '-concurrent';
                 $request = RequestBuilder::of()->categories()->update($category)
@@ -139,7 +139,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(404);
-        $this->expectExceptionMessageRegExp("/ResourceNotFound/");
+        $this->expectExceptionMessageMatches("/ResourceNotFound/");
 
         $client = $this->getApiClient();
         $t = '00000000-0000-0000-0000-000000000000';
@@ -152,7 +152,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(404);
-        $this->expectExceptionMessageRegExp("/ResourceNotFound/");
+        $this->expectExceptionMessageMatches("/ResourceNotFound/");
 
         $client = $this->getApiClient();
         $t = '00000000-0000-0000-0000-000000000000';
@@ -189,7 +189,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidCredentials/");
+        $this->expectExceptionMessageMatches("/InvalidCredentials/");
         $client = $this->getApiClient();
 
         CustomerFixture::withCustomer(
@@ -207,7 +207,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidCurrentPassword/");
+        $this->expectExceptionMessageMatches("/InvalidCurrentPassword/");
         $client = $this->getApiClient();
 
         CustomerFixture::withCustomer(
@@ -226,7 +226,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/DuplicatePriceScope/");
+        $this->expectExceptionMessageMatches("/DuplicatePriceScope/");
 
         $client = $this->getApiClient();
 
@@ -265,7 +265,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/DuplicateField/");
+        $this->expectExceptionMessageMatches("/DuplicateField/");
 
         $client = $this->getApiClient();
 
@@ -288,7 +288,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/DuplicateVariantValues/");
+        $this->expectExceptionMessageMatches("/DuplicateVariantValues/");
 
         $client = $this->getApiClient();
 
@@ -321,7 +321,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/DuplicateVariantValues/");
+        $this->expectExceptionMessageMatches("/DuplicateVariantValues/");
 
         $client = $this->getApiClient();
 
@@ -364,7 +364,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidJsonInput/");
+        $this->expectExceptionMessageMatches("/InvalidJsonInput/");
 
         $client = $this->getApiClient();
 
@@ -416,7 +416,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/AttributeNameDoesNotExist/");
+        $this->expectExceptionMessageMatches("/AttributeNameDoesNotExist/");
 
         $client = $this->getApiClient();
 
@@ -486,7 +486,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/RequiredField/");
+        $this->expectExceptionMessageMatches("/RequiredField/");
 
         $client = $this->getApiClient();
 
@@ -548,7 +548,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageRegExp("/InvalidField/");
+        $this->expectExceptionMessageMatches("/InvalidField/");
 
         $client = $this->getApiClient();
 

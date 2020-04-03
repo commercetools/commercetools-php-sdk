@@ -19,5 +19,4 @@ use Commercetools\Core\Model\Common\Address;
 // phpcs:ignore
 class StagedOrderAddItemShippingAddressAction extends OrderAddItemShippingAddressAction implements StagedOrderUpdateAction
 {
-
 }

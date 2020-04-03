@@ -15,6 +15,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method CustomerSetDefaultBillingAddressAction setAddressId(string $addressId = null)
  * @method string getAction()
  * @method CustomerSetDefaultBillingAddressAction setAction(string $action = null)
+ * @method string getAddressKey()
+ * @method CustomerSetDefaultBillingAddressAction setAddressKey(string $addressKey = null)
  */
 class CustomerSetDefaultBillingAddressAction extends AbstractAction
 {
@@ -22,7 +24,8 @@ class CustomerSetDefaultBillingAddressAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'addressId' => [static::TYPE => 'string']
+            'addressId' => [static::TYPE => 'string'],
+            'addressKey' => [static::TYPE => 'string'],
         ];
     }
 
@@ -34,5 +37,25 @@ class CustomerSetDefaultBillingAddressAction extends AbstractAction
     {
         parent::__construct($data, $context);
         $this->setAction('setDefaultBillingAddress');
+    }
+
+    /**
+     * @param string $addressId
+     * @param Context|callable $context
+     * @return CustomerSetDefaultBillingAddressAction
+     */
+    public static function ofAddressId($addressId, $context = null)
+    {
+        return static::of($context)->setAddressId($addressId);
+    }
+
+    /**
+     * @param string $addressKey
+     * @param Context|callable $context
+     * @return CustomerSetDefaultBillingAddressAction
+     */
+    public static function ofAddressKey($addressKey, $context = null)
+    {
+        return static::of($context)->setAddressKey($addressKey);
     }
 }
