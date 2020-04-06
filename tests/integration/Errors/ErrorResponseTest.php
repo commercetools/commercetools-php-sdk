@@ -12,6 +12,7 @@ use Commercetools\Core\Client;
 use Commercetools\Core\Client\OAuth\Manager;
 use Commercetools\Core\Error\AccessDeniedError;
 use Commercetools\Core\Error\ApiException;
+use Commercetools\Core\Error\ClientErrorException;
 use Commercetools\Core\Error\ErrorContainer;
 use Commercetools\Core\Error\InvalidTokenError;
 use Commercetools\Core\Fixtures\FixtureException;
@@ -653,20 +654,14 @@ class ErrorResponseTest extends ApiTestCase
 
         try {
             $httpResponse = $httpClient->execute($httpRequest);
-        } catch (ApiException $exception) {
-            $httpResponse = $exception->getResponse();
-            $response = new ErrorResponse($exception, $request, $httpResponse);
+        } catch (ClientErrorException $exception) {
         }
-        $this->assertTrue($response->isError());
-        $this->assertInstanceOf(ErrorResponse::class, $response);
-        $this->assertSame(401, $response->getStatusCode());
-
-        $error = $response->getErrors()->current();
+        $this->assertSame(401, $exception->getCode());
         $this->assertInstanceOf(
             AccessDeniedError::class,
-            $error
+            $exception->getErrorContainer()->current()
         );
-        $this->assertSame(AccessDeniedError::CODE, $error->getCode());
+        $this->assertSame(AccessDeniedError::CODE, $exception->getErrorContainer()->current()->getCode());
     }
 
     public function testEmptyPost()

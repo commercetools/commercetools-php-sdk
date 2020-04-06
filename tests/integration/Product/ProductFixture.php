@@ -104,13 +104,7 @@ class ProductFixture extends ResourceFixture
         } catch (NotFoundException $e) {
             return null;
         } catch (ConcurrentModificationException $e) {
-            $errorResponse = new ErrorResponse($e, $request, $e->getResponse());
-
-            /** @var ConcurrentModificationError $error */
-            $error = $errorResponse->getErrors()->getByCode(ConcurrentModificationError::CODE);
-            $currentVersion = $error->getCurrentVersion();
-
-            $request = $request->setVersion($currentVersion);
+            $request = $request->setVersion($e->getCurrentVersion());
             $response = $client->execute($request);
             $resource = $request->mapFromResponse($response);
         }
