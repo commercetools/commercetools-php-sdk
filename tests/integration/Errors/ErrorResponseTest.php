@@ -41,6 +41,7 @@ use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\EnumType;
 use Commercetools\Core\Model\ProductType\ProductType;
+use Commercetools\Core\Model\ProductType\ProductTypeReference;
 use Commercetools\Core\Model\ProductType\StringType;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
 use Commercetools\Core\Request\Categories\Command\CategoryChangeNameAction;
@@ -417,7 +418,7 @@ class ErrorResponseTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-        $this->expectExceptionMessageMatches("/AttributeNameDoesNotExist/");
+        $this->expectExceptionMessageMatches("/DuplicateAttributeValues/");
 
         $client = $this->getApiClient();
 
@@ -448,37 +449,39 @@ class ErrorResponseTest extends ApiTestCase
                 $response = $this->execute($client, $request);
                 $result  = $request->mapFromResponse($response);
 
-                return $result;
-            }
-        );
-
-        ProductFixture::withPublishedProduct(
-            $client,
-            function (Product $product) use ($client) {
-                $request = RequestBuilder::of()->products()->update($product)
-                    ->addAction(
-                        ProductAddVariantAction::of()
-                            ->setSku(ProductFixture::uniqueProductString() . '-1')
-                            ->setAttributes(
-                                AttributeCollection::of()->add(
-                                    Attribute::of()->setName('combineField1')->setValue('abcdef')
-                                )->add(
-                                    Attribute::of()->setName('combineField2')->setValue('123456')
-                                )
+                ProductFixture::withUpdateableDraftProduct(
+                    $client,
+                    function (ProductDraft $draft) use ($result) {
+                        return $draft->setProductType(ProductTypeReference::ofId($result->getId()));
+                    },
+                    function (Product $product) use ($client) {
+                        $request = RequestBuilder::of()->products()->update($product)
+                            ->addAction(
+                                ProductAddVariantAction::of()
+                                    ->setSku(ProductFixture::uniqueProductString() . '-1')
+                                    ->setAttributes(
+                                        AttributeCollection::of()->add(
+                                            Attribute::of()->setName('combineField1')->setValue('abcdef')
+                                        )->add(
+                                            Attribute::of()->setName('combineField2')->setValue('123456')
+                                        )
+                                    )
                             )
-                    )
-                    ->addAction(
-                        ProductAddVariantAction::of()
-                            ->setSku(ProductFixture::uniqueProductString() . '-2')
-                            ->setAttributes(
-                                AttributeCollection::of()->add(
-                                    Attribute::of()->setName('combineField1')->setValue('abcdef')
-                                )->add(
-                                    Attribute::of()->setName('combineField2')->setValue('123456')
-                                )
-                            )
-                    );
-                $this->execute($client, $request);
+                            ->addAction(
+                                ProductAddVariantAction::of()
+                                    ->setSku(ProductFixture::uniqueProductString() . '-2')
+                                    ->setAttributes(
+                                        AttributeCollection::of()->add(
+                                            Attribute::of()->setName('combineField1')->setValue('abcdef')
+                                        )->add(
+                                            Attribute::of()->setName('combineField2')->setValue('123456')
+                                        )
+                                    )
+                            );
+                        $response = $this->execute($client, $request);
+                        return $request->mapFromResponse($response);
+                    }
+                );
             }
         );
     }
