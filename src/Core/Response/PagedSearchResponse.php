@@ -28,7 +28,7 @@ class PagedSearchResponse extends PagedQueryResponse
     public function getFacets()
     {
         if (is_null($this->facets)) {
-            $this->facets = FacetResultCollection::fromArray($this->getResponseKey(static::FACETS));
+            $this->facets = FacetResultCollection::fromArray($this->getResponseKey(static::FACETS), $this->getContext());
         }
         return $this->facets;
     }
