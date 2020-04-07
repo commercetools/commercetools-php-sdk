@@ -436,7 +436,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
     {
         $this->expectException(FixtureException::class);
         $this->expectExceptionCode(400);
-
+        $this->expectExceptionMessageMatches('/InvalidOperation/');
         $client = $this->getApiClient();
         $name = 'testLocalizedEnumField-' . ProductTypeFixture::uniqueProductTypeString();
 
@@ -457,7 +457,7 @@ class ProductTypeUpdateRequestTest extends ApiTestCase
                 $request = RequestBuilder::of()->productTypes()->update($productType)
                     ->addAction(
                         ProductTypeChangeLocalizedEnumLabelAction::ofAttributeNameAndEnumValue(
-                            'testLocalizedEnumField',
+                            $name,
                             LocalizedEnum::of()->setKey('test')->setLabel(LocalizedString::ofLangAndText('en', 'test'))
                         )
                     );

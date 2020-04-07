@@ -449,7 +449,7 @@ class ErrorResponseTest extends ApiTestCase
                 $response = $this->execute($client, $request);
                 $result  = $request->mapFromResponse($response);
 
-                ProductFixture::withUpdateableDraftProduct(
+                ProductFixture::withDraftProduct(
                     $client,
                     function (ProductDraft $draft) use ($result) {
                         return $draft->setProductType(ProductTypeReference::ofId($result->getId()));
@@ -478,8 +478,7 @@ class ErrorResponseTest extends ApiTestCase
                                         )
                                     )
                             );
-                        $response = $this->execute($client, $request);
-                        return $request->mapFromResponse($response);
+                        $this->execute($client, $request);
                     }
                 );
             }
