@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Order;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\LineItemDraft;
@@ -77,32 +78,40 @@ class OrderQueryRequestTest extends ApiTestCase
 
     public function testGetById()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $request = OrderByIdGetRequest::ofId($order->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        OrderFixture::withCartOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $request = RequestBuilder::of()->orders()->getById($order->getId());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertSame($order->getId(), $result->getId());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame($order->getId(), $result->getId());
+            }
+        );
     }
 
     public function testQuery()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $request = OrderQueryRequest::of()->where(
-            'customerEmail="' . $cartDraft->getCustomerEmail() . '"'
+        OrderFixture::withCartOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $request = RequestBuilder::of()->orders()->query()->where(
+                    'customerEmail=:customerEmail',
+                    ['customerEmail' => $order->getCustomerEmail()]
+                );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(Order::class, $result->current());
+                $this->assertSame($order->getId(), $result->current()->getId());
+            }
         );
-
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(Order::class, $result->getAt(0));
-        $this->assertSame($order->getId(), $result->getAt(0)->getId());
     }
 
     public function testGetByIdInStore()
