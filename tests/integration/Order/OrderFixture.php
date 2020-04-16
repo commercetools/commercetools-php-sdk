@@ -605,7 +605,7 @@ class OrderFixture extends ResourceFixture
                                                     ) {
                                                         CartFixture::withDraftCart(
                                                             $client,
-                                                            function (CartDraft $cartDraft) use ($customer, $product, $shippingMethod) {
+                                                            function (CartDraft $cartDraft) use ($customer, $product, $shippingMethod, $store) {
                                                                 $cartDraft->setCustomerId($customer->getId())
                                                                     ->setShippingAddress($customer->getDefaultShippingAddress())
                                                                     ->setBillingAddress($customer->getDefaultBillingAddress())
@@ -616,7 +616,8 @@ class OrderFixture extends ResourceFixture
                                                                                 LineItemDraft::ofProductIdVariantIdAndQuantity($product->getId(), 1, 1)
                                                                             )
                                                                     )
-                                                                    ->setShippingMethod(ShippingMethodReference::ofId($shippingMethod->getId()));
+                                                                    ->setShippingMethod(ShippingMethodReference::ofId($shippingMethod->getId()))
+                                                                    ->setStore(StoreReference::ofKey($store->getKey()));
 
                                                                 return $cartDraft;
                                                             },
