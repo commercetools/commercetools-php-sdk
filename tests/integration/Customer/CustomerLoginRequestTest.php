@@ -11,15 +11,15 @@ use Commercetools\Core\Client\OAuth\Token;
 use Commercetools\Core\Config;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Cart\CartFixture;
 use Commercetools\Core\IntegrationTests\Store\StoreFixture;
+use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\Customer\CustomerToken;
 use Commercetools\Core\Model\Store\Store;
-use Commercetools\Core\Request\Carts\CartByIdGetRequest;
-use Commercetools\Core\Request\Carts\CartCreateRequest;
-use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
@@ -421,123 +421,144 @@ class CustomerLoginRequestTest extends ApiTestCase
         $forceRefreshToken = $client->getOauthManager()->refreshToken();
         $this->assertNotSame($token->getToken(), $forceRefreshToken->getToken());
     }
-//todo migrate Cart first
+
     public function testCartNewOnLogin()
     {
-        $client = $this->getClient();
+        $client = $this->getApiClient();
+        $password = CustomerFixture::uniqueCustomerString();
 
-        $customerDraft = $this->getCustomerDraft();
-        $customer = $this->createCustomer($customerDraft);
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $customerDraft) use ($password) {
+                return $customerDraft->setPassword($password);
+            },
+            function (Customer $customer) use ($client, $password) {
+                CartFixture::withDraftCart(
+                    $client,
+                    function (CartDraft $cartDraft) use ($customer) {
+                        return $cartDraft->setCustomerId($customer->getId());
+                    },
+                    function (Cart $cart) use ($client, $customer, $password) {
+                        CartFixture::withCart(
+                            $client,
+                            function (Cart $anonCart) use ($client, $customer, $password, $cart) {
+                                $request = RequestBuilder::of()->customers()->login(
+                                    $customer->getEmail(),
+                                    $password,
+                                    false,
+                                    $anonCart->getId()
+                                )->setAnonymousCartSignInMode(CustomerLoginRequest::SIGN_IN_MODE_NEW);
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
 
-        $customerCartDraft = $this->getCartDraft();
-        $customerCartDraft->setCustomerId($customer->getId());
-        $customerCart = $this->getCart($customerCartDraft);
+                                $loggedInCart = $result->getCart();
 
-        $anonCartDraft = $this->getCartDraft();
-        $request = CartCreateRequest::ofDraft($anonCartDraft);
-        $response = $request->executeWithClient($client);
-        $anonCart = $request->mapResponse($response);
-
-        $request = CustomerLoginRequest::ofEmailAndPassword(
-            $customer->getEmail(),
-            $customerDraft->getPassword(),
-            $anonCart->getId()
-        )->setAnonymousCartSignInMode(CustomerLoginRequest::SIGN_IN_MODE_NEW);
-        $response = $request->executeWithClient($client);
-        $result = $request->mapResponse($response);
-
-        $loggedInCart = $result->getCart();
-
-        $request = CartDeleteRequest::ofIdAndVersion($loggedInCart->getId(), $loggedInCart->getVersion());
-        $request->executeWithClient($client);
-
-        $this->assertNotSame($customerCart->getId(), $loggedInCart->getId());
-        $this->assertSame($anonCart->getId(), $loggedInCart->getId());
-        $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
-        $this->assertSame(CartState::ACTIVE, $loggedInCart->getCartState());
+                                $this->assertNotSame($cart->getId(), $loggedInCart->getId());
+                                $this->assertSame($anonCart->getId(), $loggedInCart->getId());
+                                $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
+                                $this->assertSame(CartState::ACTIVE, $loggedInCart->getCartState());
+                            }
+                        );
+                    }
+                );
+            }
+        );
     }
-//todo migrate Cart first
+
     public function testCartMergeOnLogin()
     {
-        $client = $this->getClient();
+        $client = $this->getApiClient();
+        $password = CustomerFixture::uniqueCustomerString();
 
-        $customerDraft = $this->getCustomerDraft();
-        $customer = $this->createCustomer($customerDraft);
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $customerDraft) use ($password) {
+                return $customerDraft->setPassword($password);
+            },
+            function (Customer $customer) use ($client, $password) {
+                CartFixture::withDraftCart(
+                    $client,
+                    function (CartDraft $cartDraft) use ($customer) {
+                        return $cartDraft->setCustomerId($customer->getId());
+                    },
+                    function (Cart $cart) use ($client, $customer, $password) {
+                        CartFixture::withCart(
+                            $client,
+                            function (Cart $anonCart) use ($client, $customer, $password, $cart) {
+                                $request = RequestBuilder::of()->customers()->login(
+                                    $customer->getEmail(),
+                                    $password,
+                                    false,
+                                    $anonCart->getId()
+                                )->setAnonymousCartSignInMode(CustomerLoginRequest::SIGN_IN_MODE_MERGE);
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
 
-        $customerCartDraft = $this->getCartDraft();
-        $customerCartDraft->setCustomerId($customer->getId());
-        $customerCart = $this->getCart($customerCartDraft);
+                                $loggedInCart = $result->getCart();
 
-        $anonCartDraft = $this->getCartDraft();
-        $request = CartCreateRequest::ofDraft($anonCartDraft);
-        $response = $request->executeWithClient($client);
-        $anonCart = $request->mapResponse($response);
+                                $request = RequestBuilder::of()->carts()->getById($anonCart->getId());
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
 
-        $request = CustomerLoginRequest::ofEmailAndPassword(
-            $customer->getEmail(),
-            $customerDraft->getPassword(),
-            $anonCart->getId()
-        )->setAnonymousCartSignInMode(CustomerLoginRequest::SIGN_IN_MODE_MERGE);
-        $response = $request->executeWithClient($client);
-        $result = $request->mapResponse($response);
-
-        $loggedInCart = $result->getCart();
-
-        $request = CartByIdGetRequest::ofId($anonCart->getId());
-        $response = $request->executeWithClient($client);
-        $anonCart = $request->mapResponse($response);
-
-        $request = CartDeleteRequest::ofIdAndVersion($anonCart->getId(), $anonCart->getVersion());
-        $response = $request->executeWithClient($client);
-        $anonCart = $request->mapResponse($response);
-
-        $this->assertNotSame($anonCart->getId(), $loggedInCart->getId());
-        $this->assertSame($customerCart->getId(), $loggedInCart->getId());
-        $this->assertSame(CartState::MERGED, $anonCart->getCartState());
-        $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
+                                $this->assertNotSame($result->getId(), $loggedInCart->getId());
+                                $this->assertSame($cart->getId(), $loggedInCart->getId());
+                                $this->assertSame(CartState::MERGED, $result->getCartState());
+                                $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
+                            }
+                        );
+                    }
+                );
+            }
+        );
     }
-//todo migrate Cart first
+
     public function testCartUpdateProductDataOnLogin()
     {
-        $client = $this->getClient();
+        $client = $this->getApiClient();
+        $password = CustomerFixture::uniqueCustomerString();
 
-        $customerDraft = $this->getCustomerDraft();
-        $customer = $this->createCustomer($customerDraft);
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $customerDraft) use ($password) {
+                return $customerDraft->setPassword($password);
+            },
+            function (Customer $customer) use ($client, $password) {
+                CartFixture::withDraftCart(
+                    $client,
+                    function (CartDraft $cartDraft) use ($customer) {
+                        return $cartDraft->setCustomerId($customer->getId());
+                    },
+                    function (Cart $cart) use ($client, $customer, $password) {
+                        CartFixture::withCart(
+                            $client,
+                            function (Cart $anonCart) use ($client, $customer, $password, $cart) {
+                                $request = RequestBuilder::of()->customers()->login(
+                                    $customer->getEmail(),
+                                    $password,
+                                    true,
+                                    $anonCart->getId()
+                                )->setAnonymousCartSignInMode(CustomerLoginRequest::SIGN_IN_MODE_MERGE);
+                                $body = json_decode((string)$request->httpRequest()->getBody(), true);
+                                $this->assertTrue($body['updateProductData']);
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
 
-        $customerCartDraft = $this->getCartDraft();
-        $customerCartDraft->setCustomerId($customer->getId());
-        $customerCart = $this->getCart($customerCartDraft);
+                                $loggedInCart = $result->getCart();
 
-        $anonCartDraft = $this->getCartDraft();
-        $request = CartCreateRequest::ofDraft($anonCartDraft);
-        $response = $request->executeWithClient($client);
-        $anonCart = $request->mapResponse($response);
+                                $request = RequestBuilder::of()->carts()->getById($anonCart->getId());
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
 
-        $request = CustomerLoginRequest::ofEmailPasswordAndUpdateProductData(
-            $customer->getEmail(),
-            $customerDraft->getPassword(),
-            true,
-            $anonCart->getId()
-        )->setAnonymousCartSignInMode(CustomerLoginRequest::SIGN_IN_MODE_MERGE);
-        $body = json_decode((string)$request->httpRequest()->getBody(), true);
-        $this->assertTrue($body['updateProductData']);
-        $response = $request->executeWithClient($client);
-        $result = $request->mapResponse($response);
-
-        $loggedInCart = $result->getCart();
-
-        $request = CartByIdGetRequest::ofId($anonCart->getId());
-        $response = $request->executeWithClient($client);
-        $anonCart = $request->mapResponse($response);
-
-        $request = CartDeleteRequest::ofIdAndVersion($anonCart->getId(), $anonCart->getVersion());
-        $response = $request->executeWithClient($client);
-        $anonCart = $request->mapResponse($response);
-
-        $this->assertNotSame($anonCart->getId(), $loggedInCart->getId());
-        $this->assertSame($customerCart->getId(), $loggedInCart->getId());
-        $this->assertSame(CartState::MERGED, $anonCart->getCartState());
-        $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
+                                $this->assertNotSame($result->getId(), $loggedInCart->getId());
+                                $this->assertSame($cart->getId(), $loggedInCart->getId());
+                                $this->assertSame(CartState::MERGED, $result->getCartState());
+                                $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
+                            }
+                        );
+                    }
+                );
+            }
+        );
     }
 
     public function testInStorePasswordReset()

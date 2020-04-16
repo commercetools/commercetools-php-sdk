@@ -11,4 +11,10 @@ namespace Commercetools\Core\Error;
  */
 class ClientErrorException extends ApiServiceException
 {
+    public function getErrorContainer()
+    {
+        $errors = parent::getErrors();
+
+        return ErrorContainer::fromArray($errors);
+    }
 }
