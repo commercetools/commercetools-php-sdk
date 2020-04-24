@@ -3,7 +3,6 @@
 
 namespace Commercetools\Core\Model\Message;
 
-use Commercetools\Core\Model\Category\CategoryReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use DateTime;
 use Commercetools\Core\Model\Common\Reference;
