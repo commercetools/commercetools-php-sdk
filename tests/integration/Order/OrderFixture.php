@@ -79,6 +79,7 @@ class OrderFixture extends ResourceFixture
         $shipmentState = null
     ) {
         $request = RequestBuilder::of()->orders()->createFromCart($cart);
+
         if (!is_null($orderNumber)) {
             $request->setOrderNumber($orderNumber);
         }
