@@ -5,7 +5,9 @@
 
 namespace Commercetools\Core\IntegrationTests\Order;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Cart\CustomLineItemDraft;
@@ -28,6 +30,7 @@ use Commercetools\Core\Model\Customer\CustomerSigninResult;
 use Commercetools\Core\Model\Order\DeliveryItem;
 use Commercetools\Core\Model\Order\DeliveryItemCollection;
 use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Model\Order\OrderCollection;
 use Commercetools\Core\Model\Order\OrderState;
 use Commercetools\Core\Model\Order\Parcel;
 use Commercetools\Core\Model\Order\ParcelCollection;
@@ -42,6 +45,7 @@ use Commercetools\Core\Model\Order\TrackingData;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\State\StateReference;
+use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
@@ -167,15 +171,20 @@ class OrderUpdateRequestTest extends ApiTestCase
 
     public function testOrderByOrderNumber()
     {
-        $cartDraft = $this->getCartDraft();
-        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
-        $this->createOrder($cartDraft, $orderNumber);
+        $client = $this->getApiClient();
+        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . OrderFixture::uniqueOrderString();
 
-        $request = OrderByOrderNumberGetRequest::ofOrderNumber($orderNumber);
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        OrderFixture::withUpdateableCartOrder(
+            $client,
+            function () use ($client, $orderNumber) {
+                $request = RequestBuilder::of()->orders()->getByOrderNumber($orderNumber);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Order::class, $result);
+                $this->assertInstanceOf(Order::class, $result);
+            },
+            $orderNumber
+        );
     }
 
     public function testUpdateOrderByOrderNumber()

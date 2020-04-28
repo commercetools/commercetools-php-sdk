@@ -7,76 +7,13 @@ namespace Commercetools\Core\IntegrationTests\Order;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\Model\Cart\CartDraft;
-use Commercetools\Core\Model\Cart\LineItemDraft;
-use Commercetools\Core\Model\Cart\LineItemDraftCollection;
-use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Order\OrderCollection;
 use Commercetools\Core\Model\Store\Store;
-use Commercetools\Core\Model\Store\StoreReference;
-use Commercetools\Core\Request\Carts\CartByIdGetRequest;
-use Commercetools\Core\Request\Carts\CartCreateRequest;
-use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
-use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
-use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
-use Commercetools\Core\Request\Orders\OrderDeleteRequest;
-use Commercetools\Core\Request\Orders\OrderQueryRequest;
 
 class OrderQueryRequestTest extends ApiTestCase
 {
-    /**
-     * @return CartDraft
-     */
-    protected function getCartDraft()
-    {
-        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
-        /**
-         * @var Customer $customer
-         */
-        $customer = $this->getCustomer();
-        $draft->setCustomerId($customer->getId())
-            ->setShippingAddress($customer->getDefaultShippingAddress())
-            ->setBillingAddress($customer->getDefaultBillingAddress())
-            ->setCustomerEmail($customer->getEmail())
-            ->setLineItems(
-                LineItemDraftCollection::of()
-                    ->add(
-                        LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1)
-                    )
-            )
-            ->setShippingMethod($this->getShippingMethod()->getReference());
-
-        return $draft;
-    }
-
-    protected function createOrder(CartDraft $draft)
-    {
-        $request = CartCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-
-        $orderRequest = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
-        $response = $orderRequest->executeWithClient($this->getClient());
-        $order = $orderRequest->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = OrderDeleteRequest::ofIdAndVersion(
-            $order->getId(),
-            $order->getVersion()
-        );
-
-        $cartRequest = CartByIdGetRequest::ofId($cart->getId());
-        $response = $cartRequest->executeWithClient($this->getClient());
-        $cart = $cartRequest->mapResponse($response);
-
-        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
-            $cart->getId(),
-            $cart->getVersion()
-        );
-
-        return $order;
-    }
-
     public function testGetById()
     {
         $client = $this->getApiClient();

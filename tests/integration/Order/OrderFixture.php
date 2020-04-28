@@ -2,6 +2,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Order;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\Error\ApiServiceException;
 use Commercetools\Core\Helper\Uuid;
@@ -23,6 +24,7 @@ use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\Order\Order;
+use Commercetools\Core\Model\Order\OrderFromCartDraft;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
@@ -68,10 +70,48 @@ class OrderFixture extends ResourceFixture
         return $draft;
     }
 
-    public static function orderCreateFunction(
-        ApiClient $client,
-        Cart $cart
+    final public static function orderRequestBuilderFunction(
+        Cart $cart,
+        $orderNumber = null,
+        $orderState = null,
+        $paymentState = null,
+        $state = null,
+        $shipmentState = null
     ) {
+        $request = RequestBuilder::of()->orders()->createFromCart($cart);
+        if (!is_null($orderNumber)) {
+            $request->setOrderNumber($orderNumber);
+        }
+        if (!is_null($paymentState)) {
+            $request->setPaymentState($paymentState);
+        }
+        if (!is_null($orderState)) {
+            $request->setOrderState($orderState);
+        }
+        if (!is_null($state)) {
+            $request->setState($state);
+        }
+        if (!is_null($shipmentState)) {
+            $request->setShipmentState($shipmentState);
+        }
+
+        return $request;
+    }
+
+    public static function orderCreateForUpdateFunction(ApiClient $client, $request)
+    {
+        try {
+            $response = $client->execute($request);
+        } catch (ApiServiceException $e) {
+            throw self::toFixtureException($e);
+        }
+        $result = $request->mapFromResponse($response);
+
+        return $result;
+    }
+
+    public static function orderCreateFunction(ApiClient $client, Cart$cart)
+    {
         $request = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
         try {
             $response = $client->execute($request);
@@ -88,10 +128,42 @@ class OrderFixture extends ResourceFixture
         return parent::defaultDeleteFunction($client, self::DELETE_REQUEST_TYPE, $resource);
     }
 
-    final public static function withUpdateableDraftCartOrder(
+    final public static function withUpdateableCartOrder(
         ApiClient $client,
-        callable $draftBuilderFunction,
         callable $assertFunction,
+        $orderNumber = null,
+        $paymentState = null,
+        $orderState = null,
+        $state = null,
+        $shipmentState = null,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
+
+        self::withUpdateableDraftCartOrder(
+            $client,
+            [__CLASS__, 'orderRequestBuilderFunction'],
+            $assertFunction,
+            $orderNumber,
+            $paymentState,
+            $orderState,
+            $state,
+            $shipmentState,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
+        );
+    }
+    public static function withUpdateableDraftCartOrder(
+        ApiClient $client,
+        callable $orderRequestBuilderFunction,
+        callable $assertFunction,
+        $orderNumber = null,
+        $paymentState = null,
+        $orderState = null,
+        $state = null,
+        $shipmentState = null,
         callable $createFunction = null,
         callable $deleteFunction = null,
         callable $draftFunction = null
@@ -108,11 +180,17 @@ class OrderFixture extends ResourceFixture
                         ->setCountry('DE')
                         ->setState($region)
                 );
+
                 return $taxCategoryDraft->setRates($rate);
             },
             function (TaxCategory $taxCategory) use (
                 $client,
-                $draftBuilderFunction,
+                $orderNumber,
+                $paymentState,
+                $orderState,
+                $state,
+                $shipmentState,
+                $orderRequestBuilderFunction,
                 $assertFunction,
                 $createFunction,
                 $deleteFunction,
@@ -130,7 +208,12 @@ class OrderFixture extends ResourceFixture
                     },
                     function (Zone $zone) use (
                         $client,
-                        $draftBuilderFunction,
+                        $orderNumber,
+                        $paymentState,
+                        $orderState,
+                        $state,
+                        $shipmentState,
+                        $orderRequestBuilderFunction,
                         $assertFunction,
                         $createFunction,
                         $deleteFunction,
@@ -154,12 +237,17 @@ class OrderFixture extends ResourceFixture
                             function (ShippingMethod $shippingMethod) use (
                                 $client,
                                 $taxCategory,
-                                $draftBuilderFunction,
+                                $orderRequestBuilderFunction,
                                 $assertFunction,
                                 $createFunction,
                                 $deleteFunction,
                                 $draftFunction,
-                                $region
+                                $region,
+                                $orderNumber,
+                                $paymentState,
+                                $orderState,
+                                $state,
+                                $shipmentState
                             ) {
                                 ProductFixture::withDraftProduct(
                                     $client,
@@ -170,13 +258,18 @@ class OrderFixture extends ResourceFixture
                                     function (Product $product) use (
                                         $client,
                                         $taxCategory,
-                                        $draftBuilderFunction,
+                                        $orderRequestBuilderFunction,
                                         $assertFunction,
                                         $createFunction,
                                         $deleteFunction,
                                         $draftFunction,
                                         $shippingMethod,
-                                        $region
+                                        $region,
+                                        $orderNumber,
+                                        $paymentState,
+                                        $orderState,
+                                        $state,
+                                        $shipmentState
                                     ) {
                                         CustomerFixture::withDraftCustomer(
                                             $client,
@@ -198,12 +291,17 @@ class OrderFixture extends ResourceFixture
                                             function (Customer $customer) use (
                                                 $client,
                                                 $shippingMethod,
-                                                $draftBuilderFunction,
+                                                $orderRequestBuilderFunction,
                                                 $assertFunction,
                                                 $createFunction,
                                                 $deleteFunction,
                                                 $draftFunction,
-                                                $product
+                                                $product,
+                                                $orderNumber,
+                                                $paymentState,
+                                                $orderState,
+                                                $state,
+                                                $shipmentState
                                             ) {
                                                 CartFixture::withDraftCart(
                                                     $client,
@@ -224,14 +322,19 @@ class OrderFixture extends ResourceFixture
                                                     },
                                                     function (Cart $cart) use (
                                                         $client,
-                                                        $draftBuilderFunction,
+                                                        $orderRequestBuilderFunction,
                                                         $assertFunction,
                                                         $createFunction,
                                                         $deleteFunction,
                                                         $draftFunction,
                                                         $product,
                                                         $customer,
-                                                        $shippingMethod
+                                                        $shippingMethod,
+                                                        $orderNumber,
+                                                        $paymentState,
+                                                        $orderState,
+                                                        $state,
+                                                        $shipmentState
                                                     ) {
                                                         if ($draftFunction == null) {
                                                             $draftFunction = function () use ($cart) {
@@ -248,16 +351,57 @@ class OrderFixture extends ResourceFixture
                                                                 return call_user_func($draftFunction, $cart);
                                                             };
                                                         }
+
+                                                        if ($orderRequestBuilderFunction == null) {
+                                                            $orderRequestBuilderFunction = function () use (
+                                                                $cart,
+                                                                $orderNumber,
+                                                                $paymentState,
+                                                                $orderState,
+                                                                $state,
+                                                                $shipmentState
+                                                            ) {
+                                                                return call_user_func(
+                                                                    [__CLASS__, 'orderRequestBuilderFunction'],
+                                                                    $cart,
+                                                                    $orderNumber,
+                                                                    $paymentState,
+                                                                    $orderState,
+                                                                    $state,
+                                                                    $shipmentState
+                                                                );
+                                                            };
+                                                        } else {
+                                                            $orderRequestBuilderFunction = function () use (
+                                                                $cart,
+                                                                $orderNumber,
+                                                                $paymentState,
+                                                                $orderState,
+                                                                $state,
+                                                                $shipmentState,
+                                                                $orderRequestBuilderFunction
+                                                            ) {
+                                                                return call_user_func(
+                                                                    $orderRequestBuilderFunction,
+                                                                    $cart,
+                                                                    $orderNumber,
+                                                                    $paymentState,
+                                                                    $orderState,
+                                                                    $state,
+                                                                    $shipmentState
+                                                                );
+                                                            };
+                                                        }
                                                         if ($createFunction == null) {
-                                                            $createFunction = [__CLASS__, 'orderCreateFunction'];
+                                                            $createFunction = [__CLASS__, 'orderCreateForUpdateFunction'];
                                                         }
                                                         if ($deleteFunction == null) {
                                                             $deleteFunction = [__CLASS__, 'defaultOrderDeleteFunction'];
                                                         }
 
-                                                        parent::withUpdateableDraftResource(
+                                                        self::withUpdateableDraftResource(
                                                             $client,
-                                                            $draftBuilderFunction,
+                                                            $orderRequestBuilderFunction,
                                                             $assertFunction,
                                                             $createFunction,
                                                             $deleteFunction,
@@ -706,40 +850,6 @@ class OrderFixture extends ResourceFixture
         callable $draftFunction = null
     ) {
         self::withDraftCartStoreOrder(
-            $client,
-            [__CLASS__, 'defaultOrderDraftBuilderFunction'],
-            $assertFunction,
-            $createFunction,
-            $deleteFunction,
-            $draftFunction
-        );
-    }
-
-    final public static function withUpdateableCartOrder(
-        ApiClient $client,
-        callable $assertFunction,
-        callable $createFunction = null,
-        callable $deleteFunction = null,
-        callable $draftFunction = null
-    ) {
-        self::withUpdateableDraftCartOrder(
-            $client,
-            [__CLASS__, 'defaultOrderDraftBuilderFunction'],
-            $assertFunction,
-            $createFunction,
-            $deleteFunction,
-            $draftFunction
-        );
-    }
-
-    final public static function withUpdateableStoreOrder(
-        ApiClient $client,
-        callable $assertFunction,
-        callable $createFunction = null,
-        callable $deleteFunction = null,
-        callable $draftFunction = null
-    ) {
-        self::withUpdateableDraftStoreOrder(
             $client,
             [__CLASS__, 'defaultOrderDraftBuilderFunction'],
             $assertFunction,
