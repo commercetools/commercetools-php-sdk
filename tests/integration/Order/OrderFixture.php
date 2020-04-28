@@ -24,7 +24,6 @@ use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\Order\Order;
-use Commercetools\Core\Model\Order\OrderFromCartDraft;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
@@ -141,7 +140,6 @@ class OrderFixture extends ResourceFixture
         callable $deleteFunction = null,
         callable $draftFunction = null
     ) {
-
         self::withUpdateableDraftCartOrder(
             $client,
             [__CLASS__, 'orderRequestBuilderFunction'],

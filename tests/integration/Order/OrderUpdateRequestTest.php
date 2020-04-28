@@ -182,6 +182,8 @@ class OrderUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertInstanceOf(Order::class, $result);
+
+                return $result;
             },
             $orderNumber
         );
