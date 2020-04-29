@@ -9,6 +9,8 @@ use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
+use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
+use Commercetools\Core\IntegrationTests\Payment\PaymentFixture;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
@@ -46,6 +48,7 @@ use Commercetools\Core\Model\Order\ReturnPaymentState;
 use Commercetools\Core\Model\Order\ReturnShipmentState;
 use Commercetools\Core\Model\Order\ShipmentState;
 use Commercetools\Core\Model\Order\TrackingData;
+use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
@@ -622,7 +625,6 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-
         OrderFixture::withUpdateableCartOrder(
             $client,
             function (Order $order) use ($client) {
@@ -644,26 +646,33 @@ class OrderUpdateRequestTest extends ApiTestCase
 
     public function testPayment()
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $payment = $this->getPayment();
+        PaymentFixture::withPayment(
+            $client,
+            function (Payment $payment) use ($client) {
+                OrderFixture::withUpdateableCartOrder(
+                    $client,
+                    function (Order $order) use ($client, $payment) {
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(OrderAddPaymentAction::of()->setPayment($payment->getReference()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderAddPaymentAction::of()->setPayment($payment->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                        $this->assertSame($payment->getId(), $result->getPaymentInfo()->getPayments()->current()->getId());
 
-        $this->assertSame($payment->getId(), $order->getPaymentInfo()->getPayments()->current()->getId());
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderRemovePaymentAction::of()->setPayment($payment->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
-        $this->assertNull($order->getPaymentInfo());
+                        $request = RequestBuilder::of()->orders()->update($result)
+                            ->addAction(OrderRemovePaymentAction::of()->setPayment($payment->getReference()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertNull($result->getPaymentInfo());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function localeProvider()
@@ -683,18 +692,21 @@ class OrderUpdateRequestTest extends ApiTestCase
      */
     public function testLocale($locale, $expectedLocale)
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetLocaleAction::ofLocale($locale))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
+        OrderFixture::withUpdateableCartOrder(
+            $client,
+            function (Order $order) use ($client, $locale, $expectedLocale) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderSetLocaleAction::ofLocale($locale));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($cart->getVersion());
+                $this->assertSame($expectedLocale, $result->getLocale());
 
-        $this->assertSame($expectedLocale, $cart->getLocale());
+                return $result;
+            }
+        );
     }
 
     public function invalidLocaleProvider()
@@ -713,103 +725,123 @@ class OrderUpdateRequestTest extends ApiTestCase
      */
     public function testInvalidLocale($locale)
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetLocaleAction::ofLocale($locale))
-        ;
-        $response = $request->executeWithClient($this->getClient());
+        OrderFixture::withUpdateableCartOrder(
+            $client,
+            function (Order $order) use ($client, $locale) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderSetLocaleAction::ofLocale($locale));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertTrue($response->isError());
+                return $result;
+            }
+        );
     }
 
     public function testSetCustomerEmail()
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetCustomerEmail::of()->setEmail($this->getTestRun() . '-new@example.com'))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+        OrderFixture::withUpdateableCartOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderSetCustomerEmail::of()->setEmail(OrderFixture::uniqueOrderString() . '-new@example.com'));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Order::class, $order);
-        $this->assertNotSame($draft->getCustomerEmail(), $order->getCustomerEmail());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertNotSame($order->getCustomerEmail(), $result->getCustomerEmail());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetCustomerId()
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $customerDraft = CustomerDraft::ofEmailNameAndPassword(
-            $this->getTestRun() . '-another@example.com',
-            'firstName',
-            'lastName',
-            'password'
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $customerDraft) {
+                $customerDraft = CustomerDraft::ofEmailNameAndPassword(
+                    CustomerFixture::uniqueCustomerString() . '-another@example.com',
+                    'firstName',
+                    'lastName',
+                    'password'
+                );
+
+                return $customerDraft;
+            },
+            function (Customer $customer) use ($client) {
+                OrderFixture::withUpdateableCartOrder(
+                    $client,
+                    function (Order $order) use ($client, $customer) {
+                        $this->assertNotSame($order->getCustomerId(), $customer->getId());
+
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(OrderSetCustomerIdAction::of()->setCustomerId($customer->getId()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Order::class, $result);
+                        $this->assertNotSame($order->getCustomerId(), $result->getCustomerId());
+                        $this->assertSame($customer->getId(), $result->getCustomerId());
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $request = CustomerCreateRequest::ofDraft($customerDraft);
-        $response = $request->executeWithClient($this->getClient());
-        $customerSignInResult = $request->mapResponse($response);
-        $customer = $customerSignInResult->getCustomer();
-
-        $this->cleanupRequests[] = CustomerDeleteRequest::ofIdAndVersion(
-            $customer->getId(),
-            $customer->getVersion()
-        );
-
-        $this->assertNotSame($order->getCustomerId(), $customer->getId());
-
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetCustomerIdAction::of()->setCustomerId($customer->getId()))
-        ;
-
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
-
-        $this->assertInstanceOf(Order::class, $order);
-        $this->assertNotSame($draft->getCustomerId(), $order->getCustomerId());
-        $this->assertSame($customer->getId(), $order->getCustomerId());
     }
 
     public function testSetShippingAddress()
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetShippingAddress::of()->setAddress(
-                Address::of()->setCountry('DE')->setFirstName($this->getTestRun() . '-new')
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+        OrderFixture::withUpdateableCartOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderSetShippingAddress::of()->setAddress(
+                        Address::of()->setCountry('DE')->setFirstName(OrderFixture::uniqueOrderString() . '-new')
+                    ));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Order::class, $order);
-        $this->assertNotSame($draft->getShippingAddress()->getFirstName(), $order->getShippingAddress()->getFirstName());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertNotSame($order->getShippingAddress()->getFirstName(), $result->getShippingAddress()->getFirstName());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetBillingAddress()
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetBillingAddress::of()->setAddress(
-                Address::of()->setCountry('DE')->setFirstName($this->getTestRun() . '-new')
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+        OrderFixture::withUpdateableCartOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderSetBillingAddress::of()->setAddress(
+                        Address::of()->setCountry('DE')->setFirstName($this->getTestRun() . '-new')
+                    ));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Order::class, $order);
-        $this->assertNotSame($draft->getBillingAddress()->getFirstName(), $order->getBillingAddress()->getFirstName());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertNotSame($order->getBillingAddress()->getFirstName(), $result->getBillingAddress()->getFirstName());
+
+                return $result;
+            }
+        );
     }
 
     public function testAddDeliveryWithParcel()
