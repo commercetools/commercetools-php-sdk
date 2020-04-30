@@ -182,8 +182,11 @@ class OrderUpdateRequestTest extends ApiTestCase
         $client = $this->getApiClient();
         $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . OrderFixture::uniqueOrderString();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableDraftOrder(
             $client,
+            function (OrderCreateFromCartRequest $request) use ($orderNumber) {
+                return $request->setOrderNumber($orderNumber);
+            },
             function (Order $order) use ($client, $orderNumber) {
                 $request = RequestBuilder::of()->orders()->getByOrderNumber($orderNumber);
                 $response = $this->execute($client, $request);
@@ -192,8 +195,7 @@ class OrderUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(Order::class, $result);
 
                 return $result;
-            },
-            $orderNumber
+            }
         );
     }
 
@@ -202,8 +204,11 @@ class OrderUpdateRequestTest extends ApiTestCase
         $client = $this->getApiClient();
         $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . OrderFixture::uniqueOrderString();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableDraftOrder(
             $client,
+            function (OrderCreateFromCartRequest $request) use ($orderNumber) {
+                return $request->setOrderNumber($orderNumber);
+            },
             function (Order $order, Customer $customer, Product $product) use ($client, $orderNumber) {
                 $this->assertSame(
                     $product->getProductType()->getId(),
@@ -219,8 +224,7 @@ class OrderUpdateRequestTest extends ApiTestCase
                 $this->assertSame(OrderState::COMPLETE, $result->getOrderState());
 
                 return $result;
-            },
-            $orderNumber
+            }
         );
     }
 
@@ -229,8 +233,11 @@ class OrderUpdateRequestTest extends ApiTestCase
         $client = $this->getApiClient();
         $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . OrderFixture::uniqueOrderString();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableDraftOrder(
             $client,
+            function (OrderCreateFromCartRequest $request) use ($orderNumber) {
+                return $request->setOrderNumber($orderNumber);
+            },
             function (Order $order) use ($client, $orderNumber) {
                 $request = RequestBuilder::of()->orders()->deleteByOrderNumber($order);
                 $response = $this->execute($client, $request);
@@ -239,8 +246,7 @@ class OrderUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(Order::class, $result);
 
                 return $result;
-            },
-            $orderNumber
+            }
         );
     }
 
@@ -249,7 +255,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order, Customer $customer, Product $product) use ($client) {
                 $this->assertSame(
@@ -274,7 +280,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client) {
 
@@ -296,7 +302,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client) {
                 $request = RequestBuilder::of()->orders()->update($order)
@@ -323,7 +329,7 @@ class OrderUpdateRequestTest extends ApiTestCase
                 return $channelDraft->setRoles(['OrderExport']);
             },
             function (Channel $channel) use ($client) {
-                OrderFixture::withUpdateableCartOrder(
+                OrderFixture::withUpdateableOrder(
                     $client,
                     function (Order $order) use ($client, $channel) {
                         $syncedAt = new \DateTime();
@@ -349,7 +355,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client) {
                 $lineItem = $order->getLineItems()->current();
@@ -425,7 +431,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client) {
                 $lineItem = $order->getLineItems()->current();
@@ -494,7 +500,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client) {
                 $lineItem = $order->getLineItems()->current();
@@ -539,7 +545,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client) {
                 $lineItem = $order->getLineItems()->current();
@@ -581,7 +587,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client) {
                 $lineItem = $order->getLineItems()->current();
@@ -625,7 +631,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client) {
                 $orderNumber = OrderFixture::uniqueOrderString() . '-order';
@@ -651,7 +657,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         PaymentFixture::withPayment(
             $client,
             function (Payment $payment) use ($client) {
-                OrderFixture::withUpdateableCartOrder(
+                OrderFixture::withUpdateableOrder(
                     $client,
                     function (Order $order) use ($client, $payment) {
                         $request = RequestBuilder::of()->orders()->update($order)
@@ -694,7 +700,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client, $locale, $expectedLocale) {
                 $request = RequestBuilder::of()->orders()->update($order)
@@ -729,7 +735,7 @@ class OrderUpdateRequestTest extends ApiTestCase
         $this->expectExceptionCode(400);
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client, $locale) {
                 $request = RequestBuilder::of()->orders()->update($order)
@@ -746,7 +752,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client) {
                 $request = RequestBuilder::of()->orders()->update($order)
@@ -779,7 +785,7 @@ class OrderUpdateRequestTest extends ApiTestCase
                 return $customerDraft;
             },
             function (Customer $customer) use ($client) {
-                OrderFixture::withUpdateableCartOrder(
+                OrderFixture::withUpdateableOrder(
                     $client,
                     function (Order $order) use ($client, $customer) {
                         $this->assertNotSame($order->getCustomerId(), $customer->getId());
@@ -804,7 +810,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client) {
                 $request = RequestBuilder::of()->orders()->update($order)
@@ -826,7 +832,7 @@ class OrderUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withUpdateableCartOrder(
+        OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client) {
                 $request = RequestBuilder::of()->orders()->update($order)

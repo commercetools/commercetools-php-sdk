@@ -79,7 +79,7 @@ class OrderQueryRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withCartOrder(
+        OrderFixture::withOrder(
             $client,
             function (Order $order) use ($client) {
                 $request = RequestBuilder::of()->orders()->getById($order->getId());
@@ -96,7 +96,7 @@ class OrderQueryRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withCartOrder(
+        OrderFixture::withOrder(
             $client,
             function (Order $order) use ($client) {
                 $request = RequestBuilder::of()->orders()->query()->where(
@@ -117,7 +117,7 @@ class OrderQueryRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withCartStoreOrder(
+        OrderFixture::withStoreOrder(
             $client,
             function (Order $order, Store $store) use ($client) {
                 $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
@@ -139,7 +139,7 @@ class OrderQueryRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        OrderFixture::withCartStoreOrder(
+        OrderFixture::withStoreOrder(
             $client,
             function (Order $order, Store $store) use ($client) {
                 $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
