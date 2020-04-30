@@ -252,8 +252,15 @@ class OrderFixture extends ResourceFixture
                                                     },
                                                     null,
                                                     null,
-                                                    function () use ($customer, $shippingMethod) {
-                                                        return CartFixture::customerCartDraftFunction($customer, $shippingMethod);
+                                                    function () use ($customer, $shippingMethod, $product) {
+                                                        $cartDraft = CartFixture::customerCartDraftFunction($customer, $shippingMethod);
+                                                        $cartDraft->setLineItems(
+                                                                LineItemDraftCollection::of()
+                                                                    ->add(
+                                                                        LineItemDraft::ofProductIdVariantIdAndQuantity($product->getId(), 1, 1)
+                                                                    )
+                                                            );
+                                                        return $cartDraft;
                                                     }
                                                 );
                                             }
@@ -430,8 +437,15 @@ class OrderFixture extends ResourceFixture
                                                     },
                                                     null,
                                                     null,
-                                                    function () use ($customer, $shippingMethod) {
-                                                        return CartFixture::customerCartDraftFunction($customer, $shippingMethod);
+                                                    function () use ($customer, $shippingMethod, $product) {
+                                                        $cartDraft = CartFixture::customerCartDraftFunction($customer, $shippingMethod);
+                                                        $cartDraft->setLineItems(
+                                                            LineItemDraftCollection::of()
+                                                                ->add(
+                                                                    LineItemDraft::ofProductIdVariantIdAndQuantity($product->getId(), 1, 1)
+                                                                )
+                                                        );
+                                                        return $cartDraft;
                                                     }
                                                 );
                                             }
@@ -625,10 +639,16 @@ class OrderFixture extends ResourceFixture
                                                         },
                                                         null,
                                                         null,
-                                                        function () use ($customer, $shippingMethod, $store) {
-                                                            $draft = CartFixture::customerCartDraftFunction($customer, $shippingMethod);
-                                                            $draft->setStore(StoreReference::ofId($store->getId()));
-                                                            return $draft;
+                                                        function () use ($customer, $shippingMethod, $product, $store) {
+                                                            $cartDraft = CartFixture::customerCartDraftFunction($customer, $shippingMethod);
+                                                            $cartDraft->setLineItems(
+                                                                LineItemDraftCollection::of()
+                                                                    ->add(
+                                                                        LineItemDraft::ofProductIdVariantIdAndQuantity($product->getId(), 1, 1)
+                                                                    )
+                                                            );
+                                                            $cartDraft->setStore(StoreReference::ofId($store->getId()));
+                                                            return $cartDraft;
                                                         }
                                                     );
                                                 }
