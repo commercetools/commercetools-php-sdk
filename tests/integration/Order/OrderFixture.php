@@ -165,9 +165,9 @@ class OrderFixture extends ResourceFixture
         ) {
             self::withOrderResource(
                 $client,
-                function ($client, $deleteFunction, $assertFunction, $resource, $customer, $product, $cart, $shippingMethod) {
+                function ($client, $deleteFunction, $assertFunction, $resource, $customer, $product, $cart, $shippingMethod) use ($store) {
                     try {
-                        call_user_func($assertFunction, $resource, $customer, $product, $cart, $shippingMethod);
+                        call_user_func($assertFunction, $resource, $store, $customer, $product, $cart, $shippingMethod);
                     } finally {
                         call_user_func($deleteFunction, $client, $resource);
                     }
