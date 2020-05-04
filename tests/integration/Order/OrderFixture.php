@@ -99,179 +99,22 @@ class OrderFixture extends ResourceFixture
         callable $deleteFunction = null,
         callable $orderRequestDraftFunction = null
     ) {
-        $region = "r" . (string)mt_rand(1, TaxCategoryFixture::RAND_MAX);
-
-        TaxCategoryFixture::withDraftTaxCategory(
+        self::withOrderResource(
             $client,
-            function (TaxCategoryDraft $taxCategoryDraft) use ($region) {
-                $rates = TaxRateCollection::of()->add(
-                    TaxRate::of()->setName('test-' . TaxCategoryFixture::uniqueTaxCategoryString() . '-name')
-                        ->setAmount((float)('0.2' . mt_rand(1, 100)))
-                        ->setIncludedInPrice(true)
-                        ->setCountry('DE')
-                        ->setState($region)
-                );
-                return $taxCategoryDraft->setRates($rates);
+            function ($client, $deleteFunction, $assertFunction, $resource, $customer, $product, $cart, $shippingMethod) {
+                $updatedResource = null;
+                try {
+                    $updatedResource = call_user_func($assertFunction, $resource, $customer, $product, $cart, $shippingMethod);
+                } finally {
+                    call_user_func($deleteFunction, $client, $updatedResource != null ? $updatedResource : $resource);
+                }
             },
-            function (TaxCategory $taxCategory) use (
-                $client,
-                $cartDraftBuilderFunction,
-                $orderRequestBuilderFunction,
-                $assertFunction,
-                $createFunction,
-                $deleteFunction,
-                $orderRequestDraftFunction,
-                $region
-            ) {
-                ZoneFixture::withDraftZone(
-                    $client,
-                    function (ZoneDraft $zoneDraft) use ($region) {
-                        return $zoneDraft->setLocations(
-                            LocationCollection::of()->add(
-                                Location::of()->setCountry('DE')->setState($region)
-                            )
-                        );
-                    },
-                    function (Zone $zone) use (
-                        $client,
-                        $cartDraftBuilderFunction,
-                        $orderRequestBuilderFunction,
-                        $assertFunction,
-                        $createFunction,
-                        $deleteFunction,
-                        $orderRequestDraftFunction,
-                        $taxCategory,
-                        $region
-                    ) {
-                        ShippingMethodFixture::withDraftShippingMethod(
-                            $client,
-                            function (ShippingMethodDraft $shippingMethodDraft) use ($taxCategory, $zone) {
-                                return $shippingMethodDraft->setTaxCategory(TaxCategoryReference::ofId($taxCategory->getId()))
-                                    ->setZoneRates(ZoneRateCollection::of()->add(
-                                        ZoneRate::of()->setZone(ZoneReference::ofId($zone->getId()))
-                                            ->setShippingRates(
-                                                ShippingRateCollection::of()->add(
-                                                    ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100))
-                                                )
-                                            )
-                                    ));
-                            },
-                            function (ShippingMethod $shippingMethod) use (
-                                $client,
-                                $taxCategory,
-                                $cartDraftBuilderFunction,
-                                $orderRequestBuilderFunction,
-                                $assertFunction,
-                                $createFunction,
-                                $deleteFunction,
-                                $orderRequestDraftFunction,
-                                $region
-                            ) {
-                                ProductFixture::withDraftProduct(
-                                    $client,
-                                    function (ProductDraft $productDraft) use ($taxCategory) {
-                                        return $productDraft
-                                            ->setPublish(true)
-                                            ->setTaxCategory(TaxCategoryReference::ofId($taxCategory->getId()));
-                                    },
-                                    function (Product $product) use (
-                                        $client,
-                                        $taxCategory,
-                                        $cartDraftBuilderFunction,
-                                        $orderRequestBuilderFunction,
-                                        $assertFunction,
-                                        $createFunction,
-                                        $deleteFunction,
-                                        $orderRequestDraftFunction,
-                                        $shippingMethod,
-                                        $region
-                                    ) {
-                                        CustomerFixture::withDraftCustomer(
-                                            $client,
-                                            function (CustomerDraft $customerDraft) use ($region) {
-                                                $customerDraft
-                                                    ->setAddresses(
-                                                        AddressCollection::of()->add(
-                                                            Address::of()
-                                                                ->setCountry('DE')
-                                                                ->setState($region)
-                                                                ->setKey('key-' . CustomerFixture::uniqueCustomerString())
-                                                        )
-                                                    )
-                                                    ->setDefaultBillingAddress(0)
-                                                    ->setDefaultShippingAddress(0);
-                                                return $customerDraft;
-                                            },
-                                            function (Customer $customer) use (
-                                                $client,
-                                                $shippingMethod,
-                                                $cartDraftBuilderFunction,
-                                                $orderRequestBuilderFunction,
-                                                $assertFunction,
-                                                $createFunction,
-                                                $deleteFunction,
-                                                $orderRequestDraftFunction,
-                                                $product
-                                            ) {
-                                                CartFixture::withDraftCart(
-                                                    $client,
-                                                    $cartDraftBuilderFunction,
-                                                    function (Cart $cart) use (
-                                                        $client,
-                                                        $orderRequestBuilderFunction,
-                                                        $assertFunction,
-                                                        $createFunction,
-                                                        $deleteFunction,
-                                                        $orderRequestDraftFunction,
-                                                        $product,
-                                                        $customer,
-                                                        $shippingMethod
-                                                    ) {
-                                                        if ($orderRequestDraftFunction == null) {
-                                                            $orderRequestDraftFunction = [__CLASS__, 'defaultOrderRequestDraftFunction'];
-                                                        }
-                                                        if ($createFunction == null) {
-                                                            $createFunction = [__CLASS__, 'defaultOrderCreateFunction'];
-                                                        }
-                                                        if ($deleteFunction == null) {
-                                                            $deleteFunction = [__CLASS__, 'defaultOrderDeleteFunction'];
-                                                        }
-
-                                                        $orderFromCartDraftRequest = call_user_func($orderRequestDraftFunction, $cart);
-
-                                                        $orderFromCartRequest = call_user_func($orderRequestBuilderFunction, $orderFromCartDraftRequest);
-
-                                                        $resource = $createFunction($client, $orderFromCartRequest);
-
-                                                        $updatedResource = null;
-                                                        try {
-                                                            $updatedResource = call_user_func($assertFunction, $resource, $customer, $product, $cart, $shippingMethod);
-                                                        } finally {
-                                                            call_user_func($deleteFunction, $client, $updatedResource != null ? $updatedResource : $resource);
-                                                        }
-                                                    },
-                                                    null,
-                                                    null,
-                                                    function () use ($customer, $shippingMethod, $product) {
-                                                        $cartDraft = CartFixture::customerCartDraftFunction($customer, $shippingMethod);
-                                                        $cartDraft->setLineItems(
-                                                                LineItemDraftCollection::of()
-                                                                    ->add(
-                                                                        LineItemDraft::ofProductIdVariantIdAndQuantity($product->getId(), 1, 1)
-                                                                    )
-                                                            );
-                                                        return $cartDraft;
-                                                    }
-                                                );
-                                            }
-                                        );
-                                    }
-                                );
-                            }
-                        );
-                    }
-                );
-            }
+            $cartDraftBuilderFunction,
+            $orderRequestBuilderFunction,
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $orderRequestDraftFunction
         );
     }
 
@@ -284,179 +127,21 @@ class OrderFixture extends ResourceFixture
         callable $deleteFunction = null,
         callable $orderRequestDraftFunction = null
     ) {
-        $region = "r" . (string)mt_rand(1, TaxCategoryFixture::RAND_MAX);
-
-        TaxCategoryFixture::withDraftTaxCategory(
+        self::withOrderResource(
             $client,
-            function (TaxCategoryDraft $taxCategoryDraft) use ($region) {
-                $rates = TaxRateCollection::of()->add(
-                    TaxRate::of()->setName('test-' . TaxCategoryFixture::uniqueTaxCategoryString() . '-name')
-                        ->setAmount((float)('0.2' . mt_rand(1, 100)))
-                        ->setIncludedInPrice(true)
-                        ->setCountry('DE')
-                        ->setState($region)
-                );
-                return $taxCategoryDraft->setRates($rates);
+            function ($client, $deleteFunction, $assertFunction, $resource, $customer, $product, $cart, $shippingMethod) {
+                try {
+                    call_user_func($assertFunction, $resource, $customer, $product, $cart, $shippingMethod);
+                } finally {
+                    call_user_func($deleteFunction, $client, $resource);
+                }
             },
-            function (TaxCategory $taxCategory) use (
-                $client,
-                $cartDraftBuilderFunction,
-                $orderRequestBuilderFunction,
-                $assertFunction,
-                $createFunction,
-                $deleteFunction,
-                $orderRequestDraftFunction,
-                $region
-            ) {
-                ZoneFixture::withDraftZone(
-                    $client,
-                    function (ZoneDraft $zoneDraft) use ($region) {
-                        return $zoneDraft->setLocations(
-                            LocationCollection::of()->add(
-                                Location::of()->setCountry('DE')->setState($region)
-                            )
-                        );
-                    },
-                    function (Zone $zone) use (
-                        $client,
-                        $cartDraftBuilderFunction,
-                        $orderRequestBuilderFunction,
-                        $assertFunction,
-                        $createFunction,
-                        $deleteFunction,
-                        $orderRequestDraftFunction,
-                        $taxCategory,
-                        $region
-                    ) {
-                        ShippingMethodFixture::withDraftShippingMethod(
-                            $client,
-                            function (ShippingMethodDraft $shippingMethodDraft) use ($taxCategory, $zone) {
-                                return $shippingMethodDraft->setTaxCategory(TaxCategoryReference::ofId($taxCategory->getId()))
-                                    ->setZoneRates(ZoneRateCollection::of()->add(
-                                        ZoneRate::of()->setZone(ZoneReference::ofId($zone->getId()))
-                                            ->setShippingRates(
-                                                ShippingRateCollection::of()->add(
-                                                    ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100))
-                                                )
-                                            )
-                                    ));
-                            },
-                            function (ShippingMethod $shippingMethod) use (
-                                $client,
-                                $taxCategory,
-                                $cartDraftBuilderFunction,
-                                $orderRequestBuilderFunction,
-                                $assertFunction,
-                                $createFunction,
-                                $deleteFunction,
-                                $orderRequestDraftFunction,
-                                $region
-                            ) {
-                                ProductFixture::withDraftProduct(
-                                    $client,
-                                    function (ProductDraft $productDraft) use ($taxCategory) {
-                                        return $productDraft
-                                            ->setPublish(true)
-                                            ->setTaxCategory(TaxCategoryReference::ofId($taxCategory->getId()));
-                                    },
-                                    function (Product $product) use (
-                                        $client,
-                                        $taxCategory,
-                                        $cartDraftBuilderFunction,
-                                        $orderRequestBuilderFunction,
-                                        $assertFunction,
-                                        $createFunction,
-                                        $deleteFunction,
-                                        $orderRequestDraftFunction,
-                                        $shippingMethod,
-                                        $region
-                                    ) {
-                                        CustomerFixture::withDraftCustomer(
-                                            $client,
-                                            function (CustomerDraft $customerDraft) use ($region) {
-                                                $customerDraft
-                                                    ->setAddresses(
-                                                        AddressCollection::of()->add(
-                                                            Address::of()
-                                                                ->setCountry('DE')
-                                                                ->setState($region)
-                                                                ->setKey('key-' . CustomerFixture::uniqueCustomerString())
-                                                        )
-                                                    )
-                                                    ->setDefaultBillingAddress(0)
-                                                    ->setDefaultShippingAddress(0);
-
-                                                return $customerDraft;
-                                            },
-                                            function (Customer $customer) use (
-                                                $client,
-                                                $shippingMethod,
-                                                $cartDraftBuilderFunction,
-                                                $orderRequestBuilderFunction,
-                                                $assertFunction,
-                                                $createFunction,
-                                                $deleteFunction,
-                                                $orderRequestDraftFunction,
-                                                $product
-                                            ) {
-                                                CartFixture::withDraftCart(
-                                                    $client,
-                                                    $cartDraftBuilderFunction,
-                                                    function (Cart $cart) use (
-                                                        $client,
-                                                        $orderRequestBuilderFunction,
-                                                        $assertFunction,
-                                                        $createFunction,
-                                                        $deleteFunction,
-                                                        $orderRequestDraftFunction,
-                                                        $product,
-                                                        $customer,
-                                                        $shippingMethod
-                                                    ) {
-                                                        if ($orderRequestDraftFunction == null) {
-                                                            $orderRequestDraftFunction = [__CLASS__, 'defaultOrderRequestDraftFunction'];
-                                                        }
-                                                        if ($createFunction == null) {
-                                                            $createFunction = [__CLASS__, 'defaultOrderCreateFunction'];
-                                                        }
-                                                        if ($deleteFunction == null) {
-                                                            $deleteFunction = [__CLASS__, 'defaultOrderDeleteFunction'];
-                                                        }
-
-                                                        $orderFromCartDraftRequest = call_user_func($orderRequestDraftFunction, $cart);
-
-                                                        $orderFromCartRequest = call_user_func($orderRequestBuilderFunction, $orderFromCartDraftRequest);
-
-                                                        $resource = $createFunction($client, $orderFromCartRequest);
-
-                                                        try {
-                                                            call_user_func($assertFunction, $resource, $customer, $product, $cart, $shippingMethod);
-                                                        } finally {
-                                                            call_user_func($deleteFunction, $client, $resource);
-                                                        }
-                                                    },
-                                                    null,
-                                                    null,
-                                                    function () use ($customer, $shippingMethod, $product) {
-                                                        $cartDraft = CartFixture::customerCartDraftFunction($customer, $shippingMethod);
-                                                        $cartDraft->setLineItems(
-                                                            LineItemDraftCollection::of()
-                                                                ->add(
-                                                                    LineItemDraft::ofProductIdVariantIdAndQuantity($product->getId(), 1, 1)
-                                                                )
-                                                        );
-                                                        return $cartDraft;
-                                                    }
-                                                );
-                                            }
-                                        );
-                                    }
-                                );
-                            }
-                        );
-                    }
-                );
-            }
+            $cartDraftBuilderFunction,
+            $orderRequestBuilderFunction,
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $orderRequestDraftFunction
         );
     }
 
@@ -469,8 +154,6 @@ class OrderFixture extends ResourceFixture
         callable $deleteFunction = null,
         callable $orderRequestDraftFunction = null
     ) {
-        $region = "r" . (string)mt_rand(1, TaxCategoryFixture::RAND_MAX);
-
         StoreFixture::withStore($client, function (Store $store) use (
             $client,
             $cartDraftBuilderFunction,
@@ -478,188 +161,24 @@ class OrderFixture extends ResourceFixture
             $assertFunction,
             $createFunction,
             $deleteFunction,
-            $orderRequestDraftFunction,
-            $region
+            $orderRequestDraftFunction
         ) {
-            TaxCategoryFixture::withDraftTaxCategory(
+            self::withOrderResource(
                 $client,
-                function (TaxCategoryDraft $taxCategoryDraft) use ($region) {
-                    $rates = TaxRateCollection::of()->add(
-                        TaxRate::of()->setName('test-' . TaxCategoryFixture::uniqueTaxCategoryString() . '-name')
-                            ->setAmount((float)('0.2' . mt_rand(1, 100)))
-                            ->setIncludedInPrice(true)
-                            ->setCountry('DE')
-                            ->setState($region)
-                    );
-                    return $taxCategoryDraft->setRates($rates);
+                function ($client, $deleteFunction, $assertFunction, $resource, $customer, $product, $cart, $shippingMethod) {
+                    try {
+                        call_user_func($assertFunction, $resource, $customer, $product, $cart, $shippingMethod);
+                    } finally {
+                        call_user_func($deleteFunction, $client, $resource);
+                    }
                 },
-                function (TaxCategory $taxCategory) use (
-                    $client,
-                    $cartDraftBuilderFunction,
-                    $orderRequestBuilderFunction,
-                    $assertFunction,
-                    $createFunction,
-                    $deleteFunction,
-                    $orderRequestDraftFunction,
-                    $region,
-                    $store
-                ) {
-                    ZoneFixture::withDraftZone(
-                        $client,
-                        function (ZoneDraft $zoneDraft) use ($region) {
-                            return $zoneDraft->setLocations(
-                                LocationCollection::of()->add(
-                                    Location::of()->setCountry('DE')->setState($region)
-                                )
-                            );
-                        },
-                        function (Zone $zone) use (
-                            $client,
-                            $cartDraftBuilderFunction,
-                            $orderRequestBuilderFunction,
-                            $assertFunction,
-                            $createFunction,
-                            $deleteFunction,
-                            $orderRequestDraftFunction,
-                            $taxCategory,
-                            $region,
-                            $store
-                        ) {
-                            ShippingMethodFixture::withDraftShippingMethod(
-                                $client,
-                                function (ShippingMethodDraft $shippingMethodDraft) use ($taxCategory, $zone) {
-                                    return $shippingMethodDraft->setTaxCategory(TaxCategoryReference::ofId($taxCategory->getId()))
-                                        ->setZoneRates(ZoneRateCollection::of()->add(
-                                            ZoneRate::of()->setZone(ZoneReference::ofId($zone->getId()))
-                                                ->setShippingRates(
-                                                    ShippingRateCollection::of()->add(
-                                                        ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100))
-                                                    )
-                                                )
-                                        ));
-                                },
-                                function (ShippingMethod $shippingMethod) use (
-                                    $client,
-                                    $taxCategory,
-                                    $cartDraftBuilderFunction,
-                                    $orderRequestBuilderFunction,
-                                    $assertFunction,
-                                    $createFunction,
-                                    $deleteFunction,
-                                    $orderRequestDraftFunction,
-                                    $region,
-                                    $store
-                                ) {
-                                    ProductFixture::withDraftProduct(
-                                        $client,
-                                        function (ProductDraft $productDraft) use ($taxCategory) {
-                                            return $productDraft
-                                                ->setPublish(true)
-                                                ->setTaxCategory(TaxCategoryReference::ofId($taxCategory->getId()));
-                                        },
-                                        function (Product $product) use (
-                                            $client,
-                                            $taxCategory,
-                                            $cartDraftBuilderFunction,
-                                            $orderRequestBuilderFunction,
-                                            $assertFunction,
-                                            $createFunction,
-                                            $deleteFunction,
-                                            $orderRequestDraftFunction,
-                                            $shippingMethod,
-                                            $region,
-                                            $store
-                                        ) {
-                                            CustomerFixture::withDraftCustomer(
-                                                $client,
-                                                function (CustomerDraft $customerDraft) use ($region, $store) {
-                                                    $customerDraft
-                                                        ->setAddresses(
-                                                            AddressCollection::of()->add(
-                                                                Address::of()
-                                                                    ->setCountry('DE')
-                                                                    ->setState($region)
-                                                                    ->setKey('key-' . CustomerFixture::uniqueCustomerString())
-                                                            )
-                                                        )
-                                                        ->setDefaultBillingAddress(0)
-                                                        ->setDefaultShippingAddress(0)
-                                                        ->setStores(StoreReferenceCollection::of()->add(StoreReference::ofId($store->getId())));
-
-                                                    return $customerDraft;
-                                                },
-                                                function (Customer $customer) use (
-                                                    $client,
-                                                    $shippingMethod,
-                                                    $cartDraftBuilderFunction,
-                                                    $orderRequestBuilderFunction,
-                                                    $assertFunction,
-                                                    $createFunction,
-                                                    $deleteFunction,
-                                                    $orderRequestDraftFunction,
-                                                    $product,
-                                                    $store
-                                                ) {
-                                                    CartFixture::withDraftCart(
-                                                        $client,
-                                                        $cartDraftBuilderFunction,
-                                                        function (Cart $cart) use (
-                                                            $client,
-                                                            $orderRequestBuilderFunction,
-                                                            $assertFunction,
-                                                            $createFunction,
-                                                            $deleteFunction,
-                                                            $orderRequestDraftFunction,
-                                                            $product,
-                                                            $customer,
-                                                            $shippingMethod,
-                                                            $store
-                                                        ) {
-                                                            if ($orderRequestDraftFunction == null) {
-                                                                $orderRequestDraftFunction = [__CLASS__, 'defaultOrderRequestDraftFunction'];
-                                                            }
-                                                            if ($createFunction == null) {
-                                                                $createFunction = [__CLASS__, 'defaultOrderCreateFunction'];
-                                                            }
-                                                            if ($deleteFunction == null) {
-                                                                $deleteFunction = [__CLASS__, 'defaultOrderDeleteFunction'];
-                                                            }
-
-                                                            $orderFromCartDraftRequest = call_user_func($orderRequestDraftFunction, $cart);
-
-                                                            $orderFromCartRequest = call_user_func($orderRequestBuilderFunction, $orderFromCartDraftRequest);
-
-                                                            $resource = $createFunction($client, $orderFromCartRequest);
-
-                                                            try {
-                                                                call_user_func($assertFunction, $resource, $store, $customer, $product, $cart, $shippingMethod);
-                                                            } finally {
-                                                                call_user_func($deleteFunction, $client, $resource);
-                                                            }
-                                                        },
-                                                        null,
-                                                        null,
-                                                        function () use ($customer, $shippingMethod, $product, $store) {
-                                                            $cartDraft = CartFixture::customerCartDraftFunction($customer, $shippingMethod);
-                                                            $cartDraft->setLineItems(
-                                                                LineItemDraftCollection::of()
-                                                                    ->add(
-                                                                        LineItemDraft::ofProductIdVariantIdAndQuantity($product->getId(), 1, 1)
-                                                                    )
-                                                            );
-                                                            $cartDraft->setStore(StoreReference::ofId($store->getId()));
-                                                            return $cartDraft;
-                                                        }
-                                                    );
-                                                }
-                                            );
-                                        }
-                                    );
-                                }
-                            );
-                        }
-                    );
-                }
+                $cartDraftBuilderFunction,
+                $orderRequestBuilderFunction,
+                $assertFunction,
+                $createFunction,
+                $deleteFunction,
+                $orderRequestDraftFunction,
+                StoreReference::ofId($store->getId())
             );
         });
     }
@@ -753,6 +272,205 @@ class OrderFixture extends ResourceFixture
             $createFunction,
             $deleteFunction,
             $orderRequestDraftFunction
+        );
+    }
+
+    final private static function withOrderResource(
+        ApiClient $client,
+        callable $fixtureFunction,
+        callable $cartDraftBuilderFunction,
+        callable $orderRequestBuilderFunction,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $orderRequestDraftFunction = null,
+        $storeReference = null
+    ) {
+        $region = "r" . (string)mt_rand(1, TaxCategoryFixture::RAND_MAX);
+
+        TaxCategoryFixture::withDraftTaxCategory(
+            $client,
+            function (TaxCategoryDraft $taxCategoryDraft) use ($region) {
+                $rates = TaxRateCollection::of()->add(
+                    TaxRate::of()->setName('test-' . TaxCategoryFixture::uniqueTaxCategoryString() . '-name')
+                        ->setAmount((float)('0.2' . mt_rand(1, 100)))
+                        ->setIncludedInPrice(true)
+                        ->setCountry('DE')
+                        ->setState($region)
+                );
+                return $taxCategoryDraft->setRates($rates);
+            },
+            function (TaxCategory $taxCategory) use (
+                $client,
+                $cartDraftBuilderFunction,
+                $orderRequestBuilderFunction,
+                $assertFunction,
+                $createFunction,
+                $deleteFunction,
+                $orderRequestDraftFunction,
+                $region,
+                $fixtureFunction,
+                $storeReference
+            ) {
+                ZoneFixture::withDraftZone(
+                    $client,
+                    function (ZoneDraft $zoneDraft) use ($region) {
+                        return $zoneDraft->setLocations(
+                            LocationCollection::of()->add(
+                                Location::of()->setCountry('DE')->setState($region)
+                            )
+                        );
+                    },
+                    function (Zone $zone) use (
+                        $client,
+                        $cartDraftBuilderFunction,
+                        $orderRequestBuilderFunction,
+                        $assertFunction,
+                        $createFunction,
+                        $deleteFunction,
+                        $orderRequestDraftFunction,
+                        $taxCategory,
+                        $region,
+                        $fixtureFunction,
+                        $storeReference
+                    ) {
+                        ShippingMethodFixture::withDraftShippingMethod(
+                            $client,
+                            function (ShippingMethodDraft $shippingMethodDraft) use ($taxCategory, $zone) {
+                                return $shippingMethodDraft->setTaxCategory(TaxCategoryReference::ofId($taxCategory->getId()))
+                                    ->setZoneRates(ZoneRateCollection::of()->add(
+                                        ZoneRate::of()->setZone(ZoneReference::ofId($zone->getId()))
+                                            ->setShippingRates(
+                                                ShippingRateCollection::of()->add(
+                                                    ShippingRate::of()->setPrice(Money::ofCurrencyAndAmount('EUR', 100))
+                                                )
+                                            )
+                                    ));
+                            },
+                            function (ShippingMethod $shippingMethod) use (
+                                $client,
+                                $taxCategory,
+                                $cartDraftBuilderFunction,
+                                $orderRequestBuilderFunction,
+                                $assertFunction,
+                                $createFunction,
+                                $deleteFunction,
+                                $orderRequestDraftFunction,
+                                $region,
+                                $fixtureFunction,
+                                $storeReference
+                            ) {
+                                ProductFixture::withDraftProduct(
+                                    $client,
+                                    function (ProductDraft $productDraft) use ($taxCategory) {
+                                        return $productDraft
+                                            ->setPublish(true)
+                                            ->setTaxCategory(TaxCategoryReference::ofId($taxCategory->getId()));
+                                    },
+                                    function (Product $product) use (
+                                        $client,
+                                        $taxCategory,
+                                        $cartDraftBuilderFunction,
+                                        $orderRequestBuilderFunction,
+                                        $assertFunction,
+                                        $createFunction,
+                                        $deleteFunction,
+                                        $orderRequestDraftFunction,
+                                        $shippingMethod,
+                                        $region,
+                                        $fixtureFunction,
+                                        $storeReference
+                                    ) {
+                                        CustomerFixture::withDraftCustomer(
+                                            $client,
+                                            function (CustomerDraft $customerDraft) use ($region, $storeReference) {
+                                                $customerDraft
+                                                    ->setAddresses(
+                                                        AddressCollection::of()->add(
+                                                            Address::of()
+                                                                ->setCountry('DE')
+                                                                ->setState($region)
+                                                                ->setKey('key-' . CustomerFixture::uniqueCustomerString())
+                                                        )
+                                                    )
+                                                    ->setDefaultBillingAddress(0)
+                                                    ->setDefaultShippingAddress(0);
+                                                if ($storeReference != null) {
+                                                    $customerDraft->setStores(StoreReferenceCollection::of()->add($storeReference));
+                                                }
+                                                return $customerDraft;
+                                            },
+                                            function (Customer $customer) use (
+                                                $client,
+                                                $shippingMethod,
+                                                $cartDraftBuilderFunction,
+                                                $orderRequestBuilderFunction,
+                                                $assertFunction,
+                                                $createFunction,
+                                                $deleteFunction,
+                                                $orderRequestDraftFunction,
+                                                $product,
+                                                $fixtureFunction,
+                                                $storeReference
+                                            ) {
+                                                CartFixture::withDraftCart(
+                                                    $client,
+                                                    $cartDraftBuilderFunction,
+                                                    function (Cart $cart) use (
+                                                        $client,
+                                                        $orderRequestBuilderFunction,
+                                                        $assertFunction,
+                                                        $createFunction,
+                                                        $deleteFunction,
+                                                        $orderRequestDraftFunction,
+                                                        $product,
+                                                        $customer,
+                                                        $shippingMethod,
+                                                        $fixtureFunction
+                                                    ) {
+                                                        if ($orderRequestDraftFunction == null) {
+                                                            $orderRequestDraftFunction = [__CLASS__, 'defaultOrderRequestDraftFunction'];
+                                                        }
+                                                        if ($createFunction == null) {
+                                                            $createFunction = [__CLASS__, 'defaultOrderCreateFunction'];
+                                                        }
+                                                        if ($deleteFunction == null) {
+                                                            $deleteFunction = [__CLASS__, 'defaultOrderDeleteFunction'];
+                                                        }
+
+                                                        $orderFromCartDraftRequest = call_user_func($orderRequestDraftFunction, $cart);
+
+                                                        $orderFromCartRequest = call_user_func($orderRequestBuilderFunction, $orderFromCartDraftRequest);
+
+                                                        $resource = $createFunction($client, $orderFromCartRequest);
+
+                                                        $fixtureFunction($client, $deleteFunction, $assertFunction, $resource, $customer, $product, $cart, $shippingMethod);
+                                                    },
+                                                    null,
+                                                    null,
+                                                    function () use ($customer, $shippingMethod, $product, $storeReference) {
+                                                        $cartDraft = CartFixture::customerCartDraftFunction($customer, $shippingMethod);
+                                                        $cartDraft->setLineItems(
+                                                            LineItemDraftCollection::of()
+                                                                ->add(
+                                                                    LineItemDraft::ofProductIdVariantIdAndQuantity($product->getId(), 1, 1)
+                                                                )
+                                                        );
+                                                        if ($storeReference != null) {
+                                                            $cartDraft->setStore($storeReference);
+                                                        }
+                                                        return $cartDraft;
+                                                    }
+                                                );
+                                            }
+                                        );
+                                    }
+                                );
+                            }
+                        );
+                    }
+                );
+            }
         );
     }
 }
