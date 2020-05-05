@@ -1,3 +1,15 @@
+# [2.11.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.10.0...v2.11.0) (2020-05-05)
+
+
+### Features
+
+* **Error:** add helper methods to retrieve errors from exceptions ([fd09c89](https://github.com/commercetools/commercetools-php-sdk/commit/fd09c89ce1570913fdf2426b11b0309afbb42171))
+* **Error:** improve message for unknown ApiException ([24a91ad](https://github.com/commercetools/commercetools-php-sdk/commit/24a91adef569491c77ab2d76a584909963ac48ab))
+* **Message:** support InventoryEntryQuantitySet message ([043aebe](https://github.com/commercetools/commercetools-php-sdk/commit/043aebe7dba96b825efcd720f936e50d276a349d))
+* **Search:** add helper method to retrieve facets from search response ([2a24040](https://github.com/commercetools/commercetools-php-sdk/commit/2a24040b498cefd8cbc62178b68654869ffb6f5b))
+
+
+
 # [2.10.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.9.0...v2.10.0) (2020-04-02)
 
 
