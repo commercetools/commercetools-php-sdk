@@ -1,7 +1,4 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
 
 namespace Commercetools\Core\Error;
 
@@ -31,7 +28,7 @@ class ApiException extends Exception
         ResponseInterface $response = null,
         Exception $previous = null
     ) {
-        $code = $response ? $response->getStatusCode() : 0;
+        $code = $response ? $response->getStatusCode() : ($previous ? $previous->getCode() : 0);
         parent::__construct($message, $code, $previous);
         $this->request = $request;
         $this->response = $response;
@@ -48,7 +45,8 @@ class ApiException extends Exception
         Exception $previous = null
     ) {
         if (is_null($response)) {
-            return new self('Error completing request', $request, null, $previous);
+            $message = $previous ? 'Error completing request: ' . $previous->getMessage() : "Error completing request";
+            return new self($message, $request, null, $previous);
         }
 
         $level = floor($response->getStatusCode() / 100);

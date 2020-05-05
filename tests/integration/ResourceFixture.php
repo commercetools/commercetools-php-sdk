@@ -53,13 +53,7 @@ abstract class ResourceFixture
         } catch (NotFoundException $e) {
             return null;
         } catch (ConcurrentModificationException $e) {
-            $errorResponse = new ErrorResponse($e, $request, $e->getResponse());
-
-            /** @var ConcurrentModificationError $error */
-            $error = $errorResponse->getErrors()->getByCode(ConcurrentModificationError::CODE);
-            $currentVersion = $error->getCurrentVersion();
-
-            $request = $deleteRequestType::ofIdAndVersion($resource->getId(), $currentVersion);
+            $request = $deleteRequestType::ofIdAndVersion($resource->getId(), $e->getCurrentVersion());
             $response = $client->execute($request);
         } catch (ApiServiceException $e) {
             throw self::toFixtureException($e);

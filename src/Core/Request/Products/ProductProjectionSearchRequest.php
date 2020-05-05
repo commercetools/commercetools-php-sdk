@@ -195,4 +195,15 @@ class ProductProjectionSearchRequest extends AbstractProjectionRequest implement
         $body = $this->convertToString($this->params);
         return new HttpRequest(HttpMethod::POST, $this->getPath(), $body, 'application/x-www-form-urlencoded');
     }
+
+    public function mapFacetsFromResponse($response)
+    {
+        if ($response instanceof ResponseInterface) {
+            $response = $this->buildResponse($response);
+        }
+        if ($response->isError()) {
+            return null;
+        }
+        return $response->getFacets();
+    }
 }

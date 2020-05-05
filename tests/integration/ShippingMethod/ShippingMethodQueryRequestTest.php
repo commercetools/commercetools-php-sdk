@@ -66,7 +66,7 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
             function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
                 $request = RequestBuilder::of()->shippingMethods()->getByLocation($zone->getLocations()->current());
                 $request->expand('taxCategory.id');
-                $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
+                $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => ['response', 'request']]);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertTrue(
@@ -89,7 +89,7 @@ class ShippingMethodQueryRequestTest extends ApiTestCase
                 $request = RequestBuilder::of()->shippingMethods()
                     ->getMatchingLocation($zone->getLocations()->current());
                 $request->expand('taxCategory.id');
-                $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
+                $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertTrue(

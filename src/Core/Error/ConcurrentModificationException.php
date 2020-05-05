@@ -14,4 +14,12 @@ namespace Commercetools\Core\Error;
  */
 class ConcurrentModificationException extends ClientErrorException
 {
+    public function getCurrentVersion()
+    {
+        $error = $this->getErrorContainer()->getByCode(ConcurrentModificationError::CODE);
+        if ($error instanceof ConcurrentModificationError) {
+            return $error->getCurrentVersion();
+        }
+        return null;
+    }
 }
