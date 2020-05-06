@@ -1,4 +1,4 @@
-name: Build and deploy docs
+name: Build and deploy phar
 on:
   - push
 
@@ -15,7 +15,7 @@ jobs:
       - name: Install PHP with extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 5.6
+          php-version: 7.2
           extensions: json, mbstring, intl, apcu
           tools: composer, phive
           ini-values: assert.exception=1, zend.assertions=1, apc.enabled=1, apc.enable_cli=1
