@@ -128,57 +128,57 @@ jobs:
       - name: Run tests with phpunit
         run: vendor/bin/phpunit --testsuite=unit --coverage-clover=coverage.xml
 
-      - name: Send code coverage report to Codecov.io
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        run: bash <(curl -s https://codecov.io/bash) || true
-
-  integration:
-    name: Integration tests
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: "Install PHP with extensions"
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 7.4
-          coverage: pcov
-          extensions: json, mbstring, intl, apcu
-          tools: composer
-          ini-values: assert.exception=1, zend.assertions=1, apc.enabled=1, apc.enable_cli=1
-
-      - name: "Cache dependencies installed with composer"
-        uses: actions/cache@v1
-        with:
-          path: ~/.composer/cache
-          key: php7.4-composer-highest-${{ hashFiles('**/composer.json') }}
-          restore-keys: |
-            php7.4-composer-highest-
-
-      - name: Install highest dependencies with composer
-        if: github.event_name == 'push'
-        env:
-          COMMERCETOOLS_CLIENT_ID: ${{ secrets.COMMERCETOOLS_CLIENT_ID }}
-          COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.COMMERCETOOLS_CLIENT_SECRET }}
-          COMMERCETOOLS_PROJECT: ${{ secrets.COMMERCETOOLS_PROJECT }}
-        run: composer update --no-ansi --no-interaction --no-progress --no-suggest
-
-      - name: Install highest dependencies with composer for PR
-        if: github.event_name == 'pull_request'
-        env:
-          COMMERCETOOLS_CLIENT_ID: ${{ secrets.PR_COMMERCETOOLS_CLIENT_ID }}
-          COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.PR_COMMERCETOOLS_CLIENT_SECRET }}
-          COMMERCETOOLS_PROJECT: ${{ secrets.PR_COMMERCETOOLS_PROJECT }}
-        run: composer update --no-ansi --no-interaction --no-progress --no-suggest
-
-      - name: Run integration tests with phpunit
-        run: vendor/bin/phpunit --coverage-clover=coverage.xml
-
-      - name: Send code coverage report to Codecov.io
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        run: bash <(curl -s https://codecov.io/bash) || true
+#      - name: Send code coverage report to Codecov.io
+#        env:
+#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+#        run: bash <(curl -s https://codecov.io/bash) || true
+#
+#  integration:
+#    name: Integration tests
+#
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#
+#      - name: "Install PHP with extensions"
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: 7.4
+#          coverage: pcov
+#          extensions: json, mbstring, intl, apcu
+#          tools: composer
+#          ini-values: assert.exception=1, zend.assertions=1, apc.enabled=1, apc.enable_cli=1
+#
+#      - name: "Cache dependencies installed with composer"
+#        uses: actions/cache@v1
+#        with:
+#          path: ~/.composer/cache
+#          key: php7.4-composer-highest-${{ hashFiles('**/composer.json') }}
+#          restore-keys: |
+#            php7.4-composer-highest-
+#
+#      - name: Install highest dependencies with composer
+#        if: github.event_name == 'push'
+#        env:
+#          COMMERCETOOLS_CLIENT_ID: ${{ secrets.COMMERCETOOLS_CLIENT_ID }}
+#          COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.COMMERCETOOLS_CLIENT_SECRET }}
+#          COMMERCETOOLS_PROJECT: ${{ secrets.COMMERCETOOLS_PROJECT }}
+#        run: composer update --no-ansi --no-interaction --no-progress --no-suggest
+#
+#      - name: Install highest dependencies with composer for PR
+#        if: github.event_name == 'pull_request'
+#        env:
+#          COMMERCETOOLS_CLIENT_ID: ${{ secrets.PR_COMMERCETOOLS_CLIENT_ID }}
+#          COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.PR_COMMERCETOOLS_CLIENT_SECRET }}
+#          COMMERCETOOLS_PROJECT: ${{ secrets.PR_COMMERCETOOLS_PROJECT }}
+#        run: composer update --no-ansi --no-interaction --no-progress --no-suggest
+#
+#      - name: Run integration tests with phpunit
+#        run: vendor/bin/phpunit --coverage-clover=coverage.xml
+#
+#      - name: Send code coverage report to Codecov.io
+#        env:
+#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+#        run: bash <(curl -s https://codecov.io/bash) || true
