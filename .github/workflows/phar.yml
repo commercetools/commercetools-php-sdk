@@ -1,7 +1,8 @@
 name: Build and deploy phar
 on:
-  - push
-
+  create:
+    tags:
+      - '*'
 jobs:
   phar:
     name: Build phar
