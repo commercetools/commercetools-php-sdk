@@ -25,9 +25,11 @@ jobs:
           COMMERCETOOLS_CLIENT_ID: ${{ secrets.COMMERCETOOLS_CLIENT_ID }}
           COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.COMMERCETOOLS_CLIENT_SECRET }}
           COMMERCETOOLS_PROJECT: ${{ secrets.COMMERCETOOLS_PROJECT }}
-        run: composer update --no-ansi --no-interaction --no-progress --no-suggest
+        run: composer install --no-ansi --no-interaction --no-progress --no-suggest --no-dev
 
       - name: Install box
+        env:
+          GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: phive install humbug/box --force-accept-unsigned
 
       - name: Compile phar
@@ -35,4 +37,5 @@ jobs:
 
       - uses: actions/upload-artifact@v1
         with:
-          name: commercetools-php-sdk.phar
+          name: commercetools-php-sdk-${{ github.run_number }}.phar
+          path: commercetools-php-sdk.phar
