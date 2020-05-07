@@ -131,10 +131,10 @@ jobs:
       - name: Run tests with phpunit
         run: vendor/bin/phpunit --testsuite=unit --coverage-clover=coverage.xml
 
-#      - name: Send code coverage report to Codecov.io
-#        env:
-#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-#        run: bash <(curl -s https://codecov.io/bash) || true
+      - name: Send code coverage report to Codecov.io
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: bash <(curl -s https://codecov.io/bash) || true
 
   integration:
     name: Integration tests
