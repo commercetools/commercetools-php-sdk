@@ -227,6 +227,10 @@ jobs:
           name: commercetools-php-sdk-${{ github.run_number }}.phar
           path: commercetools-php-sdk.phar
 
+      - run: |
+          export CHANGESET=`php tools/extract_changelog.php`
+          echo "::set-env name=CHANGESET::$CHANGESET"
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -236,7 +240,8 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
           draft: true
-          prerelease: true
+          prerelease: false
+          body: $CHANGESET
 
       - name: Upload Release Asset
         id: upload-release-asset
@@ -244,7 +249,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object,
+          # which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./commercetools-php-sdk.phar
           asset_name: commercetools-php-sdk.phar
           asset_content_type: application/php-archive
