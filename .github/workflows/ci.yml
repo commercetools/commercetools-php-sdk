@@ -227,9 +227,11 @@ jobs:
           name: commercetools-php-sdk-${{ github.run_number }}.phar
           path: commercetools-php-sdk.phar
 
-      - run: |
+      - name: Read changeset
+        id: changeset
+        run: |
           export CHANGESET=`php tools/extract_changelog.php`
-          echo "::set-env name=CHANGESET::$CHANGESET"
+          echo "::set-output name=changes::$CHANGESET"
 
       - name: Create Release
         id: create_release
@@ -241,7 +243,7 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: true
           prerelease: false
-          body: ${env:CHANGESET}
+          body: ${{ steps.changeset.outputs.changes }}
 
       - name: Upload Release Asset
         id: upload-release-asset
