@@ -224,7 +224,7 @@ jobs:
 
       - uses: actions/upload-artifact@v1
         with:
-          name: commercetools-php-sdk-${{ github.run_number }}.phar
+          name: commercetools-php-sdk-${{ github.ref }}.phar
           path: commercetools-php-sdk.phar
 
       - name: Read changeset
