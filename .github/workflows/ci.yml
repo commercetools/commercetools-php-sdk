@@ -141,7 +141,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    if: github.event_name != 'release'
+    if: github.event_name != 'create'
 
     steps:
       - name: Checkout
