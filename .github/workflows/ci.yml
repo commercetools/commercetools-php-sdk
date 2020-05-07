@@ -230,7 +230,10 @@ jobs:
       - name: Read changeset
         id: changeset
         run: |
-          export CHANGESET=`php tools/extract_changelog.php`
+          CHANGESET=`php tools/extract_changelog.php`
+          CHANGESET="${CHANGESET//'%'/'%25'}"
+          CHANGESET="${CHANGESET//$'\n'/'%0A'}"
+          CHANGESET="${CHANGESET//$'\r'/'%0D'}"
           echo "::set-output name=changes::$CHANGESET"
 
       - name: Create Release
@@ -243,7 +246,8 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: true
           prerelease: false
-          body: ${{ steps.changeset.outputs.changes }}
+          body: |
+            ${{ steps.changeset.outputs.changes }}
 
       - name: Upload Release Asset
         id: upload-release-asset
