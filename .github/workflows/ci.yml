@@ -241,7 +241,7 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: true
           prerelease: false
-          body: $CHANGESET
+          body: ${env:CHANGESET}
 
       - name: Upload Release Asset
         id: upload-release-asset
