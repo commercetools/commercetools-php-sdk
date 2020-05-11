@@ -121,6 +121,7 @@ class CartFixture extends ResourceFixture
             $draftFunction
         );
     }
+
     final public static function withDraftCustomerCart(
         ApiClient $client,
         callable $draftBuilderFunction,
