@@ -30,7 +30,7 @@ class ProjectActionBuilder
     }
 
     /**
-     * @link  https://docs.commercetools.com/http-api-projects-project.html#change-country-tax-rate-fallback-enabled
+     *
      * @param ProjectChangeCountryTaxRateFallbackEnabledAction|callable $action
      * @return $this
      */
