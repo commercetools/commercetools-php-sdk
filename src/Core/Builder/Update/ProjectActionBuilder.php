@@ -5,6 +5,7 @@ namespace Commercetools\Core\Builder\Update;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeCountryTaxRateFallbackEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
@@ -25,6 +26,17 @@ class ProjectActionBuilder
     public function changeCountries($action = null)
     {
         $this->addAction($this->resolveAction(ProjectChangeCountriesAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link  https://docs.commercetools.com/http-api-projects-project.html#change-country-tax-rate-fallback-enabled
+     * @param ProjectChangeCountryTaxRateFallbackEnabledAction|callable $action
+     * @return $this
+     */
+    public function changeCountryTaxRateFallbackEnabled($action = null)
+    {
+        $this->addAction($this->resolveAction(ProjectChangeCountryTaxRateFallbackEnabledAction::class, $action));
         return $this;
     }
 
