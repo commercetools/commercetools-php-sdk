@@ -27,3 +27,4 @@ tests/fixtures/NotificationExtension.php
 tools/http-client.private.env.json
 yarn.lock
 .phpunit.result.cache
+ tests/cache
