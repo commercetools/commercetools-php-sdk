@@ -42,7 +42,6 @@ class ProjectChangeCountryTaxRateFallbackEnabledAction extends AbstractAction
      */
     public static function ofCountryTaxRateFallback($countryTaxRateFallback, $context = null)
     {
-        return static::of($context)->setUseCountryTaxRateFallback($countryTaxRateFallback);
+        return static::of($context)->setCountryTaxRateFallbackEnabled($countryTaxRateFallback);
     }
 }
-

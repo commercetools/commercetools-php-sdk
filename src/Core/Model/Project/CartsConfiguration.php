@@ -1,6 +1,4 @@
 <?php
-/**
- */
 
 namespace Commercetools\Core\Model\Project;
 
@@ -11,9 +9,9 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @package Commercetools\Core\Model\Project
  *
  * @method bool getCountryTaxRateFallbackEnabled()
- * @method CartConfigurationDraft setCountryTaxRateFallbackEnabled(bool $countryTaxRateFallbackEnabled = null)
+ * @method CartsConfiguration setCountryTaxRateFallbackEnabled(bool $countryTaxRateFallbackEnabled = null)
  */
-class CartConfigurationDraft extends JsonObject
+class CartsConfiguration extends JsonObject
 {
     public function fieldDefinitions()
     {
@@ -25,7 +23,7 @@ class CartConfigurationDraft extends JsonObject
     /**
      * @param bool $countryTaxRateFallbackEnabled
      * @param Context|callable $context
-     * @return CartConfigurationDraft
+     * @return CartsConfiguration
      */
     public static function ofCountryTaxRateFallbackEnabled($countryTaxRateFallbackEnabled, $context = null)
     {
