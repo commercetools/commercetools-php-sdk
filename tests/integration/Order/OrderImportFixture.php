@@ -350,8 +350,7 @@ class OrderImportFixture extends ResourceFixture
 
                         return $inventoryDraft->setSku($variant->getSku())->setQuantityOnStock(1);
                     },
-                    function (InventoryEntry $inventory) use
-                    (
+                    function (InventoryEntry $inventory) use (
                         $client,
                         $draftBuilderFunction,
                         $assertFunction,
