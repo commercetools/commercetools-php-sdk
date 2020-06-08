@@ -88,6 +88,7 @@ use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 
 class OrderUpdateRequestTest extends ApiTestCase
 {
+//    todo cancel getCartDraft() and createOrder() after the OrderEdit migration
     /**
      * @return CartDraft
      */
@@ -1078,12 +1079,11 @@ class OrderUpdateRequestTest extends ApiTestCase
                     $result->getShippingInfo()->getDeliveries()->current()->getParcels()
                 );
 
-
                 return $result;
             }
         );
     }
-// TODO in cart request builder there is no method that takes the orderId to replicate the Cart
+
     public function testCreateReplicaCartFromOrder()
     {
         $cartDraft = $this->getCartDraft();
