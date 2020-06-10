@@ -4,12 +4,14 @@
 
 namespace Commercetools\Core\IntegrationTests\Me;
 
+use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\ShoppingList\MyShoppingListDraft;
 use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\ShoppingList\ShoppingListCollection;
 use Commercetools\Core\Request\Me\MeShoppingListByIdGetRequest;
+use Commercetools\Core\Request\Me\MeShoppingListByKeyGetRequest;
 use Commercetools\Core\Request\Me\MeShoppingListCreateRequest;
 use Commercetools\Core\Request\Me\MeShoppingListDeleteRequest;
 use Commercetools\Core\Request\Me\MeShoppingListQueryRequest;
@@ -19,8 +21,6 @@ use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteRequest;
 
 class MeShoppingListRequestTest extends ApiTestCase
 {
-
-
     /**
      * @return MyShoppingListDraft
      */
@@ -28,7 +28,7 @@ class MeShoppingListRequestTest extends ApiTestCase
     {
         $draft = MyShoppingListDraft::ofName(
             LocalizedString::ofLangAndText('en', 'name-' . $this->getTestRun())
-        );
+        )->setKey('test-' . Uuid::uuidv4());
 
         return $draft;
     }
@@ -82,6 +82,26 @@ class MeShoppingListRequestTest extends ApiTestCase
         $this->assertInstanceOf(ShoppingList::class, $shoppingList);
 
         $getRequest = MeShoppingListByIdGetRequest::ofId($shoppingList->getId());
+        $getResponse = $this->getCustomerMeClient()->execute($getRequest);
+        $shoppingList = $getRequest->mapFromResponse($getResponse);
+
+        $this->assertInstanceOf(ShoppingList::class, $shoppingList);
+    }
+
+    public function testGetMyShoppingListByKey()
+    {
+        $request = MeShoppingListCreateRequest::ofDraft($this->getMyShoppingListDraft());
+        $response = $this->getCustomerMeClient()->execute($request);
+        $shoppingList = $request->mapFromResponse($response);
+
+        $this->cleanupRequests[] = ShoppingListDeleteRequest::ofIdAndVersion(
+            $shoppingList->getId(),
+            $shoppingList->getVersion()
+        );
+
+        $this->assertInstanceOf(ShoppingList::class, $shoppingList);
+
+        $getRequest = MeShoppingListByKeyGetRequest::ofKey($shoppingList->getKey());
         $getResponse = $this->getCustomerMeClient()->execute($getRequest);
         $shoppingList = $getRequest->mapFromResponse($getResponse);
 
