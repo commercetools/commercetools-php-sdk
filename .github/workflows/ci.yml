@@ -1,8 +1,11 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
-  - pull_request
-  - push
+  pull_request:
+  push:
+  create:
+    tags:
+      - '*'
 
 name: CI
 
@@ -138,6 +141,8 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    if: github.event_name != 'create'
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -182,3 +187,77 @@ jobs:
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: bash <(curl -s https://codecov.io/bash) || true
+
+  release:
+    if: github.event_name == 'create'
+    name: Create release
+
+    runs-on: ubuntu-latest
+    needs: ["coding-guidelines", "unit"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.2
+          extensions: json, mbstring, intl, apcu
+          tools: composer, phive
+          ini-values: assert.exception=1, zend.assertions=1, apc.enabled=1, apc.enable_cli=1
+
+      - name: Install dependencies with composer
+        env:
+          COMMERCETOOLS_CLIENT_ID: ${{ secrets.COMMERCETOOLS_CLIENT_ID }}
+          COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.COMMERCETOOLS_CLIENT_SECRET }}
+          COMMERCETOOLS_PROJECT: ${{ secrets.COMMERCETOOLS_PROJECT }}
+        run: composer install --no-ansi --no-interaction --no-progress --no-suggest --no-dev
+
+      - name: Install box
+        env:
+          GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: phive install humbug/box --force-accept-unsigned
+
+      - name: Compile phar
+        run: tools/box compile
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: commercetools-php-sdk-${{ github.ref }}.phar
+          path: commercetools-php-sdk.phar
+
+      - name: Read changeset
+        id: changeset
+        run: |
+          CHANGESET=`php tools/extract_changelog.php`
+          CHANGESET="${CHANGESET//'%'/'%25'}"
+          CHANGESET="${CHANGESET//$'\n'/'%0A'}"
+          CHANGESET="${CHANGESET//$'\r'/'%0D'}"
+          echo "::set-output name=changes::$CHANGESET"
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: true
+          prerelease: false
+          body: |
+            ${{ steps.changeset.outputs.changes }}
+
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object,
+          # which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./commercetools-php-sdk.phar
+          asset_name: commercetools-php-sdk.phar
+          asset_content_type: application/php-archive

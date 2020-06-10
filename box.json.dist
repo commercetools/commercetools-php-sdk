@@ -1,0 +1,9 @@
+{
+  "files": [
+    "index.php"
+  ],
+  "main": false,
+  "stub": false,
+  "output": "commercetools-php-sdk.phar",
+  "chmod": "644"
+}
