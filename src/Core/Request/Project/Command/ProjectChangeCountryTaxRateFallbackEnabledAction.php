@@ -21,7 +21,7 @@ class ProjectChangeCountryTaxRateFallbackEnabledAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'countryTaxRateFallbackEnabled' => [static::TYPE => 'boolean'],
+            'countryTaxRateFallbackEnabled' => [static::TYPE => 'bool'],
         ];
     }
 
