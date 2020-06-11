@@ -26,3 +26,5 @@ tests/integration/requests.log
 tests/fixtures/NotificationExtension.php
 tools/http-client.private.env.json
 yarn.lock
+.phpunit.result.cache
+tests/cache/commercetools_io_access_token*
