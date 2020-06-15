@@ -13,8 +13,10 @@ use Commercetools\Core\Model\ShoppingList\ShoppingListCollection;
 use Commercetools\Core\Request\Me\MeShoppingListByIdGetRequest;
 use Commercetools\Core\Request\Me\MeShoppingListByKeyGetRequest;
 use Commercetools\Core\Request\Me\MeShoppingListCreateRequest;
+use Commercetools\Core\Request\Me\MeShoppingListDeleteByKeyRequest;
 use Commercetools\Core\Request\Me\MeShoppingListDeleteRequest;
 use Commercetools\Core\Request\Me\MeShoppingListQueryRequest;
+use Commercetools\Core\Request\Me\MeShoppingListUpdateByKeyRequest;
 use Commercetools\Core\Request\Me\MeShoppingListUpdateRequest;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListChangeNameAction;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteRequest;
@@ -26,11 +28,10 @@ class MeShoppingListRequestTest extends ApiTestCase
      */
     protected function getMyShoppingListDraft()
     {
-        $draft = MyShoppingListDraft::ofName(
-            LocalizedString::ofLangAndText('en', 'name-' . $this->getTestRun())
-        )->setKey('test-' . Uuid::uuidv4());
-
-        return $draft;
+        return MyShoppingListDraft::ofNameAndKey(
+            LocalizedString::ofLangAndText('en', 'name-' . $this->getTestRun()),
+            'test-' . Uuid::uuidv4()
+        );
     }
 
     public function tearDown(): void
@@ -153,6 +154,30 @@ class MeShoppingListRequestTest extends ApiTestCase
         $this->assertSame('new-name-' . $this->getTestRun(), $shoppingList->getName()->en);
     }
 
+    public function testUpdateMyShoppingListByKey()
+    {
+        $request = MeShoppingListCreateRequest::ofDraft($this->getMyShoppingListDraft());
+        $response = $this->getCustomerMeClient()->execute($request);
+        $shoppingList = $request->mapFromResponse($response);
+
+        $this->cleanupRequests[] = ShoppingListDeleteRequest::ofIdAndVersion(
+            $shoppingList->getId(),
+            $shoppingList->getVersion()
+        );
+        $this->assertInstanceOf(ShoppingList::class, $shoppingList);
+        $this->assertSame('name-' . $this->getTestRun(), $shoppingList->getName()->en);
+
+        $updateRequest = MeShoppingListUpdateByKeyRequest::ofKeyAndVersion($shoppingList->getKey(), $shoppingList->getVersion())
+            ->addAction(ShoppingListChangeNameAction::ofName(
+                LocalizedString::ofLangAndText('en', 'new-name-' . $this->getTestRun())
+            ));
+        $updateResponse = $this->getCustomerMeClient()->execute($updateRequest);
+        $shoppingList = $updateRequest->mapFromResponse($updateResponse);
+
+        $this->assertInstanceOf(ShoppingList::class, $shoppingList);
+        $this->assertSame('new-name-' . $this->getTestRun(), $shoppingList->getName()->en);
+    }
+
     public function testDeleteMyShoppingList()
     {
         $request = MeShoppingListCreateRequest::ofDraft($this->getMyShoppingListDraft());
@@ -162,6 +187,27 @@ class MeShoppingListRequestTest extends ApiTestCase
         $this->assertInstanceOf(ShoppingList::class, $shoppingList);
 
         $deleteRequest = MeShoppingListDeleteRequest::ofIdAndVersion($shoppingList->getId(), $shoppingList->getVersion());
+        $deleteResponse = $this->getCustomerMeClient()->execute($deleteRequest);
+        $shoppingList = $deleteRequest->mapFromResponse($deleteResponse);
+
+        $this->assertInstanceOf(ShoppingList::class, $shoppingList);
+
+        $getRequest = MeShoppingListByIdGetRequest::ofId($shoppingList->getId());
+        $getResponse = $this->getCustomerMeClient()->execute($getRequest);
+        $shoppingList = $getRequest->mapFromResponse($getResponse);
+
+        $this->assertNull($shoppingList);
+    }
+
+    public function testDeleteByKeyMyShoppingList()
+    {
+        $request = MeShoppingListCreateRequest::ofDraft($this->getMyShoppingListDraft());
+        $response = $this->getCustomerMeClient()->execute($request);
+        $shoppingList = $request->mapFromResponse($response);
+
+        $this->assertInstanceOf(ShoppingList::class, $shoppingList);
+
+        $deleteRequest = MeShoppingListDeleteByKeyRequest::ofKeyAndVersion($shoppingList->getKey(), $shoppingList->getVersion());
         $deleteResponse = $this->getCustomerMeClient()->execute($deleteRequest);
         $shoppingList = $deleteRequest->mapFromResponse($deleteResponse);
 

@@ -24,15 +24,12 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method MyShoppingListDraft setCustom(CustomFieldObjectDraft $custom = null)
  * @method int getDeleteDaysAfterLastModification()
  * @method MyShoppingListDraft setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
- * @method string getKey()
- * @method MyShoppingListDraft setKey(string $key = null)
  */
 class MyShoppingListDraft extends Resource
 {
     public function fieldDefinitions()
     {
         return [
-            'key' => [static::TYPE => 'string'],
             'name' => [static::TYPE => LocalizedString::class],
             'description' => [static::TYPE => LocalizedString::class],
             'lineItems' => [static::TYPE => LineItemDraftCollection::class],
