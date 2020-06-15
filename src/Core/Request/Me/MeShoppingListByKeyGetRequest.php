@@ -3,8 +3,8 @@
 namespace Commercetools\Core\Request\Me;
 
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Request\AbstractByIdGetRequest;
 use Commercetools\Core\Model\ShoppingList\ShoppingList;
+use Commercetools\Core\Request\AbstractByKeyGetRequest;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
@@ -14,7 +14,7 @@ use Commercetools\Core\Model\MapperInterface;
  * @method ShoppingList mapResponse(ApiResponseInterface $response)
  * @method ShoppingList mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
-class MeShoppingListByKeyGetRequest extends AbstractByIdGetRequest
+class MeShoppingListByKeyGetRequest extends AbstractByKeyGetRequest
 {
     protected $resultClass = ShoppingList::class;
 

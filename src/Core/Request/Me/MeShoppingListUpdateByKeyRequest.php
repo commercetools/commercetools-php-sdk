@@ -3,6 +3,7 @@
 namespace Commercetools\Core\Request\Me;
 
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Request\AbstractUpdateByKeyRequest;
 use Commercetools\Core\Request\AbstractUpdateRequest;
 use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Response\ApiResponseInterface;
@@ -14,7 +15,7 @@ use Commercetools\Core\Model\MapperInterface;
  * @method ShoppingList mapResponse(ApiResponseInterface $response)
  * @method ShoppingList mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
-class MeShoppingListUpdateByKeyRequest extends AbstractUpdateRequest
+class MeShoppingListUpdateByKeyRequest extends AbstractUpdateByKeyRequest
 {
     protected $resultClass = ShoppingList::class;
 
