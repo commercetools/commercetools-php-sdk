@@ -112,7 +112,7 @@ class ProjectUpdateRequestTest extends ApiTestCase
                 $this->assertInstanceOf(Project::class, $result);
                 $this->assertNotSame($countryTaxRateFallbackEnabled, $result->getCarts()->getCountryTaxRateFallbackEnabled());
 
-                $request = RequestBuilder::of()->project()->update($project)
+                $request = RequestBuilder::of()->project()->update($result)
                     ->addAction(
                         ProjectChangeCountryTaxRateFallbackEnabledAction::ofCountryTaxRateFallback($countryTaxRateFallbackEnabled)
                     );
