@@ -375,7 +375,12 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
                                 $zone->getReference(),
                                 $rate
                             ));
-                        $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
+
+                        $response = $this->eventually(
+                            function () use ($client, $request) {
+                                return $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
+                            }
+                        );
                         $result = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(ShippingMethod::class, $result);
@@ -421,8 +426,11 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
                                     $rate
                                 )
                             );
-
-                        $response = $this->execute($client, $request);
+                        $response = $this->eventually(
+                            function () use ($client, $request) {
+                                return $this->execute($client, $request);
+                            }
+                        );
                         $result = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(ShippingMethod::class, $result);
@@ -465,8 +473,11 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
                                     $rate
                                 )
                             );
-
-                        $response = $this->execute($client, $request);
+                        $response = $this->eventually(
+                            function () use ($client, $request) {
+                                return $this->execute($client, $request);
+                            }
+                        );
                         $result = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(ShippingMethod::class, $result);
@@ -516,8 +527,11 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
                                     $rate
                                 )
                             );
-
-                        $response = $this->execute($client, $request);
+                        $response = $this->eventually(
+                            function () use ($client, $request) {
+                                return $this->execute($client, $request);
+                            }
+                        );
                         $result = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(ShippingMethod::class, $result);

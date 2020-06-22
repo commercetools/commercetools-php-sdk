@@ -12,6 +12,7 @@ use Commercetools\Core\Client\OAuth\AnonymousIdProvider;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiServiceException;
 use Commercetools\Core\Error\ServiceUnavailableException;
+use Commercetools\Core\Fixtures\EventuallyException;
 use Commercetools\Core\Fixtures\InstanceTokenStorage;
 use Commercetools\Core\Fixtures\ManuelActivationStrategy;
 use Commercetools\Core\Fixtures\ProfilerMiddleware;
@@ -656,5 +657,24 @@ class ApiTestCase extends TestCase
         }
 
         return $response;
+    }
+
+    protected function eventually(callable $eventuallyFunction, $maxRetries = 30)
+    {
+        $retries = 0;
+        do {
+            $result = null;
+            $retries++;
+            try {
+                $result = $eventuallyFunction();
+            } catch (\Exception $e) {
+                sleep(1);
+            }
+        } while ($result == null && $retries <= $maxRetries);
+
+        if (is_null($result)) {
+            throw new EventuallyException("Timeout eventually block", $e->getCode(), $e);
+        }
+        return $result;
     }
 }
