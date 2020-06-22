@@ -13,11 +13,13 @@ use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Message\MessagesConfigurationDraft;
 use Commercetools\Core\Model\Project\CartClassificationType;
+use Commercetools\Core\Model\Project\CartsConfiguration;
 use Commercetools\Core\Model\Project\CartScoreType;
 use Commercetools\Core\Model\Project\CartValueType;
 use Commercetools\Core\Model\Project\ExternalOAuth;
 use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeCountryTaxRateFallbackEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
@@ -84,6 +86,40 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(Project::class, $result);
                 $this->assertSame($oldCurrencies, $result->getCurrencies()->toArray());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testChangeCountryTaxRateFallbackEnabled()
+    {
+        $client = $this->getApiClient();
+
+        ProjectFixture::withProject(
+            $client,
+            function (Project $project) use ($client) {
+                $countryTaxRateFallbackEnabled = $project->getCarts()->getCountryTaxRateFallbackEnabled();
+
+                $request = RequestBuilder::of()->project()->update($project)
+                    ->addAction(
+                        ProjectChangeCountryTaxRateFallbackEnabledAction::ofCountryTaxRateFallbackEnabled(!$countryTaxRateFallbackEnabled)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Project::class, $result);
+                $this->assertNotSame($countryTaxRateFallbackEnabled, $result->getCarts()->getCountryTaxRateFallbackEnabled());
+
+                $request = RequestBuilder::of()->project()->update($result)
+                    ->addAction(
+                        ProjectChangeCountryTaxRateFallbackEnabledAction::ofCountryTaxRateFallbackEnabled($countryTaxRateFallbackEnabled)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Project::class, $result);
+                $this->assertSame($countryTaxRateFallbackEnabled, $result->getCarts()->getCountryTaxRateFallbackEnabled());
 
                 return $result;
             }

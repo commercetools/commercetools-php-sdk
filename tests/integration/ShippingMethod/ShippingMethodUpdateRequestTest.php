@@ -29,6 +29,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingRatePriceTierCollection;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
+use Commercetools\Core\Request\Project\ProjectUpdateRequest;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddShippingRateAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodAddZoneAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeIsDefaultAction;
@@ -335,31 +336,28 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProjectFixture::withProject(
+        ProjectFixture::withSetupProject(
             $client,
-            function (Project $project) use ($client) {
-                $this->assertInstanceOf(Project::class, $project);
-
-                $request = RequestBuilder::of()->project()->update($project)
-                    ->addAction(
-                        ProjectSetShippingRateInputTypeAction::of()
-                            ->setShippingRateInputType(
-                                CartClassificationType::of()->setValues(
-                                    LocalizedEnumCollection::of()->add(
-                                        LocalizedEnum::of()->setKey('small')
-                                            ->setLabel(LocalizedString::ofLangAndText('en', 'small'))
-                                    )->add(
-                                        LocalizedEnum::of()->setKey('medium')
-                                            ->setLabel(LocalizedString::ofLangAndText('en', 'medium'))
-                                    )->add(
-                                        LocalizedEnum::of()->setKey('large')
-                                            ->setLabel(LocalizedString::ofLangAndText('en', 'large'))
-                                    )
+            function (ProjectUpdateRequest $request) {
+                return $request->addAction(
+                    ProjectSetShippingRateInputTypeAction::of()
+                        ->setShippingRateInputType(
+                            CartClassificationType::of()->setValues(
+                                LocalizedEnumCollection::of()->add(
+                                    LocalizedEnum::of()->setKey('small')
+                                        ->setLabel(LocalizedString::ofLangAndText('en', 'small'))
+                                )->add(
+                                    LocalizedEnum::of()->setKey('medium')
+                                        ->setLabel(LocalizedString::ofLangAndText('en', 'medium'))
+                                )->add(
+                                    LocalizedEnum::of()->setKey('large')
+                                        ->setLabel(LocalizedString::ofLangAndText('en', 'large'))
                                 )
                             )
-                    );
-                $this->execute($client, $request);
-
+                        )
+                );
+            },
+            function (Project $project) use ($client) {
                 ShippingMethodFixture::withUpdateableShippingMethod(
                     $client,
                     function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
@@ -377,7 +375,12 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
                                 $zone->getReference(),
                                 $rate
                             ));
-                        $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
+
+                        $response = $this->eventually(
+                            function () use ($client, $request) {
+                                return $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
+                            }
+                        );
                         $result = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(ShippingMethod::class, $result);
@@ -402,18 +405,15 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProjectFixture::withProject(
+        ProjectFixture::withSetupProject(
             $client,
+            function (ProjectUpdateRequest $request) {
+                return $request->addAction(
+                    ProjectSetShippingRateInputTypeAction::of()
+                        ->setShippingRateInputType(CartScoreType::of())
+                );
+            },
             function (Project $project) use ($client) {
-                $this->assertInstanceOf(Project::class, $project);
-
-                $request = RequestBuilder::of()->project()->update($project)
-                    ->addAction(
-                        ProjectSetShippingRateInputTypeAction::of()
-                            ->setShippingRateInputType(CartScoreType::of())
-                    );
-                $this->execute($client, $request);
-
                 ShippingMethodFixture::withUpdateableShippingMethod(
                     $client,
                     function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
@@ -426,8 +426,11 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
                                     $rate
                                 )
                             );
-
-                        $response = $this->execute($client, $request);
+                        $response = $this->eventually(
+                            function () use ($client, $request) {
+                                return $this->execute($client, $request);
+                            }
+                        );
                         $result = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(ShippingMethod::class, $result);
@@ -449,18 +452,15 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProjectFixture::withProject(
+        ProjectFixture::withSetupProject(
             $client,
+            function (ProjectUpdateRequest $request) {
+                return $request->addAction(
+                    ProjectSetShippingRateInputTypeAction::of()
+                        ->setShippingRateInputType(CartScoreType::of())
+                );
+            },
             function (Project $project) use ($client) {
-                $this->assertInstanceOf(Project::class, $project);
-
-                $request = RequestBuilder::of()->project()->update($project)
-                    ->addAction(
-                        ProjectSetShippingRateInputTypeAction::of()
-                            ->setShippingRateInputType(CartScoreType::of())
-                    );
-                $this->execute($client, $request);
-
                 ShippingMethodFixture::withUpdateableShippingMethod(
                     $client,
                     function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
@@ -473,8 +473,11 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
                                     $rate
                                 )
                             );
-
-                        $response = $this->execute($client, $request);
+                        $response = $this->eventually(
+                            function () use ($client, $request) {
+                                return $this->execute($client, $request);
+                            }
+                        );
                         $result = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(ShippingMethod::class, $result);
@@ -496,18 +499,15 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
     {
         $client = $this->getApiClient();
 
-        ProjectFixture::withProject(
+        ProjectFixture::withSetupProject(
             $client,
+            function (ProjectUpdateRequest $request) {
+                return $request->addAction(
+                    ProjectSetShippingRateInputTypeAction::of()
+                        ->setShippingRateInputType(CartValueType::of())
+                );
+            },
             function (Project $project) use ($client) {
-                $this->assertInstanceOf(Project::class, $project);
-
-                $request = RequestBuilder::of()->project()->update($project)
-                    ->addAction(
-                        ProjectSetShippingRateInputTypeAction::of()
-                            ->setShippingRateInputType(CartValueType::of())
-                    );
-                $this->execute($client, $request);
-
                 ShippingMethodFixture::withUpdateableShippingMethod(
                     $client,
                     function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
@@ -527,8 +527,11 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
                                     $rate
                                 )
                             );
-
-                        $response = $this->execute($client, $request);
+                        $response = $this->eventually(
+                            function () use ($client, $request) {
+                                return $this->execute($client, $request);
+                            }
+                        );
                         $result = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(ShippingMethod::class, $result);
