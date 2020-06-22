@@ -8,13 +8,12 @@ namespace Commercetools\Core\IntegrationTests\Project;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Builder\Update\ActionBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\IntegrationTests\Cart\CartFixture;
 use Commercetools\Core\Model\Common\LocalizedEnum;
 use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Message\MessagesConfigurationDraft;
 use Commercetools\Core\Model\Project\CartClassificationType;
-use Commercetools\Core\Model\Project\CartConfigurationDraft;
+use Commercetools\Core\Model\Project\CartsConfiguration;
 use Commercetools\Core\Model\Project\CartScoreType;
 use Commercetools\Core\Model\Project\CartValueType;
 use Commercetools\Core\Model\Project\ExternalOAuth;
@@ -104,7 +103,7 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $request = RequestBuilder::of()->project()->update($project)
                     ->addAction(
-                        ProjectChangeCountryTaxRateFallbackEnabledAction::ofCountryTaxRateFallback(!$countryTaxRateFallbackEnabled)
+                        ProjectChangeCountryTaxRateFallbackEnabledAction::ofCountryTaxRateFallbackEnabled(!$countryTaxRateFallbackEnabled)
                     );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
@@ -114,7 +113,7 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $request = RequestBuilder::of()->project()->update($result)
                     ->addAction(
-                        ProjectChangeCountryTaxRateFallbackEnabledAction::ofCountryTaxRateFallback($countryTaxRateFallbackEnabled)
+                        ProjectChangeCountryTaxRateFallbackEnabledAction::ofCountryTaxRateFallbackEnabled($countryTaxRateFallbackEnabled)
                     );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);

@@ -19,14 +19,4 @@ class CartsConfiguration extends JsonObject
             'countryTaxRateFallbackEnabled' => [static::TYPE => 'bool'],
         ];
     }
-
-    /**
-     * @param bool $countryTaxRateFallbackEnabled
-     * @param Context|callable $context
-     * @return CartsConfiguration
-     */
-    public static function ofCountryTaxRateFallbackEnabled($countryTaxRateFallbackEnabled, $context = null)
-    {
-        return static::of($context)->setCountryTaxRateFallbackEnabled($countryTaxRateFallbackEnabled);
-    }
 }

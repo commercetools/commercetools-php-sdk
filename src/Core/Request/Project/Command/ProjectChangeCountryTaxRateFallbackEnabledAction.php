@@ -10,9 +10,9 @@ use Commercetools\Core\Request\AbstractAction;
  * @link  https://docs.commercetools.com/http-api-projects-project.html#change-country-tax-rate-fallback-enabled
  * @method string getAction()
  * @method ProjectChangeCountryTaxRateFallbackEnabledAction setAction(string $action = null)
- * @method boolean getCountryTaxRateFallbackEnabled()
+ * @method bool getCountryTaxRateFallbackEnabled()
  * phpcs:disable
- * @method ProjectChangeCountryTaxRateFallbackEnabledAction setCountryTaxRateFallbackEnabled(boolean $countryTaxRateFallbackEnabled = null)
+ * @method ProjectChangeCountryTaxRateFallbackEnabledAction setCountryTaxRateFallbackEnabled(bool $countryTaxRateFallbackEnabled = null)
  * phpcs:enable
  */
 class ProjectChangeCountryTaxRateFallbackEnabledAction extends AbstractAction
@@ -36,12 +36,12 @@ class ProjectChangeCountryTaxRateFallbackEnabledAction extends AbstractAction
     }
 
     /**
-     * @param boolean $countryTaxRateFallback
+     * @param boolean $countryTaxRateFallbackEnabled
      * @param Context|callable $context
      * @return ProjectChangeCountryTaxRateFallbackEnabledAction
      */
-    public static function ofCountryTaxRateFallback($countryTaxRateFallback, $context = null)
+    public static function ofCountryTaxRateFallbackEnabled($countryTaxRateFallbackEnabled, $context = null)
     {
-        return static::of($context)->setCountryTaxRateFallbackEnabled($countryTaxRateFallback);
+        return static::of($context)->setCountryTaxRateFallbackEnabled($countryTaxRateFallbackEnabled);
     }
 }
