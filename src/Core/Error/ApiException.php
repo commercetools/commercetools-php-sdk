@@ -64,6 +64,11 @@ class ApiException extends Exception
 
         switch ($response->getStatusCode()) {
             case 400:
+                if ($response->getBody()->getSize() > 0) {
+                    $c = $response->getBody()->getContents();
+                    $message .= ' [body] ' . $c;
+                    $response->getBody()->write($c);
+                }
                 return new ErrorResponseException($message, $request, $response, $previous);
             case 401:
                 if (strpos((string)$response->getBody(), 'invalid_token') !== false) {
