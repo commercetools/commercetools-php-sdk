@@ -72,7 +72,9 @@ class ApiException extends Exception
                 }
                 return new ErrorResponseException($message, $request, $response, $previous);
             case 401:
-                if (strpos((string)$response->getBody(), 'invalid_token') !== false) {
+                $body = $response->getBody()->getContents();
+                $response = $response->withBody(stream_for($body));
+                if (strpos($body, 'invalid_token') !== false) {
                     return new InvalidTokenException($message, $request, $response, $previous);
                 }
                 return new InvalidClientCredentialsException($message, $request, $response, $previous);
