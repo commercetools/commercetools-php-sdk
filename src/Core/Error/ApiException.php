@@ -5,6 +5,7 @@ namespace Commercetools\Core\Error;
 use Exception;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use function GuzzleHttp\Psr7\stream_for;
 
 /**
  * Base exception for responses with http status code different than 200 or 201
@@ -65,9 +66,9 @@ class ApiException extends Exception
         switch ($response->getStatusCode()) {
             case 400:
                 if ($response->getBody()->getSize() > 0) {
-                    $c = $response->getBody()->getContents();
-                    $message .= ' [body] ' . $c;
-                    $response->getBody()->write($c);
+                    $body = (string)$response->getBody()->getContents();
+                    $response = $response->withBody(stream_for($body));
+                    $message .= ' [body] ' . $body;
                 }
                 return new ErrorResponseException($message, $request, $response, $previous);
             case 401:
