@@ -3,9 +3,8 @@
 on:
   pull_request:
   push:
-  create:
-    tags:
-      - '*'
+    branches: '*'
+    tags: 'v*'
 
 name: CI
 
@@ -141,7 +140,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    if: github.event_name != 'create'
+    if: startsWith( github.ref, 'refs/tags/v') == false
 
     steps:
       - name: Checkout
@@ -189,7 +188,7 @@ jobs:
         run: bash <(curl -s https://codecov.io/bash) || true
 
   release:
-    if: github.event_name == 'create'
+    if: startsWith( github.ref, 'refs/tags/v')
     name: Create release
 
     runs-on: ubuntu-latest
@@ -214,6 +213,13 @@ jobs:
           COMMERCETOOLS_PROJECT: ${{ secrets.COMMERCETOOLS_PROJECT }}
         run: composer install --no-ansi --no-interaction --no-progress --no-suggest --no-dev
 
+      - name: Retrieve branch name
+        id: branch_name
+        run: |
+          echo ::set-output name=SOURCE_NAME::${GITHUB_REF#refs/*/}
+          echo ::set-output name=SOURCE_BRANCH::${GITHUB_REF#refs/heads/}
+          echo ::set-output name=SOURCE_TAG::${GITHUB_REF#refs/tags/}
+
       - name: Install box
         env:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -224,7 +230,7 @@ jobs:
 
       - uses: actions/upload-artifact@v1
         with:
-          name: commercetools-php-sdk-${{ github.ref }}.phar
+          name: commercetools-php-sdk-${{ steps.branch_name.outputs.SOURCE_TAG }}.phar
           path: commercetools-php-sdk.phar
 
       - name: Read changeset
