@@ -462,7 +462,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $logEntry = $handler->getRecords()[1];
         $this->assertSame(Logger::ERROR, $logEntry['level']);
-        $this->assertSame(
+        $this->assertStringStartsWith(
             'Client error response [url] test/id [status code] 400 [reason phrase] Bad Request',
             (string)$logEntry['message']
         );
@@ -506,7 +506,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $logEntry = $handler->getRecords()[1];
         $this->assertSame(Logger::ERROR, $logEntry['level']);
-        $this->assertSame(
+        $this->assertStringStartsWith(
             'Client error response [url] test/id [status code] 400 [reason phrase] Bad Request',
             (string)$logEntry['message']
         );
