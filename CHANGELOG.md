@@ -1,3 +1,15 @@
+# [2.12.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.11.1...v2.12.0) (2020-10-12)
+
+
+### Features
+
+* **Error:** add response body to exception message for BadRequest ([a0511ab](https://github.com/commercetools/commercetools-php-sdk/commit/a0511ab887b3636063cac0dc39eb09578fa04d05))
+* **Order:** migrate the first tests and create the fixture ([39b16f2](https://github.com/commercetools/commercetools-php-sdk/commit/39b16f2c3910bf7fe09d88cedbe9afcdfef8ec96))
+* **Project:** support country taxRate fallback ([35001b8](https://github.com/commercetools/commercetools-php-sdk/commit/35001b8663e98e0494b34ee527efb4e325de27bd))
+* **Project:** support language used in stores error ([d170ea6](https://github.com/commercetools/commercetools-php-sdk/commit/d170ea66ee37416e402802a7d766d86dd901a591)), closes [#578](https://github.com/commercetools/commercetools-php-sdk/issues/578)
+
+
+
 # [2.11.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.10.0...v2.11.0) (2020-05-05)
 
 
