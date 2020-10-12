@@ -45,7 +45,12 @@ class PagedQueryResponseTest extends \PHPUnit\Framework\TestCase
      */
     protected function getGuzzleResponse($response, $statusCode)
     {
-        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+        if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+            $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+        } else {
+            $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+        }
+        if (version_compare($clientVersion, '6.0.0', '>=')) {
             // Create a mock subscriber and queue two responses.
             $mockBody = new BufferStream();
             $mockBody->write($response);

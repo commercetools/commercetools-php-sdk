@@ -12,6 +12,7 @@ use Cache\Adapter\Void\VoidCachePool;
 use Commercetools\Core\Cache\CacheAdapterFactory;
 use Commercetools\Core\Client\Adapter\ConfigAware;
 use Commercetools\Core\Error\InvalidClientCredentialsException;
+use GuzzleHttp\Client;
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
@@ -57,7 +58,12 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
             $returnValue = json_encode($returnValue);
         }
 
-        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+        if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+            $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+        } else {
+            $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+        }
+        if (version_compare($clientVersion, '6.0.0', '>=')) {
             $mockBody = new BufferStream();
             $mockBody->write($returnValue);
 
@@ -284,7 +290,12 @@ class ManagerTest extends \PHPUnit\Framework\TestCase
 
     public function testSetClientOptions()
     {
-        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+        if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+            $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+        } else {
+            $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+        }
+        if (version_compare($clientVersion, '6.0.0', '>=')) {
             $clientOptions = ['verify' => false];
         } else {
             $clientOptions = ['defaults' => ['verify' => false]];

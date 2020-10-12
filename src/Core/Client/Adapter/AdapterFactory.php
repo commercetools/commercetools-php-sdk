@@ -7,6 +7,7 @@ namespace Commercetools\Core\Client\Adapter;
 
 use GuzzleHttp\Client;
 use Commercetools\Core\Error\InvalidArgumentException;
+use GuzzleHttp\ClientInterface;
 
 class AdapterFactory
 {
@@ -38,7 +39,9 @@ class AdapterFactory
     public function getClass($name = null)
     {
         if (is_null($name)) {
-            if (version_compare(Client::VERSION, '6.0.0', '>=')) {
+            if (defined('\GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
+                $name = 'guzzle6';
+            } elseif (version_compare(Client::class . '::VERSION', '6.0.0', '>=')) {
                 $name = 'guzzle6';
             } else {
                 $name = 'guzzle5';
