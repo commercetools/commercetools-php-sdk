@@ -37,6 +37,11 @@ class UserAgentProvider
 
     private function getAdapterInfo()
     {
-        return 'GuzzleHttp/' . HttpClient::VERSION;
+        if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+            $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+        } else {
+            $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+        }
+        return 'GuzzleHttp/' . $clientVersion;
     }
 }
