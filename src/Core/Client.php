@@ -24,6 +24,7 @@ use Commercetools\Core\Model\Common\ContextAwareInterface;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Request\ClientRequestInterface;
 use Commercetools\Core\Client\OAuth\Manager;
+use function GuzzleHttp\Psr7\stream_for;
 
 /**
  * The client for communicating with the commercetools platform
@@ -272,8 +273,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
             if ($this->getConfig()->getThrowExceptions() || !$exception->getResponse() instanceof ResponseInterface) {
                 throw $exception;
             }
-            $httpResponse = $exception->getResponse();
-            $this->logException($exception);
+            $httpResponse = $this->logExceptionResponse($exception);
             $response = new ErrorResponse($exception, $request, $httpResponse);
         }
         $this->logDeprecatedRequest($httpResponse, $httpRequest);
@@ -362,8 +362,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
                 ) {
                     throw $exception;
                 }
-                $this->logException($httpResponse);
-                $httpResponse = $exception->getResponse();
+                $httpResponse = $this->logExceptionResponse($httpResponse);
                 $responses[$request->getIdentifier()] = new ErrorResponse(
                     $exception,
                     $request,
@@ -381,6 +380,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
     }
 
     /**
+     * @deprecated use logExceptionResponse instead
      * @param $exception
      * @return $this
      */
@@ -389,6 +389,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
         if (is_null($this->logger)) {
             return $this;
         }
+
         $response = $exception->getResponse();
 
         $context = [];
@@ -402,6 +403,33 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
         $this->logger->error($exception->getMessage(), $context);
 
         return $this;
+    }
+
+    /**
+     * logs the response of a message as context object without destroying the body stream
+     * @param $exception
+     * @return ResponseInterface
+     */
+    protected function logExceptionResponse(ApiException $exception)
+    {
+        if (is_null($this->logger)) {
+            return $exception->getResponse();
+        }
+
+        $response = $exception->getResponse();
+        $context = [];
+        if ($response instanceof ResponseInterface) {
+            $body = $response->getBody()->getContents();
+            $response = $response->withBody(stream_for($body));
+            $context = [
+                'responseStatusCode' => $response->getStatusCode(),
+                'responseHeaders' => $response->getHeaders(),
+                'responseBody' => $body,
+            ];
+        }
+        $this->logger->error($exception->getMessage(), $context);
+
+        return $response;
     }
 
     /**

@@ -13,6 +13,7 @@ use Commercetools\Core\Helper\DefaultCorrelationIdProvider;
 use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Response\AbstractApiResponse;
+use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\HandlerStack;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
@@ -48,7 +49,12 @@ class ClientTest extends ApiTestCase
 
     public function testCustomHandlerStack()
     {
-        if (version_compare(\GuzzleHttp\Client::VERSION, '6.0.0', '<')) {
+        if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+            $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+        } else {
+            $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+        }
+        if (version_compare($clientVersion, '6.0.0', '<')) {
             $this->markTestSkipped("Only valid for Guzzle version < 6");
         }
 

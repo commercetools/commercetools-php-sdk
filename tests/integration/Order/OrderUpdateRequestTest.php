@@ -5,26 +5,28 @@
 
 namespace Commercetools\Core\IntegrationTests\Order;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
+use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
+use Commercetools\Core\IntegrationTests\Payment\PaymentFixture;
+use Commercetools\Core\IntegrationTests\State\StateFixture;
+use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
-use Commercetools\Core\Model\Cart\CustomLineItemDraft;
-use Commercetools\Core\Model\Cart\CustomLineItemDraftCollection;
 use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
 use Commercetools\Core\Model\Cart\ItemShippingTarget;
 use Commercetools\Core\Model\Cart\ItemShippingTargetCollection;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
 use Commercetools\Core\Model\Cart\ShippingInfo;
+use Commercetools\Core\Model\Channel\Channel;
+use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
-use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\Common\PriceDraft;
-use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
-use Commercetools\Core\Model\Customer\CustomerSigninResult;
 use Commercetools\Core\Model\Order\DeliveryItem;
 use Commercetools\Core\Model\Order\DeliveryItemCollection;
 use Commercetools\Core\Model\Order\Order;
@@ -39,16 +41,17 @@ use Commercetools\Core\Model\Order\ReturnPaymentState;
 use Commercetools\Core\Model\Order\ReturnShipmentState;
 use Commercetools\Core\Model\Order\ShipmentState;
 use Commercetools\Core\Model\Order\TrackingData;
-use Commercetools\Core\Model\Product\ProductDraft;
-use Commercetools\Core\Model\Product\ProductVariantDraft;
+use Commercetools\Core\Model\Payment\Payment;
+use Commercetools\Core\Model\Product\Product;
+use Commercetools\Core\Model\State\State;
+use Commercetools\Core\Model\State\StateDraft;
 use Commercetools\Core\Model\State\StateReference;
+use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartReplicateRequest;
-use Commercetools\Core\Request\Customers\CustomerCreateRequest;
-use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddItemShippingAddressAction;
@@ -80,19 +83,12 @@ use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
 use Commercetools\Core\Request\Orders\Command\OrderSetStoreAction;
 use Commercetools\Core\Request\Orders\Command\OrderUpdateItemShippingAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction;
-use Commercetools\Core\Request\Orders\OrderByOrderNumberGetRequest;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
-use Commercetools\Core\Request\Orders\OrderDeleteByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
-use Commercetools\Core\Request\Orders\OrderUpdateByOrderNumberRequest;
-use Commercetools\Core\Request\Orders\OrderUpdateRequest;
-use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
-use Commercetools\Core\Request\Products\ProductCreateRequest;
-use Commercetools\Core\Request\Products\ProductDeleteRequest;
-use Commercetools\Core\Request\Products\ProductUpdateRequest;
 
 class OrderUpdateRequestTest extends ApiTestCase
 {
+//    todo cancel getCartDraft() and createOrder() after the OrderEdit migration
     /**
      * @return CartDraft
      */
@@ -167,437 +163,506 @@ class OrderUpdateRequestTest extends ApiTestCase
 
     public function testOrderByOrderNumber()
     {
-        $cartDraft = $this->getCartDraft();
-        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
-        $this->createOrder($cartDraft, $orderNumber);
+        $client = $this->getApiClient();
+        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . OrderFixture::uniqueOrderString();
 
-        $request = OrderByOrderNumberGetRequest::ofOrderNumber($orderNumber);
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
+        OrderFixture::withUpdateableDraftOrder(
+            $client,
+            function (OrderCreateFromCartRequest $request) use ($orderNumber) {
+                return $request->setOrderNumber($orderNumber);
+            },
+            function (Order $order) use ($client, $orderNumber) {
+                $request = RequestBuilder::of()->orders()->getByOrderNumber($orderNumber);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Order::class, $result);
+                $this->assertInstanceOf(Order::class, $result);
+
+                return $result;
+            }
+        );
     }
 
     public function testUpdateOrderByOrderNumber()
     {
-        $cartDraft = $this->getCartDraft();
-        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
-        $order = $this->createOrder($cartDraft, $orderNumber);
+        $client = $this->getApiClient();
+        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . OrderFixture::uniqueOrderString();
 
-        $this->assertSame(
-            $this->getProduct()->getProductType()->getId(),
-            $order->getLineItems()->current()->getProductType()->getId()
+        OrderFixture::withUpdateableDraftOrder(
+            $client,
+            function (OrderCreateFromCartRequest $request) use ($orderNumber) {
+                return $request->setOrderNumber($orderNumber);
+            },
+            function (Order $order, Customer $customer, Product $product) use ($client, $orderNumber) {
+                $this->assertSame(
+                    $product->getProductType()->getId(),
+                    $order->getLineItems()->current()->getProductType()->getId()
+                );
+                $request = RequestBuilder::of()->orders()->updateByOrderNumber($order)
+                    ->addAction(OrderChangeOrderStateAction::ofOrderState(OrderState::COMPLETE));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(OrderState::COMPLETE, $result->getOrderState());
+
+                return $result;
+            }
         );
-
-        $request = OrderUpdateByOrderNumberRequest::ofOrderNumberAndVersion($orderNumber, $order->getVersion())
-            ->addAction(OrderChangeOrderStateAction::ofOrderState(OrderState::COMPLETE))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertSame(OrderState::COMPLETE, $result->getOrderState());
     }
 
     public function testDeleteOrderByOrderNumber()
     {
-        $cartDraft = $this->getCartDraft();
-        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
-        $order = $this->createOrder($cartDraft, $orderNumber);
+        $client = $this->getApiClient();
+        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . OrderFixture::uniqueOrderString();
 
-        $request = OrderDeleteByOrderNumberRequest::ofOrderNumberAndVersion($orderNumber, $order->getVersion());
-        $response = $request->executeWithClient($this->getClient());
+        OrderFixture::withUpdateableDraftOrder(
+            $client,
+            function (OrderCreateFromCartRequest $request) use ($orderNumber) {
+                return $request->setOrderNumber($orderNumber);
+            },
+            function (Order $order) use ($client, $orderNumber) {
+                $request = RequestBuilder::of()->orders()->deleteByOrderNumber($order);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $result = $request->mapResponse($response);
+                $this->assertInstanceOf(Order::class, $result);
 
-        $this->assertFalse($response->isError());
-        $this->assertInstanceOf(Order::class, $result);
+                return $result;
+            }
+        );
     }
 
 
     public function testChangeState()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $this->assertSame(
-            $this->getProduct()->getProductType()->getId(),
-            $order->getLineItems()->current()->getProductType()->getId()
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order, Customer $customer, Product $product) use ($client) {
+                $this->assertSame(
+                    $product->getProductType()->getId(),
+                    $order->getLineItems()->current()->getProductType()->getId()
+                );
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderChangeOrderStateAction::ofOrderState(OrderState::COMPLETE));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(OrderState::COMPLETE, $result->getOrderState());
+
+                return $result;
+            }
         );
-
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderChangeOrderStateAction::ofOrderState(OrderState::COMPLETE))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertSame(OrderState::COMPLETE, $result->getOrderState());
     }
 
     public function testChangeShipmentState()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderChangeShipmentStateAction::ofShipmentState(ShipmentState::SHIPPED))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertSame(ShipmentState::SHIPPED, $result->getShipmentState());
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderChangeShipmentStateAction::ofShipmentState(ShipmentState::SHIPPED));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(ShipmentState::SHIPPED, $result->getShipmentState());
+
+                return $result;
+            }
+        );
     }
 
     public function testChangePaymentState()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderChangePaymentStateAction::ofPaymentState(PaymentState::PAID))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderChangePaymentStateAction::ofPaymentState(PaymentState::PAID));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertSame(PaymentState::PAID, $result->getPaymentState());
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(PaymentState::PAID, $result->getPaymentState());
+
+                return $result;
+            }
+        );
     }
 
     public function testUpdateSyncInfo()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $channel = $this->getChannel(['OrderExport']);
-        $syncedAt = new \DateTime();
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderUpdateSyncInfoAction::ofChannel($channel->getReference())->setSyncedAt($syncedAt))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        ChannelFixture::withDraftChannel(
+            $client,
+            function (ChannelDraft $channelDraft) {
+                return $channelDraft->setRoles(['OrderExport']);
+            },
+            function (Channel $channel) use ($client) {
+                OrderFixture::withUpdateableOrder(
+                    $client,
+                    function (Order $order) use ($client, $channel) {
+                        $syncedAt = new \DateTime();
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(OrderUpdateSyncInfoAction::ofChannel($channel->getReference())->setSyncedAt($syncedAt));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertSame($channel->getId(), $result->getSyncInfo()->current()->getChannel()->getId());
-        $syncedAt->setTimezone(new \DateTimeZone('UTC'));
-        $this->assertSame($syncedAt->format('c'), $result->getSyncInfo()->current()->getSyncedAt()->getDateTime()->format('c'));
+                        $this->assertNotSame($order->getVersion(), $result->getVersion());
+                        $this->assertInstanceOf(Order::class, $result);
+                        $this->assertSame($channel->getId(), $result->getSyncInfo()->current()->getChannel()->getId());
+                        $syncedAt->setTimezone(new \DateTimeZone('UTC'));
+                        $this->assertSame($syncedAt->format('c'), $result->getSyncInfo()->current()->getSyncedAt()->getDateTime()->format('c'));
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function testReturnInfo()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $lineItem = $order->getLineItems()->current();
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderAddReturnInfoAction::of()->setItems(
-                    ReturnItemCollection::of()->add(
-                        ReturnItem::of()
-                            ->setQuantity(1)
-                            ->setLineItemId($lineItem->getId())
-                            ->setShipmentState(ReturnShipmentState::RETURNED)
-                    )
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $lineItem = $order->getLineItems()->current();
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertSame(
-            ReturnShipmentState::RETURNED,
-            $result->getReturnInfo()->current()->getItems()->current()->getShipmentState()
-        );
-        $returnItem = $result->getReturnInfo()->current()->getItems()->current();
-        $this->assertSame(
-            $lineItem->getId(),
-            $returnItem->getLineItemId()
-        );
-        $order = $result;
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderAddReturnInfoAction::of()->setItems(
+                            ReturnItemCollection::of()->add(
+                                ReturnItem::of()
+                                    ->setQuantity(1)
+                                    ->setLineItemId($lineItem->getId())
+                                    ->setShipmentState(ReturnShipmentState::RETURNED)
+                            )
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderSetReturnShipmentStateAction::ofReturnItemIdAndShipmentState(
-                    $returnItem->getId(),
-                    ReturnShipmentState::BACK_IN_STOCK
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(
+                    ReturnShipmentState::RETURNED,
+                    $result->getReturnInfo()->current()->getItems()->current()->getShipmentState()
+                );
+                $returnItem = $result->getReturnInfo()->current()->getItems()->current();
+                $this->assertSame(
+                    $lineItem->getId(),
+                    $returnItem->getLineItemId()
+                );
+                $order = $result;
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetReturnShipmentStateAction::ofReturnItemIdAndShipmentState(
+                            $returnItem->getId(),
+                            ReturnShipmentState::BACK_IN_STOCK
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $returnItem = $result->getReturnInfo()->current()->getItems()->current();
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertSame(
-            ReturnShipmentState::BACK_IN_STOCK,
-            $returnItem->getShipmentState()
-        );
-        $order = $result;
+                $returnItem = $result->getReturnInfo()->current()->getItems()->current();
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(
+                    ReturnShipmentState::BACK_IN_STOCK,
+                    $returnItem->getShipmentState()
+                );
+                $order = $result;
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetReturnPaymentStateAction::ofReturnItemIdAndPaymentState(
+                            $returnItem->getId(),
+                            ReturnPaymentState::REFUNDED
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderSetReturnPaymentStateAction::ofReturnItemIdAndPaymentState(
-                    $returnItem->getId(),
-                    ReturnPaymentState::REFUNDED
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $returnItem = $result->getReturnInfo()->current()->getItems()->current();
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(
+                    ReturnPaymentState::REFUNDED,
+                    $returnItem->getPaymentState()
+                );
 
-        $returnItem = $result->getReturnInfo()->current()->getItems()->current();
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertSame(
-            ReturnPaymentState::REFUNDED,
-            $returnItem->getPaymentState()
+                return $result;
+            }
         );
     }
 
     public function testAddDelivery()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $lineItem = $order->getLineItems()->current();
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderAddDeliveryAction::ofDeliveryItems(
-                    DeliveryItemCollection::of()->add(
-                        DeliveryItem::of()->setId($lineItem->getId())->setQuantity(1)
-                    )
-                )->setAddress(Address::of()->setCountry('DE'))
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $lineItem = $order->getLineItems()->current();
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderAddDeliveryAction::ofDeliveryItems(
+                            DeliveryItemCollection::of()->add(
+                                DeliveryItem::of()->setId($lineItem->getId())->setQuantity(1)
+                            )
+                        )->setAddress(Address::of()->setCountry('DE'))
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $shippingInfo = $result->getShippingInfo();
-        $this->assertInstanceOf(ShippingInfo::class, $shippingInfo);
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
 
-        $delivery = $shippingInfo->getDeliveries()->current();
-        $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
-        $order = $result;
+                $shippingInfo = $result->getShippingInfo();
+                $this->assertInstanceOf(ShippingInfo::class, $shippingInfo);
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderAddParcelToDeliveryAction::ofDeliveryId($delivery->getId())
-                    ->setMeasurements(
-                        ParcelMeasurements::of()
-                            ->setHeightInMillimeter(100)
-                            ->setLengthInMillimeter(100)
-                            ->setWidthInMillimeter(100)
-                            ->setWeightInGram(100)
-                    )
-                    ->setTrackingData(
-                        TrackingData::of()
-                            ->setTrackingId('123456')
-                            ->setCarrier('DHL')
-                            ->setProvider('Schenker')
-                            ->setProviderTransaction('abcdef')
-                            ->setIsReturn(false)
-                    )
-                    ->setItems(
-                        DeliveryItemCollection::of()->add(
-                            DeliveryItem::of()->setId($lineItem->getId())->setQuantity(3)
-                        )
-                    )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $delivery = $shippingInfo->getDeliveries()->current();
+                $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
+                $order = $result;
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $delivery = $result->getShippingInfo()->getDeliveries()->current();
-        $this->assertSame('DE', $delivery->getAddress()->getCountry());
-        $this->assertSame(100, $delivery->getParcels()->current()->getMeasurements()->getHeightInMillimeter());
-        $this->assertSame('DHL', $delivery->getParcels()->current()->getTrackingData()->getCarrier());
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderAddParcelToDeliveryAction::ofDeliveryId($delivery->getId())
+                            ->setMeasurements(
+                                ParcelMeasurements::of()
+                                    ->setHeightInMillimeter(100)
+                                    ->setLengthInMillimeter(100)
+                                    ->setWidthInMillimeter(100)
+                                    ->setWeightInGram(100)
+                            )
+                            ->setTrackingData(
+                                TrackingData::of()
+                                    ->setTrackingId('123456')
+                                    ->setCarrier('DHL')
+                                    ->setProvider('Schenker')
+                                    ->setProviderTransaction('abcdef')
+                                    ->setIsReturn(false)
+                            )
+                            ->setItems(
+                                DeliveryItemCollection::of()->add(
+                                    DeliveryItem::of()->setId($lineItem->getId())->setQuantity(3)
+                                )
+                            )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $delivery = $result->getShippingInfo()->getDeliveries()->current();
+                $this->assertSame('DE', $delivery->getAddress()->getCountry());
+                $this->assertSame(100, $delivery->getParcels()->current()->getMeasurements()->getHeightInMillimeter());
+                $this->assertSame('DHL', $delivery->getParcels()->current()->getTrackingData()->getCarrier());
+
+                return $result;
+            }
+        );
     }
 
     public function testDeliverySetAddress()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $lineItem = $order->getLineItems()->current();
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderAddDeliveryAction::ofDeliveryItems(
-                    DeliveryItemCollection::of()->add(
-                        DeliveryItem::of()->setId($lineItem->getId())->setQuantity(1)
-                    )
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $lineItem = $order->getLineItems()->current();
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $delivery = $result->getShippingInfo()->getDeliveries()->current();
-        $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
-        $order = $result;
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderAddDeliveryAction::ofDeliveryItems(
+                            DeliveryItemCollection::of()->add(
+                                DeliveryItem::of()->setId($lineItem->getId())->setQuantity(1)
+                            )
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderSetDeliveryAddressAction::ofDeliveryId($delivery->getId())->setAddress(
-                    Address::of()->setCountry('DE')
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $delivery = $result->getShippingInfo()->getDeliveries()->current();
+                $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
+                $order = $result;
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $delivery = $result->getShippingInfo()->getDeliveries()->current();
-        $this->assertSame('DE', $delivery->getAddress()->getCountry());
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetDeliveryAddressAction::ofDeliveryId($delivery->getId())->setAddress(
+                            Address::of()->setCountry('DE')
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $delivery = $result->getShippingInfo()->getDeliveries()->current();
+                $this->assertSame('DE', $delivery->getAddress()->getCountry());
+
+                return $result;
+            }
+        );
     }
 
     public function testRemoveDelivery()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $lineItem = $order->getLineItems()->current();
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderAddDeliveryAction::ofDeliveryItems(
-                    DeliveryItemCollection::of()->add(
-                        DeliveryItem::of()->setId($lineItem->getId())->setQuantity(1)
-                    )
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $lineItem = $order->getLineItems()->current();
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $delivery = $result->getShippingInfo()->getDeliveries()->current();
-        $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
-        $order = $result;
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderAddDeliveryAction::ofDeliveryItems(
+                            DeliveryItemCollection::of()->add(
+                                DeliveryItem::of()->setId($lineItem->getId())->setQuantity(1)
+                            )
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderRemoveDeliveryAction::ofDelivery($delivery->getId())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $delivery = $result->getShippingInfo()->getDeliveries()->current();
+                $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
+                $order = $result;
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertCount(0, $result->getShippingInfo()->getDeliveries());
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderRemoveDeliveryAction::ofDelivery($delivery->getId())
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertCount(0, $result->getShippingInfo()->getDeliveries());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetDeliveryItems()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $lineItem = $order->getLineItems()->current();
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderAddDeliveryAction::of()
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $lineItem = $order->getLineItems()->current();
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $order = $result;
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderAddDeliveryAction::of()
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $delivery = $order->getShippingInfo()->getDeliveries()->current();
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderSetDeliveryItemsAction::ofDeliveryAndItems(
-                    $delivery->getId(),
-                    DeliveryItemCollection::of()->add(
-                        DeliveryItem::of()->setId($lineItem->getId())->setQuantity(1)
-                    )
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $order = $result;
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $delivery = $result->getShippingInfo()->getDeliveries()->current();
-        $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
+                $delivery = $order->getShippingInfo()->getDeliveries()->current();
+
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetDeliveryItemsAction::ofDeliveryAndItems(
+                            $delivery->getId(),
+                            DeliveryItemCollection::of()->add(
+                                DeliveryItem::of()->setId($lineItem->getId())->setQuantity(1)
+                            )
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $delivery = $result->getShippingInfo()->getDeliveries()->current();
+                $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetOrderNumber()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $orderNumber = $this->getTestRun() . '-order';
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetOrderNumberAction::of()->setOrderNumber($orderNumber))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $orderNumber = OrderFixture::uniqueOrderString() . '-order';
 
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertSame($orderNumber, $result->getOrderNumber());
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderSetOrderNumberAction::of()->setOrderNumber($orderNumber));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame($orderNumber, $result->getOrderNumber());
+
+                return $result;
+            }
+        );
     }
 
     public function testPayment()
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $payment = $this->getPayment();
+        PaymentFixture::withPayment(
+            $client,
+            function (Payment $payment) use ($client) {
+                OrderFixture::withUpdateableOrder(
+                    $client,
+                    function (Order $order) use ($client, $payment) {
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(OrderAddPaymentAction::of()->setPayment($payment->getReference()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderAddPaymentAction::of()->setPayment($payment->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                        $this->assertSame($payment->getId(), $result->getPaymentInfo()->getPayments()->current()->getId());
 
-        $this->assertSame($payment->getId(), $order->getPaymentInfo()->getPayments()->current()->getId());
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderRemovePaymentAction::of()->setPayment($payment->getReference()))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
-        $this->assertNull($order->getPaymentInfo());
+                        $request = RequestBuilder::of()->orders()->update($result)
+                            ->addAction(OrderRemovePaymentAction::of()->setPayment($payment->getReference()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertNull($result->getPaymentInfo());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 
     public function localeProvider()
@@ -617,18 +682,21 @@ class OrderUpdateRequestTest extends ApiTestCase
      */
     public function testLocale($locale, $expectedLocale)
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetLocaleAction::ofLocale($locale))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client, $locale, $expectedLocale) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderSetLocaleAction::ofLocale($locale));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->deleteRequest->setVersion($cart->getVersion());
+                $this->assertSame($expectedLocale, $result->getLocale());
 
-        $this->assertSame($expectedLocale, $cart->getLocale());
+                return $result;
+            }
+        );
     }
 
     public function invalidLocaleProvider()
@@ -647,589 +715,373 @@ class OrderUpdateRequestTest extends ApiTestCase
      */
     public function testInvalidLocale($locale)
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetLocaleAction::ofLocale($locale))
-        ;
-        $response = $request->executeWithClient($this->getClient());
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client, $locale) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderSetLocaleAction::ofLocale($locale));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertTrue($response->isError());
+                return $result;
+            }
+        );
     }
 
     public function testSetCustomerEmail()
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetCustomerEmail::of()->setEmail($this->getTestRun() . '-new@example.com'))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderSetCustomerEmail::of()->setEmail(OrderFixture::uniqueOrderString() . '-new@example.com'));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Order::class, $order);
-        $this->assertNotSame($draft->getCustomerEmail(), $order->getCustomerEmail());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertNotSame($order->getCustomerEmail(), $result->getCustomerEmail());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetCustomerId()
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $customerDraft = CustomerDraft::ofEmailNameAndPassword(
-            $this->getTestRun() . '-another@example.com',
-            'firstName',
-            'lastName',
-            'password'
+        CustomerFixture::withDraftCustomer(
+            $client,
+            function (CustomerDraft $customerDraft) {
+                $customerDraft = CustomerDraft::ofEmailNameAndPassword(
+                    CustomerFixture::uniqueCustomerString() . '-another@example.com',
+                    'firstName',
+                    'lastName',
+                    'password'
+                );
+
+                return $customerDraft;
+            },
+            function (Customer $customer) use ($client) {
+                OrderFixture::withUpdateableOrder(
+                    $client,
+                    function (Order $order) use ($client, $customer) {
+                        $this->assertNotSame($order->getCustomerId(), $customer->getId());
+
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(OrderSetCustomerIdAction::of()->setCustomerId($customer->getId()));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Order::class, $result);
+                        $this->assertNotSame($order->getCustomerId(), $result->getCustomerId());
+                        $this->assertSame($customer->getId(), $result->getCustomerId());
+
+                        return $result;
+                    }
+                );
+            }
         );
-        $request = CustomerCreateRequest::ofDraft($customerDraft);
-        $response = $request->executeWithClient($this->getClient());
-        $customerSignInResult = $request->mapResponse($response);
-        $customer = $customerSignInResult->getCustomer();
-
-        $this->cleanupRequests[] = CustomerDeleteRequest::ofIdAndVersion(
-            $customer->getId(),
-            $customer->getVersion()
-        );
-
-        $this->assertNotSame($order->getCustomerId(), $customer->getId());
-
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetCustomerIdAction::of()->setCustomerId($customer->getId()))
-        ;
-
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
-
-        $this->assertInstanceOf(Order::class, $order);
-        $this->assertNotSame($draft->getCustomerId(), $order->getCustomerId());
-        $this->assertSame($customer->getId(), $order->getCustomerId());
     }
 
     public function testSetShippingAddress()
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetShippingAddress::of()->setAddress(
-                Address::of()->setCountry('DE')->setFirstName($this->getTestRun() . '-new')
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderSetShippingAddress::of()->setAddress(
+                        Address::of()->setCountry('DE')->setFirstName(OrderFixture::uniqueOrderString() . '-new')
+                    ));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Order::class, $order);
-        $this->assertNotSame($draft->getShippingAddress()->getFirstName(), $order->getShippingAddress()->getFirstName());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertNotSame($order->getShippingAddress()->getFirstName(), $result->getShippingAddress()->getFirstName());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetBillingAddress()
     {
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetBillingAddress::of()->setAddress(
-                Address::of()->setCountry('DE')->setFirstName($this->getTestRun() . '-new')
-            ))
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderSetBillingAddress::of()->setAddress(
+                        Address::of()->setCountry('DE')->setFirstName($this->getTestRun() . '-new')
+                    ));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Order::class, $order);
-        $this->assertNotSame($draft->getBillingAddress()->getFirstName(), $order->getBillingAddress()->getFirstName());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertNotSame($order->getBillingAddress()->getFirstName(), $result->getBillingAddress()->getFirstName());
+
+                return $result;
+            }
+        );
     }
 
     public function testAddDeliveryWithParcel()
     {
-        $taxCategory = $this->getTaxCategory();
-        $cartDraft = $this->getCartDraft();
+        $client = $this->getApiClient();
 
-        $product2 = ProductDraft::ofTypeNameSlugMasterVariantTaxCategoryAndPublish(
-            $this->getProductType()->getReference(),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            ProductVariantDraft::ofSkuAndPrices(
-                'test-' . $this->getTestRun() . '-sku2',
-                PriceDraftCollection::of()->add(
-                    PriceDraft::ofMoneyAndCountry(
-                        Money::ofCurrencyAndAmount('EUR', 100),
-                        'DE'
-                    )
-                )
-            ),
-            $this->getTaxCategory()->getReference(),
-            true
-        );
+        OrderFixture::withUpdateableCartOrderAddingTwoProducts(
+            $client,
+            function (Order $order) use ($client) {
+                $lineItem = $order->getLineItems()->getAt(0);
+                $lineItem2 = $order->getLineItems()->getAt(1);
+                $customLineItem = $order->getCustomLineItems()->current();
 
-        $request = ProductCreateRequest::ofDraft($product2);
-        $response = $request->executeWithClient($this->getClient());
-        $product2 = $request->mapResponse($response);
-
-        $cartDraft->getLineItems()->add(LineItemDraft::ofSkuAndQuantity(
-            $product2->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
-            1
-        ));
-
-        $cartDraft->setCustomLineItems(
-            CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-                    LocalizedString::ofLangAndText('en', 'test'),
-                    Money::ofCurrencyAndAmount('EUR', 100),
-                    'test',
-                    $taxCategory->getReference(),
-                    1
-                )
-            )
-        );
-        $order = $this->createOrder($cartDraft);
-
-        $lineItem = $order->getLineItems()->getAt(0);
-        $lineItem2 = $order->getLineItems()->getAt(1);
-        $customLineItem = $order->getCustomLineItems()->current();
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderAddDeliveryAction::of()
-                    ->setParcels(
-                        ParcelCollection::of()->add(
-                            Parcel::of()->setItems(
-                                DeliveryItemCollection::of()->add(
-                                    DeliveryItem::of()
-                                        ->setId($lineItem->getId())
-                                        ->setQuantity(2)
-                                )->add(
-                                    DeliveryItem::of()
-                                        ->setId($customLineItem->getId())
-                                        ->setQuantity(1)
-                                )->add(
-                                    DeliveryItem::of()
-                                        ->setId($lineItem2->getId())
-                                        ->setQuantity(10)
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderAddDeliveryAction::of()
+                            ->setParcels(
+                                ParcelCollection::of()->add(
+                                    Parcel::of()->setItems(
+                                        DeliveryItemCollection::of()->add(
+                                            DeliveryItem::of()
+                                                ->setId($lineItem->getId())
+                                                ->setQuantity(2)
+                                        )->add(
+                                            DeliveryItem::of()
+                                                ->setId($customLineItem->getId())
+                                                ->setQuantity(1)
+                                        )->add(
+                                            DeliveryItem::of()
+                                                ->setId($lineItem2->getId())
+                                                ->setQuantity(10)
+                                        )
+                                    )
                                 )
                             )
-                        )
-                    )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertCount(
-            3,
-            $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getItems()
+                $this->assertCount(
+                    3,
+                    $result->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getItems()
+                );
+
+                return $result;
+            }
         );
-
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product2->getId(), $product2->getVersion())
-            ->addAction(ProductUnpublishAction::of());
-        $response = $request->executeWithClient($this->getClient());
-        $product2 = $request->mapResponse($response);
-
-        $request = ProductDeleteRequest::ofIdAndVersion(
-            $product2->getId(),
-            $product2->getVersion()
-        );
-        $request->executeWithClient($this->getClient());
     }
 
     public function testSetParcelItems()
     {
-        $taxCategory = $this->getTaxCategory();
-        $cartDraft = $this->getCartDraft();
+        $client = $this->getApiClient();
 
-        $product2 = ProductDraft::ofTypeNameSlugMasterVariantTaxCategoryAndPublish(
-            $this->getProductType()->getReference(),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            ProductVariantDraft::ofSkuAndPrices(
-                'test-' . $this->getTestRun() . '-sku2',
-                PriceDraftCollection::of()->add(
-                    PriceDraft::ofMoneyAndCountry(
-                        Money::ofCurrencyAndAmount('EUR', 100),
-                        'DE'
-                    )
-                )
-            ),
-            $this->getTaxCategory()->getReference(),
-            true
-        );
+        OrderFixture::withUpdateableCartOrderAddingTwoProducts(
+            $client,
+            function (Order $order) use ($client) {
+                $lineItem = $order->getLineItems()->getAt(0);
 
-        $request = ProductCreateRequest::ofDraft($product2);
-        $response = $request->executeWithClient($this->getClient());
-        $product2 = $request->mapResponse($response);
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderAddDeliveryAction::of()->setParcels(
+                            ParcelCollection::of()->add(
+                                Parcel::of()->setItems(
+                                    DeliveryItemCollection::of()->add(
+                                        DeliveryItem::of()
+                                            ->setId($lineItem->getId())
+                                            ->setQuantity(2)
+                                    )
+                                )
+                            )
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $order = $request->mapFromResponse($response);
 
-        $cartDraft->getLineItems()->add(LineItemDraft::ofSkuAndQuantity(
-            $product2->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
-            1
-        ));
+                $lineItem = $order->getLineItems()->getAt(0);
+                $lineItem2 = $order->getLineItems()->getAt(1);
+                $customLineItem = $order->getCustomLineItems()->current();
+                $parcel = $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current();
 
-        $cartDraft->setCustomLineItems(
-            CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-                    LocalizedString::ofLangAndText('en', 'test'),
-                    Money::ofCurrencyAndAmount('EUR', 100),
-                    'test',
-                    $taxCategory->getReference(),
-                    1
-                )
-            )
-        );
-        $order = $this->createOrder($cartDraft);
-
-        $lineItem = $order->getLineItems()->getAt(0);
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderAddDeliveryAction::of()->setParcels(
-                    ParcelCollection::of()->add(
-                        Parcel::of()->setItems(
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetParcelItemsAction::ofParcel($parcel->getId())->setItems(
                             DeliveryItemCollection::of()->add(
                                 DeliveryItem::of()
                                     ->setId($lineItem->getId())
                                     ->setQuantity(2)
+                            )->add(
+                                DeliveryItem::of()
+                                    ->setId($customLineItem->getId())
+                                    ->setQuantity(1)
+                            )->add(
+                                DeliveryItem::of()
+                                    ->setId($lineItem2->getId())
+                                    ->setQuantity(10)
                             )
                         )
-                    )
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $lineItem = $order->getLineItems()->getAt(0);
-        $lineItem2 = $order->getLineItems()->getAt(1);
-        $customLineItem = $order->getCustomLineItems()->current();
-        $parcel = $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current();
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderSetParcelItemsAction::ofParcel($parcel->getId())->setItems(
-                    DeliveryItemCollection::of()->add(
-                        DeliveryItem::of()
-                            ->setId($lineItem->getId())
-                            ->setQuantity(2)
-                    )->add(
-                        DeliveryItem::of()
-                            ->setId($customLineItem->getId())
-                            ->setQuantity(1)
-                    )->add(
-                        DeliveryItem::of()
-                            ->setId($lineItem2->getId())
-                            ->setQuantity(10)
-                    )
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                $this->assertCount(
+                    3,
+                    $result->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getItems()
+                );
 
-        $this->assertCount(
-            3,
-            $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getItems()
+                return $result;
+            }
         );
-
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product2->getId(), $product2->getVersion())
-            ->addAction(ProductUnpublishAction::of());
-        $response = $request->executeWithClient($this->getClient());
-        $product2 = $request->mapResponse($response);
-
-        $request = ProductDeleteRequest::ofIdAndVersion(
-            $product2->getId(),
-            $product2->getVersion()
-        );
-        $request->executeWithClient($this->getClient());
     }
 
     public function testSetParcelMeasurements()
     {
-        $taxCategory = $this->getTaxCategory();
-        $cartDraft = $this->getCartDraft();
+        $client = $this->getApiClient();
 
-        $product2 = ProductDraft::ofTypeNameSlugMasterVariantTaxCategoryAndPublish(
-            $this->getProductType()->getReference(),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            ProductVariantDraft::ofSkuAndPrices(
-                'test-' . $this->getTestRun() . '-sku2',
-                PriceDraftCollection::of()->add(
-                    PriceDraft::ofMoneyAndCountry(
-                        Money::ofCurrencyAndAmount('EUR', 100),
-                        'DE'
-                    )
-                )
-            ),
-            $this->getTaxCategory()->getReference(),
-            true
-        );
+        OrderFixture::withUpdateableCartOrderAddingTwoProducts(
+            $client,
+            function (Order $order) use ($client) {
+                $lineItem = $order->getLineItems()->getAt(0);
 
-        $request = ProductCreateRequest::ofDraft($product2);
-        $response = $request->executeWithClient($this->getClient());
-        $product2 = $request->mapResponse($response);
-
-        $cartDraft->getLineItems()->add(LineItemDraft::ofSkuAndQuantity(
-            $product2->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
-            1
-        ));
-
-        $cartDraft->setCustomLineItems(
-            CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-                    LocalizedString::ofLangAndText('en', 'test'),
-                    Money::ofCurrencyAndAmount('EUR', 100),
-                    'test',
-                    $taxCategory->getReference(),
-                    1
-                )
-            )
-        );
-        $order = $this->createOrder($cartDraft);
-
-        $lineItem = $order->getLineItems()->getAt(0);
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderAddDeliveryAction::of()->setParcels(
-                    ParcelCollection::of()->add(
-                        Parcel::of()->setItems(
-                            DeliveryItemCollection::of()->add(
-                                DeliveryItem::of()
-                                    ->setId($lineItem->getId())
-                                    ->setQuantity(2)
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderAddDeliveryAction::of()->setParcels(
+                            ParcelCollection::of()->add(
+                                Parcel::of()->setItems(
+                                    DeliveryItemCollection::of()->add(
+                                        DeliveryItem::of()
+                                            ->setId($lineItem->getId())
+                                            ->setQuantity(2)
+                                    )
+                                )
                             )
                         )
-                    )
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                    );
+                $response = $this->execute($client, $request);
+                $order = $request->mapFromResponse($response);
 
-        $parcel = $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current();
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderSetParcelMeasurementsAction::ofParcel($parcel->getId())->setMeasurements(
-                    ParcelMeasurements::of()
-                        ->setWeightInGram(10)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                $parcel = $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current();
 
-        $this->assertSame(
-            10,
-            $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getMeasurements()->getWeightInGram()
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetParcelMeasurementsAction::ofParcel($parcel->getId())->setMeasurements(
+                            ParcelMeasurements::of()
+                                ->setWeightInGram(10)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame(
+                    10,
+                    $result->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getMeasurements()->getWeightInGram()
+                );
+
+                return $result;
+            }
         );
-
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product2->getId(), $product2->getVersion())
-            ->addAction(ProductUnpublishAction::of());
-        $response = $request->executeWithClient($this->getClient());
-        $product2 = $request->mapResponse($response);
-
-        $request = ProductDeleteRequest::ofIdAndVersion(
-            $product2->getId(),
-            $product2->getVersion()
-        );
-        $request->executeWithClient($this->getClient());
     }
 
     public function testSetTrackingData()
     {
-        $taxCategory = $this->getTaxCategory();
-        $cartDraft = $this->getCartDraft();
+        $client = $this->getApiClient();
 
-        $product2 = ProductDraft::ofTypeNameSlugMasterVariantTaxCategoryAndPublish(
-            $this->getProductType()->getReference(),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            ProductVariantDraft::ofSkuAndPrices(
-                'test-' . $this->getTestRun() . '-sku2',
-                PriceDraftCollection::of()->add(
-                    PriceDraft::ofMoneyAndCountry(
-                        Money::ofCurrencyAndAmount('EUR', 100),
-                        'DE'
-                    )
-                )
-            ),
-            $this->getTaxCategory()->getReference(),
-            true
-        );
+        OrderFixture::withUpdateableCartOrderAddingTwoProducts(
+            $client,
+            function (Order $order) use ($client) {
+                $lineItem = $order->getLineItems()->getAt(0);
 
-        $request = ProductCreateRequest::ofDraft($product2);
-        $response = $request->executeWithClient($this->getClient());
-        $product2 = $request->mapResponse($response);
-
-        $cartDraft->getLineItems()
-            ->add(LineItemDraft::ofSkuAndQuantity(
-                $product2->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
-                1
-            ));
-
-        $cartDraft->setCustomLineItems(
-            CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-                    LocalizedString::ofLangAndText('en', 'test'),
-                    Money::ofCurrencyAndAmount('EUR', 100),
-                    'test',
-                    $taxCategory->getReference(),
-                    1
-                )
-            )
-        );
-        $order = $this->createOrder($cartDraft);
-
-        $lineItem = $order->getLineItems()->getAt(0);
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderAddDeliveryAction::of()->setParcels(
-                    ParcelCollection::of()->add(
-                        Parcel::of()->setItems(
-                            DeliveryItemCollection::of()->add(
-                                DeliveryItem::of()
-                                    ->setId($lineItem->getId())
-                                    ->setQuantity(2)
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderAddDeliveryAction::of()->setParcels(
+                            ParcelCollection::of()->add(
+                                Parcel::of()->setItems(
+                                    DeliveryItemCollection::of()->add(
+                                        DeliveryItem::of()
+                                            ->setId($lineItem->getId())
+                                            ->setQuantity(2)
+                                    )
+                                )
                             )
                         )
-                    )
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                    );
+                $response = $this->execute($client, $request);
+                $order = $request->mapFromResponse($response);
 
-        $parcel = $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current();
-        $trackingId = uniqid();
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderSetParcelTrackingDataAction::ofParcel($parcel->getId())->setTrackingData(
-                    TrackingData::of()->setTrackingId($trackingId)
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                $parcel = $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current();
+                $trackingId = uniqid();
 
-        $this->assertSame(
-            $trackingId,
-            $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getTrackingData()->getTrackingId()
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetParcelTrackingDataAction::ofParcel($parcel->getId())->setTrackingData(
+                            TrackingData::of()->setTrackingId($trackingId)
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame(
+                    $trackingId,
+                    $result->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getTrackingData()->getTrackingId()
+                );
+
+                return $result;
+            }
         );
-
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product2->getId(), $product2->getVersion())
-            ->addAction(ProductUnpublishAction::of());
-        $response = $request->executeWithClient($this->getClient());
-        $product2 = $request->mapResponse($response);
-
-        $request = ProductDeleteRequest::ofIdAndVersion(
-            $product2->getId(),
-            $product2->getVersion()
-        );
-        $request->executeWithClient($this->getClient());
     }
 
     public function testRemoveParcel()
     {
-        $taxCategory = $this->getTaxCategory();
-        $cartDraft = $this->getCartDraft();
+        $client = $this->getApiClient();
 
-        $product2 = ProductDraft::ofTypeNameSlugMasterVariantTaxCategoryAndPublish(
-            $this->getProductType()->getReference(),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            LocalizedString::ofLangAndText('en', 'test-' . $this->getTestRun() . '-product2'),
-            ProductVariantDraft::ofSkuAndPrices(
-                'test-' . $this->getTestRun() . '-sku2',
-                PriceDraftCollection::of()->add(
-                    PriceDraft::ofMoneyAndCountry(
-                        Money::ofCurrencyAndAmount('EUR', 100),
-                        'DE'
-                    )
-                )
-            ),
-            $this->getTaxCategory()->getReference(),
-            true
-        );
+        OrderFixture::withUpdateableCartOrderAddingTwoProducts(
+            $client,
+            function (Order $order) use ($client) {
+                $lineItem = $order->getLineItems()->getAt(0);
 
-        $request = ProductCreateRequest::ofDraft($product2);
-        $response = $request->executeWithClient($this->getClient());
-        $product2 = $request->mapResponse($response);
-
-        $cartDraft->getLineItems()
-            ->add(LineItemDraft::ofSkuAndQuantity(
-                $product2->getMasterData()->getCurrent()->getMasterVariant()->getSku(),
-                1
-            ));
-
-        $cartDraft->setCustomLineItems(
-            CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-                    LocalizedString::ofLangAndText('en', 'test'),
-                    Money::ofCurrencyAndAmount('EUR', 100),
-                    'test',
-                    $taxCategory->getReference(),
-                    1
-                )
-            )
-        );
-        $order = $this->createOrder($cartDraft);
-
-        $lineItem = $order->getLineItems()->getAt(0);
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderAddDeliveryAction::of()->setParcels(
-                    ParcelCollection::of()->add(
-                        Parcel::of()->setItems(
-                            DeliveryItemCollection::of()->add(
-                                DeliveryItem::of()
-                                    ->setId($lineItem->getId())
-                                    ->setQuantity(2)
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderAddDeliveryAction::of()->setParcels(
+                            ParcelCollection::of()->add(
+                                Parcel::of()->setItems(
+                                    DeliveryItemCollection::of()->add(
+                                        DeliveryItem::of()
+                                            ->setId($lineItem->getId())
+                                            ->setQuantity(2)
+                                    )
+                                )
                             )
                         )
-                    )
-                )
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                    );
+                $response = $this->execute($client, $request);
+                $order = $request->mapFromResponse($response);
 
-        $parcel = $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current();
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderRemoveParcelFromDeliveryAction::ofParcel($parcel->getId())
-            )
-        ;
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                $parcel = $order->getShippingInfo()->getDeliveries()->current()->getParcels()->current();
 
-        $this->assertCount(
-            0,
-            $order->getShippingInfo()->getDeliveries()->current()->getParcels()
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderRemoveParcelFromDeliveryAction::ofParcel($parcel->getId())
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertCount(
+                    0,
+                    $result->getShippingInfo()->getDeliveries()->current()->getParcels()
+                );
+
+                return $result;
+            }
         );
-
-
-        $request = ProductUpdateRequest::ofIdAndVersion($product2->getId(), $product2->getVersion())
-            ->addAction(ProductUnpublishAction::of());
-        $response = $request->executeWithClient($this->getClient());
-        $product2 = $request->mapResponse($response);
-
-        $request = ProductDeleteRequest::ofIdAndVersion(
-            $product2->getId(),
-            $product2->getVersion()
-        );
-        $request->executeWithClient($this->getClient());
     }
 
     public function testCreateReplicaCartFromOrder()
@@ -1255,216 +1107,264 @@ class OrderUpdateRequestTest extends ApiTestCase
 
     public function testCreateOrderWithInitialData()
     {
-        $cartDraft = $this->getCartDraft();
-        list($state1, $state2) = $this->createStates('OrderState');
-        $stateReference = $state1->getReference();
-        $order = $this->createOrder($cartDraft, '123', 'Pending', 'Complete', $stateReference, 'Delayed');
+        $client = $this->getApiClient();
+        $stateType = 'OrderState';
+        $orderNumber = '123';
+        $paymentState = 'Pending';
+        $orderState = 'Complete';
+        $shipmentState = 'Delayed';
 
-        $this->assertSame('Pending', $order->getPaymentState());
-        $this->assertSame('Complete', $order->getOrderState());
-        $this->assertInstanceOf(StateReference::class, $order->getState());
-        $this->assertSame($stateReference->getId(), $order->getState()->getId());
-        $this->assertSame('Delayed', $order->getShipmentState());
+        StateFixture::withDraftState(
+            $client,
+            function (StateDraft $state2Draft) use ($stateType) {
+                return $state2Draft->setType($stateType);
+            },
+            function (State $state) use ($client, $orderNumber, $paymentState, $orderState, $shipmentState) {
+                OrderFixture::withUpdateableDraftOrder(
+                    $client,
+                    function (OrderCreateFromCartRequest $request) use ($state, $orderNumber, $paymentState, $orderState, $shipmentState) {
+                        $stateReference = $state->getReference();
+
+                        return $request->setOrderNumber($orderNumber)
+                            ->setPaymentState($paymentState)->setOrderState($orderState)
+                            ->setState($stateReference)->setShipmentState($shipmentState);
+                    },
+                    function (Order $order) use ($client, $state, $orderNumber, $paymentState, $orderState, $shipmentState) {
+                        $stateReference = $state->getReference();
+
+                        $this->assertSame($orderNumber, $order->getOrderNumber());
+                        $this->assertSame($paymentState, $order->getPaymentState());
+                        $this->assertSame($orderState, $order->getOrderState());
+                        $this->assertInstanceOf(StateReference::class, $order->getState());
+                        $this->assertSame($stateReference->getId(), $order->getState()->getId());
+                        $this->assertSame($shipmentState, $order->getShipmentState());
+
+                        return $order;
+                    }
+                );
+            }
+        );
     }
 
     public function testItemShippingAddress()
     {
-        $cartDraft = $this->getCartDraft();
-        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
-        $order = $this->createOrder($cartDraft, $orderNumber);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())->addAction(
-            OrderAddItemShippingAddressAction::of()->setAddress(
-                Address::of()->setCountry('DE')->setKey('key1')
-            )
+        OrderFixture::withUpdateableDraftOrder(
+            $client,
+            function (OrderCreateFromCartRequest $request) {
+                $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . OrderFixture::uniqueOrderString();
+
+                return $request->setOrderNumber($orderNumber);
+            },
+            function (Order $order) use ($client) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderAddItemShippingAddressAction::of()->setAddress(
+                            Address::of()->setCountry('DE')->setKey('key1')
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+
+                $itemShippingAddresses = $result->getItemShippingAddresses();
+
+                $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+                $this->assertSame('DE', $itemShippingAddresses->current()->getCountry());
+                $this->assertSame('key1', $itemShippingAddresses->current()->getKey());
+
+                $request = RequestBuilder::of()->orders()->update($result)
+                    ->addAction(
+                        OrderUpdateItemShippingAddressAction::of()->setAddress(
+                            Address::of()->setCountry('US')->setKey('key1')
+                        )
+                    )->addAction(
+                        OrderAddItemShippingAddressAction::of()->setAddress(
+                            Address::of()->setCountry('FR')->setKey('key2')
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Order::class, $result);
+
+                $itemShippingAddresses = $result->getItemShippingAddresses();
+
+                $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+                $this->assertSame(2, $itemShippingAddresses->count());
+                $this->assertSame('US', $itemShippingAddresses->current()->getCountry());
+                $this->assertSame('key1', $itemShippingAddresses->current()->getKey());
+                $this->assertSame('FR', $itemShippingAddresses->getAt(1)->getCountry());
+                $this->assertSame('key2', $itemShippingAddresses->getAt(1)->getKey());
+
+                $request = RequestBuilder::of()->orders()->update($result)
+                    ->addAction(
+                        OrderRemoveItemShippingAddressAction::of()->setAddressKey('key1')
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Order::class, $result);
+
+                $itemShippingAddresses = $result->getItemShippingAddresses();
+
+                $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
+                $this->assertSame(1, $itemShippingAddresses->count());
+                $this->assertSame('FR', $itemShippingAddresses->getAt(0)->getCountry());
+                $this->assertSame('key2', $itemShippingAddresses->getAt(0)->getKey());
+
+                return $result;
+            }
         );
-
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertInstanceOf(Order::class, $result);
-
-        $itemShippingAddresses = $result->getItemShippingAddresses();
-
-        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
-        $this->assertSame('DE', $itemShippingAddresses->current()->getCountry());
-        $this->assertSame('key1', $itemShippingAddresses->current()->getKey());
-
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $result->getVersion())->addAction(
-            OrderUpdateItemShippingAddressAction::of()->setAddress(
-                Address::of()->setCountry('US')->setKey('key1')
-            )
-        )->addAction(
-            OrderAddItemShippingAddressAction::of()->setAddress(
-                Address::of()->setCountry('FR')->setKey('key2')
-            )
-        );
-
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Order::class, $result);
-
-        $itemShippingAddresses = $result->getItemShippingAddresses();
-
-        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
-        $this->assertSame(2, $itemShippingAddresses->count());
-        $this->assertSame('US', $itemShippingAddresses->getAt(0)->getCountry());
-        $this->assertSame('key1', $itemShippingAddresses->getAt(0)->getKey());
-        $this->assertSame('FR', $itemShippingAddresses->getAt(1)->getCountry());
-        $this->assertSame('key2', $itemShippingAddresses->getAt(1)->getKey());
-
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $result->getVersion())->addAction(
-            OrderRemoveItemShippingAddressAction::of()->setAddressKey('key1')
-        );
-
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
-
-        $this->assertInstanceOf(Order::class, $result);
-
-        $itemShippingAddresses = $result->getItemShippingAddresses();
-
-        $this->assertInstanceOf(AddressCollection::class, $itemShippingAddresses);
-        $this->assertSame(1, $itemShippingAddresses->count());
-        $this->assertSame('FR', $itemShippingAddresses->getAt(0)->getCountry());
-        $this->assertSame('key2', $itemShippingAddresses->getAt(0)->getKey());
     }
 
     public function testLineItemShippingDetails()
     {
-        $cartDraft = $this->getCartDraft();
-        $cartDraft->setItemShippingAddresses(AddressCollection::of()->add(
-            Address::of()->setCountry('DE')->setKey('key1')
-        ))->setLineItems(
-            LineItemDraftCollection::of()
-                ->add(
-                    LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 10)
-                )
-        );
-        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
-        $order = $this->createOrder($cartDraft, $orderNumber);
+        $client = $this->getApiClient();
 
-        $this->assertNull($order->getLineItems()->current()->getShippingDetails());
+        OrderFixture::withUpdateableCartDraftOrderSetting(
+            $client,
+            function (OrderCreateFromCartRequest $request) {
+                $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . OrderFixture::uniqueOrderString();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderSetLineItemShippingDetailsAction::ofLineItemIdAndShippingDetails(
-                    $order->getLineItems()->current()->getId(),
-                    ItemShippingDetailsDraft::ofTargets(
-                        ItemShippingTargetCollection::of()->add(
-                            ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
+                return $request->setOrderNumber($orderNumber);
+            },
+            function (Order $order) use ($client) {
+                $this->assertNull($order->getLineItems()->current()->getShippingDetails());
+
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetLineItemShippingDetailsAction::ofLineItemIdAndShippingDetails(
+                            $order->getLineItems()->current()->getId(),
+                            ItemShippingDetailsDraft::ofTargets(
+                                ItemShippingTargetCollection::of()->add(
+                                    ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
+                                )
+                            )
                         )
-                    )
-                )
-            );
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                $this->assertSame(
+                    'key1',
+                    $result->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
+                );
+                $this->assertSame(
+                    10,
+                    $result->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
+                );
 
-        $this->assertSame(
-            'key1',
-            $order->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
-        );
-        $this->assertSame(
-            10,
-            $order->getLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
+                return $result;
+            }
         );
     }
 
     public function testCustomLineItemShippingDetails()
     {
-        $cartDraft = $this->getCartDraft();
-        $taxCategory = $this->getTaxCategory();
+        $client = $this->getApiClient();
 
-        $cartDraft->setItemShippingAddresses(AddressCollection::of()->add(
-            Address::of()->setCountry('DE')->setKey('key1')
-        ))->setCustomLineItems(
-            CustomLineItemDraftCollection::of()->add(
-                CustomLineItemDraft::ofNameMoneySlugTaxCategoryAndQuantity(
-                    LocalizedString::ofLangAndText('en', 'test'),
-                    Money::ofCurrencyAndAmount('EUR', 100),
-                    'test',
-                    $taxCategory->getReference(),
-                    10
-                )
-            )
-        );
-        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . $this->getTestRun();
-        $order = $this->createOrder($cartDraft, $orderNumber);
+        OrderFixture::withUpdateableCartDraftOrderSetting(
+            $client,
+            function (OrderCreateFromCartRequest $request) {
+                $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . OrderFixture::uniqueOrderString();
 
-        $this->assertNull($order->getCustomLineItems()->current()->getShippingDetails());
+                return $request->setOrderNumber($orderNumber);
+            },
+            function (Order $order) use ($client) {
+                $this->assertNull($order->getCustomLineItems()->current()->getShippingDetails());
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(
-                OrderSetCustomLineItemShippingDetailsAction::ofCustomLineItemIdAndShippingDetails(
-                    $order->getCustomLineItems()->current()->getId(),
-                    ItemShippingDetailsDraft::ofTargets(
-                        ItemShippingTargetCollection::of()->add(
-                            ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetCustomLineItemShippingDetailsAction::ofCustomLineItemIdAndShippingDetails(
+                            $order->getCustomLineItems()->current()->getId(),
+                            ItemShippingDetailsDraft::ofTargets(
+                                ItemShippingTargetCollection::of()->add(
+                                    ItemShippingTarget::of()->setQuantity(10)->setAddressKey('key1')
+                                )
+                            )
                         )
-                    )
-                )
-            );
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $response = $request->executeWithClient($this->getClient());
-        $order = $request->mapResponse($response);
-        $this->deleteRequest->setVersion($order->getVersion());
+                $this->assertSame(
+                    'key1',
+                    $result->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
+                );
+                $this->assertSame(
+                    10,
+                    $result->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
+                );
 
-        $this->assertSame(
-            'key1',
-            $order->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getAddressKey()
-        );
-        $this->assertSame(
-            10,
-            $order->getCustomLineItems()->current()->getShippingDetails()->getTargets()->current()->getQuantity()
+                return $result;
+            }
         );
     }
 
     public function testUpdateAndDeleteForOrderInStore()
     {
-        $store = $this->getStore();
-        $cartDraft = $this->getCartDraft()->setStore(StoreReference::ofKey($store->getKey()));
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
 
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderChangeShipmentStateAction::ofShipmentState(ShipmentState::SHIPPED)));
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        OrderFixture::withStoreCartDraftOrder(
+            $client,
+            function (CartDraft $draft) {
+                return $draft;
+            },
+            function (OrderCreateFromCartRequest $request) {
+                return $request;
+            },
+            function (Order $order, Store $store) use ($client) {
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(OrderChangeShipmentStateAction::ofShipmentState(ShipmentState::SHIPPED))
+                    ->inStore($store->getKey());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertStringStartsWith('in-store/key='.$store->getKey().'/orders/'.$result->getId(), (string)$request->httpRequest()->getUri());
-        $this->assertSame(ShipmentState::SHIPPED, $result->getShipmentState());
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertStringStartsWith('in-store/key='.$store->getKey().'/orders/'.$result->getId(), (string)$request->httpRequest()->getUri());
+                $this->assertSame(ShipmentState::SHIPPED, $result->getShipmentState());
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
 
-        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), OrderDeleteRequest::ofIdAndVersion($result->getId(), $result->getVersion()));
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
+                $orderRequest = RequestBuilder::of()->orders()->delete($result);
+                $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), $orderRequest);
+                $response = $request->executeWithClient($this->getClient());
+                $result = $request->mapResponse($response);
 
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertSame($order->getId(), $result->getId());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame($order->getId(), $result->getId());
+
+                return $result;
+            }
+        );
     }
 
     public function testSetStore()
     {
-        $store = $this->getStore();
-        $draft = $this->getCartDraft();
-        $order = $this->createOrder($draft);
+        $client = $this->getApiClient();
 
-        $request = OrderUpdateRequest::ofIdAndVersion($order->getId(), $order->getVersion())
-            ->addAction(OrderSetStoreAction::of()->setStore(StoreReference::ofId($store->getId())));
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapFromResponse($response);
-        $this->deleteRequest->setVersion($result->getVersion());
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client) {
+                OrderFixture::withUpdateableOrder(
+                    $client,
+                    function (Order $order) use ($client, $store) {
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(OrderSetStoreAction::of()->setStore(StoreReference::ofId($store->getId())));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
 
-        $this->assertInstanceOf(Order::class, $result);
-        $this->assertNotSame($order->getVersion(), $result->getVersion());
-        $this->assertSame($store->getKey(), $result->getStore()->getKey());
+                        $this->assertInstanceOf(Order::class, $result);
+                        $this->assertNotSame($order->getVersion(), $result->getVersion());
+                        $this->assertSame($store->getKey(), $result->getStore()->getKey());
+
+                        return $result;
+                    }
+                );
+            }
+        );
     }
 }

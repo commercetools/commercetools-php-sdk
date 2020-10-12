@@ -10,7 +10,10 @@ use Commercetools\Core\Config;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\Client;
+use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\TransferException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
 use GuzzleHttp\Middleware;
@@ -154,6 +157,8 @@ class Guzzle6Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
         } catch (RequestException $exception) {
             $response = $exception->getResponse();
             throw ApiException::create($request, $response, $exception);
+        } catch (TransferException $exception) {
+            throw ApiException::create($request, null, $exception);
         }
 
         return $response;
@@ -182,7 +187,11 @@ class Guzzle6Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
                 $request = $requests[$key];
                 $httpResponse = $result->getResponse();
                 $httpResponse = ApiException::create($request, $httpResponse, $result);
+            } elseif ($result instanceof TransferException) {
+                $request = $requests[$key];
+                $httpResponse = ApiException::create($request, null, $result);
             }
+
             $responses[$key] = $httpResponse;
         }
 
@@ -225,7 +234,12 @@ class Guzzle6Adapter implements AdapterOptionInterface, CorrelationIdAware, Toke
 
     public static function getAdapterInfo()
     {
-        return 'GuzzleHttp/' . Client::VERSION;
+        if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+            $clientVersion = (string) constant(Client::class . '::MAJOR_VERSION');
+        } else {
+            $clientVersion = (string) constant(Client::class . '::VERSION');
+        }
+        return 'GuzzleHttp/' . $clientVersion;
     }
 
     /**

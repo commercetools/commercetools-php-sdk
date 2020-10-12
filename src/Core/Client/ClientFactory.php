@@ -19,6 +19,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\ContextAwareInterface;
 use Commercetools\Core\Response\AbstractApiResponse;
 use GuzzleHttp\Client;
+use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\MessageFormatter;
@@ -582,7 +583,12 @@ class ClientFactory
     private static function isGuzzle6()
     {
         if (is_null(self::$isGuzzle6)) {
-            if (version_compare(Client::VERSION, '6.0.0', '>=')) {
+            if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+                $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+            } else {
+                $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+            }
+            if (version_compare($clientVersion, '6.0.0', '>=')) {
                 self::$isGuzzle6 = true;
             } else {
                 self::$isGuzzle6 = false;

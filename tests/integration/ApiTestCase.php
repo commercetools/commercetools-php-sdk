@@ -12,11 +12,13 @@ use Commercetools\Core\Client\OAuth\AnonymousIdProvider;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ApiServiceException;
 use Commercetools\Core\Error\ServiceUnavailableException;
+use Commercetools\Core\Fixtures\EventuallyException;
 use Commercetools\Core\Fixtures\InstanceTokenStorage;
 use Commercetools\Core\Fixtures\ManuelActivationStrategy;
 use Commercetools\Core\Fixtures\ProfilerMiddleware;
 use Commercetools\Core\Fixtures\TeamCityFormatter;
 use Commercetools\Core\Fixtures\TimingProfiler;
+use Commercetools\Core\IntegrationTests\Project\ProjectFixture;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Common\Context;
@@ -38,6 +40,7 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
+use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
 use GuzzleHttp\Exception\ServerException;
@@ -296,37 +299,7 @@ class ApiTestCase extends TestCase
     protected function setupProject()
     {
         if (is_null(self::$project)) {
-            $request = ProjectGetRequest::of();
-            $response = $request->executeWithClient($this->getClient());
-            $project = $request->mapResponse($response);
-
-            $request = ProjectUpdateRequest::ofVersion($project->getVersion());
-
-            $currencies = $project->getCurrencies()->toArray();
-            if (!in_array('EUR', $currencies) || !in_array('USD', $currencies)) {
-                $request->addAction(ProjectChangeCurrenciesAction::ofCurrencies(['EUR', 'USD']));
-            }
-            $languages = $project->getLanguages()->toArray();
-            if (!in_array('en', $languages) || !in_array('de', $languages) || !in_array('de-DE', $languages)) {
-                $request->addAction(ProjectChangeLanguagesAction::ofLanguages(['en', 'de', 'de-DE']));
-            }
-            $countries = $project->getCountries()->toArray();
-            if (!in_array('FR', $countries) || !in_array('DE', $countries) || !in_array('ES', $countries) || !in_array('US', $countries)) {
-                $request->addAction(ProjectChangeCountriesAction::ofCountries(['FR', 'DE', 'ES', 'US']));
-            }
-            if ($project->getMessages()->getEnabled() === false) {
-                $request->addAction(ProjectChangeMessagesConfigurationAction::ofDraft(
-                    MessagesConfigurationDraft::ofEnabledAndDeleteDaysAfterCreation(
-                        true,
-                        15
-                    )
-                ));
-            }
-
-            if ($request->hasActions()) {
-                $response = $request->executeWithClient($this->getClient());
-                $this->assertFalse($response->isError());
-            }
+            $project = ProjectFixture::setupProject($this->getApiClient());
 
             self::$project = $project;
         }
@@ -684,5 +657,24 @@ class ApiTestCase extends TestCase
         }
 
         return $response;
+    }
+
+    protected function eventually(callable $eventuallyFunction, $maxRetries = 30)
+    {
+        $retries = 0;
+        do {
+            $result = null;
+            $retries++;
+            try {
+                $result = $eventuallyFunction();
+            } catch (\Exception $e) {
+                sleep(1);
+            }
+        } while ($result == null && $retries <= $maxRetries);
+
+        if (is_null($result)) {
+            throw new EventuallyException("Timeout eventually block", $e->getCode(), $e);
+        }
+        return $result;
     }
 }

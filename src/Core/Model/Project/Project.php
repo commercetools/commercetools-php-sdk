@@ -36,6 +36,8 @@ use DateTime;
  * @method Project setShippingRateInputType(ShippingRateInputType $shippingRateInputType = null)
  * @method ExternalOAuth getExternalOAuth()
  * @method Project setExternalOAuth(ExternalOAuth $externalOAuth = null)
+ * @method CartsConfiguration getCarts()
+ * @method Project setCarts(CartsConfiguration $carts = null)
  */
 class Project extends JsonObject
 {
@@ -58,7 +60,8 @@ class Project extends JsonObject
             ],
             'messages' => [static::TYPE => MessagesConfiguration::class],
             'shippingRateInputType' => [static::TYPE => ShippingRateInputType::class],
-            'externalOAuth' => [static::TYPE => ExternalOAuth::class]
+            'externalOAuth' => [static::TYPE => ExternalOAuth::class],
+            'carts' => [static::TYPE => CartsConfiguration::class]
         ];
     }
 }

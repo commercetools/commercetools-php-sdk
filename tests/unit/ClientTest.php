@@ -84,7 +84,12 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
 
-        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+        if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+            $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+        } else {
+            $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+        }
+        if (version_compare($clientVersion, '6.0.0', '>=')) {
             $mockFactory = 'createResponseGuzzle6';
         } else {
             $mockFactory = 'createResponseGuzzle5';
@@ -99,7 +104,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             $responses[] = $this->$mockFactory($statusCode, $headers, $returnValue, $reason);
         }
 
-        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+        if (version_compare($clientVersion, '6.0.0', '>=')) {
             $mock = new MockHandler($responses);
 
             $handler = HandlerStack::create($mock);
@@ -275,8 +280,12 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
 
-
-        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+        if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+            $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+        } else {
+            $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+        }
+        if (version_compare($clientVersion, '6.0.0', '>=')) {
             $mock = new MockHandler([
                 new Response(500, [], $this->getSingleOpResult())
             ]);
@@ -462,7 +471,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $logEntry = $handler->getRecords()[1];
         $this->assertSame(Logger::ERROR, $logEntry['level']);
-        $this->assertSame(
+        $this->assertStringStartsWith(
             'Client error response [url] test/id [status code] 400 [reason phrase] Bad Request',
             (string)$logEntry['message']
         );
@@ -506,7 +515,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $logEntry = $handler->getRecords()[1];
         $this->assertSame(Logger::ERROR, $logEntry['level']);
-        $this->assertSame(
+        $this->assertStringStartsWith(
             'Client error response [url] test/id [status code] 400 [reason phrase] Bad Request',
             (string)$logEntry['message']
         );
@@ -566,7 +575,12 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->method('getOauthManager')
             ->will($this->returnValue($oauthMock));
 
-        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+        if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+            $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+        } else {
+            $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+        }
+        if (version_compare($clientVersion, '6.0.0', '>=')) {
             $mock = new MockHandler([
                 new Response(500, [], $this->getSingleOpResult()),
                 new Response(500)
@@ -703,7 +717,12 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($oauthMock));
 
         $container = [];
-        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+        if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+            $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+        } else {
+            $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+        }
+        if (version_compare($clientVersion, '6.0.0', '>=')) {
             $mock = new MockHandler([
                 new Response(200, [], $this->getSingleOpResult())
             ]);
@@ -741,7 +760,12 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
             $n = 0;
             $this->assertSame('commercetools-php-sdk/' . AbstractHttpClient::VERSION, $userAgent[$n++]);
-            $this->assertSame('GuzzleHttp/' . HttpClient::VERSION, trim($userAgent[$n++], '();'));
+            if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+                $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+            } else {
+                $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+            }
+            $this->assertSame('GuzzleHttp/' . $clientVersion, trim($userAgent[$n++], '();'));
             if (extension_loaded('curl') && function_exists('curl_version')) {
                 $this->assertSame('curl/' . \curl_version()['version'], trim($userAgent[$n++], '();'));
             }
@@ -805,7 +829,12 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
     public function testSetClientOptions()
     {
-        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+        if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+            $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+        } else {
+            $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+        }
+        if (version_compare($clientVersion, '6.0.0', '>=')) {
             $clientOptions = ['verify' => false];
         } else {
             $clientOptions = ['defaults' => ['verify' => false]];
@@ -836,7 +865,12 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $this->assertFalse($response->isError());
 
-        if (version_compare(HttpClient::VERSION, '6.0.0', '>=')) {
+        if (defined('\GuzzleHttp\Client::MAJOR_VERSION')) {
+            $clientVersion = (string) constant(HttpClient::class . '::MAJOR_VERSION');
+        } else {
+            $clientVersion = (string) constant(HttpClient::class . '::VERSION');
+        }
+        if (version_compare($clientVersion, '6.0.0', '>=')) {
             $this->assertInstanceOf(PromiseInterface::class, $response->getPromise());
         } else {
             $this->assertInstanceOf(\React\Promise\PromiseInterface::class, $response->getPromise());

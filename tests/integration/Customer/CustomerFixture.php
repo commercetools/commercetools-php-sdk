@@ -2,6 +2,7 @@
 
 namespace Commercetools\Core\IntegrationTests\Customer;
 
+use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\Error\ApiServiceException;
 use Commercetools\Core\Helper\Uuid;
@@ -54,7 +55,7 @@ class CustomerFixture extends ResourceFixture
     ) {
         $headers[self::EXTERNAL_USER_HEADER] = ['custom-external-user-id'];
 
-        $request = CustomerCreateRequest::ofDraft($draft);
+        $request = RequestBuilder::of()->customers()->create($draft);
         try {
             $response = $client->execute($request, $headers);
         } catch (ApiServiceException $e) {

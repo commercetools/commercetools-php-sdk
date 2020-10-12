@@ -10,6 +10,7 @@ use Commercetools\Core\Error\ConcurrentModificationException;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\CustomObject\CustomObject;
+use Commercetools\Core\Model\CustomObject\CustomObjectDraft;
 use Commercetools\Core\Request\CustomObjects\CustomObjectCreateRequest;
 
 class CustomObjectQueryRequestTest extends ApiTestCase
@@ -21,6 +22,7 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         CustomObjectFixture::withCustomObject(
             $client,
             function (CustomObject $customObject) use ($client) {
+                $customObject->setValue($customObject->getValue() . "-new");
                 $request = RequestBuilder::of()->customObjects()->create($customObject);
                 $response = $client->execute($request);
                 $result = $request->mapFromResponse($response);
@@ -40,6 +42,7 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         CustomObjectFixture::withCustomObject(
             $client,
             function (CustomObject $customObject) use ($client) {
+                $customObject->setValue($customObject->getValue() . "-new");
                 $request = RequestBuilder::of()->customObjects()->create($customObject);
                 $response = $client->execute($request);
                 $result = $request->mapFromResponse($response);
@@ -63,13 +66,16 @@ class CustomObjectQueryRequestTest extends ApiTestCase
         CustomObjectFixture::withCustomObject(
             $client,
             function (CustomObject $customObject) use ($client) {
-                $request = RequestBuilder::of()->customObjects()->create($customObject);
+                $draft = CustomObjectDraft::ofContainerKeyAndValue($customObject->getContainer(), $customObject->getKey(), $customObject->getValue());
+                $draft->setValue($customObject->getValue() . "-new");
+                $request = RequestBuilder::of()->customObjects()->create($draft);
                 $response = $client->execute($request);
                 $result = $request->mapFromResponse($response);
 
                 $this->assertNotSame($customObject->getVersion(), $result->getVersion());
 
-                $request = CustomObjectCreateRequest::ofObject($customObject);
+                $draft->setVersion($customObject->getVersion());
+                $request = CustomObjectCreateRequest::ofObject($draft);
                 $response = $client->execute($request);
                 $request->mapFromResponse($response);
             }
