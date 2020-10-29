@@ -126,7 +126,7 @@ abstract class AbstractUpdateRequest extends AbstractApiRequest
             $message = sprintf(
                 Message::UPDATE_ACTION_LIMIT,
                 $this->getPath(),
-                static::ACTION_WARNING_TRESHOLD
+                static::ACTION_MAX_LIMIT
             );
             throw new UpdateActionLimitException($message);
         }
