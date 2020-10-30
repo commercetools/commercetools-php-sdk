@@ -10,7 +10,7 @@ $readBlocks = 1;
 
 $changes = [];
 foreach ($changeLog as $line) {
-    if (strpos($line, "# [") === 0) {
+    if (preg_match('/^[#]+ [[]{1}/', $line) === 1) {
         if ($readBlocks > 0) {
             $readBlocks--;
             continue;
