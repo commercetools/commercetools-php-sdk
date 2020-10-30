@@ -2631,13 +2631,15 @@ class CartUpdateRequestTest extends ApiTestCase
                             return $project;
                         });
 
-                        $request = RequestBuilder::of()->carts()->update($cart)
-                            ->addAction(
-                                CartSetShippingRateInputAction::of()
-                                    ->setShippingRateInput(ScoreShippingRateInput::ofScore(1))
-                            );
-                        $response = $this->execute($client, $request);
-                        $result = $request->mapFromResponse($response);
+                        $result = $this->eventually(function () use ($client, $cart) {
+                            $request = RequestBuilder::of()->carts()->update($cart)
+                                ->addAction(
+                                    CartSetShippingRateInputAction::of()
+                                        ->setShippingRateInput(ScoreShippingRateInput::ofScore(1))
+                                );
+                            $response = $this->execute($client, $request);
+                            return $request->mapFromResponse($response);
+                        });
 
                         $this->assertInstanceOf(ScoreShippingRateInput::class, $result->getShippingRateInput());
                         $this->assertSame(1, $result->getShippingRateInput()->getScore());

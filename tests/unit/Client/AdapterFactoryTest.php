@@ -9,6 +9,20 @@ use PHPUnit\Framework\TestCase;
 
 class AdapterFactoryTest extends TestCase
 {
+    public function testGetClassDefault()
+    {
+        $adapter = new AdapterFactory();
+        if (defined('\GuzzleHttp\Client::VERSION') && strpos(constant('\GuzzleHttp\Client::VERSION'), '5.') === 0) {
+            $this->assertSame(Guzzle5Adapter::class, $adapter->getClass());
+        } elseif (defined('\GuzzleHttp\Client::VERSION') && strpos(constant('\GuzzleHttp\Client::VERSION'), '6.') === 0) {
+            $this->assertSame(Guzzle6Adapter::class, $adapter->getClass());
+        } elseif (defined('\GuzzleHttp\Client::MAJOR_VERSION') && constant('\GuzzleHttp\Client::MAJOR_VERSION') === 7) {
+            $this->assertSame(Guzzle6Adapter::class, $adapter->getClass());
+        } else {
+            $this->assertSame(Guzzle6Adapter::class, $adapter->getClass());
+        }
+    }
+
     public function testGetClassGuzzle5()
     {
         $adapter = new AdapterFactory();
