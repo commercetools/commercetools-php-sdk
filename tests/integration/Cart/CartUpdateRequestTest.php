@@ -1820,10 +1820,10 @@ class CartUpdateRequestTest extends ApiTestCase
                                         $response = $this->execute($client, $request);
                                         $cart = $request->mapFromResponse($response);
 
-                                         $this->assertSame(
-                                             $discountCode->getId(),
-                                             $cart->getDiscountCodes()->current()->getDiscountCode()->getId()
-                                         );
+                                        $this->assertSame(
+                                            $discountCode->getId(),
+                                            $cart->getDiscountCodes()->current()->getDiscountCode()->getId()
+                                        );
                                         $this->assertSame(
                                             $cartDiscount->getId(),
                                             $cart->getLineItems()->current()
@@ -2621,6 +2621,15 @@ class CartUpdateRequestTest extends ApiTestCase
                             );
                         $response = $this->execute($client, $request);
                         $request->mapFromResponse($response);
+
+                        $this->eventually(function () use ($client) {
+                            $request = RequestBuilder::of()->project()->get();
+                            $response = $this->execute($client, $request);
+                            $project = $request->mapFromResponse($response);
+
+                            $this->assertInstanceOf(CartScoreType::class, $project->getShippingRateInputType());
+                            return $project;
+                        });
 
                         $request = RequestBuilder::of()->carts()->update($cart)
                             ->addAction(
