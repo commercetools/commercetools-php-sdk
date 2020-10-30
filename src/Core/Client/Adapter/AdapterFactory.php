@@ -39,11 +39,8 @@ class AdapterFactory
     public function getClass($name = null)
     {
         if (is_null($name)) {
-            if (defined('\GuzzleHttp\ClientInterface::MAJOR_VERSION')) {
-                $name = 'guzzle6';
-            } elseif (version_compare(Client::class . '::VERSION', '6.0.0', '>=')) {
-                $name = 'guzzle6';
-            } else {
+            $name = "guzzle6";
+            if (defined('\GuzzleHttp\Client::VERSION') && version_compare(constant('\GuzzleHttp\Client::VERSION'), '6.0.0', '<')) {
                 $name = 'guzzle5';
             }
         }
