@@ -1,3 +1,12 @@
+## [2.12.1](https://github.com/commercetools/commercetools-php-sdk/compare/v2.12.0...v2.12.1) (2020-10-30)
+
+
+### Bug Fixes
+
+* **Client:** fix adapter factory to correctly identify the GuzzleAdapter ([221b690](https://github.com/commercetools/commercetools-php-sdk/commit/221b69018badbc26a49dcbcb619509c2daccb0b9))
+
+
+
 # [2.12.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.11.1...v2.12.0) (2020-10-12)
 
 
