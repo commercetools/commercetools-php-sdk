@@ -2639,7 +2639,7 @@ class CartUpdateRequestTest extends ApiTestCase
                                 );
                             $response = $this->execute($client, $request);
                             return $request->mapFromResponse($response);
-                        });
+                        }, 60);
 
                         $this->assertInstanceOf(ScoreShippingRateInput::class, $result->getShippingRateInput());
                         $this->assertSame(1, $result->getShippingRateInput()->getScore());
