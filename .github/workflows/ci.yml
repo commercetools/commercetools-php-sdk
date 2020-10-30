@@ -1,6 +1,7 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
+  workflow_dispatch:
   pull_request:
   push:
     branches: '*'
@@ -164,7 +165,7 @@ jobs:
             php7.4-composer-highest-
 
       - name: Install highest dependencies with composer
-        if: github.event_name == 'push'
+        if: github.event_name != 'pull_request'
         env:
           COMMERCETOOLS_CLIENT_ID: ${{ secrets.COMMERCETOOLS_CLIENT_ID }}
           COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.COMMERCETOOLS_CLIENT_SECRET }}
