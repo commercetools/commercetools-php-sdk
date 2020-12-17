@@ -12,7 +12,7 @@ use Symfony\Component\Yaml\Yaml;
 
 class RamlModelTest extends AbstractModelTest
 {
-    const RAML_MODEL_PATH = __DIR__ . '/../../../vendor/commercetools/commercetools-api-reference/types/';
+    const RAML_MODEL_PATH = __DIR__ . '/../../../vendor/commercetools/commercetools-api-reference/api-specs/api/types/';
     const MODEL_PATH = __DIR__ . '/../../../src/Core/Model';
     const COMMAND_PATH = __DIR__ . '/../../../src/Core/Request';
 
@@ -371,7 +371,10 @@ class RamlModelTest extends AbstractModelTest
             }, $types);
             $ramlTypes = [];
             foreach ($types as $typeName => $ramlFile) {
-                $ramlType = Yaml::parse(file_get_contents(static::RAML_MODEL_PATH . $ramlFile), Yaml::PARSE_CUSTOM_TAGS);
+                $ramlType = Yaml::parse(
+                    file_get_contents(static::RAML_MODEL_PATH . $ramlFile),
+                    Yaml::PARSE_CUSTOM_TAGS
+                );
 
                 if (isset($ramlType['properties']) || isset($ramlType['type'])) {
                     $ramlTypes[$typeName] = $ramlType;
@@ -442,7 +445,7 @@ class RamlModelTest extends AbstractModelTest
             if (is_array($property[$key])) {
                 $parentPropertyValue = isset($parentProperty[$key]) ? $parentProperty[$key] : [];
                 $parentProperty[$key] = array_merge($parentPropertyValue, $property[$key]);
-            } else if (isset($property[$key])) {
+            } elseif (isset($property[$key])) {
                 $parentProperty[$key] = $property[$key];
             }
         }
