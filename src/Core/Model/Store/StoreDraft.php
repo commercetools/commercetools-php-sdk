@@ -4,6 +4,7 @@
 
 namespace Commercetools\Core\Model\Store;
 
+use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
@@ -12,12 +13,20 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @package Commercetools\Core\Model\Store
  * @link https://docs.commercetools.com/http-api-projects-stores#storedraft
  *
+ *
+ *
  * @method string getKey()
  * @method StoreDraft setKey(string $key = null)
  * @method LocalizedString getName()
  * @method StoreDraft setName(LocalizedString $name = null)
  * @method array getLanguages()
  * @method StoreDraft setLanguages(array $languages = null)
+ * @method StoreDraft setDistributionChannel(ChannelReference $distributionChannel = null)
+ * @method StoreDraft setSupplyChannel(ChannelReference $supplyChannel = null)
+ * @method array getDistributionChannels()
+ * @method StoreDraft setDistributionChannels(array $distributionChannels = null)
+ * @method array getSupplyChannels()
+ * @method StoreDraft setSupplyChannels(array $supplyChannels = null)
  */
 class StoreDraft extends JsonObject
 {
@@ -27,6 +36,8 @@ class StoreDraft extends JsonObject
             'key' => [static::TYPE => 'string'],
             'name' => [static::TYPE => LocalizedString::class],
             'languages' => [static::TYPE => 'array'],
+            'distributionChannels' => [static::TYPE => 'array'],
+            'supplyChannels' => [static::TYPE => 'array'],
         ];
     }
 

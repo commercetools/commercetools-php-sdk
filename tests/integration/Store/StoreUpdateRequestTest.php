@@ -4,10 +4,23 @@ namespace Commercetools\Core\IntegrationTests\Store;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
+use Commercetools\Core\Model\Channel\Channel;
+use Commercetools\Core\Model\Channel\ChannelDraft;
+use Commercetools\Core\Model\Channel\ChannelReference;
+use Commercetools\Core\Model\Channel\ChannelRole;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Store\Store;
+use Commercetools\Core\Model\Store\StoreDraft;
+use Commercetools\Core\Request\Stores\Command\StoreAddDistributionChannelAction;
+use Commercetools\Core\Request\Stores\Command\StoreAddSupplyChannelAction;
+use Commercetools\Core\Request\Stores\Command\StoreRemoveDistributionChannelAction;
+use Commercetools\Core\Request\Stores\Command\StoreRemoveSupplyChannelAction;
+use Commercetools\Core\Request\Stores\Command\StoreSetDistributionChannelsAction;
 use Commercetools\Core\Request\Stores\Command\StoreSetLanguagesAction;
 use Commercetools\Core\Request\Stores\Command\StoreSetNameAction;
+use Commercetools\Core\Request\Stores\Command\StoreSetSupplyChannelsAction;
+use Nette\Utils\ArrayList;
 
 class StoreUpdateRequestTest extends ApiTestCase
 {
@@ -103,6 +116,217 @@ class StoreUpdateRequestTest extends ApiTestCase
                 $this->assertNotSame($store->getVersion(), $result->getVersion());
 
                 return $result;
+            }
+        );
+    }
+
+    public function testSetDistributionChannels()
+    {
+        $client = $this->getApiClient();
+
+        ChannelFixture::withDraftChannel(
+            $client,
+            function (ChannelDraft $draft) {
+                return $draft->setRoles([ChannelRole::PRODUCT_DISTRIBUTION]);
+            },
+            function (Channel $channel) use ($client) {
+                StoreFixture::withUpdateableStore(
+                    $client,
+                    function (Store $store) use ($client, $channel) {
+                        $channelReference = ChannelReference::ofId($channel->getId());
+                        $channels = [0 => $channelReference];
+
+                        $request = RequestBuilder::of()->stores()->update($store)
+                            ->addAction(StoreSetDistributionChannelsAction::ofDistributionChannels($channels));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Store::class, $result);
+                        $this->assertSame($store->getId(), $result->getId());
+                        $this->assertSame($channelReference->getId(), current($result)['distributionChannels'][0]['id']);
+                        $this->assertNotSame($store->getVersion(), $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
+
+    public function testAddDistributionChannel()
+    {
+        $client = $this->getApiClient();
+
+        ChannelFixture::withDraftChannel(
+            $client,
+            function (ChannelDraft $draft) {
+                return $draft->setRoles([ChannelRole::PRODUCT_DISTRIBUTION]);
+            },
+            function (Channel $channel) use ($client) {
+                StoreFixture::withUpdateableStore(
+                    $client,
+                    function (Store $store) use ($client, $channel) {
+                        $channelReference = ChannelReference::ofId($channel->getId());
+
+                        $request = RequestBuilder::of()->stores()->update($store)
+                            ->addAction(StoreAddDistributionChannelAction::ofDistributionChannel($channelReference));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Store::class, $result);
+                        $this->assertSame($store->getId(), $result->getId());
+                        $this->assertSame($channelReference->getId(), current($result)['distributionChannels'][0]['id']);
+                        $this->assertNotSame($store->getVersion(), $result->getVersion());
+
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
+
+    public function testRemoveDistributionChannel()
+    {
+        $client = $this->getApiClient();
+
+        ChannelFixture::withDraftChannel(
+            $client,
+            function (ChannelDraft $draft) {
+                return $draft->setRoles([ChannelRole::PRODUCT_DISTRIBUTION]);
+            },
+            function (Channel $channel) use ($client) {
+                $channelReference = ChannelReference::ofId($channel->getId());
+                $channels = [0 => $channelReference];
+
+                StoreFixture::withUpdateableDraftStore(
+                    $client,
+                    function (StoreDraft $storeDraft) use ($channels) {
+                        $storeDraft->setKey("removeChannelStore")
+                              ->setName(LocalizedString::ofLangAndText('en', "removeChannelStore"))
+                              ->setDistributionChannels($channels);
+
+                        return $storeDraft;
+                    },
+                    function (Store $store) use ($client, $channelReference) {
+                        $request = RequestBuilder::of()->stores()->update($store)
+                            ->addAction(StoreRemoveDistributionChannelAction::ofDistributionChannel($channelReference));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Store::class, $result);
+                        $this->assertSame($store->getId(), $result->getId());
+                        $this->assertNotSame($store->getVersion(), $result->getVersion());
+                        $this->assertEmpty($result->getDistributionChannels());
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
+
+    public function testSetSupplyChannels()
+    {
+        $client = $this->getApiClient();
+
+        ChannelFixture::withDraftChannel(
+            $client,
+            function (ChannelDraft $draft) {
+                return $draft->setRoles([ChannelRole::INVENTORY_SUPPLY]);
+            },
+            function (Channel $channel) use ($client) {
+                StoreFixture::withUpdateableStore(
+                    $client,
+                    function (Store $store) use ($client, $channel) {
+                        $channelReference = ChannelReference::ofId($channel->getId());
+                        $channels = [0 => $channelReference];
+
+                        $request = RequestBuilder::of()->stores()->update($store)
+                            ->addAction(StoreSetSupplyChannelsAction::ofSupplyChannels($channels));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Store::class, $result);
+                        $this->assertSame($store->getId(), $result->getId());
+                        $this->assertSame($channelReference->getId(), current($result)['supplyChannels'][0]['id']);
+                        $this->assertNotSame($store->getVersion(), $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
+
+    public function testAddSupplyChannel()
+    {
+        $client = $this->getApiClient();
+
+        ChannelFixture::withDraftChannel(
+            $client,
+            function (ChannelDraft $draft) {
+                return $draft->setRoles([ChannelRole::INVENTORY_SUPPLY]);
+            },
+            function (Channel $channel) use ($client) {
+                StoreFixture::withUpdateableStore(
+                    $client,
+                    function (Store $store) use ($client, $channel) {
+                        $channelReference = ChannelReference::ofId($channel->getId());
+
+                        $request = RequestBuilder::of()->stores()->update($store)
+                            ->addAction(StoreAddSupplyChannelAction::ofSupplyChannel($channelReference));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Store::class, $result);
+                        $this->assertSame($store->getId(), $result->getId());
+                        $this->assertSame($channelReference->getId(), current($result)['supplyChannels'][0]['id']);
+                        $this->assertNotSame($store->getVersion(), $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
+
+    public function testRemoveSupplyChannel()
+    {
+        $client = $this->getApiClient();
+
+        ChannelFixture::withDraftChannel(
+            $client,
+            function (ChannelDraft $draft) {
+                return $draft->setRoles([ChannelRole::INVENTORY_SUPPLY]);
+            },
+            function (Channel $channel) use ($client) {
+                $channelReference = ChannelReference::ofId($channel->getId());
+                $channels = [0 => $channelReference];
+
+                StoreFixture::withUpdateableDraftStore(
+                    $client,
+                    function (StoreDraft $storeDraft) use ($channels) {
+                        $storeDraft->setKey("removeChannelStore")
+                            ->setName(LocalizedString::ofLangAndText('en', "removeChannelStore"))
+                            ->setSupplyChannels($channels);
+
+                        return $storeDraft;
+                    },
+                    function (Store $store) use ($client, $channelReference) {
+                        $request = RequestBuilder::of()->stores()->update($store)
+                            ->addAction(StoreRemoveSupplyChannelAction::ofSupplyChannel($channelReference));
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Store::class, $result);
+                        $this->assertSame($store->getId(), $result->getId());
+                        $this->assertNotSame($store->getVersion(), $result->getVersion());
+                        $this->assertEmpty($result->getSupplyChannels());
+
+                        return $result;
+                    }
+                );
             }
         );
     }
