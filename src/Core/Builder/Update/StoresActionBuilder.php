@@ -4,12 +4,73 @@ namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
+use Commercetools\Core\Request\Stores\Command\StoreAddDistributionChannelAction;
+use Commercetools\Core\Request\Stores\Command\StoreAddSupplyChannelAction;
+use Commercetools\Core\Request\Stores\Command\StoreRemoveDistributionChannelAction;
+use Commercetools\Core\Request\Stores\Command\StoreRemoveSupplyChannelAction;
+use Commercetools\Core\Request\Stores\Command\StoreSetDistributionChannelsAction;
 use Commercetools\Core\Request\Stores\Command\StoreSetLanguagesAction;
 use Commercetools\Core\Request\Stores\Command\StoreSetNameAction;
+use Commercetools\Core\Request\Stores\Command\StoreSetSupplyChannelsAction;
 
 class StoresActionBuilder
 {
     private $actions = [];
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/stores#add-distribution-channel
+     * @param StoreAddDistributionChannelAction|callable $action
+     * @return $this
+     */
+    public function addDistributionChannel($action = null)
+    {
+        $this->addAction($this->resolveAction(StoreAddDistributionChannelAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/stores#add-supply-channel
+     * @param StoreAddSupplyChannelAction|callable $action
+     * @return $this
+     */
+    public function addSupplyChannel($action = null)
+    {
+        $this->addAction($this->resolveAction(StoreAddSupplyChannelAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/stores#remove-distribution-channel
+     * @param StoreRemoveDistributionChannelAction|callable $action
+     * @return $this
+     */
+    public function removeDistributionChannel($action = null)
+    {
+        $this->addAction($this->resolveAction(StoreRemoveDistributionChannelAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/stores#remove-supply-channel
+     * @param StoreRemoveSupplyChannelAction|callable $action
+     * @return $this
+     */
+    public function removeSupplyChannel($action = null)
+    {
+        $this->addAction($this->resolveAction(StoreRemoveSupplyChannelAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/stores#set-distribution-channels
+     * @param StoreSetDistributionChannelsAction|callable $action
+     * @return $this
+     */
+    public function setDistributionChannels($action = null)
+    {
+        $this->addAction($this->resolveAction(StoreSetDistributionChannelsAction::class, $action));
+        return $this;
+    }
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-stores#set-languages
@@ -30,6 +91,17 @@ class StoresActionBuilder
     public function setName($action = null)
     {
         $this->addAction($this->resolveAction(StoreSetNameAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/stores#set-supply-channels
+     * @param StoreSetSupplyChannelsAction|callable $action
+     * @return $this
+     */
+    public function setSupplyChannels($action = null)
+    {
+        $this->addAction($this->resolveAction(StoreSetSupplyChannelsAction::class, $action));
         return $this;
     }
 

@@ -4,6 +4,7 @@
 
 namespace Commercetools\Core\Model\Store;
 
+use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Resource;
@@ -26,6 +27,14 @@ use DateTime;
  * @method Store setLastModifiedAt(DateTime $lastModifiedAt = null)
  * @method array getLanguages()
  * @method Store setLanguages(array $languages = null)
+ * @method ChannelReference getDistributionChannel()
+ * @method Store setDistributionChannel(ChannelReference $distributionChannel = null)
+ * @method ChannelReference getSupplyChannel()
+ * @method Store setSupplyChannel(ChannelReference $supplyChannel = null)
+ * @method array getDistributionChannels()
+ * @method Store setDistributionChannels(array $distributionChannels = null)
+ * @method array getSupplyChannels()
+ * @method Store setSupplyChannels(array $supplyChannels = null)
  * @method StoreReference getReference()
  */
 class Store extends Resource
@@ -46,6 +55,8 @@ class Store extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'languages' => [static::TYPE => 'array'],
+            'distributionChannels' => [static::TYPE => 'array'],
+            'supplyChannels' => [static::TYPE => 'array'],
         ];
     }
 }
