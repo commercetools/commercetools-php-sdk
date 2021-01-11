@@ -1,3 +1,12 @@
+# [2.13.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.12.1...v2.13.0) (2021-01-11)
+
+
+### Features
+
+* **Store:** support distribution and supply channel for update actions ([6cfdcb7](https://github.com/commercetools/commercetools-php-sdk/commit/6cfdcb7f99d558ba859069a55ea21f86d6f9494e))
+
+
+
 ## [2.12.1](https://github.com/commercetools/commercetools-php-sdk/compare/v2.12.0...v2.12.1) (2020-10-30)
 
 
