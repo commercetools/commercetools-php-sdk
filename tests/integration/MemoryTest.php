@@ -18,7 +18,7 @@ class MemoryTest extends ApiTestCase
                 ProductTypeFixture::withProductType($client, function (ProductType $productType2) use ($client, $productType1) {
                     $key1 = $this->getProductTypeKey($client, $productType1->getId());
                     $key2 = $this->getProductTypeKey($client, $productType2->getId());
-                    printf("Key1: $key1, Key2: $key2, Memory: " . memory_get_peak_usage(true) . PHP_EOL);
+                    printf("Key1: $key1, Key2: $key2, Memory: " . memory_get_usage(true) . PHP_EOL);
                 });
             });
         }
