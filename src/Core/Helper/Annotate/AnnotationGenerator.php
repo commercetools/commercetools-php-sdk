@@ -588,7 +588,8 @@ EOF;
                     $factoryMethod = $requestClass->getMethod('ofDraft');
                     $params = $factoryMethod->getParameters();
                     $draftParam = current($params);
-                    $type = $draftParam->getClass();
+                    $typeClass = new \ReflectionClass($draftParam->getType()->getName());
+                    $type = $typeClass;
                     $uses[] = 'use ' . $type->getName() . ';';
                     if ($domain == 'CustomObjects') {
                         $methodParams[] = [
