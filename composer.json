@@ -43,7 +43,7 @@
   "require-dev": {
     "guzzlehttp/guzzle": "^7.0 || ^6.0",
     "phpunit/phpunit": "^8.5",
-    "symplify/easy-coding-standard-prefixed": "^9.2.1",
+    "symplify/easy-coding-standard-prefixed": "^8.3.48 || ^9.2.1",
     "doctrine/cache": "^1.6",
     "monolog/monolog": "^1.12",
     "symfony/yaml": "^4.0 || ^3.4.38",
