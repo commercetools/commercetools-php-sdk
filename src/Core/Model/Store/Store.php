@@ -8,6 +8,7 @@ use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use DateTime;
 
 /**
@@ -35,6 +36,8 @@ use DateTime;
  * @method Store setDistributionChannels(array $distributionChannels = null)
  * @method array getSupplyChannels()
  * @method Store setSupplyChannels(array $supplyChannels = null)
+ * @method CustomFieldObject getCustom()
+ * @method Store setCustom(CustomFieldObject $custom = null)
  * @method StoreReference getReference()
  */
 class Store extends Resource
@@ -57,6 +60,7 @@ class Store extends Resource
             'languages' => [static::TYPE => 'array'],
             'distributionChannels' => [static::TYPE => 'array'],
             'supplyChannels' => [static::TYPE => 'array'],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }
