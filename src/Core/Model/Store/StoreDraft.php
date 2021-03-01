@@ -8,6 +8,8 @@ use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 
 /**
  * @package Commercetools\Core\Model\Store
@@ -27,6 +29,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method StoreDraft setDistributionChannels(array $distributionChannels = null)
  * @method array getSupplyChannels()
  * @method StoreDraft setSupplyChannels(array $supplyChannels = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method StoreDraft setCustom(CustomFieldObjectDraft $custom = null)
  */
 class StoreDraft extends JsonObject
 {
@@ -38,6 +42,7 @@ class StoreDraft extends JsonObject
             'languages' => [static::TYPE => 'array'],
             'distributionChannels' => [static::TYPE => 'array'],
             'supplyChannels' => [static::TYPE => 'array'],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
         ];
     }
 

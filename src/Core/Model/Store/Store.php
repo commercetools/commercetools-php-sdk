@@ -36,9 +36,9 @@ use DateTime;
  * @method Store setDistributionChannels(array $distributionChannels = null)
  * @method array getSupplyChannels()
  * @method Store setSupplyChannels(array $supplyChannels = null)
- * @method StoreReference getReference()
  * @method CustomFieldObject getCustom()
  * @method Store setCustom(CustomFieldObject $custom = null)
+ * @method StoreReference getReference()
  */
 class Store extends Resource
 {
