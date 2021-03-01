@@ -10,6 +10,7 @@ use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartQueryRequest;
+use Commercetools\Core\Request\Carts\CartReplicateRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
@@ -53,6 +54,7 @@ class InStoreRequests
         CartCreateRequest::class => 1,
         CartUpdateRequest::class => 1,
         CartDeleteRequest::class => 1,
+        CartReplicateRequest::class => 1,
         MeCartByIdRequest::class => 1,
         MeActiveCartRequest::class => 1,
         MeCartQueryRequest::class => 1,
