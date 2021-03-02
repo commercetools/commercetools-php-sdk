@@ -1,3 +1,15 @@
+# [2.14.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.13.0...v2.14.0) (2021-03-02)
+
+### Features
+
+* **Store** support Custom fields for stores
+* **Cart** support cart replicate for stores
+
+### Bug Fixes
+
+* **ErrorResponse:** add getter for inner exception ([96413a7](https://github.com/commercetools/commercetools-php-sdk/commit/96413a76ffa90954cbf2f496f4c71e3634c01740)), closes [#601](https://github.com/commercetools/commercetools-php-sdk/issues/601)
+
+
 # [2.13.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.12.1...v2.13.0) (2021-01-11)
 
 
