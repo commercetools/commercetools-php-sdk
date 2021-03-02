@@ -1,6 +1,6 @@
 {
   "name": "commercetools-php-sdk-changelog",
-  "version": "2.13.0",
+  "version": "2.14.0",
   "description": "commercetools PHP SDK changelog generator package description",
   "homepage": "https://github.com/commercetools/commercetools-php-sdk",
   "bugs": "https://github.com/commercetools/commercetools-php-sdk/issues",
