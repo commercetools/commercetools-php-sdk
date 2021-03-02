@@ -52,4 +52,12 @@ class ErrorResponse extends AbstractApiResponse
         }
         return $this->message;
     }
+
+    /**
+     * @return \Exception
+     */
+    public function getException()
+    {
+        return $this->exception;
+    }
 }

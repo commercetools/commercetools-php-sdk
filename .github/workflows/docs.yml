@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -23,7 +24,7 @@ jobs:
         run: ./install-apigen.sh && php apigen.phar generate --debug --config build/apigen.neon
 
       - name: Install SSH Client 🔑
-        uses: webfactory/ssh-agent@v0.2.0
+        uses: webfactory/ssh-agent@v0.4.1
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 

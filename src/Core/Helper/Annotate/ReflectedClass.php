@@ -231,7 +231,10 @@ class ReflectedClass
             if ($parameter->isOptional()) {
                 continue;
             }
-            $typeClass = $parameter->getClass();
+            if ($parameter->getType() == null) {
+                continue;
+            }
+            $typeClass = new \ReflectionClass($parameter->getType()->getName());
             $typeName = '';
             if (!is_null($typeClass)) {
                 $typeName = $typeClass->getShortName();
