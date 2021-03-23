@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\Store\StoreReference;
 use DateTime;
 
 /**
@@ -45,6 +46,8 @@ use DateTime;
  * @method ShoppingList setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  * @method string getAnonymousId()
  * @method ShoppingList setAnonymousId(string $anonymousId = null)
+ * @method StoreReference getStore()
+ * @method ShoppingList setStore(StoreReference $store = null)
  * @method CreatedBy getCreatedBy()
  * @method ShoppingList setCreatedBy(CreatedBy $createdBy = null)
  * @method LastModifiedBy getLastModifiedBy()
@@ -76,6 +79,7 @@ class ShoppingList extends Resource
             'custom' => [static::TYPE => CustomFieldObject::class],
             'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
             'anonymousId' => [static::TYPE => 'string'],
+            'store' => [static::TYPE => StoreReference::class],
             'createdBy' => [static::TYPE => CreatedBy::class],
             'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
         ];
