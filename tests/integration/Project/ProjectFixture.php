@@ -20,7 +20,7 @@ use Commercetools\Core\Request\Project\ProjectUpdateRequest;
 
 class ProjectFixture extends ResourceFixture
 {
-    final private static function emptyFunction(ProjectUpdateRequest $request)
+    private static function emptyFunction(ProjectUpdateRequest $request)
     {
         return $request;
     }
@@ -92,7 +92,7 @@ class ProjectFixture extends ResourceFixture
         );
     }
 
-    final private static function updateProject(ApiClient $client, callable $setupFunction)
+    private static function updateProject(ApiClient $client, callable $setupFunction)
     {
         $project = self::projectGetFunction($client);
         $request = RequestBuilder::of()->project()->update($project);
