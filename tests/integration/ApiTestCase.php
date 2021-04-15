@@ -677,4 +677,22 @@ class ApiTestCase extends TestCase
         }
         return $result;
     }
+
+    protected function exceptionEventually(callable $eventuallyFunction, $maxRetries = 30)
+    {
+        $retries = 0;
+        do {
+            $retries++;
+            try {
+                $eventuallyFunction();
+            } catch (\Exception $e) {
+                sleep(1);
+            }
+        } while ($e == null && $retries <= $maxRetries);
+
+        if (is_null($e)) {
+            throw new EventuallyException("Timeout eventually block", $e->getCode(), $e);
+        }
+        throw $e;
+    }
 }
