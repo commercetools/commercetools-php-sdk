@@ -91,9 +91,11 @@ class MeRequestTest extends ApiTestCase
         $this->assertSame($customer->getId(), $result->getId());
         TestHelper::getInstance($this->getClient())->setCustomer($result);
 
-        $request = MeGetRequest::of();
         $this->expectException(BadRequestException::class);
-        $request->executeWithClient($client);
+        $this->eventually(function () use($client) {
+            $request = MeGetRequest::of();
+            $request->executeWithClient($client);
+        });
     }
 
     public function testPasswordChange()
