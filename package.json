@@ -14,6 +14,6 @@
     "postinstall": "cp tools/commit-msg.sh .git/hooks/commit-msg && cp tools/pre-commit.sh .git/hooks/pre-commit"
   },
   "devDependencies": {
-    "conventional-changelog-cli": "^2.0.31"
+    "conventional-changelog-cli": "2.1.1"
   }
 }
