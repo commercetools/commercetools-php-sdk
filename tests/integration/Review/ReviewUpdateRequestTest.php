@@ -6,6 +6,7 @@
 namespace Commercetools\Core\IntegrationTests\Review;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
 use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
@@ -56,6 +57,54 @@ class ReviewUpdateRequestTest extends ApiTestCase
                 $this->assertSame($text, $result->getText());
 
                 return $result;
+            }
+        );
+    }
+
+    public function testDeleteByIdWithDataErasure()
+    {
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(404);
+
+        $client = $this->getApiClient();
+
+        ReviewFixture::withReview(
+            $client,
+            function (Review $review) use ($client) {
+                $request = RequestBuilder::of()->reviews()->delete($review)->dataErasure(true);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($review->getId(), $result->getId());
+                $this->assertInstanceOf(Review::class, $result);
+
+                $request = RequestBuilder::of()->reviews()->getById($review->getId());
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
+            }
+        );
+    }
+
+    public function testDeleteByKeyWithDataErasure()
+    {
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(404);
+
+        $client = $this->getApiClient();
+
+        ReviewFixture::withReview(
+            $client,
+            function (Review $review) use ($client) {
+                $request = RequestBuilder::of()->reviews()->deleteByKey($review)->dataErasure(true);
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($review->getKey(), $result->getKey());
+                $this->assertInstanceOf(Review::class, $result);
+
+                $request = RequestBuilder::of()->reviews()->getByKey($review->getKey());
+                $response = $this->execute($client, $request);
+                $request->mapFromResponse($response);
             }
         );
     }
