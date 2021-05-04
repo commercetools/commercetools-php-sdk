@@ -12,6 +12,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\Store\StoreReference;
 use DateTime;
 
 /**
@@ -50,6 +51,8 @@ use DateTime;
  * @method LastModifiedBy getLastModifiedBy()
  * @method ShoppingList setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method ShoppingListReference getReference()
+ * @method StoreReference getStore()
+ * @method ShoppingList setStore(StoreReference $store = null)
  */
 class ShoppingList extends Resource
 {
@@ -78,6 +81,7 @@ class ShoppingList extends Resource
             'anonymousId' => [static::TYPE => 'string'],
             'createdBy' => [static::TYPE => CreatedBy::class],
             'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'store' => [static::TYPE => StoreReference::class],
         ];
     }
 }
