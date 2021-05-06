@@ -50,9 +50,9 @@ use DateTime;
  * @method ShoppingList setCreatedBy(CreatedBy $createdBy = null)
  * @method LastModifiedBy getLastModifiedBy()
  * @method ShoppingList setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
- * @method ShoppingListReference getReference()
  * @method StoreReference getStore()
  * @method ShoppingList setStore(StoreReference $store = null)
+ * @method ShoppingListReference getReference()
  */
 class ShoppingList extends Resource
 {

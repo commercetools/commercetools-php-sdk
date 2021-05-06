@@ -9,6 +9,7 @@ use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
 use Commercetools\Core\IntegrationTests\Product\ProductFixture;
+use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Customer\Customer;
@@ -21,6 +22,7 @@ use Commercetools\Core\Model\ShoppingList\ShoppingList;
 use Commercetools\Core\Model\ShoppingList\ShoppingListDraft;
 use Commercetools\Core\Model\ShoppingList\TextLineItemDraft;
 use Commercetools\Core\Model\ShoppingList\TextLineItemDraftCollection;
+use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListAddLineItemAction;
@@ -39,6 +41,7 @@ use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetKeyAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetSlugAction;
+use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetStoreAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetTextLineItemCustomFieldAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetTextLineItemCustomTypeAction;
 
@@ -101,6 +104,35 @@ class ShoppingListUpdateRequestTest extends ApiTestCase
                 return $result;
             }
         );
+    }
+
+    public function testUnsetStore()
+    {
+        $client = $this->getApiClient();
+
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client) {
+                ShoppingListFixture::withUpdateableDraftShoppingList(
+                    $client,
+                    function (ShoppingListDraft $draft) use ($store) {
+                        $draft->setStore($store->getReference());
+                        return $draft;
+                    },
+                    function (ShoppingList $shoppingList) use ($client, $store) {
+                        $this->assertSame($store->getKey(), $shoppingList->getStore()->getKey());
+                        $request = RequestBuilder::of()->shoppingLists()->update($shoppingList)
+                            ->addAction(ShoppingListSetStoreAction::of());
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ShoppingList::class, $result);
+                        $this->assertNull($result->getStore());
+
+                        return $result;
+                    }
+                );
+            });
     }
 
     public function testChangeKeyLength()
