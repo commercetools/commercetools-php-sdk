@@ -35,6 +35,14 @@ use Commercetools\Core\Request\Me\MeCartUpdateRequest;
 use Commercetools\Core\Request\Me\MeOrderByIdRequest;
 use Commercetools\Core\Request\Me\MeOrderCreateFromCartRequest;
 use Commercetools\Core\Request\Me\MeOrderQueryRequest;
+use Commercetools\Core\Request\Me\MeShoppingListByIdGetRequest;
+use Commercetools\Core\Request\Me\MeShoppingListByKeyGetRequest;
+use Commercetools\Core\Request\Me\MeShoppingListCreateRequest;
+use Commercetools\Core\Request\Me\MeShoppingListDeleteByKeyRequest;
+use Commercetools\Core\Request\Me\MeShoppingListDeleteRequest;
+use Commercetools\Core\Request\Me\MeShoppingListQueryRequest;
+use Commercetools\Core\Request\Me\MeShoppingListUpdateByKeyRequest;
+use Commercetools\Core\Request\Me\MeShoppingListUpdateRequest;
 use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
 use Commercetools\Core\Request\Orders\OrderByOrderNumberGetRequest;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
@@ -44,6 +52,14 @@ use Commercetools\Core\Request\Orders\OrderQueryRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByCartIdGetRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListByIdGetRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListByKeyGetRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListCreateRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteByKeyRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListDeleteRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListQueryRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListUpdateByKeyRequest;
+use Commercetools\Core\Request\ShoppingLists\ShoppingListUpdateRequest;
 
 class InStoreRequests
 {
@@ -87,6 +103,22 @@ class InStoreRequests
         CustomerUpdateRequest::class => 1,
         CustomerUpdateByKeyRequest::class => 1,
         ShippingMethodByCartIdGetRequest::class => 1,
+        ShoppingListByKeyGetRequest::class => 1,
+        ShoppingListByIdGetRequest::class => 1,
+        ShoppingListQueryRequest::class => 1,
+        ShoppingListCreateRequest::class => 1,
+        ShoppingListUpdateRequest::class => 1,
+        ShoppingListUpdateByKeyRequest::class => 1,
+        ShoppingListDeleteRequest::class => 1,
+        ShoppingListDeleteByKeyRequest::class => 1,
+        MeShoppingListByKeyGetRequest::class => 1,
+        MeShoppingListByIdGetRequest::class => 1,
+        MeShoppingListQueryRequest::class => 1,
+        MeShoppingListCreateRequest::class => 1,
+        MeShoppingListUpdateRequest::class => 1,
+        MeShoppingListUpdateByKeyRequest::class => 1,
+        MeShoppingListDeleteRequest::class => 1,
+        MeShoppingListDeleteByKeyRequest::class => 1,
     ];
 
     public function can($request)
