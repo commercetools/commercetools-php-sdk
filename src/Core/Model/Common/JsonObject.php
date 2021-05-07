@@ -175,7 +175,7 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
              * @var JsonDeserializeInterface $type
              */
             $value = $this->getRaw($field, null);
-            if (!is_null($value)) {
+            if (!is_null($value) && is_array($value)) {
                 $value = $type::fromArray($value, $this->getContextCallback());
             }
         } else {
