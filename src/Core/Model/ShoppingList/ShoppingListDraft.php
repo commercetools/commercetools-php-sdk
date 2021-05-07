@@ -10,6 +10,7 @@ use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Customer\CustomerReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\Store\StoreReference;
 
 /**
  * @package Commercetools\Core\Model\ShoppingList
@@ -34,6 +35,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method ShoppingListDraft setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
  * @method string getAnonymousId()
  * @method ShoppingListDraft setAnonymousId(string $anonymousId = null)
+ * @method StoreReference getStore()
+ * @method ShoppingListDraft setStore(StoreReference $store = null)
  */
 class ShoppingListDraft extends Resource
 {
@@ -49,7 +52,8 @@ class ShoppingListDraft extends Resource
             'textLineItems' => [static::TYPE => TextLineItemDraftCollection::class],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
-            'anonymousId' => [static::TYPE => 'string']
+            'anonymousId' => [static::TYPE => 'string'],
+            'store' => [static::TYPE => StoreReference::class],
         ];
     }
 

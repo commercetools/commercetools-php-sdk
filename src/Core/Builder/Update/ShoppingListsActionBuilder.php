@@ -24,6 +24,7 @@ use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetKeyAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetSlugAction;
+use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetStoreAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetTextLineItemCustomFieldAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetTextLineItemCustomTypeAction;
 use Commercetools\Core\Request\ShoppingLists\Command\ShoppingListSetTextLineItemDescriptionAction;
@@ -249,6 +250,17 @@ class ShoppingListsActionBuilder
     public function setSlug($action = null)
     {
         $this->addAction($this->resolveAction(ShoppingListSetSlugAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-shoppingLists.html#set-store
+     * @param ShoppingListSetStoreAction|callable $action
+     * @return $this
+     */
+    public function setStore($action = null)
+    {
+        $this->addAction($this->resolveAction(ShoppingListSetStoreAction::class, $action));
         return $this;
     }
 

@@ -9,6 +9,7 @@ use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Model\Product\ProductProjectionCollection;
 use Commercetools\Core\Model\Product\Search\Facet;
 use Commercetools\Core\Model\Product\Search\Filter;
+use Commercetools\Core\Model\Product\Search\FilterSubtreeCollection;
 use Commercetools\Core\RequestTestCase;
 use Commercetools\Core\Response\PagedQueryResponse;
 use GuzzleHttp\Psr7\Response;
@@ -210,6 +211,38 @@ class ProductProjectionSearchRequestTest extends RequestTestCase
         $this->assertStringContainsString(
             'filter.query=foo%3A%22bar%22&filter.query=key%3A%22value%22',
             (string)$httpRequest->getBody()
+        );
+    }
+
+    public function testSubtreeFilterQuery()
+    {
+        /**
+         * @var ProductProjectionSearchRequest $request
+         */
+        $request = ProductProjectionSearchRequest::of();
+        $request->addFilterQuery(Filter::ofName('key')->setValue(FilterSubtreeCollection::ofIds(["abc-123", "cde-456"])));
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertStringContainsString(
+            'filter.query=key:subtree("abc-123"),subtree("cde-456")',
+            urldecode((string)$httpRequest->getBody())
+        );
+    }
+
+    public function testSubtreeFilterQueryString()
+    {
+        /**
+         * @var ProductProjectionSearchRequest $request
+         */
+        $request = ProductProjectionSearchRequest::of();
+        $request->addParam("filter.query", 'key:subtree("abc-123"),subtree("cde-456")');
+        $httpRequest = $request->httpRequest();
+
+        $this->assertSame('product-projections/search', (string)$httpRequest->getUri());
+        $this->assertStringContainsString(
+            'filter.query=key:subtree("abc-123"),subtree("cde-456")',
+            urldecode((string)$httpRequest->getBody())
         );
     }
 

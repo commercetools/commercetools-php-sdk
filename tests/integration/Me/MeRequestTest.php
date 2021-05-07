@@ -41,8 +41,7 @@ class MeRequestTest extends ApiTestCase
         $config = $this->getClientConfig('manage_my_profile');
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -68,8 +67,7 @@ class MeRequestTest extends ApiTestCase
         $config = $this->getClientConfig('manage_my_profile');
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -91,9 +89,11 @@ class MeRequestTest extends ApiTestCase
         $this->assertSame($customer->getId(), $result->getId());
         TestHelper::getInstance($this->getClient())->setCustomer($result);
 
-        $request = MeGetRequest::of();
         $this->expectException(BadRequestException::class);
-        $request->executeWithClient($client);
+        $this->exceptionEventually(function () use ($client) {
+            $request = MeGetRequest::of();
+            $request->executeWithClient($client);
+        });
     }
 
     public function testPasswordChange()
@@ -104,8 +104,7 @@ class MeRequestTest extends ApiTestCase
         $config = $this->getClientConfig('manage_my_profile');
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -178,8 +177,7 @@ class MeRequestTest extends ApiTestCase
         $config = $this->getClientConfig(['manage_my_profile']);
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($newPassword)
-        ;
+            ->setPassword($newPassword);
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -218,8 +216,7 @@ class MeRequestTest extends ApiTestCase
         $config = $this->getClientConfig(['manage_my_profile']);
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -247,8 +244,7 @@ class MeRequestTest extends ApiTestCase
         $config = $this->getClientConfig(['manage_my_profile']);
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -281,8 +277,7 @@ class MeRequestTest extends ApiTestCase
         $config = $this->getClientConfig(['manage_my_profile']);
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -307,8 +302,7 @@ class MeRequestTest extends ApiTestCase
         $config = $this->getClientConfig(['manage_my_profile']);
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -341,8 +335,7 @@ class MeRequestTest extends ApiTestCase
         $config = $this->getClientConfig(['manage_my_profile']);
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -368,8 +361,7 @@ class MeRequestTest extends ApiTestCase
         $config = $this->getClientConfig(['manage_my_profile']);
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -395,8 +387,7 @@ class MeRequestTest extends ApiTestCase
         $config = $this->getClientConfig(['manage_my_profile']);
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');

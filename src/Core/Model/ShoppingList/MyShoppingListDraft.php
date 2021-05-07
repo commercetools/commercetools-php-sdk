@@ -8,6 +8,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\Store\StoreReference;
 
 /**
  * @package Commercetools\Core\Model\ShoppingList
@@ -24,6 +25,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method MyShoppingListDraft setCustom(CustomFieldObjectDraft $custom = null)
  * @method int getDeleteDaysAfterLastModification()
  * @method MyShoppingListDraft setDeleteDaysAfterLastModification(int $deleteDaysAfterLastModification = null)
+ * @method StoreReference getStore()
+ * @method MyShoppingListDraft setStore(StoreReference $store = null)
  */
 class MyShoppingListDraft extends Resource
 {
@@ -36,6 +39,7 @@ class MyShoppingListDraft extends Resource
             'textLineItems' => [static::TYPE => TextLineItemDraftCollection::class],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
             'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
+            'store' => [static::TYPE => StoreReference::class],
         ];
     }
 
