@@ -229,7 +229,7 @@ jobs:
       - name: Compile phar
         run: tools/box compile
 
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v2
         with:
           name: commercetools-php-sdk-${{ steps.branch_name.outputs.SOURCE_TAG }}.phar
           path: commercetools-php-sdk.phar
