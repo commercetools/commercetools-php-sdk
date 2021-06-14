@@ -6,6 +6,8 @@
 
 namespace Commercetools\Core\Model\Common;
 
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
+
 /**
  * @package Commercetools\Core\Model\Common
  * @link https://docs.commercetools.com/http-api-types.html#address
@@ -59,6 +61,8 @@ namespace Commercetools\Core\Model\Common;
  * @method Address setExternalId(string $externalId = null)
  * @method string getKey()
  * @method Address setKey(string $key = null)
+ * @method CustomFieldObject getCustom()
+ * @method Address setCustom(CustomFieldObject $custom = null)
  */
 class Address extends JsonObject
 {
@@ -90,6 +94,7 @@ class Address extends JsonObject
             'additionalAddressInfo' => [self::TYPE => 'string'],
             'fax' => [static::TYPE => 'string'],
             'externalId' => [static::TYPE => 'string'],
+            'custom' => [static::TYPE => CustomFieldObject::class]
         ];
     }
 }
