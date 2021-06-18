@@ -32,7 +32,10 @@ class TypeFixture extends ResourceFixture
             'key-' . $uniqueTypeString,
             LocalizedString::ofLangAndText('en', 'test-' . $uniqueTypeString . '-name'),
             LocalizedString::ofLangAndText('en', 'test-' . $uniqueTypeString . '-description'),
-            ['category']
+            [
+                'category',
+                'order-edit'
+            ]
         );
         $draft->setFieldDefinitions(
             FieldDefinitionCollection::of()

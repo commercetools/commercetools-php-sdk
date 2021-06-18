@@ -4,7 +4,9 @@
 
 namespace Commercetools\Core\IntegrationTests\Order;
 
+use Commercetools\Core\Builder\Request\ApiClientRequestBuilder;
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\IntegrationTests\OrderEdit\OrderEditFixture;
 use Commercetools\Core\IntegrationTests\ShippingMethod\ShippingMethodFixture;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Order\OrderReference;
@@ -57,32 +59,39 @@ class OrderEditQueryRequestTest extends OrderQueryRequestTest
 
     public function testGetById()
     {
-        $orderEdit = $this->createOrderEdit();
+        $client = $this->getApiClient();
+        OrderEditFixture::withOrderEdit(
+            $client,
+            function (OrderEdit $orderEdit) use ($client) {
+                $request = RequestBuilder::of()->orderEdits()->getById($orderEdit->getId());
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
 
-        $request = OrderEditByIdGetRequest::ofId($orderEdit->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertInstanceOf(OrderEdit::class, $result);
-        $this->assertSame($orderEdit->getId(), $result->getId());
+                $this->assertInstanceOf(OrderEdit::class, $result);
+                $this->assertSame($orderEdit->getId(), $result->getId());
+            }
+        );
     }
 
     public function testQuery()
     {
-        $orderEdit = $this->createOrderEdit('foo-' . $this->getTestRun());
+        $client = $this->getApiClient();
+        OrderEditFixture::withOrderEdit(
+            $client,
+            function (OrderEdit $orderEdit) use ($client) {
+                $request = RequestBuilder::of()->orderEdits()->query()
+                    ->where('key = :key', ['key' => $orderEdit->getKey()]);
+                $response = $client->execute($request);
+                $result = $request->mapFromResponse($response);
 
-        $request = OrderEditQueryRequest::of()->where(
-            'key="' . $orderEdit->getKey() . '"'
+                $this->assertCount(1, $result);
+                $this->assertInstanceOf(OrderEdit::class, $result->getAt(0));
+                $this->assertSame($orderEdit->getId(), $result->getAt(0)->getId());
+            }
         );
-
-        $response = $request->executeWithClient($this->getClient());
-        $result = $request->mapResponse($response);
-
-        $this->assertCount(1, $result);
-        $this->assertInstanceOf(OrderEdit::class, $result->getAt(0));
-        $this->assertSame($orderEdit->getId(), $result->getAt(0)->getId());
     }
-//todo to collocate into ShippingMethodQueryRequestTest after migration and add some assertions
+
+    //todo to collocate into ShippingMethodQueryRequestTest after migration and add some assertions
     public function testMatchingOrderEdit()
     {
         $client = $this->getApiClient();
@@ -90,17 +99,21 @@ class OrderEditQueryRequestTest extends OrderQueryRequestTest
         ShippingMethodFixture::withShippingMethod(
             $client,
             function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
-                $orderEdit = $this->createOrderEdit();
-                $request = RequestBuilder::of()->shippingMethods()
-                    ->getMatchingOrderEdit($orderEdit->getId(), $zone->getLocations()->current());
-                $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
-                $result = $request->mapFromResponse($response);
+                OrderEditFixture::withOrderEdit(
+                    $client,
+                    function (OrderEdit $orderEdit) use ($client, $zone) {
+                        $request = RequestBuilder::of()->shippingMethods()
+                            ->getMatchingOrderEdit($orderEdit->getId(), $zone->getLocations()->current());
+                        $response = $this->execute($client, $request, ['X-Vrap-Disable-Validation' => 'response']);
+                        $result = $request->mapFromResponse($response);
 
-                $this->assertTrue(
-                    $result->current()->getZoneRates()->current()->getShippingRates()->current()->getIsMatching()
+                        $this->assertTrue(
+                            $result->current()->getZoneRates()->current()->getShippingRates()->current()->getIsMatching()
+                        );
+                        $this->assertInstanceOf(ShippingMethodCollection::class, $result);
+                        $this->assertInstanceOf(TaxCategoryReference::class, $result->current()->getTaxCategory());
+                    }
                 );
-                $this->assertInstanceOf(ShippingMethodCollection::class, $result);
-                $this->assertInstanceOf(TaxCategoryReference::class, $result->current()->getTaxCategory());
             }
         );
     }
