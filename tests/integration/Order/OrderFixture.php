@@ -5,6 +5,7 @@ namespace Commercetools\Core\IntegrationTests\Order;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Client\ApiClient;
 use Commercetools\Core\Error\ApiServiceException;
+use Commercetools\Core\Error\BadRequestException;
 use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\Cart\CartFixture;
 use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
@@ -51,6 +52,7 @@ use Commercetools\Core\Model\Zone\LocationCollection;
 use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Model\Zone\ZoneDraft;
 use Commercetools\Core\Model\Zone\ZoneReference;
+use Commercetools\Core\Request\Carts\Command\CartRecalculateAction;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 
@@ -512,7 +514,7 @@ class OrderFixture extends ResourceFixture
                                                 $fixtureFunction,
                                                 $storeReference
                                             ) {
-                                                CartFixture::withDraftCart(
+                                                CartFixture::withUpdateableDraftCart(
                                                     $client,
                                                     $cartDraftBuilderFunction,
                                                     function (Cart $cart) use (
@@ -541,9 +543,22 @@ class OrderFixture extends ResourceFixture
 
                                                         $orderFromCartRequest = call_user_func($orderRequestBuilderFunction, $orderFromCartDraftRequest);
 
-                                                        $resource = $createFunction($client, $orderFromCartRequest);
+                                                        try {
+                                                            $resource = $createFunction($client, $orderFromCartRequest);
+                                                        } catch (BadRequestException $e) {
+                                                            $request = RequestBuilder::of()->carts()->update($cart)
+                                                                ->addAction(CartRecalculateAction::of());
+                                                            $response = $client->execute($request);
+                                                            $cart = $request->mapFromResponse($response);
+
+                                                            $orderFromCartDraftRequest = call_user_func($orderRequestDraftFunction, $cart);
+                                                            $orderFromCartRequest = call_user_func($orderRequestBuilderFunction, $orderFromCartDraftRequest);
+                                                            $resource = $createFunction($client, $orderFromCartRequest);
+                                                        }
 
                                                         $fixtureFunction($client, $deleteFunction, $assertFunction, $resource, $customer, $product, $cart, $shippingMethod);
+
+                                                        return $cart;
                                                     },
                                                     null,
                                                     null,
