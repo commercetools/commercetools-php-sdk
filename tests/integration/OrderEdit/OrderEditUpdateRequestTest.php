@@ -415,6 +415,7 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
      */
     public function testOrderEditStagedActions($actionCallback)
     {
+        $this->markTestSkipped("Disabled");
         $action = $actionCallback();
         $client = $this->getApiClient();
         OrderEditFixture::withUpdateableOrderEdit(
