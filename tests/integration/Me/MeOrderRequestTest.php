@@ -56,8 +56,7 @@ class MeOrderRequestTest extends ApiTestCase
                             ->setQuantity(1)
                     )
             )
-            ->setShippingMethod($this->getShippingMethod()->getReference())
-        ;
+            ->setShippingMethod($this->getShippingMethod()->getReference());
 
         return $draft;
     }
@@ -84,8 +83,7 @@ class MeOrderRequestTest extends ApiTestCase
                             ->setQuantity(1)
                     )
             )
-            ->setShippingMethod($this->getShippingMethod()->getReference())
-        ;
+            ->setShippingMethod($this->getShippingMethod()->getReference());
 
         return $draft;
     }
@@ -155,6 +153,8 @@ class MeOrderRequestTest extends ApiTestCase
 
     public function testCustomerGetMyOrder()
     {
+        $this->markTestSkipped("Disabled");
+
         $customerDraft = $this->getCustomerDraft();
         $customer = $this->getCustomer($customerDraft);
 
@@ -165,8 +165,7 @@ class MeOrderRequestTest extends ApiTestCase
         $config = $this->getClientConfig('manage_my_orders');
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -186,6 +185,8 @@ class MeOrderRequestTest extends ApiTestCase
 
     public function testCustomerNoAccess()
     {
+        $this->markTestSkipped("Disabled");
+
         $customerDraft = $this->getCustomerDraft();
         $customer = $this->getCustomer($customerDraft);
 
@@ -195,8 +196,7 @@ class MeOrderRequestTest extends ApiTestCase
         $config = $this->getClientConfig('manage_my_orders');
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -218,6 +218,8 @@ class MeOrderRequestTest extends ApiTestCase
 
     public function testCustomerQuery()
     {
+        $this->markTestSkipped("Disabled");
+
         $customerDraft = $this->getCustomerDraft();
         $customer = $this->getCustomer($customerDraft);
 
@@ -231,8 +233,7 @@ class MeOrderRequestTest extends ApiTestCase
         $config = $this->getClientConfig('manage_my_orders');
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $cache = new ArrayCachePool();
         $client = Client::ofConfigCacheAndLogger($config, $cache, $this->getLogger());
@@ -251,6 +252,8 @@ class MeOrderRequestTest extends ApiTestCase
 
     public function testCustomerCreateMyOrder()
     {
+        $this->markTestSkipped("Disabled");
+
         $customerDraft = $this->getCustomerDraft();
         $customer = $this->getCustomer($customerDraft);
 
@@ -278,6 +281,8 @@ class MeOrderRequestTest extends ApiTestCase
 
     public function testAnonMyOrderWithId()
     {
+        $this->markTestSkipped("Disabled");
+
         $anonId = uniqid();
         $config = $this->getClientConfig(['manage_my_orders', 'create_anonymous_token']);
         $config->setGrantType(Config::GRANT_TYPE_ANONYMOUS)
@@ -302,6 +307,8 @@ class MeOrderRequestTest extends ApiTestCase
 
     public function testAnonMyOrder()
     {
+        $this->markTestSkipped("Disabled");
+
         $config = $this->getClientConfig(['manage_my_orders', 'create_anonymous_token']);
         $config->setGrantType(Config::GRANT_TYPE_ANONYMOUS);
 
@@ -324,6 +331,8 @@ class MeOrderRequestTest extends ApiTestCase
 
     public function testCustomerCreateMyOrderInStore()
     {
+        $this->markTestSkipped("Disabled");
+
         $customerDraft = $this->getCustomerDraft();
         $customer = $this->getCustomer($customerDraft);
 
