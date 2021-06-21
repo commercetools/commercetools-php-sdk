@@ -267,7 +267,6 @@ class OrderUpdateRequestTest extends ApiTestCase
         OrderFixture::withUpdateableOrder(
             $client,
             function (Order $order) use ($client) {
-
                 $request = RequestBuilder::of()->orders()->update($order)
                     ->addAction(OrderChangeShipmentStateAction::ofShipmentState(ShipmentState::SHIPPED));
                 $response = $this->execute($client, $request);
@@ -1086,23 +1085,26 @@ class OrderUpdateRequestTest extends ApiTestCase
 
     public function testCreateReplicaCartFromOrder()
     {
-        $cartDraft = $this->getCartDraft();
-        $order = $this->createOrder($cartDraft);
+        $client = $this->getApiClient();
+        OrderFixture::withOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $request = CartReplicateRequest::ofOrderId($order->getId());
 
-        $request = CartReplicateRequest::ofOrderId($order->getId());
+                $response = $client->execute($request);
+                $replicaCart = $request->mapFromResponse($response);
+                $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($replicaCart->getId(), $replicaCart->getVersion());
 
-        $response = $request->executeWithClient($this->getClient());
-        $replicaCart = $request->mapResponse($response);
-        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion($replicaCart->getId(), $replicaCart->getVersion());
+                $this->assertNotEmpty($replicaCart->getLineItems());
 
-        $this->assertNotEmpty($replicaCart->getLineItems());
+                $orderLineItem = $order->getLineItems()->current()->getProductId();
+                $replicaCartLineItem = $replicaCart->getLineItems()->current()->getProductId();
 
-        $orderLineItem = $order->getLineItems()->current()->getProductId();
-        $replicaCartLineItem = $replicaCart->getLineItems()->current()->getProductId();
-
-        $this->assertSame($orderLineItem, $replicaCartLineItem);
-        $this->assertNotNull($replicaCartLineItem);
-        $this->assertSame(CartState::ACTIVE, $replicaCart->getCartState());
+                $this->assertSame($orderLineItem, $replicaCartLineItem);
+                $this->assertNotNull($replicaCartLineItem);
+                $this->assertSame(CartState::ACTIVE, $replicaCart->getCartState());
+            }
+        );
     }
 
     public function testCreateOrderWithInitialData()
