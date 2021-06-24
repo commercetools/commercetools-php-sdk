@@ -12,6 +12,7 @@ use Commercetools\Core\IntegrationTests\CartDiscount\CartDiscountFixture;
 use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
 use Commercetools\Core\IntegrationTests\CustomerGroup\CustomerGroupFixture;
 use Commercetools\Core\IntegrationTests\DiscountCode\DiscountCodeFixture;
+use Commercetools\Core\IntegrationTests\Order\OrderFixture;
 use Commercetools\Core\IntegrationTests\Payment\PaymentFixture;
 use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\IntegrationTests\Project\ProjectFixture;
@@ -43,6 +44,7 @@ use Commercetools\Core\Model\CartDiscount\LineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\MultiBuyCustomLineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\MultiBuyLineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\RelativeCartDiscountValue;
+use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
@@ -59,17 +61,24 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
+use Commercetools\Core\Model\Order\DeliveryItem;
+use Commercetools\Core\Model\Order\DeliveryItemCollection;
+use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Project\CartScoreType;
 use Commercetools\Core\Model\Project\Project;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
+use Commercetools\Core\Model\ShippingMethod\ShippingMethodReference;
 use Commercetools\Core\Model\ShippingMethod\ShippingRate;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Model\TaxCategory\TaxCategory;
+use Commercetools\Core\Model\Type\FieldDefinition;
+use Commercetools\Core\Model\Type\FieldDefinitionCollection;
+use Commercetools\Core\Model\Type\StringType;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Model\Zone\Zone;
@@ -94,6 +103,12 @@ use Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemovePaymentAction;
 use Commercetools\Core\Request\Carts\Command\CartSetAnonymousIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction;
+use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomField;
+use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomType;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomField;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomType;
+use Commercetools\Core\Request\Carts\Command\OrderSetBillingAddressCustomField;
+use Commercetools\Core\Request\Carts\Command\OrderSetBillingAddressCustomType;
 use Commercetools\Core\Request\Carts\Command\CartSetCartTotalTaxAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCountryAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction;
@@ -105,6 +120,10 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemShippingDetail
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificationAction;
+use Commercetools\Core\Request\Carts\Command\CartSetDeliveryAddressCustomField;
+use Commercetools\Core\Request\Carts\Command\CartSetDeliveryAddressCustomType;
+use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomField;
+use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomType;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
@@ -113,16 +132,21 @@ use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTotalPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLocaleAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
+use Commercetools\Core\Request\Carts\Command\OrderSetShippingAddressCustomField;
+use Commercetools\Core\Request\Carts\Command\OrderSetShippingAddressCustomType;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingRateInputAction;
+use Commercetools\Core\Request\Carts\Command\CartSetTestAction;
 use Commercetools\Core\Request\Carts\Command\CartUpdateItemShippingAddressAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
+use Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction;
 use Commercetools\Core\Request\Products\Command\ProductChangeNameAction;
 use Commercetools\Core\Request\Products\Command\ProductChangePriceAction;
 use Commercetools\Core\Request\Products\Command\ProductPublishAction;
+use Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 
 class CartUpdateRequestTest extends ApiTestCase
@@ -990,6 +1014,270 @@ class CartUpdateRequestTest extends ApiTestCase
                 return $result;
             }
         );
+    }
+
+    public function testSetShippingAddressCustomType()
+    {
+        $client = $this->getApiClient();
+
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('shipping-address-set-field')
+                    ->setResourceTypeIds(['address']);
+            },
+            function (Type $type) use ($client) {
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $cartDraft) {
+                        return $cartDraft->setShippingAddress(
+                            Address::of()->setFirstName('test-' . CartFixture::uniqueCartString() . '@example.com')
+                                ->setCountry('DE')
+                                ->setCustom(
+                                    CustomFieldObjectDraft::ofTypeKey('shipping-address-set-field')
+                                        ->setFields(FieldContainer::of()->set('testField', 'value')))
+                        );
+                    },
+                    function (Cart $cart) use ($client, $type) {
+                        $this->assertInstanceOf(Cart::class, $cart);
+                        $this->assertSame('value', $cart->getShippingAddress()->getCustom()->getFields()->getTestField());
+
+                        $field = 'testField';
+                        $newValue = 'new value';
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetShippingAddressCustomType::ofTypeKey($type->getKey())
+                                    ->setFields(FieldContainer::of()
+                                        ->set($field, $newValue))
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Cart::class, $result);
+                        $this->assertSame($newValue, $result->getShippingAddress()->getCustom()->getFields()->getTestField());
+
+                        $newValue2 = 'new value 2';
+
+                        $request = RequestBuilder::of()->carts()->update($result)
+                            ->addAction(
+                                CartSetShippingAddressCustomField::ofName($field)
+                                    ->setValue('' . $newValue2 . '')
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Cart::class, $result);
+                        $this->assertSame($newValue2, $result->getShippingAddress()->getCustom()->getFields()->getTestField());
+
+                        return $result;
+                    }
+                );
+            });
+    }
+
+    public function testSetBillingAddressCustom()
+    {
+        $client = $this->getApiClient();
+
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('billing-address-set-field')
+                    ->setResourceTypeIds(['address']);
+            },
+            function (Type $type) use ($client) {
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $cartDraft) {
+                        return $cartDraft->setBillingAddress(
+                            Address::of()->setFirstName('test-' . CartFixture::uniqueCartString() . '@example.com')
+                                ->setCountry('DE')
+                                ->setCustom(
+                                    CustomFieldObjectDraft::ofTypeKey('billing-address-set-field')
+                                        ->setFields(FieldContainer::of()->set('testField', 'value')))
+                        );
+                    },
+                    function (Cart $cart) use ($client, $type) {
+                        $this->assertInstanceOf(Cart::class, $cart);
+                        $this->assertSame('value', $cart->getBillingAddress()->getCustom()->getFields()->getTestField());
+
+                        $field = 'testField';
+                        $newValue = 'new value';
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(
+                                CartSetBillingAddressCustomType::ofTypeKey($type->getKey())
+                                    ->setFields(FieldContainer::of()
+                                        ->set($field, $newValue))
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Cart::class, $result);
+                        $this->assertSame($newValue, $result->getBillingAddress()->getCustom()->getFields()->getTestField());
+
+                        $newValue2 = 'new value 2';
+
+                        $request = RequestBuilder::of()->carts()->update($result)
+                            ->addAction(
+                                CartSetBillingAddressCustomField::ofName($field)
+                                    ->setValue('' . $newValue2 . '')
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Cart::class, $result);
+                        $this->assertSame($newValue2, $result->getBillingAddress()->getCustom()->getFields()->getTestField());
+
+                        return $result;
+                    }
+                );
+            });
+    }
+
+
+    /**
+     *
+     */
+    public function testSetDeliveryAddressCustomType()
+    {
+        $client = $this->getApiClient();
+
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('delivery-address-set-field-3')
+                    ->setResourceTypeIds(['address', 'order']);
+            },
+            function (Type $type) use ($client) {
+                ShippingMethodFixture::withShippingMethod(
+                    $client,
+                    function (ShippingMethod $shippingMethod, Zone $zone) use ($client, $type) {
+                        CartFixture::withUpdateableCart(
+                            $client,
+                            function (Cart $cart) use ($client, $type, $shippingMethod, $zone) {
+                                $this->assertInstanceOf(Cart::class, $cart);
+
+                                $region = $zone->getLocations()->current()->getState();
+                                $address = Address::of()->setCountry('DE')
+                                    ->setState($region);
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartSetShippingAddressAction::of()->setAddress(
+                                            $address
+                                        )
+                                    )->addAction(
+                                        CartSetShippingMethodAction::of()->setShippingMethod($shippingMethod->getReference())
+                                    );
+                                $response = $this->execute($client, $request);
+                                $cartWithShippingMethod = $request->mapFromResponse($response);
+//                                $deliveryId = $cartWithShippingMethod->getShippingInfo()->getDeliveries()->current()->getId();
+                                $deliveryId = $cartWithShippingMethod->getShippingInfo();
+
+                                $request = RequestBuilder::of()->carts()->update($cartWithShippingMethod)
+                                    ->addAction(OrderAddDeliveryAction::of());
+                                $response = $this->execute($client, $request);
+                                $cartWithDelivery = $request->mapFromResponse($response);
+
+                                $deliveryId = $cartWithDelivery->getShippingInfo()->getDeliveries()->current()->getId();
+                                $request = RequestBuilder::of()->carts()->update($cartWithShippingMethod)
+                                    ->addAction(
+
+                                        CartSetDeliveryAddressCustomType::ofTypeKeyAndDeliveryId($type->getKey(), $deliveryId)
+                                    );
+
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
+
+                                $this->assertInstanceOf(Cart::class, $result);
+//                                $this->assertEquals($deliveryId, $result->getShippingInfo()->getDeliveries()->current()->getId());
+
+
+
+                                return $result;
+                            }
+                        );
+                    });
+            });
+    }
+
+    public function testSetDeliveryAddressCustomField()
+    {
+        $client = $this->getApiClient();
+
+        ShippingMethodFixture::withShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod, Zone $zone, TaxCategory $taxCategory) use ($client) {
+                ProductFixture::withUpdateablePublishedProduct(
+                    $client,
+                    function (Product $product) use ($client, $shippingMethod, $zone, $taxCategory) {
+                        $request = RequestBuilder::of()->products()->update($product)
+                            ->addAction(
+                                ProductSetTaxCategoryAction::of()->setTaxCategory($taxCategory->getReference())
+                            );
+                        $response = $this->execute($client, $request);
+                        $productWithTaxCategory = $request->mapFromResponse($response);
+
+                        CartFixture::withUpdateableDraftCart(
+                            $client,
+                            function (CartDraft $cartDraft) use ($productWithTaxCategory) {
+                                return $cartDraft->setLineItems(
+                                    LineItemDraftCollection::of()
+                                        ->add(
+                                            LineItemDraft::ofProductIdVariantIdAndQuantity(
+                                                $productWithTaxCategory->getId(),
+                                                1,
+                                                1
+                                            )
+                                        )
+                                );
+                            },
+                            function (Cart $cart) use ($client, $shippingMethod, $zone, $product) {
+                                $this->assertInstanceOf(Cart::class, $cart);
+
+                                $region = $zone->getLocations()->current()->getState();
+
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartSetShippingAddressAction::of()->setAddress(
+                                            Address::of()->setCountry('DE')
+                                                ->setState($region)
+                                        )
+                                    )->addAction(
+                                        CartSetShippingMethodAction::of()->setShippingMethod($shippingMethod->getReference())
+                                    );
+                                $response = $this->execute($client, $request);
+                                $cartWithShippingMethod = $request->mapFromResponse($response);
+
+                                $request = RequestBuilder::of()->carts()->update($cartWithShippingMethod)
+                                    ->addAction(OrderAddDeliveryAction::ofDeliveryItems(
+                                        DeliveryItemCollection::of()->add(
+                                            DeliveryItem::of()->setId($product->getId())->setQuantity(1)
+                                        )
+                                    ));
+                                $response = $this->execute($client, $request);
+                                $cartWithDelivery = $request->mapFromResponse($response);
+                                $deliveryId = $cartWithDelivery->getShippingInfo()->getDeliveries()->current()->getId();
+                                $request = RequestBuilder::of()->carts()->update($cartWithDelivery)
+                                    ->addAction(
+
+                                        CartSetDeliveryAddressCustomField::ofDeliveryIdAndName($deliveryId, 'testField')
+                                    );
+
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
+
+                                $this->assertInstanceOf(Cart::class, $result);
+//                        $this->assertEquals($deliveryId, $result->getShippingInfo()->getDeliveries()->current()->getId());
+
+
+                                return $result;
+                            }
+                        );
+                        return $productWithTaxCategory;
+                    });
+            });
     }
 
     public function testSetAnonymousId()

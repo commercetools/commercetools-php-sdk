@@ -19,6 +19,8 @@ use Commercetools\Core\Request\Orders\Command\OrderRemoveItemShippingAddressActi
 use Commercetools\Core\Request\Orders\Command\OrderRemoveParcelFromDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemovePaymentAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddress;
+use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddressCustomField;
+use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddressCustomType;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemCustomTypeAction;
@@ -39,6 +41,8 @@ use Commercetools\Core\Request\Orders\Command\OrderSetParcelTrackingDataAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
+use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddressCustomField;
+use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddressCustomType;
 use Commercetools\Core\Request\Orders\Command\OrderSetStoreAction;
 use Commercetools\Core\Request\Orders\Command\OrderTransitionCustomLineItemStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderTransitionLineItemStateAction;
@@ -212,6 +216,28 @@ class OrdersActionBuilder
     public function setBillingAddress($action = null)
     {
         $this->addAction($this->resolveAction(OrderSetBillingAddress::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetBillingAddressCustomField|callable $action
+     * @return $this
+     */
+    public function setBillingAddressCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetBillingAddressCustomField::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetBillingAddressCustomType|callable $action
+     * @return $this
+     */
+    public function setBillingAddressCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetBillingAddressCustomType::class, $action));
         return $this;
     }
 
@@ -432,6 +458,28 @@ class OrdersActionBuilder
     public function setShippingAddress($action = null)
     {
         $this->addAction($this->resolveAction(OrderSetShippingAddress::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetShippingAddressCustomField|callable $action
+     * @return $this
+     */
+    public function setShippingAddressCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetShippingAddressCustomField::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetShippingAddressCustomType|callable $action
+     * @return $this
+     */
+    public function setShippingAddressCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetShippingAddressCustomType::class, $action));
         return $this;
     }
 

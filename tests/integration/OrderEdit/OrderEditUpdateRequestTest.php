@@ -15,6 +15,7 @@ use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Order\OrderReference;
 use Commercetools\Core\Model\OrderEdit\OrderEdit;
@@ -24,6 +25,7 @@ use Commercetools\Core\Model\OrderEdit\OrderEditPreviewSuccess;
 use Commercetools\Core\Model\ShippingMethod\ShippingRateDraft;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Model\Type\Type;
+use Commercetools\Core\Model\Type\TypeDraft;
 use Commercetools\Core\Model\Type\TypeReference;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCommentAction;
@@ -51,6 +53,8 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveI
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveLineItemAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemovePaymentAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCountryAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomerEmailAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomerGroupAction;
@@ -75,6 +79,8 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShip
 //phpcs:ignore
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndCustomShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndShippingMethodAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodTaxRateAction;
@@ -406,6 +412,20 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
                 return StagedOrderChangeCustomLineItemMoneyAction::of()
                 ->setCustomLineItemId($this->getProduct()->getId())->setMoney(Money::ofCurrencyAndAmount('EUR', 100));
             }],
+            StagedOrderSetBillingAddressCustomFieldAction::class => [function () {
+                return StagedOrderSetBillingAddressCustomFieldAction::of()
+                    ->setName($$this->getTestRun().'-name');
+            }],
+            StagedOrderSetBillingAddressCustomTypeAction::class => [function () {
+                return StagedOrderSetBillingAddressCustomTypeAction::of();
+            }],
+            StagedOrderSetShippingAddressCustomFieldAction::class => [function () {
+                return StagedOrderSetShippingAddressCustomFieldAction::of()
+                    ->setName($$this->getTestRun().'-name');
+            }],
+            StagedOrderSetShippingAddressCustomTypeAction::class => [function () {
+                return StagedOrderSetShippingAddressCustomTypeAction::of();
+            }],
         ];
     }
     //phpcs:enable
@@ -521,4 +541,127 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
             }
         );
     }
+
+    public function testSetShippingAddressCustom()
+    {
+        $client = $this->getApiClient();
+
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('shipping-address-set-field-orderedit-1')
+                    ->setResourceTypeIds(['address', 'order-edit']);
+            },
+            function (Type $type) use ($client) {
+                OrderEditFixture::withUpdateableOrderEdit(
+                    $client,
+                    function (OrderEdit $orderEdit) use ($client, $type) {
+                        $this->assertInstanceOf(OrderEdit::class, $orderEdit);
+
+                        $field = 'testField';
+                        $newValue = 'new value';
+                        $request = RequestBuilder::of()->orderEdits()->update($orderEdit)
+                            ->setActions([
+                                OrderEditSetStagedActionsAction::of()->setStagedActions(StagedOrderUpdateActionCollection::of()
+                                    ->add(StagedOrderSetShippingAddressCustomTypeAction::ofTypeKey($type->getKey())
+                                        ->setFields(FieldContainer::of()
+                                            ->set($field, $newValue))))
+                            ]);
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(OrderEdit::class, $result);
+                        $stagedActions = $result->getStagedActions();
+
+                        $this->assertInstanceOf(StagedOrderUpdateActionCollection::class, $stagedActions);
+                        $this->assertCount(1, $stagedActions);
+
+                        $this->assertEquals(['action' => 'setShippingAddressCustomType', 'type' => ['typeId'=> 'type', 'key' => $type->getKey()], 'fields' => ['testField' => $newValue]], $stagedActions->current());
+
+                        $newValue2 = 'new value 2';
+
+                        $request = RequestBuilder::of()->orderEdits()->update($result)
+                            ->setActions([
+                                OrderEditSetStagedActionsAction::of()->setStagedActions(StagedOrderUpdateActionCollection::of()
+                                    ->add(StagedOrderSetShippingAddressCustomFieldAction::ofName($newValue2)))
+                            ]);
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(OrderEdit::class, $result);
+                        $stagedActions = $result->getStagedActions();
+
+                        $this->assertInstanceOf(StagedOrderUpdateActionCollection::class, $stagedActions);
+                        $this->assertCount(1, $stagedActions);
+
+                        $this->assertEquals(['action' => 'setShippingAddressCustomField', 'name' => $newValue2], $stagedActions->current());
+
+                        return $result;
+                    }
+                );
+            });
+    }
+
+    public function testSetBillingAddressCustom()
+    {
+        $client = $this->getApiClient();
+
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('billing-address-set-field-orderedit')
+                    ->setResourceTypeIds(['address', 'order-edit']);
+            },
+            function (Type $type) use ($client) {
+                OrderEditFixture::withUpdateableOrderEdit(
+                    $client,
+                    function (OrderEdit $orderEdit) use ($client, $type) {
+                        $this->assertInstanceOf(OrderEdit::class, $orderEdit);
+
+                        $field = 'testField';
+                        $newValue = 'new value';
+                        $request = RequestBuilder::of()->orderEdits()->update($orderEdit)
+                            ->setActions([
+                                OrderEditSetStagedActionsAction::of()->setStagedActions(
+                                    StagedOrderUpdateActionCollection::of()
+                                    ->add(StagedOrderSetBillingAddressCustomTypeAction::ofTypeKey($type->getKey())
+                                        ->setFields(FieldContainer::of()
+                                            ->set($field, $newValue))))
+                            ]);
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(OrderEdit::class, $result);
+                        $stagedActions = $result->getStagedActions();
+
+                        $this->assertInstanceOf(StagedOrderUpdateActionCollection::class, $stagedActions);
+                        $this->assertCount(1, $stagedActions);
+
+                        $this->assertEquals(['action' => 'setBillingAddressCustomType', 'type' => ['typeId'=> 'type', 'key' => $type->getKey()], 'fields' => ['testField' => $newValue]], $stagedActions->current());
+
+                        $newValue2 = 'new value 2';
+
+                        $request = RequestBuilder::of()->orderEdits()->update($result)
+                            ->setActions([
+                                OrderEditSetStagedActionsAction::of()->setStagedActions(
+                                    StagedOrderUpdateActionCollection::of()
+                                    ->add(StagedOrderSetBillingAddressCustomFieldAction::ofName($newValue2)))
+                            ]);
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(OrderEdit::class, $result);
+                        $stagedActions = $result->getStagedActions();
+
+                        $this->assertInstanceOf(StagedOrderUpdateActionCollection::class, $stagedActions);
+                        $this->assertCount(1, $stagedActions);
+
+                        $this->assertEquals(['action' => 'setBillingAddressCustomField', 'name' => $newValue2], $stagedActions->current());
+
+                        return $result;
+                    }
+                );
+            });
+    }
+
 }
