@@ -53,8 +53,6 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveI
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveLineItemAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemovePaymentAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressAction;
-use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressCustomFieldAction;
-use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCountryAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomerEmailAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomerGroupAction;
@@ -79,8 +77,6 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShip
 //phpcs:ignore
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndCustomShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndShippingMethodAction;
-use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressCustomFieldAction;
-use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodTaxRateAction;
@@ -412,14 +408,16 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
                 return StagedOrderChangeCustomLineItemMoneyAction::of()
                 ->setCustomLineItemId($this->getProduct()->getId())->setMoney(Money::ofCurrencyAndAmount('EUR', 100));
             }],
-            StagedOrderSetBillingAddressCustomFieldAction::class => [function () {
-                return StagedOrderSetBillingAddressCustomFieldAction::of()
-                    ->setName($$this->getTestRun().'-name');
-            }],
-            StagedOrderSetBillingAddressCustomTypeAction::class => [function () {
-                return StagedOrderSetBillingAddressCustomTypeAction::of();
-            }],
-            // the comment can be removed after we fix this action correctly in the raml repo
+
+
+// the comment can be removed after we fix this action correctly in the raml repo
+//            StagedOrderSetBillingAddressCustomFieldAction::class => [function () {
+//                return StagedOrderSetBillingAddressCustomFieldAction::of()
+//                    ->setName($$this->getTestRun().'-name');
+//            }],
+//            StagedOrderSetBillingAddressCustomTypeAction::class => [function () {
+//                return StagedOrderSetBillingAddressCustomTypeAction::of();
+//            }],
 //            StagedOrderSetShippingAddressCustomFieldAction::class => [function () {
 //                return StagedOrderSetShippingAddressCustomFieldAction::of()
 //                    ->setName($$this->getTestRun().'-name');
