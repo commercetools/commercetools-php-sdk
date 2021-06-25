@@ -9,13 +9,13 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
  * @package Commercetools\Core\Request\Carts\Command
  *
  * @method string getAction()
- * @method CartSetShippingAddressCustomField setAction(string $action = null)
+ * @method CartSetBillingAddressCustomFieldAction setAction(string $action = null)
  * @method string getName()
- * @method CartSetShippingAddressCustomField setName(string $name = null)
+ * @method CartSetBillingAddressCustomFieldAction setName(string $name = null)
  * @method mixed getValue()
- * @method CartSetShippingAddressCustomField setValue($value = null)
+ * @method CartSetBillingAddressCustomFieldAction setValue($value = null)
  */
-class CartSetShippingAddressCustomField extends SetCustomFieldAction
+class CartSetBillingAddressCustomFieldAction extends SetCustomFieldAction
 {
     public function fieldDefinitions()
     {
@@ -33,6 +33,6 @@ class CartSetShippingAddressCustomField extends SetCustomFieldAction
     public function __construct(array $data = [], $context = null)
     {
         parent::__construct($data, $context);
-        $this->setAction('setShippingAddressCustomField');
+        $this->setAction('setBillingAddressCustomField');
     }
 }

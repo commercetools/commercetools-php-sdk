@@ -78,8 +78,8 @@ use Commercetools\Core\Request\Orders\Command\OrderRemoveItemShippingAddressActi
 use Commercetools\Core\Request\Orders\Command\OrderRemoveParcelFromDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderRemovePaymentAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddress;
-use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddressCustomField;
-use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddressCustomType;
+use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddressCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetBillingAddressCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomerIdAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemShippingDetailsAction;
@@ -96,8 +96,8 @@ use Commercetools\Core\Request\Orders\Command\OrderSetParcelTrackingDataAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
-use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddressCustomField;
-use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddressCustomType;
+use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetStoreAction;
 use Commercetools\Core\Request\Orders\Command\OrderUpdateItemShippingAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction;
@@ -1415,7 +1415,7 @@ class OrderUpdateRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->orders()->update($order)
                             ->addAction(
-                                OrderSetShippingAddressCustomType::ofTypeKey($type->getKey())
+                                OrderSetShippingAddressCustomTypeAction::ofTypeKey($type->getKey())
                                     ->setFields(FieldContainer::of()
                                         ->set($field, $newValue))
                             );
@@ -1429,7 +1429,7 @@ class OrderUpdateRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->orders()->update($result)
                             ->addAction(
-                                OrderSetShippingAddressCustomField::ofName($field)
+                                OrderSetShippingAddressCustomFieldAction::ofName($field)
                                     ->setValue('' . $newValue2 . '')
                             );
                         $response = $this->execute($client, $request);
@@ -1441,7 +1441,8 @@ class OrderUpdateRequestTest extends ApiTestCase
                         return $result;
                     }
                 );
-            });
+            }
+        );
     }
 
     public function testSetBillingAddressCustom()
@@ -1470,7 +1471,7 @@ class OrderUpdateRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->orders()->update($order)
                             ->addAction(
-                                OrderSetBillingAddressCustomType::ofTypeKey($type->getKey())
+                                OrderSetBillingAddressCustomTypeAction::ofTypeKey($type->getKey())
                                     ->setFields(FieldContainer::of()
                                         ->set($field, $newValue))
                             );
@@ -1484,7 +1485,7 @@ class OrderUpdateRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->orders()->update($result)
                             ->addAction(
-                                OrderSetBillingAddressCustomField::ofName($field)
+                                OrderSetBillingAddressCustomFieldAction::ofName($field)
                                     ->setValue('' . $newValue2 . '')
                             );
                         $response = $this->execute($client, $request);
@@ -1496,7 +1497,8 @@ class OrderUpdateRequestTest extends ApiTestCase
                         return $result;
                     }
                 );
-            });
+            }
+        );
     }
 
 //    public function testSetDeliveryAddressCustomField()
@@ -1611,5 +1613,4 @@ class OrderUpdateRequestTest extends ApiTestCase
 //                    });
 //            });
 //    }
-
 }

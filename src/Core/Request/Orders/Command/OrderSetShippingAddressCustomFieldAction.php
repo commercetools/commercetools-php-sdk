@@ -1,22 +1,21 @@
 <?php
 
-namespace Commercetools\Core\Request\OrderEdits\StagedOrder\Command;
+namespace Commercetools\Core\Request\Orders\Command;
 
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Request\Orders\Command\OrderSetCustomFieldAction;
+use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 
 /**
- * @package Commercetools\Core\Request\OrderEdits\StagedOrder\Command
+ * @package Commercetools\Core\Request\Orders\Command
  *
  * @method string getAction()
- * @method StagedOrderSetShippingAddressCustomFieldAction setAction(string $action = null)
+ * @method OrderSetShippingAddressCustomFieldAction setAction(string $action = null)
  * @method string getName()
- * @method StagedOrderSetShippingAddressCustomFieldAction setName(string $name = null)
+ * @method OrderSetShippingAddressCustomFieldAction setName(string $name = null)
  * @method mixed getValue()
- * @method StagedOrderSetShippingAddressCustomFieldAction setValue($value = null)
+ * @method OrderSetShippingAddressCustomFieldAction setValue($value = null)
  */
-// phpcs:ignore
-class StagedOrderSetShippingAddressCustomFieldAction extends OrderSetCustomFieldAction implements StagedOrderUpdateAction
+class OrderSetShippingAddressCustomFieldAction extends SetCustomFieldAction
 {
     public function fieldDefinitions()
     {

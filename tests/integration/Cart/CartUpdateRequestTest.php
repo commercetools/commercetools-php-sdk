@@ -103,10 +103,10 @@ use Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemovePaymentAction;
 use Commercetools\Core\Request\Carts\Command\CartSetAnonymousIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction;
-use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomField;
-use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomType;
-use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomField;
-use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomType;
+use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomFieldAction;
+use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\OrderSetBillingAddressCustomField;
 use Commercetools\Core\Request\Carts\Command\OrderSetBillingAddressCustomType;
 use Commercetools\Core\Request\Carts\Command\CartSetCartTotalTaxAction;
@@ -1035,7 +1035,8 @@ class CartUpdateRequestTest extends ApiTestCase
                                 ->setCountry('DE')
                                 ->setCustom(
                                     CustomFieldObjectDraft::ofTypeKey('shipping-address-set-field')
-                                        ->setFields(FieldContainer::of()->set('testField', 'value')))
+                                    ->setFields(FieldContainer::of()->set('testField', 'value'))
+                                )
                         );
                     },
                     function (Cart $cart) use ($client, $type) {
@@ -1047,7 +1048,7 @@ class CartUpdateRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->carts()->update($cart)
                             ->addAction(
-                                CartSetShippingAddressCustomType::ofTypeKey($type->getKey())
+                                CartSetShippingAddressCustomTypeAction::ofTypeKey($type->getKey())
                                     ->setFields(FieldContainer::of()
                                         ->set($field, $newValue))
                             );
@@ -1061,7 +1062,7 @@ class CartUpdateRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->carts()->update($result)
                             ->addAction(
-                                CartSetShippingAddressCustomField::ofName($field)
+                                CartSetShippingAddressCustomFieldAction::ofName($field)
                                     ->setValue('' . $newValue2 . '')
                             );
                         $response = $this->execute($client, $request);
@@ -1073,7 +1074,8 @@ class CartUpdateRequestTest extends ApiTestCase
                         return $result;
                     }
                 );
-            });
+            }
+        );
     }
 
     public function testSetBillingAddressCustom()
@@ -1095,7 +1097,8 @@ class CartUpdateRequestTest extends ApiTestCase
                                 ->setCountry('DE')
                                 ->setCustom(
                                     CustomFieldObjectDraft::ofTypeKey('billing-address-set-field')
-                                        ->setFields(FieldContainer::of()->set('testField', 'value')))
+                                    ->setFields(FieldContainer::of()->set('testField', 'value'))
+                                )
                         );
                     },
                     function (Cart $cart) use ($client, $type) {
@@ -1107,7 +1110,7 @@ class CartUpdateRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->carts()->update($cart)
                             ->addAction(
-                                CartSetBillingAddressCustomType::ofTypeKey($type->getKey())
+                                CartSetBillingAddressCustomTypeAction::ofTypeKey($type->getKey())
                                     ->setFields(FieldContainer::of()
                                         ->set($field, $newValue))
                             );
@@ -1121,7 +1124,7 @@ class CartUpdateRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->carts()->update($result)
                             ->addAction(
-                                CartSetBillingAddressCustomField::ofName($field)
+                                CartSetBillingAddressCustomFieldAction::ofName($field)
                                     ->setValue('' . $newValue2 . '')
                             );
                         $response = $this->execute($client, $request);
@@ -1133,7 +1136,8 @@ class CartUpdateRequestTest extends ApiTestCase
                         return $result;
                     }
                 );
-            });
+            }
+        );
     }
 
 
@@ -1172,7 +1176,7 @@ class CartUpdateRequestTest extends ApiTestCase
                                     );
                                 $response = $this->execute($client, $request);
                                 $cartWithShippingMethod = $request->mapFromResponse($response);
-//                                $deliveryId = $cartWithShippingMethod->getShippingInfo()->getDeliveries()->current()->getId();
+                                //                                $deliveryId = $cartWithShippingMethod->getShippingInfo()->getDeliveries()->current()->getId();
                                 $deliveryId = $cartWithShippingMethod->getShippingInfo();
 
                                 $request = RequestBuilder::of()->carts()->update($cartWithShippingMethod)
@@ -1183,7 +1187,6 @@ class CartUpdateRequestTest extends ApiTestCase
                                 $deliveryId = $cartWithDelivery->getShippingInfo()->getDeliveries()->current()->getId();
                                 $request = RequestBuilder::of()->carts()->update($cartWithShippingMethod)
                                     ->addAction(
-
                                         CartSetDeliveryAddressCustomType::ofTypeKeyAndDeliveryId($type->getKey(), $deliveryId)
                                     );
 
@@ -1191,15 +1194,17 @@ class CartUpdateRequestTest extends ApiTestCase
                                 $result = $request->mapFromResponse($response);
 
                                 $this->assertInstanceOf(Cart::class, $result);
-//                                $this->assertEquals($deliveryId, $result->getShippingInfo()->getDeliveries()->current()->getId());
+                                //                                $this->assertEquals($deliveryId, $result->getShippingInfo()->getDeliveries()->current()->getId());
 
 
 
                                 return $result;
                             }
                         );
-                    });
-            });
+                    }
+                );
+            }
+        );
     }
 
     public function testSetDeliveryAddressCustomField()
@@ -1261,7 +1266,6 @@ class CartUpdateRequestTest extends ApiTestCase
                                 $deliveryId = $cartWithDelivery->getShippingInfo()->getDeliveries()->current()->getId();
                                 $request = RequestBuilder::of()->carts()->update($cartWithDelivery)
                                     ->addAction(
-
                                         CartSetDeliveryAddressCustomField::ofDeliveryIdAndName($deliveryId, 'testField')
                                     );
 
@@ -1269,15 +1273,17 @@ class CartUpdateRequestTest extends ApiTestCase
                                 $result = $request->mapFromResponse($response);
 
                                 $this->assertInstanceOf(Cart::class, $result);
-//                        $this->assertEquals($deliveryId, $result->getShippingInfo()->getDeliveries()->current()->getId());
+                                //                        $this->assertEquals($deliveryId, $result->getShippingInfo()->getDeliveries()->current()->getId());
 
 
                                 return $result;
                             }
                         );
                         return $productWithTaxCategory;
-                    });
-            });
+                    }
+                );
+            }
+        );
     }
 
     public function testSetAnonymousId()

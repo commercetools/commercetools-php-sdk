@@ -26,8 +26,8 @@ use Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemovePaymentAction;
 use Commercetools\Core\Request\Carts\Command\CartSetAnonymousIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction;
-use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomField;
-use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomType;
+use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomFieldAction;
+use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCartTotalTaxAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCountryAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomFieldAction;
@@ -51,8 +51,8 @@ use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxRateAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTotalPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLocaleAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
-use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomField;
-use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomType;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxRateAction;
@@ -308,23 +308,23 @@ class CartsActionBuilder
 
     /**
      *
-     * @param CartSetBillingAddressCustomField|callable $action
+     * @param CartSetBillingAddressCustomFieldAction|callable $action
      * @return $this
      */
     public function setBillingAddressCustomField($action = null)
     {
-        $this->addAction($this->resolveAction(CartSetBillingAddressCustomField::class, $action));
+        $this->addAction($this->resolveAction(CartSetBillingAddressCustomFieldAction::class, $action));
         return $this;
     }
 
     /**
      *
-     * @param CartSetBillingAddressCustomType|callable $action
+     * @param CartSetBillingAddressCustomTypeAction|callable $action
      * @return $this
      */
     public function setBillingAddressCustomType($action = null)
     {
-        $this->addAction($this->resolveAction(CartSetBillingAddressCustomType::class, $action));
+        $this->addAction($this->resolveAction(CartSetBillingAddressCustomTypeAction::class, $action));
         return $this;
     }
 
@@ -583,23 +583,23 @@ class CartsActionBuilder
 
     /**
      *
-     * @param CartSetShippingAddressCustomField|callable $action
+     * @param CartSetShippingAddressCustomFieldAction|callable $action
      * @return $this
      */
     public function setShippingAddressCustomField($action = null)
     {
-        $this->addAction($this->resolveAction(CartSetShippingAddressCustomField::class, $action));
+        $this->addAction($this->resolveAction(CartSetShippingAddressCustomFieldAction::class, $action));
         return $this;
     }
 
     /**
      *
-     * @param CartSetShippingAddressCustomType|callable $action
+     * @param CartSetShippingAddressCustomTypeAction|callable $action
      * @return $this
      */
     public function setShippingAddressCustomType($action = null)
     {
-        $this->addAction($this->resolveAction(CartSetShippingAddressCustomType::class, $action));
+        $this->addAction($this->resolveAction(CartSetShippingAddressCustomTypeAction::class, $action));
         return $this;
     }
 

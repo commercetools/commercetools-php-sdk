@@ -1,21 +1,21 @@
 <?php
 
-namespace Commercetools\Core\Request\Orders\Command;
+namespace Commercetools\Core\Request\Carts\Command;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
 
 /**
- * @package Commercetools\Core\Request\Orders\Command
+ * @package Commercetools\Core\Request\Carts\Command
  *
  * @method string getAction()
- * @method OrderSetShippingAddressCustomField setAction(string $action = null)
+ * @method CartSetShippingAddressCustomFieldAction setAction(string $action = null)
  * @method string getName()
- * @method OrderSetShippingAddressCustomField setName(string $name = null)
+ * @method CartSetShippingAddressCustomFieldAction setName(string $name = null)
  * @method mixed getValue()
- * @method OrderSetShippingAddressCustomField setValue($value = null)
+ * @method CartSetShippingAddressCustomFieldAction setValue($value = null)
  */
-class OrderSetShippingAddressCustomField extends SetCustomFieldAction
+class CartSetShippingAddressCustomFieldAction extends SetCustomFieldAction
 {
     public function fieldDefinitions()
     {

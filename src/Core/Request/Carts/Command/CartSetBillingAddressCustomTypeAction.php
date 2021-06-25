@@ -11,13 +11,13 @@ use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
  * @package Commercetools\Core\Request\Carts\Command
  *
  * @method string getAction()
- * @method CartSetBillingAddressCustomType setAction(string $action = null)
+ * @method CartSetBillingAddressCustomTypeAction setAction(string $action = null)
  * @method TypeReference getType()
- * @method CartSetBillingAddressCustomType setType(TypeReference $type = null)
+ * @method CartSetBillingAddressCustomTypeAction setType(TypeReference $type = null)
  * @method FieldContainer getFields()
- * @method CartSetBillingAddressCustomType setFields(FieldContainer $fields = null)
+ * @method CartSetBillingAddressCustomTypeAction setFields(FieldContainer $fields = null)
  */
-class CartSetBillingAddressCustomType extends SetCustomTypeAction
+class CartSetBillingAddressCustomTypeAction extends SetCustomTypeAction
 {
     public function fieldDefinitions()
     {

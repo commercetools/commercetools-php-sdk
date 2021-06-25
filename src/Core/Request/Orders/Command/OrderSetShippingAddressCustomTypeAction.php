@@ -1,6 +1,6 @@
 <?php
 
-namespace Commercetools\Core\Request\Carts\Command;
+namespace Commercetools\Core\Request\Orders\Command;
 
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\CustomField\FieldContainer;
@@ -8,16 +8,16 @@ use Commercetools\Core\Model\Type\TypeReference;
 use Commercetools\Core\Request\CustomField\Command\SetCustomTypeAction;
 
 /**
- * @package Commercetools\Core\Request\Carts\Command
+ * @package Commercetools\Core\Request\Orders\Command
  *
  * @method string getAction()
- * @method CartSetShippingAddressCustomType setAction(string $action = null)
+ * @method OrderSetShippingAddressCustomTypeAction setAction(string $action = null)
  * @method TypeReference getType()
- * @method CartSetShippingAddressCustomType setType(TypeReference $type = null)
+ * @method OrderSetShippingAddressCustomTypeAction setType(TypeReference $type = null)
  * @method FieldContainer getFields()
- * @method CartSetShippingAddressCustomType setFields(FieldContainer $fields = null)
+ * @method OrderSetShippingAddressCustomTypeAction setFields(FieldContainer $fields = null)
  */
-class CartSetShippingAddressCustomType extends SetCustomTypeAction
+class OrderSetShippingAddressCustomTypeAction extends SetCustomTypeAction
 {
     public function fieldDefinitions()
     {
