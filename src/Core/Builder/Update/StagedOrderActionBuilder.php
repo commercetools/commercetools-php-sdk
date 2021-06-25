@@ -32,8 +32,6 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveL
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveParcelFromDeliveryAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemovePaymentAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressAction;
-use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressCustomFieldAction;
-use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCountryAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomFieldAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomLineItemCustomFieldAction;
@@ -67,8 +65,6 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShip
 // phpcs:ignore
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndCustomShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndShippingMethodAction;
-use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressCustomFieldAction;
-use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodTaxRateAction;
@@ -389,28 +385,6 @@ class StagedOrderActionBuilder
     public function setBillingAddress($action = null)
     {
         $this->addAction($this->resolveAction(StagedOrderSetBillingAddressAction::class, $action));
-        return $this;
-    }
-
-    /**
-     *
-     * @param StagedOrderSetBillingAddressCustomFieldAction|callable $action
-     * @return $this
-     */
-    public function setBillingAddressCustomField($action = null)
-    {
-        $this->addAction($this->resolveAction(StagedOrderSetBillingAddressCustomFieldAction::class, $action));
-        return $this;
-    }
-
-    /**
-     *
-     * @param StagedOrderSetBillingAddressCustomTypeAction|callable $action
-     * @return $this
-     */
-    public function setBillingAddressCustomType($action = null)
-    {
-        $this->addAction($this->resolveAction(StagedOrderSetBillingAddressCustomTypeAction::class, $action));
         return $this;
     }
 
@@ -764,28 +738,6 @@ class StagedOrderActionBuilder
     public function setShippingAddressAndShippingMethod($action = null)
     {
         $this->addAction($this->resolveAction(StagedOrderSetShippingAddressAndShippingMethodAction::class, $action));
-        return $this;
-    }
-
-    /**
-     *
-     * @param StagedOrderSetShippingAddressCustomFieldAction|callable $action
-     * @return $this
-     */
-    public function setShippingAddressCustomField($action = null)
-    {
-        $this->addAction($this->resolveAction(StagedOrderSetShippingAddressCustomFieldAction::class, $action));
-        return $this;
-    }
-
-    /**
-     *
-     * @param StagedOrderSetShippingAddressCustomTypeAction|callable $action
-     * @return $this
-     */
-    public function setShippingAddressCustomType($action = null)
-    {
-        $this->addAction($this->resolveAction(StagedOrderSetShippingAddressCustomTypeAction::class, $action));
         return $this;
     }
 
