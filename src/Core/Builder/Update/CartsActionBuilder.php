@@ -42,6 +42,8 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerGroupAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificationAction;
+use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
@@ -479,6 +481,28 @@ class CartsActionBuilder
     public function setDeleteDaysAfterLastModification($action = null)
     {
         $this->addAction($this->resolveAction(CartSetDeleteDaysAfterLastModificationAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetItemShippingAddressCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setItemShippingAddressCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetItemShippingAddressCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetItemShippingAddressCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setItemShippingAddressCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetItemShippingAddressCustomTypeAction::class, $action));
         return $this;
     }
 

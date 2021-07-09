@@ -8,16 +8,12 @@ namespace Commercetools\Core\IntegrationTests\Order;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\IntegrationTests\Cart\CartFixture;
 use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
 use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
 use Commercetools\Core\IntegrationTests\Payment\PaymentFixture;
-use Commercetools\Core\IntegrationTests\Product\ProductFixture;
-use Commercetools\Core\IntegrationTests\ShippingMethod\ShippingMethodFixture;
 use Commercetools\Core\IntegrationTests\State\StateFixture;
 use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
-use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
@@ -49,21 +45,17 @@ use Commercetools\Core\Model\Order\ShipmentState;
 use Commercetools\Core\Model\Order\TrackingData;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Product\Product;
-use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\State\State;
 use Commercetools\Core\Model\State\StateDraft;
 use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreReference;
-use Commercetools\Core\Model\TaxCategory\TaxCategory;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
-use Commercetools\Core\Model\Zone\Zone;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartReplicateRequest;
-use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddItemShippingAddressAction;
@@ -84,9 +76,11 @@ use Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomerIdAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
-use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomField;
-use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomType;
+use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetItemShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetItemShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLocaleAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
@@ -103,7 +97,6 @@ use Commercetools\Core\Request\Orders\Command\OrderUpdateItemShippingAddressActi
 use Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;
-use Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction;
 
 class OrderUpdateRequestTest extends ApiTestCase
 {
@@ -1501,116 +1494,141 @@ class OrderUpdateRequestTest extends ApiTestCase
         );
     }
 
-//    public function testSetDeliveryAddressCustomField()
-//    {
-//        $client = $this->getApiClient();
-//
-//        ShippingMethodFixture::withShippingMethod(
-//            $client,
-//            function (ShippingMethod $shippingMethod, Zone $zone) use ($client) {
-//                OrderFixture::withUpdateableCartDraftOrder(
-//                    $client,
-//                    function (CartDraft $cartDraft) use ($shippingMethod) {
-//                        return $cartDraft->setShippingMethod($shippingMethod->getReference());
-//                    },
-//                    function (OrderCreateFromCartRequest $cartRequest) use ($cartDraft) {
-//                        return RequestBuilder::of()->orders()->createFromCart($cart)
-//                    },
-//                    function (Order $order) use ($client, $shippingMethod, $zone) {
-//                        $this->assertInstanceOf(Order::class, $order);
-//
-//                        $region = $zone->getLocations()->current()->getState();
-//
-//                        $request = RequestBuilder::of()->orders()->update($order)
-//                            ->addAction(OrderSetShippingAddress::of()->setAddress(
-//                                Address::of()->setCountry('DE')
-//                                    ->setState($region)
-//                            ));
-//                        $response = $this->execute($client, $request);
-//                        $orderWithShippingAddress = $request->mapFromResponse($response);
-//
-//                        $request = RequestBuilder::of()->orders()->update($orderWithShippingAddress)
-//                            ->addAction(OrderAddDeliveryAction::ofDeliveryItems(
-//                                DeliveryItemCollection::of()->add(
-//                                    DeliveryItem::of()->setId($orderWithShippingAddress->getLineItems()->current()->getId())->setQuantity(1)
-//                                )
-//                            ));
-//                        $response = $this->execute($client, $request);
-//                        $orderWithDelivery = $request->mapFromResponse($response);
-//
-//                        $deliveryId = $orderWithDelivery->getShippingInfo()->getDeliveries()->current()->getId();
-//                        $name = 'testField';
-//
-//                        $request = RequestBuilder::of()->orders()->update($orderWithDelivery)
-//                            ->addAction(
-//                                OrderSetDeliveryAddressCustomField::ofDeliveryIdAndName($deliveryId, $name)
-//                            );
-//                        $response = $this->execute($client, $request);
-//                        $result = $request->mapFromResponse($response);
-//
-//                        $this->assertInstanceOf(Order::class, $result);
-//                        $this->assertEquals($deliveryId, $result->getShippingInfo()->getDeliveries()->current()->getId());
-//
-//                        return $result;
-//                    }
-//                );
-//            });
-//    }
-//
-//    public function testSetDeliveryAddressCustomType()
-//    {
-//        $client = $this->getApiClient();
-//
-//        TypeFixture::withDraftType(
-//            $client,
-//            function (TypeDraft $typeDraft) {
-//                return $typeDraft->setKey('delivery-address-set-field-3')
-//                    ->setResourceTypeIds(['address', 'order']);
-//            },
-//            function (Type $type) use ($client) {
-//                ShippingMethodFixture::withShippingMethod(
-//                    $client,
-//                    function (ShippingMethod $shippingMethod, Zone $zone) use ($client, $type) {
-//                        OrderFixture::withUpdateableOrder(
-//                            $client,
-//                            function (Order $order) use ($client, $shippingMethod, $zone) {
-//                                $this->assertInstanceOf(Order::class, $order);
-//
-//                                $region = $zone->getLocations()->current()->getState();
-//
-//                                $request = RequestBuilder::of()->orders()->update($order)
-//                                    ->addAction(OrderSetShippingAddress::of()->setAddress(
-//                                        Address::of()->setCountry('DE')
-//                                            ->setState($region)
-//                                    ));
-//                                $response = $this->execute($client, $request);
-//                                $orderWithShippingAddress = $request->mapFromResponse($response);
-//
-//                                $request = RequestBuilder::of()->orders()->update($orderWithShippingAddress)
-//                                    ->addAction(OrderAddDeliveryAction::ofDeliveryItems(
-//                                        DeliveryItemCollection::of()->add(
-//                                            DeliveryItem::of()->setId($orderWithShippingAddress->getLineItems()->current()->getId())->setQuantity(1)
-//                                        )
-//                                    ));
-//                                $response = $this->execute($client, $request);
-//                                $orderWithDelivery = $request->mapFromResponse($response);
-//
-//                                $deliveryId = $orderWithDelivery->getShippingInfo()->getDeliveries()->current()->getId();
-//
-//                                $request = RequestBuilder::of()->orders()->update($orderWithDelivery)
-//                                    ->addAction(
-//                                        OrderSetDeliveryAddressCustomType::ofDeliveryId($deliveryId)
-//                                    );
-//                                $response = $this->execute($client, $request);
-//                                $result = $request->mapFromResponse($response);
-//
-//                                $this->assertInstanceOf(Order::class, $result);
-//                                $this->assertEquals($deliveryId, $result->getShippingInfo()->getDeliveries()->current()->getId());
-//
-//                                return $result;
-//                            }
-//                        );
-//                    });
-//            });
-//    }
+    public function testSetItemShippingAddressCustom()
+    {
+        $client = $this->getApiClient();
+
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('item-shipping-address-set-field-order-1')
+                    ->setResourceTypeIds(['address', 'order']);
+            },
+            function (Type $type) use ($client) {
+                OrderFixture::withUpdateableCartDraftOrderSetting(
+                    $client,
+                    function (OrderCreateFromCartRequest $request) {
+                        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . OrderFixture::uniqueOrderString();
+
+                        return $request->setOrderNumber($orderNumber);
+                    },
+                    function (Order $order) use ($client, $type) {
+                        $this->assertInstanceOf(Order::class, $order);
+
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(
+                                OrderAddItemShippingAddressAction::of()->setAddress(
+                                    Address::of()->setCountry('DE')->setKey(OrderFixture::uniqueOrderString())
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $order = $request->mapFromResponse($response);
+
+                        $field = 'testField';
+                        $newValue = 'new value';
+
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(
+                                OrderSetItemShippingAddressCustomTypeAction::ofTypeKeyAndAddressKey(
+                                    $type->getKey(),
+                                    $order->getItemShippingAddresses()->current()->getKey()
+                                )
+                                    ->setFields(FieldContainer::of()
+                                        ->set($field, $newValue))
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Order::class, $result);
+                        $this->assertSame($newValue, $result->getItemShippingAddresses()->current()->getCustom()->getFields()->getTestField());
+
+                        $newValue2 = 'new value 2';
+
+                        $request = RequestBuilder::of()->orders()->update($result)
+                            ->addAction(
+                                OrderSetItemShippingAddressCustomFieldAction::ofNameAndAddressKey(
+                                    $field,
+                                    $order->getItemShippingAddresses()->current()->getKey()
+                                )
+                                    ->setValue('' . $newValue2 . '')
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Order::class, $result);
+                        $this->assertSame($newValue2, $result->getItemShippingAddresses()->current()->getCustom()->getFields()->getTestField());
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
+
+    public function testSetDeliveryAddressCustom()
+    {
+        $client = $this->getApiClient();
+
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('delivery-address-set-field-order-2')
+                    ->setResourceTypeIds(['address', 'order']);
+            },
+            function (Type $type) use ($client) {
+                OrderFixture::withUpdateableCartDraftOrderSetting(
+                    $client,
+                    function (OrderCreateFromCartRequest $request) {
+                        $orderNumber = (new \DateTime())->format('Y/m/d') . ' ' . OrderFixture::uniqueOrderString();
+
+                        return $request->setOrderNumber($orderNumber);
+                    },
+                    function (Order $order) use ($client, $type) {
+                        $this->assertInstanceOf(Order::class, $order);
+
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(
+                                OrderAddDeliveryAction::of()->setAddress(
+                                    Address::of()->setCountry('DE')->setKey(OrderFixture::uniqueOrderString())
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $order = $request->mapFromResponse($response);
+
+                        $field = 'testField';
+                        $newValue = 'new value';
+
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(
+                                OrderSetDeliveryAddressCustomTypeAction::ofTypeKey($type->getKey())
+                                    ->setDeliveryId($order->getShippingInfo()->getDeliveries()->current()->getId())
+                                    ->setFields(FieldContainer::of()
+                                        ->set($field, $newValue))
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Order::class, $result);
+                        $this->assertSame($newValue, $result->getShippingInfo()->getDeliveries()->current()->getAddress()->getCustom()->getFields()->getTestField());
+
+                        $newValue2 = 'new value 2';
+
+                        $request = RequestBuilder::of()->orders()->update($result)
+                            ->addAction(
+                                OrderSetDeliveryAddressCustomFieldAction::ofName($field)
+                                    ->setDeliveryId($order->getShippingInfo()->getDeliveries()->current()->getId())
+                                    ->setValue('' . $newValue2 . '')
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Order::class, $result);
+                        $this->assertSame($newValue2, $result->getShippingInfo()->getDeliveries()->current()->getAddress()->getCustom()->getFields()->getTestField());
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
 }
