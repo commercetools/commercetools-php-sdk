@@ -76,8 +76,8 @@ use Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomerIdAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
-use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomFieldAction;
-use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomTypeAction;
+use Commercetools\Core\Request\Orders\Command\StagedOrderSetDeliveryAddressCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\StagedOrderSetDeliveryAddressCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetItemShippingAddressCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetItemShippingAddressCustomTypeAction;
@@ -1600,7 +1600,7 @@ class OrderUpdateRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->orders()->update($order)
                             ->addAction(
-                                OrderSetDeliveryAddressCustomTypeAction::ofTypeKey($type->getKey())
+                                StagedOrderSetDeliveryAddressCustomTypeAction::ofTypeKey($type->getKey())
                                     ->setDeliveryId($order->getShippingInfo()->getDeliveries()->current()->getId())
                                     ->setFields(FieldContainer::of()
                                         ->set($field, $newValue))
@@ -1615,7 +1615,7 @@ class OrderUpdateRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->orders()->update($result)
                             ->addAction(
-                                OrderSetDeliveryAddressCustomFieldAction::ofName($field)
+                                StagedOrderSetDeliveryAddressCustomFieldAction::ofName($field)
                                     ->setDeliveryId($order->getShippingInfo()->getDeliveries()->current()->getId())
                                     ->setValue('' . $newValue2 . '')
                             );
