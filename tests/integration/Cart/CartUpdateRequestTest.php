@@ -96,13 +96,6 @@ use Commercetools\Core\Request\Carts\Command\CartSetAnonymousIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction;
 use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomTypeAction;
-use Commercetools\Core\Request\Carts\Command\CartSetItemBillingAddressCustomFieldAction;
-use Commercetools\Core\Request\Carts\Command\CartSetItemBillingAddressCustomTypeAction;
-use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomFieldAction;
-use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomTypeAction;
-use Commercetools\Core\Request\Carts\Command\OrderSetItemShippingAddressCustomTypeAction;
-use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomFieldAction;
-use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCartTotalTaxAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCountryAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction;
@@ -114,6 +107,8 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemShippingDetail
 use Commercetools\Core\Request\Carts\Command\CartSetCustomLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificationAction;
+use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
@@ -122,6 +117,8 @@ use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTotalPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLocaleAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingRateInputAction;
@@ -1001,7 +998,7 @@ class CartUpdateRequestTest extends ApiTestCase
         );
     }
 
-    public function testSetShippingAddressCustomType()
+    public function testSetShippingAddressCustom()
     {
         $client = $this->getApiClient();
 

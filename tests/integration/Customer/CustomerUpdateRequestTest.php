@@ -35,6 +35,8 @@ use Commercetools\Core\Request\Customers\Command\CustomerRemoveAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveBillingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveShippingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveStoreAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetAddressCustomFieldAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetAddressCustomTypeAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerGroupAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerNumberAction;
@@ -300,8 +302,7 @@ class CustomerUpdateRequestTest extends ApiTestCase
                 $this->assertSame($address->getLastName(), $customer->getAddresses()->current()->getLastName());
 
                 $request = RequestBuilder::of()->customers()->update($customer)
-                    ->addAction(CustomerRemoveAddressAction::ofAddressId($customer->getAddresses()->current()->getId()))
-                ;
+                    ->addAction(CustomerRemoveAddressAction::ofAddressId($customer->getAddresses()->current()->getId()));
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
@@ -1135,6 +1136,71 @@ class CustomerUpdateRequestTest extends ApiTestCase
                 $this->assertEmpty($result->getShippingAddressIds());
 
                 return $result;
+            }
+        );
+    }
+
+    public function testSetAddressCustom()
+    {
+        $client = $this->getApiClient();
+
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('address-set-field-on-customer')
+                    ->setResourceTypeIds(['address']);
+            },
+            function (Type $type) use ($client) {
+                CustomerFixture::withUpdateableDraftCustomer(
+                    $client,
+                    function (CustomerDraft $customerDraft) {
+                        return $customerDraft->setAddresses(AddressCollection::of()->add(
+                            Address::of()->setFirstName('test-' . CustomerFixture::uniqueCustomerString() . '@example.com')
+                                ->setId(CustomerFixture::uniqueCustomerString())
+                                ->setCountry('DE')
+                                ->setCustom(
+                                    CustomFieldObjectDraft::ofTypeKey('address-set-field-on-customer')
+                                        ->setFields(FieldContainer::of()->set('testField', 'value'))
+                                )
+                        ));
+                    },
+                    function (Customer $customer) use ($client, $type) {
+                        $this->assertInstanceOf(Customer::class, $customer);
+                        $this->assertSame('value', $customer->getAddresses()->current()->getCustom()->getFields()->getTestField());
+
+                        $field = 'testField';
+                        $newValue = 'new value';
+
+                        $request = RequestBuilder::of()->customers()->update($customer)
+                            ->addAction(
+                                CustomerSetAddressCustomTypeAction::ofTypeKey($type->getKey())
+                                    ->setAddressId($customer->getAddresses()->current()->getId())
+                                    ->setFields(FieldContainer::of()
+                                        ->set($field, $newValue))
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Customer::class, $result);
+                        $this->assertSame($newValue, $result->getAddresses()->current()->getCustom()->getFields()->getTestField());
+
+                        $newValue2 = 'new value 2';
+
+                        $request = RequestBuilder::of()->customers()->update($result)
+                            ->addAction(
+                                CustomerSetAddressCustomFieldAction::ofName($field)
+                                    ->setAddressId($customer->getAddresses()->current()->getId())
+                                    ->setValue('' . $newValue2 . '')
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Customer::class, $result);
+                        $this->assertSame($newValue2, $result->getAddresses()->current()->getCustom()->getFields()->getTestField());
+
+                        return $result;
+                    }
+                );
             }
         );
     }

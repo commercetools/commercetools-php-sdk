@@ -10,6 +10,8 @@ use Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction;
 use Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetAddressAction;
+use Commercetools\Core\Request\Channels\Command\ChannelSetAddressCustomFieldAction;
+use Commercetools\Core\Request\Channels\Command\ChannelSetAddressCustomTypeAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetCustomFieldAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetCustomTypeAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetGeoLocation;
@@ -82,6 +84,28 @@ class ChannelsActionBuilder
     public function setAddress($action = null)
     {
         $this->addAction($this->resolveAction(ChannelSetAddressAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param ChannelSetAddressCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setAddressCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(ChannelSetAddressCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param ChannelSetAddressCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setAddressCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(ChannelSetAddressCustomTypeAction::class, $action));
         return $this;
     }
 
