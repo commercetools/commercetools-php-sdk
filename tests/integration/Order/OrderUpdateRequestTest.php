@@ -76,6 +76,8 @@ use Commercetools\Core\Request\Orders\Command\OrderSetCustomerEmail;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomerIdAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\StagedOrderSetDeliveryAddressCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\StagedOrderSetDeliveryAddressCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
@@ -1600,7 +1602,7 @@ class OrderUpdateRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->orders()->update($order)
                             ->addAction(
-                                StagedOrderSetDeliveryAddressCustomTypeAction::ofTypeKey($type->getKey())
+                                OrderSetDeliveryAddressCustomTypeAction::ofTypeKey($type->getKey())
                                     ->setDeliveryId($order->getShippingInfo()->getDeliveries()->current()->getId())
                                     ->setFields(FieldContainer::of()
                                         ->set($field, $newValue))
@@ -1615,7 +1617,7 @@ class OrderUpdateRequestTest extends ApiTestCase
 
                         $request = RequestBuilder::of()->orders()->update($result)
                             ->addAction(
-                                StagedOrderSetDeliveryAddressCustomFieldAction::ofName($field)
+                                OrderSetDeliveryAddressCustomFieldAction::ofName($field)
                                     ->setDeliveryId($order->getShippingInfo()->getDeliveries()->current()->getId())
                                     ->setValue('' . $newValue2 . '')
                             );
