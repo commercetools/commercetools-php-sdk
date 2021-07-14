@@ -24,6 +24,8 @@ use Commercetools\Core\Request\Channels\Command\ChannelChangeKeyAction;
 use Commercetools\Core\Request\Channels\Command\ChannelChangeNameAction;
 use Commercetools\Core\Request\Channels\Command\ChannelRemoveRolesAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetAddressAction;
+use Commercetools\Core\Request\Channels\Command\ChannelSetAddressCustomFieldAction;
+use Commercetools\Core\Request\Channels\Command\ChannelSetAddressCustomTypeAction;
 use Commercetools\Core\Request\Channels\Command\ChannelSetGeoLocation;
 use Commercetools\Core\Request\Channels\Command\ChannelSetRolesAction;
 use Commercetools\Core\Request\CustomField\Command\SetCustomFieldAction;
@@ -307,6 +309,68 @@ class ChannelUpdateRequestTest extends ApiTestCase
                 $this->assertNotSame($channel->getVersion(), $result->getVersion());
 
                 return $result;
+            }
+        );
+    }
+
+    public function testSetAddressCustom()
+    {
+        $client = $this->getApiClient();
+
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('address-set-field-on-channel')
+                    ->setResourceTypeIds(['address']);
+            },
+            function (Type $type) use ($client) {
+                ChannelFixture::withUpdateableDraftChannel(
+                    $client,
+                    function (ChannelDraft $channelDraft) {
+                        return $channelDraft->setAddress(
+                            Address::of()->setFirstName('test-' . ChannelFixture::uniqueChannelString() . '@example.com')
+                                ->setCountry('DE')
+                                ->setCustom(
+                                    CustomFieldObjectDraft::ofTypeKey('address-set-field-on-channel')
+                                        ->setFields(FieldContainer::of()->set('testField', 'value'))
+                                )
+                        );
+                    },
+                    function (Channel $channel) use ($client, $type) {
+                        $this->assertInstanceOf(Channel::class, $channel);
+                        $this->assertSame('value', $channel->getAddress()->getCustom()->getFields()->getTestField());
+
+                        $field = 'testField';
+                        $newValue = 'new value';
+
+                        $request = RequestBuilder::of()->channels()->update($channel)
+                            ->addAction(
+                                ChannelSetAddressCustomTypeAction::ofTypeKey($type->getKey())
+                                    ->setFields(FieldContainer::of()
+                                        ->set($field, $newValue))
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Channel::class, $result);
+                        $this->assertSame($newValue, $result->getAddress()->getCustom()->getFields()->getTestField());
+
+                        $newValue2 = 'new value 2';
+
+                        $request = RequestBuilder::of()->channels()->update($result)
+                            ->addAction(
+                                ChannelSetAddressCustomFieldAction::ofName($field)
+                                    ->setValue('' . $newValue2 . '')
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Channel::class, $result);
+                        $this->assertSame($newValue2, $result->getAddress()->getCustom()->getFields()->getTestField());
+
+                        return $result;
+                    }
+                );
             }
         );
     }

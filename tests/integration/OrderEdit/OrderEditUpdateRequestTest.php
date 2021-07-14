@@ -16,7 +16,6 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\Order\Order;
-use Commercetools\Core\Model\Order\OrderReference;
 use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Model\OrderEdit\OrderEditApplied;
 use Commercetools\Core\Model\OrderEdit\OrderEditDraft;
@@ -25,14 +24,11 @@ use Commercetools\Core\Model\ShippingMethod\ShippingRateDraft;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeReference;
-use Commercetools\Core\Request\AbstractDeleteRequest;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCommentAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCustomFieldAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetKeyAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetStagedActionsAction;
-use Commercetools\Core\Request\OrderEdits\OrderEditCreateRequest;
-use Commercetools\Core\Request\OrderEdits\OrderEditDeleteRequest;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddCustomLineItemAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddDiscountCodeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddItemShippingAddressAction;
@@ -51,6 +47,8 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveI
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveLineItemAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemovePaymentAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCountryAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomerEmailAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomerGroupAction;
@@ -62,6 +60,10 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCust
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomLineItemTaxRateAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomTypeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetDeliveryAddressCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetDeliveryAddressCustomTypeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetItemShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetItemShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemPriceAction;
@@ -75,6 +77,8 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShip
 //phpcs:ignore
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndCustomShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndShippingMethodAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodTaxRateAction;
@@ -405,6 +409,34 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
             StagedOrderChangeCustomLineItemMoneyAction::class => [function () {
                 return StagedOrderChangeCustomLineItemMoneyAction::of()
                 ->setCustomLineItemId($this->getProduct()->getId())->setMoney(Money::ofCurrencyAndAmount('EUR', 100));
+            }],
+            StagedOrderSetBillingAddressCustomFieldAction::class => [function () {
+                return StagedOrderSetBillingAddressCustomFieldAction::of()
+                    ->setName($this->getTestRun().'-name');
+            }],
+            StagedOrderSetBillingAddressCustomTypeAction::class => [function () {
+                return StagedOrderSetBillingAddressCustomTypeAction::of();
+            }],
+            StagedOrderSetShippingAddressCustomFieldAction::class => [function () {
+                return StagedOrderSetShippingAddressCustomFieldAction::of()
+                    ->setName($this->getTestRun().'-name');
+            }],
+            StagedOrderSetShippingAddressCustomTypeAction::class => [function () {
+                return StagedOrderSetShippingAddressCustomTypeAction::of();
+            }],
+            StagedOrderSetItemShippingAddressCustomFieldAction::class => [function () {
+                return StagedOrderSetShippingAddressCustomFieldAction::of()
+                    ->setName($this->getTestRun().'-name');
+            }],
+            StagedOrderSetItemShippingAddressCustomTypeAction::class => [function () {
+                return StagedOrderSetShippingAddressCustomTypeAction::of();
+            }],
+            StagedOrderSetDeliveryAddressCustomFieldAction::class => [function () {
+                return StagedOrderSetDeliveryAddressCustomFieldAction::of()
+                    ->setName($this->getTestRun().'-name');
+            }],
+            StagedOrderSetDeliveryAddressCustomTypeAction::class => [function () {
+                return StagedOrderSetDeliveryAddressCustomTypeAction::of();
             }],
         ];
     }

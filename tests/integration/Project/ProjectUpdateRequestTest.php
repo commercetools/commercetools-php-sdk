@@ -387,6 +387,7 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
     public function testExternalOAuth()
     {
+        $this->markTestSkipped("Disabled");
         $client = $this->getApiClient();
 
         ProjectFixture::withProject(

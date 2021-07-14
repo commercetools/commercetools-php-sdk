@@ -14,6 +14,8 @@ use Commercetools\Core\Request\Customers\Command\CustomerRemoveAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveBillingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveShippingAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveStoreAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetAddressCustomFieldAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetAddressCustomTypeAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomFieldAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomTypeAction;
@@ -144,6 +146,28 @@ class CustomersActionBuilder
     public function removeStore($action = null)
     {
         $this->addAction($this->resolveAction(CustomerRemoveStoreAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CustomerSetAddressCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setAddressCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(CustomerSetAddressCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CustomerSetAddressCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setAddressCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(CustomerSetAddressCustomTypeAction::class, $action));
         return $this;
     }
 

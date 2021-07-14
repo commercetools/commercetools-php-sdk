@@ -26,6 +26,8 @@ use Commercetools\Core\Request\Carts\Command\CartRemoveLineItemAction;
 use Commercetools\Core\Request\Carts\Command\CartRemovePaymentAction;
 use Commercetools\Core\Request\Carts\Command\CartSetAnonymousIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressAction;
+use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomFieldAction;
+use Commercetools\Core\Request\Carts\Command\CartSetBillingAddressCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCartTotalTaxAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCountryAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomFieldAction;
@@ -40,6 +42,8 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomerEmailAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerGroupAction;
 use Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificationAction;
+use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
@@ -49,6 +53,8 @@ use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxRateAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTotalPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLocaleAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\Carts\Command\CartSetShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetShippingMethodTaxRateAction;
@@ -303,6 +309,28 @@ class CartsActionBuilder
     }
 
     /**
+     *
+     * @param CartSetBillingAddressCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setBillingAddressCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetBillingAddressCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetBillingAddressCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setBillingAddressCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetBillingAddressCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-cart-total-tax
      * @param CartSetCartTotalTaxAction|callable $action
      * @return $this
@@ -457,6 +485,28 @@ class CartsActionBuilder
     }
 
     /**
+     *
+     * @param CartSetItemShippingAddressCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setItemShippingAddressCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetItemShippingAddressCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetItemShippingAddressCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setItemShippingAddressCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetItemShippingAddressCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-customfield
      * @param CartSetLineItemCustomFieldAction|callable $action
      * @return $this
@@ -552,6 +602,28 @@ class CartsActionBuilder
     public function setShippingAddress($action = null)
     {
         $this->addAction($this->resolveAction(CartSetShippingAddressAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetShippingAddressCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setShippingAddressCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetShippingAddressCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetShippingAddressCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setShippingAddressCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetShippingAddressCustomTypeAction::class, $action));
         return $this;
     }
 

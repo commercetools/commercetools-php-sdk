@@ -32,6 +32,8 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveL
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemoveParcelFromDeliveryAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderRemovePaymentAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetBillingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCountryAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomFieldAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomLineItemCustomFieldAction;
@@ -45,7 +47,11 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCust
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomerGroupAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCustomerIdAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetDeliveryAddressAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetDeliveryAddressCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetDeliveryAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetDeliveryItemsAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetItemShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetItemShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemPriceAction;
@@ -65,6 +71,8 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShip
 // phpcs:ignore
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndCustomShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAndShippingMethodAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodTaxAmountAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingMethodTaxRateAction;
@@ -390,6 +398,28 @@ class StagedOrderActionBuilder
 
     /**
      *
+     * @param StagedOrderSetBillingAddressCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setBillingAddressCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetBillingAddressCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetBillingAddressCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setBillingAddressCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetBillingAddressCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
      * @param StagedOrderSetCountryAction|callable $action
      * @return $this
      */
@@ -533,12 +563,56 @@ class StagedOrderActionBuilder
 
     /**
      *
+     * @param StagedOrderSetDeliveryAddressCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setDeliveryAddressCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetDeliveryAddressCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetDeliveryAddressCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setDeliveryAddressCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetDeliveryAddressCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
      * @param StagedOrderSetDeliveryItemsAction|callable $action
      * @return $this
      */
     public function setDeliveryItems($action = null)
     {
         $this->addAction($this->resolveAction(StagedOrderSetDeliveryItemsAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetItemShippingAddressCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setItemShippingAddressCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetItemShippingAddressCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetItemShippingAddressCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setItemShippingAddressCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetItemShippingAddressCustomTypeAction::class, $action));
         return $this;
     }
 
@@ -738,6 +812,28 @@ class StagedOrderActionBuilder
     public function setShippingAddressAndShippingMethod($action = null)
     {
         $this->addAction($this->resolveAction(StagedOrderSetShippingAddressAndShippingMethodAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetShippingAddressCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setShippingAddressCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetShippingAddressCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetShippingAddressCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setShippingAddressCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetShippingAddressCustomTypeAction::class, $action));
         return $this;
     }
 
