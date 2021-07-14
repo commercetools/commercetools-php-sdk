@@ -5,9 +5,12 @@ namespace Commercetools\Core\Client\OAuth;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class RefreshFlowTokenProviderTest extends TestCase
 {
+    use ProphecyTrait;
+
     const REFRESH_RESPONSE = '{
             "access_token": "access-token",
             "expires_in": 172800,

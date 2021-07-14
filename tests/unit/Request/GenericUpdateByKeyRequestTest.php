@@ -35,9 +35,12 @@ use Commercetools\Core\Request\Subscriptions\SubscriptionUpdateByKeyRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryUpdateByKeyRequest;
 use Commercetools\Core\Request\Types\TypeUpdateByKeyRequest;
 use Commercetools\Core\RequestTestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class GenericUpdateByKeyRequestTest extends RequestTestCase
 {
+    use ProphecyTrait;
+
     /**
      * @param $className
      * @param array $args

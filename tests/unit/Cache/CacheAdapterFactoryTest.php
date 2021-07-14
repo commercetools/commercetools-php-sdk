@@ -12,10 +12,13 @@ use Cache\Adapter\PHPArray\ArrayCachePool;
 use Cache\Adapter\Redis\RedisCachePool;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Doctrine\Common\Cache\ArrayCache;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\SimpleCache\CacheInterface;
 
 class CacheAdapterFactoryTest extends \PHPUnit\Framework\TestCase
 {
+    use ProphecyTrait;
+
     /**
      * test if apc is default cache adapter and APC module is available
      */

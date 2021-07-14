@@ -3,9 +3,12 @@
 namespace Commercetools\Core\Client\OAuth;
 
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class TokenStorageProviderTest extends TestCase
 {
+    use ProphecyTrait;
+
     public function testGetToken()
     {
         $anonToken = new Token('access-token');

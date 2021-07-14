@@ -5,9 +5,12 @@ namespace Commercetools\Core\Client\OAuth;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class AnonymousFlowTokenProviderTest extends TestCase
 {
+    use ProphecyTrait;
+
     const ANON_RESPONSE = '{
             "access_token": "access-token",
             "expires_in": 172800,

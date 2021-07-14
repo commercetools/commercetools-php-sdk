@@ -35,9 +35,12 @@ use Commercetools\Core\Request\Subscriptions\SubscriptionDeleteByKeyRequest;
 use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteByKeyRequest;
 use Commercetools\Core\Request\Types\TypeDeleteByKeyRequest;
 use Commercetools\Core\RequestTestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class GenericDeleteByKeyRequestTest extends RequestTestCase
 {
+    use ProphecyTrait;
+
     /**
      * @param $className
      * @param array $args

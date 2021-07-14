@@ -39,10 +39,13 @@ use Monolog\Logger;
 use Commercetools\Core\Client\JsonEndpoint;
 use Commercetools\Core\Client\OAuth\Token;
 use Commercetools\Core\Request\ClientRequestInterface;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Log\LogLevel;
 
 class ClientTest extends \PHPUnit\Framework\TestCase
 {
+    use ProphecyTrait;
+
     protected function getConfig()
     {
         $config = Config::fromArray([

@@ -55,9 +55,12 @@ use Commercetools\Core\Request\TaxCategories\TaxCategoryDeleteRequest;
 use Commercetools\Core\Request\Types\TypeDeleteRequest;
 use Commercetools\Core\Request\Zones\ZoneDeleteRequest;
 use Commercetools\Core\RequestTestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class GenericDeleteRequestTest extends RequestTestCase
 {
+    use ProphecyTrait;
+
     /**
      * @param $className
      * @param array $args

@@ -12,6 +12,7 @@ use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Client\Adapter\AdapterOptionInterface;
 use Commercetools\Core\Response\ApiPromiseGetInterface;
 use Commercetools\Core\Response\ErrorResponse;
+use GuzzleHttp\Psr7\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerAwareInterface;
@@ -420,7 +421,7 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
         $context = [];
         if ($response instanceof ResponseInterface) {
             $body = $response->getBody()->getContents();
-            $response = $response->withBody(stream_for($body));
+            $response = $response->withBody(Utils::streamFor($body));
             $context = [
                 'responseStatusCode' => $response->getStatusCode(),
                 'responseHeaders' => $response->getHeaders(),
