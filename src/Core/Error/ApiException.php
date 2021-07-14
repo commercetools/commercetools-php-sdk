@@ -6,7 +6,6 @@ use Exception;
 use GuzzleHttp\Psr7\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
-use function GuzzleHttp\Psr7\stream_for;
 
 /**
  * Base exception for responses with http status code different than 200 or 201
