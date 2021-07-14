@@ -24,10 +24,13 @@ use Commercetools\Core\Config;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\SimpleCache\CacheInterface;
 
 class ManagerTest extends \PHPUnit\Framework\TestCase
 {
+    use ProphecyTrait;
+
     protected function getConfig()
     {
         $config = Config::fromArray([

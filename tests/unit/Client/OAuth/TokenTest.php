@@ -6,8 +6,12 @@
 
 namespace Commercetools\Core\Client\OAuth;
 
+use Prophecy\PhpUnit\ProphecyTrait;
+
 class TokenTest extends \PHPUnit\Framework\TestCase
 {
+    use ProphecyTrait;
+
     public function testGetTtl()
     {
         $token = new Token('token', 1000);

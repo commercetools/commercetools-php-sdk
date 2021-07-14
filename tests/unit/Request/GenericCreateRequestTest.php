@@ -77,9 +77,12 @@ use Commercetools\Core\Request\TaxCategories\TaxCategoryCreateRequest;
 use Commercetools\Core\Request\Types\TypeCreateRequest;
 use Commercetools\Core\Request\Zones\ZoneCreateRequest;
 use Commercetools\Core\RequestTestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class GenericCreateRequestTest extends RequestTestCase
 {
+    use ProphecyTrait;
+
     /**
      * @param $className
      * @param array $args

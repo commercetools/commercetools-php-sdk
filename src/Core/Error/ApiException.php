@@ -3,6 +3,7 @@
 namespace Commercetools\Core\Error;
 
 use Exception;
+use GuzzleHttp\Psr7\Utils;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use function GuzzleHttp\Psr7\stream_for;
@@ -67,13 +68,13 @@ class ApiException extends Exception
             case 400:
                 if ($response->getBody()->getSize() > 0) {
                     $body = (string)$response->getBody()->getContents();
-                    $response = $response->withBody(stream_for($body));
+                    $response = $response->withBody(Utils::streamFor($body));
                     $message .= ' [body] ' . $body;
                 }
                 return new ErrorResponseException($message, $request, $response, $previous);
             case 401:
                 $body = $response->getBody()->getContents();
-                $response = $response->withBody(stream_for($body));
+                $response = $response->withBody(Utils::streamFor($body));
                 if (strpos($body, 'invalid_token') !== false) {
                     return new InvalidTokenException($message, $request, $response, $previous);
                 }

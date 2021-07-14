@@ -53,9 +53,12 @@ use Commercetools\Core\Request\TaxCategories\TaxCategoryUpdateRequest;
 use Commercetools\Core\Request\Types\TypeUpdateRequest;
 use Commercetools\Core\Request\Zones\ZoneUpdateRequest;
 use Commercetools\Core\RequestTestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class GenericUpdateRequestTest extends RequestTestCase
 {
+    use ProphecyTrait;
+
     /**
      * @param $className
      * @param array $args

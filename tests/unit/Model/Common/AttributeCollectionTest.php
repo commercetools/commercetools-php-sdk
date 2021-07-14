@@ -10,9 +10,12 @@ use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
 use Commercetools\Core\Model\ProductType\AttributeType;
 use Commercetools\Core\Model\ProductType\StringType;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class AttributeCollectionTest extends \PHPUnit\Framework\TestCase
 {
+    use ProphecyTrait;
+
     public function testIndex()
     {
         $collection = AttributeCollection::fromArray([
