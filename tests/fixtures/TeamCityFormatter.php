@@ -24,7 +24,7 @@ class TeamCityFormatter extends JsonFormatter
      * @throws \RuntimeException if encoding fails and errors are not ignored
      * @return string
      */
-    protected function toJson($data, $ignoreErrors = false)
+    protected function toJson($data, $ignoreErrors = false): string
     {
         $json = $this->jsonEncode($data);
 
