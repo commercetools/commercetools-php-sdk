@@ -12,9 +12,8 @@ class ManuelActivationStrategy implements ActivationStrategyInterface
     /**
      * @inheritDoc
      */
-    public function isHandlerActivated(array $record)
+    public function isHandlerActivated(array $record): bool
     {
         return false;
     }
-
 }
