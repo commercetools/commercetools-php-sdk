@@ -43,7 +43,7 @@ class TeamCityFormatter extends JsonFormatter
     /**
      * @inheritDoc
      */
-    public function format(array $record)
+    public function format(array $record): string
     {
         if (isset($record['context']['responseBody']) &&
             isset($record['context']['responseHeaders']['content-type']) &&
