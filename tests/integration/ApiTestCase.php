@@ -96,7 +96,7 @@ class ApiTestCase extends TestCase
         $this->cleanup();
     }
 
-    public function flushErrorLog()
+    public static function flushErrorLog()
     {
         if (self::$errorHandler instanceof FingersCrossedHandler) {
             self::$errorHandler->activate();

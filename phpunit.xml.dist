@@ -21,8 +21,7 @@
             <directory suffix=".php">src</directory>
         </whitelist>
     </filter>
-    <listeners>
-        <listener class="Commercetools\Core\Fixtures\ErrorListener" file="tests/fixtures/ErrorListener.php">
-        </listener>
-    </listeners>
+    <extensions>
+        <extension class="Commercetools\Core\Fixtures\ErrorExtension" />
+    </extensions>
 </phpunit>
