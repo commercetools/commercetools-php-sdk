@@ -19,7 +19,7 @@ class ProductImageUploadRequestTest extends ApiTestCase
     const FILE_ALIAS_PATTERN = '/CT-cube-[-_a-zA-Z0-9]*.png/';
     const FILE_ALIAS = 'CT-cube.png';
 
-// todo   introduce a new method in products to upload By Variant ID
+    // todo   introduce a new method in products to upload By Variant ID
     public function testUploadByVariantId()
     {
         $client = $this->getApiClient();
@@ -45,7 +45,7 @@ class ProductImageUploadRequestTest extends ApiTestCase
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
 
-                $this->assertRegExp(
+                $this->assertMatchesRegularExpression(
                     self::FILE_ALIAS_PATTERN,
                     basename(
                         $result->getMasterData()->getStaged()->getMasterVariant()->getImages()->current()->getUrl()

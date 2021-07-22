@@ -17,10 +17,13 @@ use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\HandlerStack;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ResponseInterface;
 
 class ClientTest extends ApiTestCase
 {
+    use ProphecyTrait;
+
     public function testCorrelationId()
     {
         $config = $this->getClientConfig('manage_project');

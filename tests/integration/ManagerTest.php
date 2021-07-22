@@ -11,9 +11,12 @@ use Commercetools\Core\Config;
 use Commercetools\Core\Helper\CorrelationIdProvider;
 use Commercetools\Core\Helper\DefaultCorrelationIdProvider;
 use Commercetools\Core\Response\AbstractApiResponse;
+use Prophecy\PhpUnit\ProphecyTrait;
 
 class ManagerTest extends ApiTestCase
 {
+    use ProphecyTrait;
+
     public function testEmptyScope()
     {
         $config = $this->getClientConfig('manage_project');

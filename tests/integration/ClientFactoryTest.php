@@ -30,10 +30,13 @@ use GuzzleHttp\Psr7\Response as PsrResponse;
 use Monolog\Handler\TestHandler;
 use Monolog\Logger;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\SimpleCache\CacheInterface;
 
 class ClientFactoryTest extends ApiTestCase
 {
+    use ProphecyTrait;
+
     public function testOf()
     {
         $this->assertInstanceOf(ClientFactory::class, ClientFactory::of());
