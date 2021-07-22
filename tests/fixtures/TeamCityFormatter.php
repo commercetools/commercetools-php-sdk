@@ -16,6 +16,17 @@ class TeamCityFormatter extends JsonFormatter
         "]"  => "|]",
     );
 
+    private static $LEVEL_MAP = [
+        "debug" => "NORMAL",
+        "info" => "NORMAL",
+        "notice" => "NORMAL",
+        "warning" => "WARNING",
+        "error" => "ERROR",
+        "critical" => "ERROR",
+        "alert" => "ERROR",
+        "emergency" => "ERROR",
+    ];
+
     /**
      * Return the JSON representation of a value
      *
@@ -53,6 +64,6 @@ class TeamCityFormatter extends JsonFormatter
         }
         $str = str_replace(array_keys(self::$REPLACEMENTS), array_values(self::$REPLACEMENTS), parent::format($record));
 
-        return sprintf(self::TC_FORMAT, $str, $record['level_name']);
+        return sprintf(self::TC_FORMAT, $str, static::$LEVEL_MAP[strtolower($record['level_name'])]);
     }
 }
