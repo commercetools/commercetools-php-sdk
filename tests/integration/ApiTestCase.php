@@ -133,6 +133,12 @@ class ApiTestCase extends TestCase
                 'client_secret' => $_SERVER['COMMERCETOOLS_CLIENT_SECRET'],
                 'project' => $_SERVER['COMMERCETOOLS_PROJECT']
             ]);
+            if (isset($_SERVER['COMMERCETOOLS_OAUTH_URL'])) {
+                $config->setOauthUrl($_SERVER['COMMERCETOOLS_OAUTH_URL']);
+            }
+            if (isset($_SERVER['COMMERCETOOLS_API_URL'])) {
+                $config->setOauthUrl($_SERVER['COMMERCETOOLS_API_URL']);
+            }
         }
 //        if (getenv('TEAMCITY_FORMATTER') == "true") {
 //            $config->setMessageFormatter(new MessageFormatter(self::TEAMCITY_LF));
