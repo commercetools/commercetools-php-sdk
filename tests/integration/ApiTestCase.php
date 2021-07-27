@@ -137,7 +137,7 @@ class ApiTestCase extends TestCase
                 $config->setOauthUrl($_SERVER['COMMERCETOOLS_OAUTH_URL']);
             }
             if (isset($_SERVER['COMMERCETOOLS_API_URL'])) {
-                $config->setOauthUrl($_SERVER['COMMERCETOOLS_API_URL']);
+                $config->setApiUrl($_SERVER['COMMERCETOOLS_API_URL']);
             }
         }
 //        if (getenv('TEAMCITY_FORMATTER') == "true") {
