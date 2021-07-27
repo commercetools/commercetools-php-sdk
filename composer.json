@@ -68,13 +68,6 @@
     "cache/redis-adapter": "For usage of a redis server to store the client access token",
     "cache/doctrine-adapter": "For usage of a doctrine cache instance to store the client access token"
   },
-  "scripts": {
-    "updateConfig": [
-      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-    ],
-    "post-update-cmd": "@updateConfig",
-    "post-install-cmd": "@updateConfig"
-  },
   "extra": {
     "branch-alias": {
       "dev-develop": "2.8-dev"

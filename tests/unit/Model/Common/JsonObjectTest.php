@@ -4,13 +4,10 @@
  * @created: 29.01.15, 12:24
  */
 
-namespace Commercetools\Core\Model\Type;
+namespace Commercetools\Core\Model\Common;
 
 use InvalidArgumentException;
 use BadMethodCallException;
-use Commercetools\Core\Model\Common\DateTimeDecorator;
-use Commercetools\Core\Model\Common\JsonObject;
-use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\ProductType\AttributeDefinition;
 use Commercetools\Core\Model\ProductType\AttributeDefinitionCollection;
 use Commercetools\Core\Model\ProductType\ProductTypeDraft;

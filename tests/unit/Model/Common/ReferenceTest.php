@@ -4,12 +4,10 @@
  * @created: 29.01.15, 12:29
  */
 
-namespace Commercetools\Core\Model\Type;
+namespace Commercetools\Core\Model\Common;
 
-use Commercetools\Core\Model\Common\Reference;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\ProductType\ProductType;
-use Commercetools\Core\Model\ProductType\ProductTypeReference;
 
 class ReferenceTest extends \PHPUnit\Framework\TestCase
 {

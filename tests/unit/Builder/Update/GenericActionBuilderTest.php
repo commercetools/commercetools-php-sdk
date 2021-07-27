@@ -3,8 +3,7 @@
  * @author @jenschude <jens.schulze@commercetools.de>
  */
 
-namespace Commercetools\Core\Builder\Request;
-
+namespace Commercetools\Core\Builder\Update;
 
 use Commercetools\Core\Builder\Update\ActionBuilder;
 use Commercetools\Core\Request\AbstractAction;

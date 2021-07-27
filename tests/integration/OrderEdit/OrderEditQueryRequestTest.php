@@ -2,10 +2,10 @@
 /**
  */
 
-namespace Commercetools\Core\IntegrationTests\Order;
+namespace Commercetools\Core\IntegrationTests\OrderEdit;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
-use Commercetools\Core\IntegrationTests\OrderEdit\OrderEditFixture;
+use Commercetools\Core\IntegrationTests\Order\OrderQueryRequestTest;
 use Commercetools\Core\IntegrationTests\ShippingMethod\ShippingMethodFixture;
 use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
