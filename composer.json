@@ -56,7 +56,6 @@
     "cache/redis-adapter": "^1.0",
     "cache/filesystem-adapter": "^1.0",
     "cache/void-adapter": "^1.0",
-    "incenteev/composer-parameter-handler": "^2.1",
     "commercetools/commercetools-api-reference": "dev-master"
   },
   "replace": {
@@ -79,26 +78,6 @@
   "extra": {
     "branch-alias": {
       "dev-develop": "2.8-dev"
-    },
-    "incenteev-parameters": [
-      {
-        "file": "docroot/myapp.yml",
-        "env-map": {
-          "client_id": "COMMERCETOOLS_CLIENT_ID",
-          "client_secret": "COMMERCETOOLS_CLIENT_SECRET",
-          "project": "COMMERCETOOLS_PROJECT"
-        }
-      },
-      {
-        "file": "tests/myapp.yml",
-        "env-map": {
-          "client_id": "COMMERCETOOLS_CLIENT_ID",
-          "client_secret": "COMMERCETOOLS_CLIENT_SECRET",
-          "project": "COMMERCETOOLS_PROJECT",
-          "oauth_url": "COMMERCETOOLS_OAUTH_URL",
-          "api_url": "COMMERCETOOLS_API_URL"
-        }
-      }
-    ]
+    }
   }
 }
