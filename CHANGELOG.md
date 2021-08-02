@@ -3,16 +3,14 @@
 
 ### Features
 
-* **Channel:** support store for shopping lists ([8808ed1](https://github.com/commercetools/commercetools-php-sdk/commit/8808ed1e36ffc0094372395bc9cd523ba2fcda22))
-
+* **Channel:** support set address custom update actions for channel and customers([371b47d](https://github.com/commercetools/commercetools-php-sdk/commit/371b47d773bac984afada00fe2c8f793540228d3))
 
 
 # [2.15.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.14.0...v2.15.0) (2021-05-07)
 
-
 ### Features
 
-* **Channel:** support set address custom update actions for channel and customers([371b47d](https://github.com/commercetools/commercetools-php-sdk/commit/371b47d773bac984afada00fe2c8f793540228d3))
+* **Shopping List:** support store for shopping lists ([8808ed1](https://github.com/commercetools/commercetools-php-sdk/commit/8808ed1e36ffc0094372395bc9cd523ba2fcda22))
 
 
 # [2.14.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.13.0...v2.14.0) (2021-03-02)
