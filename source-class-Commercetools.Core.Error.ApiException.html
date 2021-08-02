@@ -657,9 +657,9 @@
 </span><span id="3" class="l"><span class="php-keyword1">namespace</span> Commercetools\Core\Error;
 </span><span id="4" class="l">
 </span><span id="5" class="l"><span class="php-keyword1">use</span> Exception;
-</span><span id="6" class="l"><span class="php-keyword1">use</span> Psr\Http\Message\RequestInterface;
-</span><span id="7" class="l"><span class="php-keyword1">use</span> Psr\Http\Message\ResponseInterface;
-</span><span id="8" class="l"><span class="php-keyword1">use</span> <span class="php-keyword1">function</span> GuzzleHttp\Psr7\stream_for;
+</span><span id="6" class="l"><span class="php-keyword1">use</span> GuzzleHttp\Psr7\Utils;
+</span><span id="7" class="l"><span class="php-keyword1">use</span> Psr\Http\Message\RequestInterface;
+</span><span id="8" class="l"><span class="php-keyword1">use</span> Psr\Http\Message\ResponseInterface;
 </span><span id="9" class="l">
 </span><span id="10" class="l"><span class="php-comment">/**
 </span></span><span id="11" class="l"><span class="php-comment"> * Base exception for responses with http status code different than 200 or 201
@@ -721,13 +721,13 @@
 </span><span id="67" class="l">            <span class="php-keyword1">case</span> <span class="php-num">400</span>:
 </span><span id="68" class="l">                <span class="php-keyword1">if</span> (<span class="php-var">$response</span>-&gt;getBody()-&gt;getSize() &gt; <span class="php-num">0</span>) {
 </span><span id="69" class="l">                    <span class="php-var">$body</span> = (string)<span class="php-var">$response</span>-&gt;getBody()-&gt;getContents();
-</span><span id="70" class="l">                    <span class="php-var">$response</span> = <span class="php-var">$response</span>-&gt;withBody(stream_for(<span class="php-var">$body</span>));
+</span><span id="70" class="l">                    <span class="php-var">$response</span> = <span class="php-var">$response</span>-&gt;withBody(Utils::streamFor(<span class="php-var">$body</span>));
 </span><span id="71" class="l">                    <span class="php-var">$message</span> .= <span class="php-quote">' [body] '</span> . <span class="php-var">$body</span>;
 </span><span id="72" class="l">                }
 </span><span id="73" class="l">                <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> ErrorResponseException(<span class="php-var">$message</span>, <span class="php-var">$request</span>, <span class="php-var">$response</span>, <span class="php-var">$previous</span>);
 </span><span id="74" class="l">            <span class="php-keyword1">case</span> <span class="php-num">401</span>:
 </span><span id="75" class="l">                <span class="php-var">$body</span> = <span class="php-var">$response</span>-&gt;getBody()-&gt;getContents();
-</span><span id="76" class="l">                <span class="php-var">$response</span> = <span class="php-var">$response</span>-&gt;withBody(stream_for(<span class="php-var">$body</span>));
+</span><span id="76" class="l">                <span class="php-var">$response</span> = <span class="php-var">$response</span>-&gt;withBody(Utils::streamFor(<span class="php-var">$body</span>));
 </span><span id="77" class="l">                <span class="php-keyword1">if</span> (<span class="php-keyword2">strpos</span>(<span class="php-var">$body</span>, <span class="php-quote">'invalid_token'</span>) !== <span class="php-keyword1">false</span>) {
 </span><span id="78" class="l">                    <span class="php-keyword1">return</span> <span class="php-keyword1">new</span> InvalidTokenException(<span class="php-var">$message</span>, <span class="php-var">$request</span>, <span class="php-var">$response</span>, <span class="php-var">$previous</span>);
 </span><span id="79" class="l">                }
@@ -817,6 +817,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?d87ce1214c0cb147e1bc172c43b4565d99939e17"></script>
-<script src="elementlist.js?5c470f4ae67ab587054529c3f310d40dff2c90b6"></script>
+<script src="elementlist.js?0007c0cb8d5b366892435c4dc8ddb8e7331b22b6"></script>
 </body>
 </html>
