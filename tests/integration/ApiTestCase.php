@@ -684,7 +684,8 @@ class ApiTestCase extends TestCase
             try {
                 $eventuallyFunction();
                 sleep(1);
-            } catch (\Exception $e) {
+            } catch (\Exception $exception) {
+                $e = $exception;
             }
         } while ($e == null && $retries <= $maxRetries);
 
