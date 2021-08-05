@@ -165,22 +165,22 @@ jobs:
             php7.4-composer-highest-
 
       - name: Install highest dependencies with composer
+        run: composer update --no-ansi --no-interaction --no-progress --no-suggest
+
+      - name: Run integration tests with phpunit for push
         if: github.event_name != 'pull_request'
         env:
           COMMERCETOOLS_CLIENT_ID: ${{ secrets.COMMERCETOOLS_CLIENT_ID }}
           COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.COMMERCETOOLS_CLIENT_SECRET }}
           COMMERCETOOLS_PROJECT: ${{ secrets.COMMERCETOOLS_PROJECT }}
-        run: composer update --no-ansi --no-interaction --no-progress --no-suggest
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
-      - name: Install highest dependencies with composer for PR
+      - name: Run integration tests with phpunit for PR
         if: github.event_name == 'pull_request'
         env:
           COMMERCETOOLS_CLIENT_ID: ${{ secrets.PR_COMMERCETOOLS_CLIENT_ID }}
           COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.PR_COMMERCETOOLS_CLIENT_SECRET }}
           COMMERCETOOLS_PROJECT: ${{ secrets.PR_COMMERCETOOLS_PROJECT }}
-        run: composer update --no-ansi --no-interaction --no-progress --no-suggest
-
-      - name: Run integration tests with phpunit
         run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
       - name: Send code coverage report to Codecov.io
@@ -208,10 +208,6 @@ jobs:
           ini-values: assert.exception=1, zend.assertions=1, apc.enabled=1, apc.enable_cli=1
 
       - name: Install dependencies with composer
-        env:
-          COMMERCETOOLS_CLIENT_ID: ${{ secrets.COMMERCETOOLS_CLIENT_ID }}
-          COMMERCETOOLS_CLIENT_SECRET: ${{ secrets.COMMERCETOOLS_CLIENT_SECRET }}
-          COMMERCETOOLS_PROJECT: ${{ secrets.COMMERCETOOLS_PROJECT }}
         run: composer install --no-ansi --no-interaction --no-progress --no-suggest --no-dev
 
       - name: Retrieve branch name
