@@ -76,7 +76,6 @@ class ClientFactoryTest extends ApiTestCase
         $record = current($handler->getRecords());
         $this->assertStringStartsWith($config->getProject(), $record['context']['X-Correlation-ID'][0]);
         $this->assertStringContainsString((new UserAgentProvider())->getUserAgent(), $record['message']);
-        echo (new UserAgentProvider())->getUserAgent();
     }
 
     public function testExecute()
