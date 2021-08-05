@@ -678,17 +678,18 @@ class ApiTestCase extends TestCase
     protected function exceptionEventually(callable $eventuallyFunction, $maxRetries = 30)
     {
         $retries = 0;
+        $e = null;
         do {
             $retries++;
             try {
                 $eventuallyFunction();
-            } catch (\Exception $e) {
                 sleep(1);
+            } catch (\Exception $e) {
             }
         } while ($e == null && $retries <= $maxRetries);
 
         if (is_null($e)) {
-            throw new EventuallyException("Timeout eventually block", $e->getCode(), $e);
+            throw new EventuallyException("Timeout eventually block");
         }
         throw $e;
     }
