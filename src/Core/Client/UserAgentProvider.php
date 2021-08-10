@@ -9,6 +9,8 @@ class UserAgentProvider
 {
     private $userAgent;
 
+    const USER_AGENT = 'commercetools-sdk-php-v1/';
+
     /**
      * UserAgentProvider constructor.
      * @param string $userAgent
@@ -16,7 +18,7 @@ class UserAgentProvider
     public function __construct($userAgent = null)
     {
         if (is_null($userAgent)) {
-            $userAgent = 'commercetools-php-sdk/' . Client::VERSION;
+            $userAgent = self::USER_AGENT . Client::VERSION;
 
             $userAgent .= ' (' . $this->getAdapterInfo();
             if (extension_loaded('curl') && function_exists('curl_version')) {
