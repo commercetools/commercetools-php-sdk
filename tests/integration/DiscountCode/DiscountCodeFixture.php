@@ -32,6 +32,19 @@ class DiscountCodeFixture extends ResourceFixture
         $draft = DiscountCodeDraft::ofCodeDiscountsAndActive(
             'test-' . $uniqueDiscountCodeString . '-code',
             $cartDiscountReferenceCollection,
+            false
+        );
+
+        return $draft;
+    }
+
+    final public static function defaultActiveDiscountCodeDraftFunction(
+        CartDiscountReferenceCollection $cartDiscountReferenceCollection
+    ) {
+        $uniqueDiscountCodeString = self::uniqueDiscountCodeString();
+        $draft = DiscountCodeDraft::ofCodeDiscountsAndActive(
+            'test-' . $uniqueDiscountCodeString . '-code',
+            $cartDiscountReferenceCollection,
             true
         );
 
@@ -165,6 +178,59 @@ class DiscountCodeFixture extends ResourceFixture
             }
         );
     }
+
+    final public static function withActiveDraftDiscountCode(
+        ApiClient $client,
+        callable $draftBuilderFunction,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
+        CartDiscountFixture::withDraftCartDiscount(
+            $client,
+            function (CartDiscountDraft $cartDiscountDraft) {
+                return $cartDiscountDraft->setRequiresDiscountCode(true);
+            },
+            function (CartDiscount $cartDiscount) use (
+                $client,
+                $draftBuilderFunction,
+                $assertFunction,
+                $createFunction,
+                $deleteFunction,
+                $draftFunction
+            ) {
+                $cartDiscountReferences = CartDiscountReferenceCollection::of()
+                    ->add(CartDiscountReference::ofId($cartDiscount->getId()));
+                if ($draftFunction == null) {
+                    $draftFunction = function () use ($cartDiscountReferences) {
+                        return call_user_func([__CLASS__, 'defaultActiveDiscountCodeDraftFunction'], $cartDiscountReferences);
+                    };
+                } else {
+                    $draftFunction = function () use ($cartDiscountReferences, $draftFunction) {
+                        return call_user_func($draftFunction, $cartDiscountReferences);
+                    };
+                }
+                if ($createFunction == null) {
+                    $createFunction = [__CLASS__, 'defaultDiscountCodeCreateFunction'];
+                }
+                if ($deleteFunction == null) {
+                    $deleteFunction = [__CLASS__, 'defaultDiscountCodeDeleteFunction'];
+                }
+
+                parent::withDraftResource(
+                    $client,
+                    $draftBuilderFunction,
+                    $assertFunction,
+                    $createFunction,
+                    $deleteFunction,
+                    $draftFunction,
+                    [$cartDiscount]
+                );
+            }
+        );
+    }
+
     final public static function withDraftCategory(
         ApiClient $client,
         callable $draftBuilderFunction,
@@ -228,6 +294,23 @@ class DiscountCodeFixture extends ResourceFixture
         callable $draftFunction = null
     ) {
         self::withDraftDiscountCode(
+            $client,
+            [__CLASS__, 'defaultDiscountCodeDraftBuilderFunction'],
+            $assertFunction,
+            $createFunction,
+            $deleteFunction,
+            $draftFunction
+        );
+    }
+
+    final public static function withActiveDiscountCode(
+        ApiClient $client,
+        callable $assertFunction,
+        callable $createFunction = null,
+        callable $deleteFunction = null,
+        callable $draftFunction = null
+    ) {
+        self::withActiveDraftDiscountCode(
             $client,
             [__CLASS__, 'defaultDiscountCodeDraftBuilderFunction'],
             $assertFunction,

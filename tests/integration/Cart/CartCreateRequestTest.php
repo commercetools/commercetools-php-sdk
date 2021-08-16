@@ -81,7 +81,7 @@ class CartCreateRequestTest extends ApiTestCase
     public function testCreateWithDiscount()
     {
         $client = $this->getApiClient();
-        DiscountCodeFixture::withDiscountCode(
+        DiscountCodeFixture::withActiveDiscountCode(
             $client,
             function (DiscountCode $discountCode) use ($client) {
                 CartFixture::withDraftCart(
