@@ -32,7 +32,7 @@ class DiscountCodeFixture extends ResourceFixture
         $draft = DiscountCodeDraft::ofCodeDiscountsAndActive(
             'test-' . $uniqueDiscountCodeString . '-code',
             $cartDiscountReferenceCollection,
-            false
+            true
         );
 
         return $draft;

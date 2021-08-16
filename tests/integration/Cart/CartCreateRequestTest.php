@@ -8,11 +8,16 @@ namespace Commercetools\Core\IntegrationTests\Cart;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\DiscountCode\DiscountCodeFixture;
 use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
+use Commercetools\Core\Model\CartDiscount\CartDiscount;
+use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
+use Commercetools\Core\Model\DiscountCode\DiscountCode;
+use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
@@ -69,6 +74,25 @@ class CartCreateRequestTest extends ApiTestCase
             },
             function (Cart $cart) use ($client, $originType, $successful) {
                 $this->assertSame($originType, $cart->getOrigin());
+            }
+        );
+    }
+
+    public function testCreateWithDiscount()
+    {
+        $client = $this->getApiClient();
+        DiscountCodeFixture::withDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                CartFixture::withDraftCart(
+                    $client,
+                    function (CartDraft $draft) use ($discountCode) {
+                        return $draft->setCountry("DE")->setCurrency("EUR")->setDiscountCodes([$discountCode->getCode()]);
+                    },
+                    function (Cart $cart) use ($client, $discountCode) {
+                        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+                    }
+                );
             }
         );
     }
