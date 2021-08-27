@@ -64,6 +64,8 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method CartDraft setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
  * @method StoreReference getStore()
  * @method CartDraft setStore(StoreReference $store = null)
+ * @method array getDiscountCodes()
+ * @method CartDraft setDiscountCodes(array $discountCodes = null)
  */
 class CartDraft extends JsonObject
 {
@@ -95,6 +97,7 @@ class CartDraft extends JsonObject
             'shippingRateInput' => [static::TYPE => ShippingRateInputDraft::class],
             'itemShippingAddresses' => [static::TYPE => AddressCollection::class],
             'store' => [static::TYPE => StoreReference::class],
+            'discountCodes' => [static::TYPE => 'array'],
         ];
     }
 
