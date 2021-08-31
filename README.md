@@ -1,5 +1,13 @@
 # <img src="build/theme/resources/CT_cube_200px.png" width="40" align="center"></img> commercetools PHP SDK
 
+:warning: **This commercetools PHP SDK is in its Active Support mode currently, and is planned to be deprecated, please note the following dates.
+
+| Active Support        | Maintenance Support   | End of Life           |
+| --------------------- | --------------------- | --------------------- |
+| `28th February, 2022` | `31st August 2022.` | `1st September 2022.`   |
+
+We recommend to use our [PHP SDK V2](https://docs.commercetools.com/sdk/php-sdk#php-sdk-v2).
+
 [![Build Status](https://img.shields.io/travis/com/commercetools/commercetools-php-sdk/master.svg?style=flat-square)](https://travis-ci.com/commercetools/commercetools-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/commercetools/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/commercetools/commercetools-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/commercetools/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/commercetools/commercetools-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk)
 
 The PHP SDK allows developers to build applications on the commercetools platform (technically speaking against our REST API) using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API.
