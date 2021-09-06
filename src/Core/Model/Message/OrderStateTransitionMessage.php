@@ -27,6 +27,8 @@ use DateTime;
  * @method OrderStateTransitionMessage setType(string $type = null)
  * @method StateReference getState()
  * @method OrderStateTransitionMessage setState(StateReference $state = null)
+ * @method StateReference getOldState()
+ * @method OrderStateTransitionMessage setOldState(StateReference $state = null)
  * @method int getVersion()
  * @method OrderStateTransitionMessage setVersion(int $version = null)
  * @method DateTimeDecorator getLastModifiedAt()
