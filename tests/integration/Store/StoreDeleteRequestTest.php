@@ -44,7 +44,6 @@ class StoreDeleteRequestTest extends ApiTestCase
         StoreFixture::withStore(
             $client,
             function (Store $store) use ($client) {
-
                 $retries = 0;
                 do {
                     $retries++;

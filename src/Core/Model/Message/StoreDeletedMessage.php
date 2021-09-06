@@ -1,19 +1,15 @@
 <?php
-/**
- * @author @jenschude <jens.schulze@commercetools.de>
- */
 
 namespace Commercetools\Core\Model\Message;
 
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
-use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Channel\ChannelReference;
 use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
- * @link https://docs.commercetools.com/api/message-types#storedeletedmessage
+ *
  * @method string getId()
  * @method StoreDeletedMessage setId(string $id = null)
  * @method int getVersion()

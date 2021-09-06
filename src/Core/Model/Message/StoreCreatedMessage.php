@@ -9,7 +9,7 @@ use Commercetools\Core\Model\Common\Reference;
 
 /**
  * @package Commercetools\Core\Model\Message
- * @link https://docs.commercetools.com/api/message-types#storecreatedmessage
+ *
  * @method string getId()
  * @method StoreCreatedMessage setId(string $id = null)
  * @method int getVersion()
