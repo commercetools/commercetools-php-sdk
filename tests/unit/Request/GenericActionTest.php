@@ -118,6 +118,7 @@ use Commercetools\Core\Request\Inventory\Command\InventoryRemoveQuantityAction;
 use Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAction;
 use Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction;
 use Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction;
+use Commercetools\Core\Request\Me\Command\MyCartAddLineItemAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddParcelToDeliveryAction;
 use Commercetools\Core\Request\Orders\Command\OrderAddReturnInfoAction;
@@ -203,8 +204,6 @@ use Commercetools\Core\Request\ProductTypes\Command\ProductTypeSetKeyAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetAuthorNameAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetCustomerAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetKeyAction;
-use Commercetools\Core\Request\Reviews\Command\ReviewSetLocaleAction;
-use Commercetools\Core\Request\Reviews\Command\ReviewSetRatingAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetTargetAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetTextAction;
 use Commercetools\Core\Request\Reviews\Command\ReviewSetTitleAction;
@@ -737,6 +736,11 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 CartAddLineItemAction::class,
+                'ofProductIdVariantIdAndQuantity',
+                ['productId', 1, 2]
+            ],
+            [
+                MyCartAddLineItemAction::class,
                 'ofProductIdVariantIdAndQuantity',
                 ['productId', 1, 2]
             ],

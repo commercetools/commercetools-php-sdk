@@ -19,11 +19,13 @@ use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Customer\Customer;
 use Commercetools\Core\Model\Customer\CustomerDraft;
 use Commercetools\Core\Model\Customer\CustomerToken;
+use Commercetools\Core\Model\Message\CustomerPasswordUpdatedMessage;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Request\Customers\CustomerCreateRequest;
 use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
+use Commercetools\Core\Request\Messages\MessageQueryRequest;
 use Monolog\Handler\StreamHandler;
 use Monolog\Logger;
 use Psr\Log\LogLevel;
@@ -158,9 +160,29 @@ class CustomerLoginRequestTest extends ApiTestCase
                 $request = RequestBuilder::of()->customers()
                     ->changePassword($customer, $password, CustomerFixture::uniqueCustomerString());
                 $response = $this->execute($client, $request);
-                $result = $request->mapFromResponse($response);
+                $customerUpdated = $request->mapFromResponse($response);
 
-                $this->assertSame($customer->getId(), $result->getId());
+                $this->assertSame($customer->getId(), $customerUpdated->getId());
+
+                $retries = 0;
+                do {
+                    $retries++;
+                    sleep(1);
+                    $request = MessageQueryRequest::of()
+                        ->where('type = "CustomerPasswordUpdated"')
+                        ->where('resource(id = "' . $customerUpdated->getId() . '")');
+                    $response = $this->execute($client, $request);
+                    $result = $request->mapFromResponse($response);
+                } while (is_null($result) && $retries <= 9);
+
+                /**
+                 * @var CustomerPasswordUpdatedMessage $message
+                 */
+                $message = $result->current();
+
+                $this->assertInstanceOf(CustomerPasswordUpdatedMessage::class, $message);
+                $this->assertSame($customerUpdated->getId(), $message->getResource()->getId());
+                $this->assertTrue(!$message->getReset());
             }
         );
     }
@@ -218,9 +240,29 @@ class CustomerLoginRequestTest extends ApiTestCase
                 $request = RequestBuilder::of()->customers()
                     ->resetPassword($token, $newPassword);
                 $response = $this->execute($client, $request);
-                $result = $request->mapFromResponse($response);
+                $customerUpdated = $request->mapFromResponse($response);
 
-                $this->assertSame($customer->getId(), $result->getId());
+                $this->assertSame($customer->getId(), $customerUpdated->getId());
+
+                $retries = 0;
+                do {
+                    $retries++;
+                    sleep(1);
+                    $request = MessageQueryRequest::of()
+                        ->where('type = "CustomerPasswordUpdated"')
+                        ->where('resource(id = "' . $customerUpdated->getId() . '")');
+                    $response = $this->execute($client, $request);
+                    $result = $request->mapFromResponse($response);
+                } while (is_null($result) && $retries <= 9);
+
+                /**
+                 * @var CustomerPasswordUpdatedMessage $message
+                 */
+                $message = $result->current();
+
+                $this->assertInstanceOf(CustomerPasswordUpdatedMessage::class, $message);
+                $this->assertSame($customerUpdated->getId(), $message->getResource()->getId());
+                $this->assertTrue($message->getReset());
 
                 $request = RequestBuilder::of()->customers()
                     ->login($customer->getEmail(), $newPassword);
@@ -555,6 +597,84 @@ class CustomerLoginRequestTest extends ApiTestCase
                                 $this->assertSame($customer->getId(), $loggedInCart->getCustomerId());
                             }
                         );
+                    }
+                );
+            }
+        );
+    }
+    public function testInStoreChangePasswordSuccess()
+    {
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
+
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client, $password) {
+                CustomerFixture::withDraftCustomer(
+                    $client,
+                    function (CustomerDraft $draft) use ($password) {
+                        return $draft->setPassword($password);
+                    },
+                    function (Customer $customer) use ($client, $store, $password) {
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->customers()
+                                ->changePassword($customer, $password, CustomerFixture::uniqueCustomerString())
+                        );
+                        $response = $this->execute($client, $request);
+                        $customerUpdated = $request->mapFromResponse($response);
+
+                        $this->assertSame($customer->getId(), $customerUpdated->getId());
+
+                        $retries = 0;
+                        do {
+                            $retries++;
+                            sleep(1);
+                            $request = MessageQueryRequest::of()
+                                ->where('type = "CustomerPasswordUpdated"')
+                                ->where('resource(id = "' . $customerUpdated->getId() . '")');
+                            $response = $this->execute($client, $request);
+                            $result = $request->mapFromResponse($response);
+                        } while (is_null($result) && $retries <= 9);
+
+                        /**
+                         * @var CustomerPasswordUpdatedMessage $message
+                         */
+                        $message = $result->current();
+
+                        $this->assertInstanceOf(CustomerPasswordUpdatedMessage::class, $message);
+                        $this->assertSame($customerUpdated->getId(), $message->getResource()->getId());
+                        $this->assertTrue(!$message->getReset());
+                    }
+                );
+            }
+        );
+    }
+
+    public function testInStoreChangePasswordFailure()
+    {
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(400);
+        $this->expectExceptionMessageMatches("/InvalidCurrentPassword/");
+
+        $client = $this->getApiClient();
+        $password = 'test-' . CustomerFixture::uniqueCustomerString() . '-password';
+
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client, $password) {
+                CustomerFixture::withDraftCustomer(
+                    $client,
+                    function (CustomerDraft $draft) use ($password) {
+                        return $draft->setPassword($password);
+                    },
+                    function (Customer $customer) use ($client, $password, $store) {
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->customers()
+                                ->changePassword($customer, CustomerFixture::uniqueCustomerString(), $password)
+                        );
+                        $this->execute($client, $request);
                     }
                 );
             }

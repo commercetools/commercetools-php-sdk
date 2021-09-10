@@ -36,6 +36,8 @@ use DateTime;
  * phpcs:disable
  * @method CategorySlugChangedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
  * phpcs:enable
+ * @method LocalizedString getOldSlug()
+ * @method CategorySlugChangedMessage setOldSlug(LocalizedString $oldSlug = null)
  */
 class CategorySlugChangedMessage extends Message
 {
@@ -45,6 +47,7 @@ class CategorySlugChangedMessage extends Message
     {
         $definitions = parent::fieldDefinitions();
         $definitions['slug'] = [static::TYPE => LocalizedString::class];
+        $definitions['oldSlug'] = [static::TYPE => LocalizedString::class];
 
         return $definitions;
     }

@@ -6,14 +6,13 @@
 
 namespace Commercetools\Core\IntegrationTests\Me;
 
-use Commercetools\Core\Client\ClientFactory;
+use Commercetools\Core\Client;
+use Commercetools\Core\Client\OAuth\Manager;
+use Commercetools\Core\Config;
 use Commercetools\Core\Error\BadRequestException;
+use Commercetools\Core\Error\ResourceNotFoundError;
 use Commercetools\Core\Fixtures\AnonymousId;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
-use Commercetools\Core\Client;
-use Commercetools\Core\Config;
-use Commercetools\Core\Client\OAuth\Manager;
-use Commercetools\Core\Error\ResourceNotFoundError;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\MyCartDraft;
@@ -103,8 +102,7 @@ class MeCartRequestTest extends ApiTestCase
         $anonId = uniqid();
         $config = $this->getClientConfig(['view_products', 'manage_my_profile', 'manage_my_orders']);
         $config->setGrantType(Config::GRANT_TYPE_ANONYMOUS)
-            ->setAnonymousId($anonId)
-        ;
+            ->setAnonymousId($anonId);
 
         $testHandler = new TestHandler();
         $logger = new Logger('test');
@@ -136,8 +134,7 @@ class MeCartRequestTest extends ApiTestCase
         $config = $this->getClientConfig(['view_products', 'manage_my_profile', 'manage_my_orders']);
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $testHandler = new TestHandler();
         $logger = new Logger('test');
@@ -168,8 +165,7 @@ class MeCartRequestTest extends ApiTestCase
         $config = $this->getClientConfig(['view_products', 'manage_my_profile', 'manage_my_orders']);
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $testHandler = new TestHandler();
         $logger = new Logger('test');
@@ -327,8 +323,7 @@ class MeCartRequestTest extends ApiTestCase
         $config = $this->getClientConfig('manage_my_orders');
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -364,8 +359,7 @@ class MeCartRequestTest extends ApiTestCase
         $config = $this->getClientConfig('manage_my_orders');
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
@@ -394,8 +388,7 @@ class MeCartRequestTest extends ApiTestCase
         $config = $this->getClientConfig('manage_my_orders');
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $client = Client::ofConfigCacheAndLogger($config, $this->getCache(), $this->getLogger());
         $client->getOauthManager()->getHttpClient(['verify' => $this->getVerifySSL()]);
@@ -463,8 +456,7 @@ class MeCartRequestTest extends ApiTestCase
         $config = $this->getClientConfig('manage_my_orders');
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');
@@ -532,8 +524,7 @@ class MeCartRequestTest extends ApiTestCase
         $config = $this->getClientConfig('manage_my_orders');
         $config->setGrantType(Config::GRANT_TYPE_PASSWORD)
             ->setUsername($customer->getEmail())
-            ->setPassword($customerDraft->getPassword())
-        ;
+            ->setPassword($customerDraft->getPassword());
 
         $handler = new TestHandler();
         $logger = new Logger('testOauth');

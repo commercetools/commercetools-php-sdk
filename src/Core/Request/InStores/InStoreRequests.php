@@ -21,6 +21,7 @@ use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
 use Commercetools\Core\Request\Customers\CustomerEmailConfirmRequest;
 use Commercetools\Core\Request\Customers\CustomerEmailTokenRequest;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
+use Commercetools\Core\Request\Customers\CustomerPasswordChangeRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordResetRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest;
 use Commercetools\Core\Request\Customers\CustomerQueryRequest;
@@ -102,6 +103,7 @@ class InStoreRequests
         CustomerEmailConfirmRequest::class => 1,
         CustomerUpdateRequest::class => 1,
         CustomerUpdateByKeyRequest::class => 1,
+        CustomerPasswordChangeRequest::class => 1,
         ShippingMethodByCartIdGetRequest::class => 1,
         ShoppingListByKeyGetRequest::class => 1,
         ShoppingListByIdGetRequest::class => 1,

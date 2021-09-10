@@ -7,12 +7,12 @@ namespace Commercetools\Core\Request\Carts\Command;
 
 use Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice;
 use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
+use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Request\AbstractAction;
-use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
+use Commercetools\Core\Request\AbstractAction;
 
 /**
  * @package Commercetools\Core\Request\Carts\Command
