@@ -8,15 +8,10 @@ namespace Commercetools\Core\Model\Cart;
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
-use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
-use Commercetools\Core\Model\Common\Price;
-use Commercetools\Core\Model\Order\ItemState;
-use Commercetools\Core\Model\Order\ItemStateCollection;
-use Commercetools\Core\Model\Product\ProductVariant;
-use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -43,6 +38,8 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method LineItemDraft setSku(string $sku = null)
  * @method ItemShippingDetailsDraft getShippingDetails()
  * @method LineItemDraft setShippingDetails(ItemShippingDetailsDraft $shippingDetails = null)
+ * @method DateTime getAddedAt()
+ * @method LineItemDraft setAddedAt(DateTime $addedAt = null)
  */
 class LineItemDraft extends JsonObject
 {
@@ -60,6 +57,7 @@ class LineItemDraft extends JsonObject
             'custom' => [static::TYPE => CustomFieldObject::class],
             'sku' => [static::TYPE => 'string'],
             'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
+            'addedAt' => [static::TYPE => DateTime::class],
         ];
     }
 

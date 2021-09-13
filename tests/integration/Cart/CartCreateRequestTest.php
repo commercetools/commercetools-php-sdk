@@ -127,6 +127,8 @@ class CartCreateRequestTest extends ApiTestCase
                         $replicaCart = $request->mapFromResponse($response);
 
                         $this->assertNotEmpty($replicaCart->getLineItems());
+                        $this->assertNotEmpty($replicaCart->getLineItems()->current()->getLastModifiedAt());
+                        $this->assertNotEmpty($replicaCart->getLineItems()->current()->getAddedAt());
 
                         $cartLineItem = $cart->getLineItems()->current()->getProductId();
                         $replicaCartLineItem = $replicaCart->getLineItems()->current()->getProductId();

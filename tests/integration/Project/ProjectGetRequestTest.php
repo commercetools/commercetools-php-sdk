@@ -8,6 +8,7 @@ namespace Commercetools\Core\IntegrationTests\Project;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Project\Project;
+use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
 
 class ProjectGetRequestTest extends ApiTestCase
 {
