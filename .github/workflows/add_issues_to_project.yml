@@ -7,7 +7,7 @@ jobs:
   add_issue:
     uses: commercetools/clients-automation/.github/workflows/workflow_issues_pr_to_project.yml@3a829d9ef84bfa93b37a1b08110cae245aeacfc9
     with:
-      issue_id: ${{ github.event.issue.node_id }}
+      node_id: ${{ github.event.issue.node_id }}
       org: commercetools
       project: 32
     secrets:
@@ -15,7 +15,6 @@ jobs:
   label_issues:
     uses: commercetools/clients-automation/.github/workflows/label_non_org_items.yml@e072475471594721284dea8d72f1b126aa8a16f5
     with:
-      issue_id: ${{ github.event.issue.node_id }}
       org: commercetools
       repository: commercetools-php-sdk
       node_id: ${{ github.event.issue.node_id }}
