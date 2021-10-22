@@ -13,7 +13,7 @@ jobs:
     secrets:
       token: ${{ secrets.PROJECT_TOKEN }}
   label_issues:
-    uses: commercetools/clients-automation/.github/workflows/label_non_org_items.yml@6910a570701d8e36c0ed3574c25f8ba61385da6c
+    uses: commercetools/clients-automation/.github/workflows/label_non_org_items.yml@cb5765d84c26dbef281863b85f81ea479a302f88
     with:
       org: commercetools
       repository: commercetools-php-sdk
