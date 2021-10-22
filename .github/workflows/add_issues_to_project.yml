@@ -5,19 +5,12 @@ on:
       - opened
 jobs:
   add_issue:
-    uses: commercetools/clients-automation/.github/workflows/workflow_issues_pr_to_project.yml@3a829d9ef84bfa93b37a1b08110cae245aeacfc9
+    uses: commercetools/clients-automation/.github/workflows/workflow_issues_pr_to_project.yml@5f5fa16785481c760915a089c8fcb699c7b0fc81
     with:
       node_id: ${{ github.event.issue.node_id }}
       org: commercetools
       project: 32
-    secrets:
-      token: ${{ secrets.PROJECT_TOKEN }}
-  label_issues:
-    uses: commercetools/clients-automation/.github/workflows/label_non_org_items.yml@cb5765d84c26dbef281863b85f81ea479a302f88
-    with:
-      org: commercetools
       repository: commercetools-php-sdk
-      node_id: ${{ github.event.issue.node_id }}
       login: ${{ github.event.issue.user.login }}
     secrets:
       token: ${{ secrets.PROJECT_TOKEN }}
