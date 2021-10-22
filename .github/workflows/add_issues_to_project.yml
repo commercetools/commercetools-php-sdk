@@ -5,7 +5,7 @@ on:
       - opened
 jobs:
   add_issue:
-    uses: commercetools/clients-automation/.github/workflows/workflow_issues_pr_to_project.yml@499e0e1b76a64fb0387386067b3492568f06d71d
+    uses: commercetools/clients-automation/.github/workflows/workflow_issues_pr_to_project.yml@ffbbcb48bb54d475bbe3084ab7e7e3ae150546f5
     with:
       node_id: ${{ github.event.issue.node_id }}
       org: commercetools
