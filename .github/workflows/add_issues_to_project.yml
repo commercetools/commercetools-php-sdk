@@ -8,9 +8,9 @@ jobs:
     uses: commercetools/clients-automation/.github/workflows/workflow_issues_pr_to_project.yml@305d1520c0bd905939f21f22e20431013c199020
     with:
       node_id: ${{ github.event.issue.node_id }}
-      org: commercetools
+      org: ${{ github.event.issue.repository.owner.login }}
       project: 32
-      repository: commercetools-php-sdk
+      repository: ${{ github.event.issue.repository.name }}
       login: ${{ github.event.issue.user.login }}
     secrets:
       token: ${{ secrets.PROJECT_TOKEN }}
