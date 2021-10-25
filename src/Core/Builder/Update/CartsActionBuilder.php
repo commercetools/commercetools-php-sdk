@@ -46,6 +46,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomFie
 use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLineItemDistributionChannelAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxAmountAction;
@@ -525,6 +526,17 @@ class CartsActionBuilder
     public function setLineItemCustomType($action = null)
     {
         $this->addAction($this->resolveAction(CartSetLineItemCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetLineItemDistributionChannelAction|callable $action
+     * @return $this
+     */
+    public function setLineItemDistributionChannel($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetLineItemDistributionChannelAction::class, $action));
         return $this;
     }
 

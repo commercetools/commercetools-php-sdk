@@ -476,6 +476,9 @@ class RamlModelTest extends AbstractModelTest
             if (strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
+            if (strpos($class, 'Core\\Model\\Message') > 0) {
+                continue;
+            }
 
             if (!empty($class)) {
                 if (in_array(JsonObject::class, class_parents($class))) {
