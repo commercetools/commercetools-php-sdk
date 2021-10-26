@@ -85,6 +85,14 @@ class ActionBuilder
     }
 
     /**
+     * @return MeActionBuilder
+     */
+    public function me()
+    {
+        return new MeActionBuilder();
+    }
+
+    /**
      * @return OrderEditsActionBuilder
      */
     public function orderEdits()

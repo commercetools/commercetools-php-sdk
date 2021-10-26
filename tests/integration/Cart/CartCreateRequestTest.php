@@ -8,11 +8,16 @@ namespace Commercetools\Core\IntegrationTests\Cart;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\DiscountCode\DiscountCodeFixture;
 use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartDraft;
 use Commercetools\Core\Model\Cart\CartState;
+use Commercetools\Core\Model\CartDiscount\CartDiscount;
+use Commercetools\Core\Model\CartDiscount\CartDiscountReferenceCollection;
+use Commercetools\Core\Model\DiscountCode\DiscountCode;
+use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
@@ -73,6 +78,25 @@ class CartCreateRequestTest extends ApiTestCase
         );
     }
 
+    public function testCreateWithDiscount()
+    {
+        $client = $this->getApiClient();
+        DiscountCodeFixture::withActiveDiscountCode(
+            $client,
+            function (DiscountCode $discountCode) use ($client) {
+                CartFixture::withDraftCart(
+                    $client,
+                    function (CartDraft $draft) use ($discountCode) {
+                        return $draft->setCountry("DE")->setCurrency("EUR")->setDiscountCodes([$discountCode->getCode()]);
+                    },
+                    function (Cart $cart) use ($client, $discountCode) {
+                        $this->assertSame($discountCode->getId(), $cart->getDiscountCodes()->current()->getDiscountCode()->getId());
+                    }
+                );
+            }
+        );
+    }
+
     public function testCreateReplicaCartFromCart()
     {
         $client = $this->getApiClient();
@@ -103,6 +127,8 @@ class CartCreateRequestTest extends ApiTestCase
                         $replicaCart = $request->mapFromResponse($response);
 
                         $this->assertNotEmpty($replicaCart->getLineItems());
+                        $this->assertNotEmpty($replicaCart->getLineItems()->current()->getLastModifiedAt());
+                        $this->assertNotEmpty($replicaCart->getLineItems()->current()->getAddedAt());
 
                         $cartLineItem = $cart->getLineItems()->current()->getProductId();
                         $replicaCartLineItem = $replicaCart->getLineItems()->current()->getProductId();

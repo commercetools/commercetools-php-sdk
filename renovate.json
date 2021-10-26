@@ -22,5 +22,5 @@
   "labels": [
     "Type: Maintenance"
   ],
-  "ignoreDeps": []
+  "ignoreDeps": ["symplify/easy-coding-standard-prefixed"]
 }

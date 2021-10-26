@@ -12,6 +12,7 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Cart\ExternalLineItemTotalPrice;
 use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Request\OrderEdits\StagedOrder\Command
@@ -40,6 +41,8 @@ use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
  * @method StagedOrderAddLineItemAction setExternalTotalPrice(ExternalLineItemTotalPrice $externalTotalPrice = null)
  * @method ItemShippingDetailsDraft getShippingDetails()
  * @method StagedOrderAddLineItemAction setShippingDetails(ItemShippingDetailsDraft $shippingDetails = null)
+ * @method DateTime getAddedAt()
+ * @method StagedOrderAddLineItemAction setAddedAt(DateTime $addedAt = null)
  */
 class StagedOrderAddLineItemAction extends CartAddLineItemAction implements StagedOrderUpdateAction
 {

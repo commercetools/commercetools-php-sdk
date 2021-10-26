@@ -163,6 +163,63 @@ use Psr\SimpleCache\CacheInterface;
  * $config = Config::of()->setClientOptions(['middlewares' => $middlewares])
  * ```
  *
+ * ### Timeouts
+ *
+ * The clients are configured to timeout by default after 60 seconds. This can be changed by setting the client options in the Config instance
+ *
+ * ```php
+ * $config = Config::of()->setClientOptions([
+ *     'defaults' => [
+ *         'timeout' => 10
+ *     ]
+ * ])
+ * ```
+ *
+ * Another option is to specify the timeout per request
+ *
+ * ```php
+ * $request = ProductProjectionSearchRequest::of();
+ * $response = $client->execute($request, null, ['timeout' => 10]);
+ * ```
+ *
+ * ### Retrying
+ *
+ * As a request can error in multiple ways it's possible to add a retry middleware to the client config. E.g.: Retrying in case of service unavailable errors
+ *
+ * ```php
+ * $config = Config::of()->setClientOptions([
+ *     'defaults' => [
+ *         'timeout' => 10
+ *     ]
+ * ])
+ * $maxRetries = 3;
+ * $clientOptions = [
+ *     'middlewares' => [
+ *         'retry' => Middleware::retry(
+ *             function ($retries, RequestInterface $request, ResponseInterface $response = null, $error = null) use ($maxRetries) {
+ *                 if ($response instanceof ResponseInterface && $response->getStatusCode() < 500) {
+ *                     return false;
+ *                 }
+ *                 if ($retries > $maxRetries) {
+ *                     return false;
+ *                 }
+ *                 if ($error instanceof ServiceUnavailableException) {
+ *                     return true;
+ *                 }
+ *                 if ($error instanceof ServerException && $error->getCode() == 503) {
+ *                     return true;
+ *                 }
+ *                 if ($response instanceof ResponseInterface && $response->getStatusCode() == 503) {
+ *                     return true;
+ *                 }
+ *                 return false;
+ *             },
+ *             [RetryMiddleware::class, 'exponentialDelay']
+ *         )
+ *     ]
+ * ];
+ * $config->setClientOptions($clientOptions);
+ * ```
  * @package Commercetools\Core\Client
  */
 class ClientFactory

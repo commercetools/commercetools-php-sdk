@@ -241,6 +241,7 @@ class CartUpdateRequestTest extends ApiTestCase
                         $cart = $request->mapFromResponse($response);
 
                         $this->assertSame(2, $cart->getLineItems()->current()->getQuantity());
+                        $this->assertNotEmpty($cart->getLineItems()->current()->getLastModifiedAt());
 
                         $request = RequestBuilder::of()->carts()->update($cart)
                             ->addAction(
@@ -2535,6 +2536,8 @@ class CartUpdateRequestTest extends ApiTestCase
 
                                 $this->assertCount(2, $cart->getLineItems());
                                 $this->assertSame(100, $cart->getTotalPrice()->getCentAmount());
+                                $this->assertNotEmpty($cart->getLineItems()->current()->getLastModifiedAt());
+                                $this->assertNotEmpty($cart->getLineItems()->current()->getAddedAt());
 
                                 $giftLineItemIncluded = false;
                                 foreach ($cart->getLineItems() as $lineItem) {
@@ -2876,6 +2879,8 @@ class CartUpdateRequestTest extends ApiTestCase
                             $result->getLineItems()->current()->getShippingDetails()
                                 ->getTargets()->current()->getQuantity()
                         );
+                        $this->assertNotEmpty($cart->getLineItems()->current()->getLastModifiedAt());
+                        $this->assertNotEmpty($cart->getLineItems()->current()->getAddedAt());
 
                         return $result;
                     }

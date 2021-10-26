@@ -16,6 +16,7 @@ use Commercetools\Core\Model\TaxCategory\TaxRate;
 use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Common\TaxedItemPrice;
 use Commercetools\Core\Model\ProductType\ProductTypeReference;
+use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Cart
@@ -57,6 +58,10 @@ use Commercetools\Core\Model\ProductType\ProductTypeReference;
  * @method LineItem setLineItemMode(string $lineItemMode = null)
  * @method ItemShippingDetails getShippingDetails()
  * @method LineItem setShippingDetails(ItemShippingDetails $shippingDetails = null)
+ * @method DateTime getAddedAt()
+ * @method LineItem setAddedAt(DateTime $addedAt = null)
+ * @method DateTime getLastModifiedAt()
+ * @method LineItem setLastModifiedAt(DateTime $lastModifiedAt = null)
  */
 class LineItem extends JsonObject
 {
@@ -78,6 +83,7 @@ class LineItem extends JsonObject
             'price' => [static::TYPE => Price::class],
             'taxedPrice' => [static::TYPE => TaxedItemPrice::class],
             'quantity' => [static::TYPE => 'int'],
+            'addedAt' => [static::TYPE => DateTime::class],
             'state' => [static::TYPE => ItemStateCollection::class],
             'taxRate' => [static::TYPE => TaxRate::class],
             'supplyChannel' => [static::TYPE => ChannelReference::class],
@@ -91,6 +97,7 @@ class LineItem extends JsonObject
             'lineItemMode' => [static::TYPE => 'string'],
             'productType' => [static::TYPE => ProductTypeReference::class],
             'shippingDetails' => [static::TYPE => ItemShippingDetails::class],
+            'lastModifiedAt' => [static::TYPE => DateTime::class],
         ];
     }
 
