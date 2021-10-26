@@ -577,11 +577,8 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
                 return $channelDraft->setRoles(['ProductDistribution']);
             },
             function (Channel $channel) use ($client) {
-                OrderEditFixture::withUpdateableDraftOrderEdit(
+                OrderEditFixture::withUpdateableOrderEdit(
                     $client,
-                    function (OrderEditDraft $draft) {
-                        return $draft;
-                    },
                     function (OrderEdit $orderEdit, Order $order) use ($client, $channel) {
                         $lineItemId = $order->getLineItems()->current()->getId();
 
