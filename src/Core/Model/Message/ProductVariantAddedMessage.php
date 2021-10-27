@@ -37,6 +37,8 @@ use Commercetools\Core\Model\Common\Reference;
  * phpcs:disable
  * @method ProductVariantAddedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
  * phpcs:enable
+ * @method bool getStaged()
+ * @method ProductVariantAddedMessage setStaged(bool $staged = null)
  */
 class ProductVariantAddedMessage extends Message
 {
