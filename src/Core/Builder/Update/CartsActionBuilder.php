@@ -44,6 +44,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificationAction;
 use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetKeyAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemDistributionChannelAction;
@@ -504,6 +505,17 @@ class CartsActionBuilder
     public function setItemShippingAddressCustomType($action = null)
     {
         $this->addAction($this->resolveAction(CartSetItemShippingAddressCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/carts#set-key-
+     * @param CartSetKeyAction|callable $action
+     * @return $this
+     */
+    public function setKey($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetKeyAction::class, $action));
         return $this;
     }
 

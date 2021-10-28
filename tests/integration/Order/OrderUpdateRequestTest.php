@@ -15,6 +15,7 @@ use Commercetools\Core\IntegrationTests\State\StateFixture;
 use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
 use Commercetools\Core\Model\Cart\ItemShippingTarget;
@@ -144,7 +145,7 @@ class OrderUpdateRequestTest extends ApiTestCase
             $cart->getVersion()
         );
 
-        $orderRequest = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
+        $orderRequest = OrderCreateFromCartRequest::ofCartAndVersion(CartReference::ofId($cart->getId()), $cart->getVersion());
         if (!is_null($orderNumber)) {
             $orderRequest->setOrderNumber($orderNumber);
         }
