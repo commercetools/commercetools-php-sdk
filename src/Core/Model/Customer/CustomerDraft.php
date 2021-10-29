@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Model\Customer;
 
+use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
@@ -105,6 +106,7 @@ class CustomerDraft extends JsonObject
             'key' => [static::TYPE => 'string'],
             'anonymousId' => [static::TYPE => 'string'],
             'stores' => [static::TYPE => StoreReferenceCollection::class],
+            'anonymousCart' => [static::TYPE => CartReference::class],
         ];
     }
 

@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Request\Customers;
 
+use Commercetools\Core\Model\Cart\CartReference;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\JsonRequest;
@@ -26,6 +27,7 @@ class CustomerLoginRequest extends AbstractApiRequest
 {
     const EMAIL = 'email';
     const PASSWORD = 'password';
+    const ANONYMOUS_CART = 'anonymousCart';
     const ANONYMOUS_CART_ID = 'anonymousCartId';
     const ANONYMOUS_CART_SIGN_IN_MODE = 'anonymousCartSignInMode';
     const SIGN_IN_MODE_MERGE = 'MergeWithExistingCustomerCart';
@@ -43,6 +45,12 @@ class CustomerLoginRequest extends AbstractApiRequest
     protected $password;
 
     /**
+     * @var CartReference
+     */
+    protected $anonymousCart;
+
+    /**
+     * @deprecated use $anonymousCart instead
      * @var string
      */
     protected $anonymousCartId;
@@ -62,12 +70,13 @@ class CustomerLoginRequest extends AbstractApiRequest
      * @param string $anonymousCartId
      * @param Context $context
      */
-    public function __construct($email, $password, $anonymousCartId = null, Context $context = null)
+    public function __construct($email, $password, $anonymousCartId = null, $anonymousCart = null, Context $context = null)
     {
         parent::__construct(LoginEndpoint::endpoint(), $context);
         $this->email = $email;
         $this->password = $password;
         $this->anonymousCartId = $anonymousCartId;
+        $this->anonymousCart = $anonymousCart;
     }
 
     /**
@@ -109,6 +118,7 @@ class CustomerLoginRequest extends AbstractApiRequest
     }
 
     /**
+     * @deprecated use $getAnonymousCart instead
      * @return string
      */
     public function getAnonymousCartId()
@@ -117,6 +127,7 @@ class CustomerLoginRequest extends AbstractApiRequest
     }
 
     /**
+     * @deprecated use $setAnonymousCart instead
      * @param string $anonymousCartId
      * @return $this
      */
@@ -165,6 +176,25 @@ class CustomerLoginRequest extends AbstractApiRequest
     }
 
     /**
+     * @return CartReference
+     */
+    public function getAnonymousCart()
+    {
+        return $this->anonymousCart;
+    }
+
+    /**
+     * @param CartReference $anonymousCart
+     * @return $this
+     */
+    public function setAnonymousCart($anonymousCart)
+    {
+        $this->anonymousCart = $anonymousCart;
+
+        return $this;
+    }
+
+    /**
      * @param string $email
      * @param string $password
      * @param string $anonymousCartId
@@ -209,6 +239,9 @@ class CustomerLoginRequest extends AbstractApiRequest
         ];
         if (!is_null($this->anonymousCartId)) {
             $payload[static::ANONYMOUS_CART_ID] = $this->anonymousCartId;
+        }
+        if (!is_null($this->anonymousCart)) {
+            $payload[static::ANONYMOUS_CART] = $this->anonymousCart;
         }
         if (!is_null($this->anonymousCartSignInMode)) {
             $payload[static::ANONYMOUS_CART_SIGN_IN_MODE] = $this->anonymousCartSignInMode;
