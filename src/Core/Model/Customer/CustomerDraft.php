@@ -70,6 +70,8 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method CustomerDraft setAnonymousId(string $anonymousId = null)
  * @method StoreReferenceCollection getStores()
  * @method CustomerDraft setStores(StoreReferenceCollection $stores = null)
+ * @method CartReference getAnonymousCart()
+ * @method CustomerDraft setAnonymousCart(CartReference $anonymousCart = null)
  */
 class CustomerDraft extends JsonObject
 {
