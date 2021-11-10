@@ -11,6 +11,8 @@ use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeNameA
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeTaxCategoryAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveShippingRateAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetCustomFieldAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetCustomTypeAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetKeyAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetLocalizedDescriptionAction;
@@ -94,6 +96,28 @@ class ShippingMethodsActionBuilder
     public function removeZone($action = null)
     {
         $this->addAction($this->resolveAction(ShippingMethodRemoveZoneAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/shippingMethods#set-customfield
+     * @param ShippingMethodSetCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(ShippingMethodSetCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/shippingMethods#set-customtype
+     * @param ShippingMethodSetCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(ShippingMethodSetCustomTypeAction::class, $action));
         return $this;
     }
 
