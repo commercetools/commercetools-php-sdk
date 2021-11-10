@@ -32,6 +32,8 @@ use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Common\PriceDraft;
 use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\Message\ProductSlugChangedMessage;
+use Commercetools\Core\Model\Message\ProductVariantAddedMessage;
+use Commercetools\Core\Model\Message\ProductVariantDeletedMessage;
 use Commercetools\Core\Model\Product\LocalizedSearchKeywords;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
@@ -284,6 +286,27 @@ class ProductUpdateRequestTest extends ApiTestCase
                 $this->assertSame($sku, $result->getMasterData()->getStaged()->getVariants()->current()->getKey());
                 $this->assertNotSame($product->getVersion(), $result->getVersion());
 
+                // test for ProductVariantAddedMessage
+                $retries = 0;
+                do {
+                    $retries++;
+                    sleep(1);
+                    $request = MessageQueryRequest::of()
+                        ->where('type = "ProductVariantAdded"')
+                        ->where('resource(id = "' . $result->getId() . '")');
+                    $response = $this->execute($client, $request);
+                    $messageResult = $request->mapFromResponse($response);
+                } while (is_null($result) && $retries <= 9);
+
+                /**
+                 * @var ProductVariantAddedMessage $message
+                 */
+                $message = $messageResult->current();
+
+                $this->assertInstanceOf(ProductVariantAddedMessage::class, $message);
+                $this->assertSame($result->getId(), $message->getResource()->getId());
+                $this->assertSame($result->getMasterData()->getStaged()->getVariants()->current()->getKey(), $message->getVariant()->getKey());
+
                 $product = $result;
 
                 $request = RequestBuilder::of()->products()->update($product)
@@ -299,6 +322,27 @@ class ProductUpdateRequestTest extends ApiTestCase
                 $this->assertEmpty($result->getMasterData()->getCurrent()->getVariants());
                 $this->assertEmpty($result->getMasterData()->getStaged()->getVariants());
                 $this->assertNotSame($product->getVersion(), $result->getVersion());
+
+                // test for ProductVariantDeletedMessage
+                $retries = 0;
+                do {
+                    $retries++;
+                    sleep(1);
+                    $request = MessageQueryRequest::of()
+                        ->where('type = "ProductVariantDeleted"')
+                        ->where('resource(id = "' . $result->getId() . '")');
+                    $response = $this->execute($client, $request);
+                    $messageResult = $request->mapFromResponse($response);
+                } while (is_null($result) && $retries <= 9);
+
+                /**
+                 * @var ProductVariantDeletedMessage $message
+                 */
+                $message = $messageResult->current();
+
+                $this->assertInstanceOf(ProductVariantDeletedMessage::class, $message);
+                $this->assertSame($result->getId(), $message->getResource()->getId());
+                $this->assertEmpty($result->getMasterData()->getStaged()->getMasterVariant()->getKey());
 
                 return $result;
             }
