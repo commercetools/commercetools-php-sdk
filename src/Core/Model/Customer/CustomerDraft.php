@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Model\Customer;
 
+use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
@@ -69,6 +70,8 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method CustomerDraft setAnonymousId(string $anonymousId = null)
  * @method StoreReferenceCollection getStores()
  * @method CustomerDraft setStores(StoreReferenceCollection $stores = null)
+ * @method CartReference getAnonymousCart()
+ * @method CustomerDraft setAnonymousCart(CartReference $anonymousCart = null)
  */
 class CustomerDraft extends JsonObject
 {
@@ -105,6 +108,7 @@ class CustomerDraft extends JsonObject
             'key' => [static::TYPE => 'string'],
             'anonymousId' => [static::TYPE => 'string'],
             'stores' => [static::TYPE => StoreReferenceCollection::class],
+            'anonymousCart' => [static::TYPE => CartReference::class],
         ];
     }
 
