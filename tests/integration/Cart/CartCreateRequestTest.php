@@ -20,6 +20,7 @@ use Commercetools\Core\Model\DiscountCode\DiscountCode;
 use Commercetools\Core\Model\DiscountCode\DiscountCodeDraft;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Store\Store;
+use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 
@@ -138,6 +139,81 @@ class CartCreateRequestTest extends ApiTestCase
                         $this->assertSame(CartState::ACTIVE, $replicaCart->getCartState());
 
                         return $replicaCart;
+                    }
+                );
+            }
+        );
+    }
+
+    public function testCreateReplicaFromCartInStore()
+    {
+        $client = $this->getApiClient();
+
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client) {
+                ProductFixture::withPublishedProduct(
+                    $client,
+                    function (Product $product) use ($client, $store) {
+                        CartFixture::withUpdateableDraftCart(
+                            $client,
+                            function (CartDraft $cartDraft) use ($store) {
+                                return $cartDraft->setStore(StoreReference::ofKey($store->getKey()));
+                            },
+                            function (Cart $cart) use ($client, $store, $product) {
+                                $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                                    $store->getKey(),
+                                    RequestBuilder::of()->carts()->getById($cart->getId())
+                                );
+                                $response = $this->execute($client, $request);
+                                $cartInStore = $request->mapFromResponse($response);
+
+                                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+                                $request = RequestBuilder::of()->carts()->update($cartInStore)
+                                    ->addAction(
+                                        CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                            $product->getId(),
+                                            $variant->getId(),
+                                            1
+                                        )
+                                    );
+                                $response = $this->execute($client, $request);
+                                $cartWithProduct = $request->mapFromResponse($response);
+
+                                $this->assertInstanceOf(Cart::class, $cartWithProduct);
+
+                                $request = RequestBuilder::of()->carts()->replicate($cartWithProduct->getId());
+                                $response = $this->execute($client, $request);
+                                $replicaCart = $request->mapFromResponse($response);
+
+                                $this->assertNotEmpty($replicaCart->getLineItems());
+                                $this->assertNotEmpty($replicaCart->getLineItems()->current()->getLastModifiedAt());
+                                $this->assertNotEmpty($replicaCart->getLineItems()->current()->getAddedAt());
+
+                                $cartRequest = RequestBuilder::of()->carts()->delete($cartWithProduct);
+                                $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), $cartRequest);
+                                $response = $request->executeWithClient($this->getClient());
+                                $request->mapResponse($response);
+
+                                $cartRequest = RequestBuilder::of()->carts()->delete($replicaCart);
+                                $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), $cartRequest);
+                                $response = $request->executeWithClient($this->getClient());
+                                $result = $request->mapResponse($response);
+
+                                $this->assertInstanceOf(Cart::class, $result);
+                                $this->assertSame($replicaCart->getId(), $result->getId());
+
+                                $cartLineItem = $cartWithProduct->getLineItems()->current()->getProductId();
+                                $replicaCartLineItem = $replicaCart->getLineItems()->current()->getProductId();
+
+                                $this->assertSame($cartLineItem, $replicaCartLineItem);
+                                $this->assertNotSame($cartWithProduct->getId(), $replicaCart->getId());
+                                $this->assertSame(CartState::ACTIVE, $replicaCart->getCartState());
+
+                                return $replicaCart;
+                            }
+                        );
                     }
                 );
             }
