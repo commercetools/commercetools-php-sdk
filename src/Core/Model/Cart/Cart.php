@@ -89,6 +89,8 @@ use DateTime;
  * @method Cart setCreatedBy(CreatedBy $createdBy = null)
  * @method LastModifiedBy getLastModifiedBy()
  * @method Cart setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
+ * @method string getKey()
+ * @method Cart setKey(string $key = null)
  * @method CartReference getReference()
  */
 class Cart extends Resource
@@ -113,6 +115,7 @@ class Cart extends Resource
     {
         return [
             'id' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => DateTime::class,

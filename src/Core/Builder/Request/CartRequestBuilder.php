@@ -4,12 +4,15 @@ namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Carts\CartByCustomerIdGetRequest;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
+use Commercetools\Core\Request\Carts\CartByKeyGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Model\Cart\CartDraft;
-use Commercetools\Core\Request\Carts\CartDeleteRequest;
+use Commercetools\Core\Request\Carts\CartDeleteByKeyRequest;
 use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Carts\CartReplicateRequest;
+use Commercetools\Core\Request\Carts\CartUpdateByKeyRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 
 class CartRequestBuilder
@@ -27,13 +30,24 @@ class CartRequestBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/http-api-projects-carts.html#get-cart-by-id
+     * @link https://docs.commercetools.com/api/projects/carts#update-a-cart-by-id
      * @param string $id
      * @return CartByIdGetRequest
      */
     public function getById($id)
     {
         $request = CartByIdGetRequest::ofId($id);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/carts#get-a-cart-by-key
+     * @param string $key
+     * @return CartByKeyGetRequest
+     */
+    public function getByKey($key)
+    {
+        $request = CartByKeyGetRequest::ofKey($key);
         return $request;
     }
 
@@ -45,6 +59,17 @@ class CartRequestBuilder
     public function create(CartDraft $cartDraft)
     {
         $request = CartCreateRequest::ofDraft($cartDraft);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/carts#delete-a-cart-by-key
+     * @param Cart $cart
+     * @return CartDeleteByKeyRequest
+     */
+    public function deleteByKey(Cart $cart)
+    {
+        $request = CartDeleteByKeyRequest::ofKeyAndVersion($cart->getKey(), $cart->getVersion());
         return $request;
     }
 
@@ -78,6 +103,17 @@ class CartRequestBuilder
     public function replicate($cartId)
     {
         $request = CartReplicateRequest::ofCartId($cartId);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/carts#update-a-cart-by-key
+     * @param Cart $cart
+     * @return CartUpdateByKeyRequest
+     */
+    public function updateByKey(Cart $cart)
+    {
+        $request = CartUpdateByKeyRequest::ofKeyAndVersion($cart->getKey(), $cart->getVersion());
         return $request;
     }
 
