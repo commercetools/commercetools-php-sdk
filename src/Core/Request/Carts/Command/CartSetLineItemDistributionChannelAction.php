@@ -4,6 +4,7 @@ namespace Commercetools\Core\Request\Carts\Command;
 
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\Common\ResourceIdentifier;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
@@ -41,7 +42,7 @@ class CartSetLineItemDistributionChannelAction extends AbstractAction
 
     /**
      * @param String $itemLineId
-     * @param ChannelReference $distributionChannel
+     * @param ResourceIdentifier|ChannelReference $distributionChannel
      * @param Context|callable $context
      * @return CartSetLineItemDistributionChannelAction
      */

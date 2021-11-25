@@ -30,7 +30,7 @@ class CartRequestBuilder
     }
 
     /**
-     * @link https://docs.commercetools.com/api/projects/carts#update-a-cart-by-id
+     * @link https://docs.commercetools.com/http-api-projects-carts.html#get-cart-by-id
      * @param string $id
      * @return CartByIdGetRequest
      */

@@ -56,15 +56,19 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     protected $resultClass = Order::class;
 
     /**
-     * @param string $cartId
-     * @param CartReference $cart
+     * @param CartReference|string $cart
      * @param int $version
      * @param Context $context
      */
-    public function __construct($cartId = null, CartReference $cart = null, $version = null, Context $context = null)
+    public function __construct($cart, $version = null, Context $context = null)
     {
         parent::__construct(OrdersEndpoint::endpoint(), $context);
-        $this->setCartId($cartId)->setCart($cart)->setVersion($version);
+
+        if ($cart instanceof CartReference) {
+            $this->setCart($cart)->setVersion($version);
+        } else {
+            $this->setCartId($cart)->setVersion($version);
+        }
     }
 
     /**
@@ -230,7 +234,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
      */
     public static function ofCartIdAndVersion($cartId, $version, Context $context = null)
     {
-        return new static($cartId, null, $version, $context);
+        return new static($cartId, $version, $context);
     }
 
     /**
@@ -241,7 +245,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
      */
     public static function ofCartAndVersion(CartReference $cart, $version, Context $context = null)
     {
-        return new static(null, $cart, $version, $context);
+        return new static($cart, $version, $context);
     }
 
     /**
@@ -261,7 +265,6 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     public function httpRequest()
     {
         $payload = [
-            static::ID => $this->getCartId(),
             static::CART => $this->getCart(),
             static::VERSION => $this->getVersion(),
         ];

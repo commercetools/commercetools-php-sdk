@@ -7,6 +7,8 @@
 namespace Commercetools\Core\Request\Customers;
 
 use Commercetools\Core\Model\Cart\CartReference;
+use Commercetools\Core\Model\Common\ResourceIdentifier;
+use Commercetools\Core\Model\Customer\CustomerDraft;
 use Psr\Http\Message\ResponseInterface;
 use Commercetools\Core\Client\HttpMethod;
 use Commercetools\Core\Client\JsonRequest;
@@ -67,16 +69,19 @@ class CustomerLoginRequest extends AbstractApiRequest
     /**
      * @param string $email
      * @param string $password
-     * @param string $anonymousCartId
+     * @param string $anonymousCart
      * @param Context $context
      */
-    public function __construct($email, $password, $anonymousCartId = null, $anonymousCart = null, Context $context = null)
+    public function __construct($email, $password, $anonymousCart = null, Context $context = null)
     {
         parent::__construct(LoginEndpoint::endpoint(), $context);
         $this->email = $email;
         $this->password = $password;
-        $this->anonymousCartId = $anonymousCartId;
-        $this->anonymousCart = $anonymousCart;
+        if ($anonymousCart instanceof CartReference) {
+            $this->anonymousCart = $anonymousCart;
+        } else {
+            $this->anonymousCartId = $anonymousCart;
+        }
     }
 
     /**
@@ -197,20 +202,20 @@ class CustomerLoginRequest extends AbstractApiRequest
     /**
      * @param string $email
      * @param string $password
-     * @param string $anonymousCartId
+     * @param CartReference|string $anonymousCart
      * @param Context $context
      * @return static
      */
-    public static function ofEmailAndPassword($email, $password, $anonymousCartId = null, Context $context = null)
+    public static function ofEmailAndPassword($email, $password, $anonymousCart = null, Context $context = null)
     {
-        return new static($email, $password, $anonymousCartId, $context);
+        return new static($email, $password, $anonymousCart, $context);
     }
 
     /**
      * @param string $email
      * @param string $password
      * @param bool $updateProductData
-     * @param string $anonymousCartId
+     * @param CartReference|null $anonymousCart
      * @param Context $context
      * @return static
      */
@@ -218,10 +223,10 @@ class CustomerLoginRequest extends AbstractApiRequest
         $email,
         $password,
         $updateProductData,
-        $anonymousCartId = null,
+        CartReference $anonymousCart = null,
         Context $context = null
     ) {
-        $request = new static($email, $password, $anonymousCartId, $context);
+        $request = new static($email, $password, $anonymousCart, $context);
         $request->setUpdateProductData($updateProductData);
 
         return $request;

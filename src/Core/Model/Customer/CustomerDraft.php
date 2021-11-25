@@ -11,6 +11,7 @@ use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\LocaleTrait;
+use Commercetools\Core\Model\Common\ResourceIdentifier;
 use Commercetools\Core\Model\CustomerGroup\CustomerGroupReference;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
@@ -127,5 +128,18 @@ class CustomerDraft extends JsonObject
             ->setFirstName($firstName)
             ->setLastName($lastName)
             ->setPassword($password);
+    }
+
+    /**
+     * @param ResourceIdentifier|CartReference $anonymousCart
+     * @param Context|callable $context
+     * @return CustomerDraft
+     */
+    public static function ofAnonymousCart(
+        ResourceIdentifier $anonymousCart,
+        $context = null
+    ) {
+        return static::of($context)
+            ->setAnonymousCart($anonymousCart);
     }
 }

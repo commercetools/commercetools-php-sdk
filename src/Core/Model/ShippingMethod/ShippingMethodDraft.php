@@ -8,7 +8,7 @@ namespace Commercetools\Core\Model\ShippingMethod;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
-use Commercetools\Core\Model\CustomField\CustomFieldObject;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 
 /**
@@ -30,8 +30,8 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  * @method ShippingMethodDraft setPredicate(string $predicate = null)
  * @method LocalizedString getLocalizedDescription()
  * @method ShippingMethodDraft setLocalizedDescription(LocalizedString $localizedDescription = null)
- * @method CustomFieldObject getCustom()
- * @method ShippingMethodDraft setCustom(CustomFieldObject $custom = null)
+ * @method CustomFieldObjectDraft getCustom()
+ * @method ShippingMethodDraft setCustom(CustomFieldObjectDraft $custom = null)
  */
 class ShippingMethodDraft extends JsonObject
 {
@@ -46,7 +46,7 @@ class ShippingMethodDraft extends JsonObject
             'isDefault' => [static::TYPE => 'bool'],
             'key' => [static::TYPE => 'string'],
             'predicate' => [static::TYPE => 'string'],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
         ];
     }
 
