@@ -2,7 +2,6 @@
 // phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
-use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
 use Commercetools\Core\Request\Orders\OrderByOrderNumberGetRequest;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
@@ -48,7 +47,7 @@ class OrderRequestBuilder
      */
     public function createFromCart(Cart $cart)
     {
-        $request = OrderCreateFromCartRequest::ofCartAndVersion(CartReference::ofId($cart->getId()), $cart->getVersion());
+        $request = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
         return $request;
     }
 
