@@ -6,6 +6,7 @@
 
 namespace Commercetools\Core\Request\Customers;
 
+use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Common\ResourceIdentifier;
 use Commercetools\Core\Model\Customer\CustomerDraft;
@@ -223,9 +224,12 @@ class CustomerLoginRequest extends AbstractApiRequest
         $email,
         $password,
         $updateProductData,
-        CartReference $anonymousCart = null,
+        $anonymousCart = null,
         Context $context = null
     ) {
+        if (!$anonymousCart instanceof CartReference) {
+            $anonymousCart = CartReference::ofId($anonymousCart);
+        }
         $request = new static($email, $password, $anonymousCart, $context);
         $request->setUpdateProductData($updateProductData);
 
