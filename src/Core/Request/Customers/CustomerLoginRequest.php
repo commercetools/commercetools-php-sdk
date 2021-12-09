@@ -227,7 +227,7 @@ class CustomerLoginRequest extends AbstractApiRequest
         $anonymousCart = null,
         Context $context = null
     ) {
-        if (!$anonymousCart instanceof CartReference) {
+        if (!$anonymousCart instanceof CartReference & $anonymousCart != null) {
             $anonymousCart = CartReference::ofId($anonymousCart);
         }
         $request = new static($email, $password, $anonymousCart, $context);
