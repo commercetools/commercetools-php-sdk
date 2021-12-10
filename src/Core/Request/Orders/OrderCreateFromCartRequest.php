@@ -32,6 +32,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     use InStoreTrait;
 
     const ID = 'id';
+    const CART = 'cart';
     const VERSION = 'version';
     const ORDER_NUMBER = 'orderNumber';
     const PAYMENT_STATE = 'paymentState';
@@ -263,7 +264,8 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     public function httpRequest()
     {
         $payload = [
-            static::ID => $this->getCart(),
+            static::ID => $this->getCart()->getId(),
+            static::CART => $this->getCart(),
             static::VERSION => $this->getVersion(),
         ];
         if (!is_null($this->paymentState)) {
