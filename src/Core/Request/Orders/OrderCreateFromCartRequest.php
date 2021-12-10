@@ -32,7 +32,6 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     use InStoreTrait;
 
     const ID = 'id';
-    const CART = 'cart';
     const VERSION = 'version';
     const ORDER_NUMBER = 'orderNumber';
     const PAYMENT_STATE = 'paymentState';
