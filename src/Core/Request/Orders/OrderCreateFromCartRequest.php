@@ -6,7 +6,6 @@
 namespace Commercetools\Core\Request\Orders;
 
 use Commercetools\Core\Model\Cart\CartReference;
-use Commercetools\Core\Model\Common\ResourceIdentifier;
 use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use Commercetools\Core\Request\InStores\InStoreTrait;
@@ -67,7 +66,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
         if ($cart instanceof CartReference) {
             $this->setCart($cart)->setVersion($version);
         } else {
-            $this->setCartId($cart)->setVersion($version);
+            $this->setCart(CartReference::ofId($cart))->setVersion($version);
         }
     }
 
@@ -238,12 +237,12 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @param CartReference $cart
+     * @param CartReference|string $cart
      * @param int $version
      * @param Context $context
      * @return static
      */
-    public static function ofCartAndVersion(CartReference $cart, $version, Context $context = null)
+    public static function ofCartAndVersion($cart, $version, Context $context = null)
     {
         return new static($cart, $version, $context);
     }
@@ -265,7 +264,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     public function httpRequest()
     {
         $payload = [
-            static::CART => $this->getCart(),
+            static::ID => $this->getCart(),
             static::VERSION => $this->getVersion(),
         ];
         if (!is_null($this->paymentState)) {

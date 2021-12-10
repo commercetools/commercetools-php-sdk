@@ -76,7 +76,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $expectedResult = [
-            'cart' => [
+            'id' => [
                 'typeId' => 'cart',
                 'id' => '12345',
             ],

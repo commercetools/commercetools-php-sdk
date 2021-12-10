@@ -129,17 +129,4 @@ class CustomerDraft extends JsonObject
             ->setLastName($lastName)
             ->setPassword($password);
     }
-
-    /**
-     * @param ResourceIdentifier|CartReference $anonymousCart
-     * @param Context|callable $context
-     * @return CustomerDraft
-     */
-    public static function ofAnonymousCart(
-        ResourceIdentifier $anonymousCart,
-        $context = null
-    ) {
-        return static::of($context)
-            ->setAnonymousCart($anonymousCart);
-    }
 }

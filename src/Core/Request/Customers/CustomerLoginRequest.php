@@ -70,7 +70,7 @@ class CustomerLoginRequest extends AbstractApiRequest
     /**
      * @param string $email
      * @param string $password
-     * @param string $anonymousCart
+     * @param CartReference|string|null $anonymousCart
      * @param Context $context
      */
     public function __construct($email, $password, $anonymousCart = null, Context $context = null)
@@ -80,8 +80,8 @@ class CustomerLoginRequest extends AbstractApiRequest
         $this->password = $password;
         if ($anonymousCart instanceof CartReference) {
             $this->anonymousCart = $anonymousCart;
-        } else {
-            $this->anonymousCartId = $anonymousCart;
+        } elseif ($anonymousCart != null) {
+            $this->anonymousCartId = CartReference::ofId($anonymousCart);
         }
     }
 
@@ -209,6 +209,9 @@ class CustomerLoginRequest extends AbstractApiRequest
      */
     public static function ofEmailAndPassword($email, $password, $anonymousCart = null, Context $context = null)
     {
+        if (!$anonymousCart instanceof CartReference & $anonymousCart != null) {
+            $anonymousCart = CartReference::ofId($anonymousCart);
+        }
         return new static($email, $password, $anonymousCart, $context);
     }
 
