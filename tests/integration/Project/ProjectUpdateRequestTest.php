@@ -13,11 +13,11 @@ use Commercetools\Core\Model\Common\LocalizedEnumCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Message\MessagesConfigurationDraft;
 use Commercetools\Core\Model\Project\CartClassificationType;
-use Commercetools\Core\Model\Project\CartsConfiguration;
 use Commercetools\Core\Model\Project\CartScoreType;
 use Commercetools\Core\Model\Project\CartValueType;
 use Commercetools\Core\Model\Project\ExternalOAuth;
 use Commercetools\Core\Model\Project\Project;
+use Commercetools\Core\Model\Project\ShoppingListsConfiguration;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountriesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCountryTaxRateFallbackEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
@@ -25,6 +25,8 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeProductSearchIndexingEnabledAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeShoppingListsConfiguration;
 use Commercetools\Core\Request\Project\Command\ProjectSetExternalOAuthAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 
@@ -427,6 +429,74 @@ class ProjectUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertNull($result->getExternalOAuth());
+
+                return $result;
+            }
+        );
+    }
+    public function testChangeShoppingListsConfiguration()
+    {
+        $client = $this->getApiClient();
+
+        ProjectFixture::withProject(
+            $client,
+            function (Project $project) use ($client) {
+                $deleteDaysAfterLastModification = $project->getShoppingLists()->getDeleteDaysAfterLastModification();
+                $shoppingListsConfiguration = ShoppingListsConfiguration::of()->setDeleteDaysAfterLastModification($deleteDaysAfterLastModification);
+
+                $request = RequestBuilder::of()->project()->update($project)
+                    ->addAction(
+                        ProjectChangeShoppingListsConfiguration::ofShoppingListsConfiguration($shoppingListsConfiguration)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Project::class, $result);
+                $this->assertSame($deleteDaysAfterLastModification, $result->getShoppingLists()->getDeleteDaysAfterLastModification());
+
+                $shoppingListsConfiguration = ShoppingListsConfiguration::of()->setDeleteDaysAfterLastModification(42);
+
+                $request = RequestBuilder::of()->project()->update($result)
+                    ->addAction(
+                        ProjectChangeShoppingListsConfiguration::ofShoppingListsConfiguration($shoppingListsConfiguration)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Project::class, $result);
+                $this->assertSame(42, $result->getShoppingLists()->getDeleteDaysAfterLastModification());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testChangeProductSearchIndexingEnabled()
+    {
+        $client = $this->getApiClient();
+
+        ProjectFixture::withProject(
+            $client,
+            function (Project $project) use ($client) {
+                $status = $project->getSearchIndexing()->getProducts()->getStatus();
+                if ($status === "Deactivated") {
+                    $enabled = false;
+                } elseif ($status === "Activated") {
+                    $enabled = true;
+                } else {
+                    $this->assertSame("Indexing", $status);
+
+                    return $project;
+                }
+                $request = RequestBuilder::of()->project()->update($project)
+                    ->addAction(
+                        ProjectChangeProductSearchIndexingEnabledAction::ofEnabled(!$enabled)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Project::class, $result);
+                $this->assertNotSame($status, $result->getSearchIndexing()->getProducts()->getStatus());
 
                 return $result;
             }
