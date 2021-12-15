@@ -56,7 +56,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(MethodArgumentSpaceFixer::class)
         ->call('configure', [[
-            'ensure_fully_multiline' => true,
+            'on_multiline' => 'ensure_fully_multiline',
         ]]);
 
     $services->set(NoBreakCommentFixer::class);
@@ -86,5 +86,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
 
     $services->set(SwitchCaseSpaceFixer::class);
 
-    $services->set(VisibilityRequiredFixer::class);
+    $services->set(VisibilityRequiredFixer::class)
+        ->call('configure', [[
+            'elements' => ['property', 'method']
+        ]]);
 };

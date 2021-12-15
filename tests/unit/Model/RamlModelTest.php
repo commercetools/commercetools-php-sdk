@@ -476,7 +476,7 @@ class RamlModelTest extends AbstractModelTest
         $modelClasses = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getFileClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
