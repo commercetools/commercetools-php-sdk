@@ -10,13 +10,13 @@ use Commercetools\Core\Request\AbstractAction;
  * @package Commercetools\Core\Request\Project\Command
  * @link https://docs.commercetools.com/http-api-projects-project.html#change-shopping-lists-configuration
  * @method string getAction()
- * @method ProjectChangeShoppingListsConfiguration setAction(string $action = null)
+ * @method ProjectChangeShoppingListsConfigurationAction setAction(string $action = null)
  * @method ShoppingListsConfiguration getShoppingListsConfiguration()
  * phpcs:disable
- * @method ProjectChangeShoppingListsConfiguration setShoppingListsConfiguration(ShoppingListsConfiguration $shoppingListsConfiguration = null)
+ * @method ProjectChangeShoppingListsConfigurationAction setShoppingListsConfiguration(ShoppingListsConfiguration $shoppingListsConfiguration = null)
  * phpcs:enable
  */
-class ProjectChangeShoppingListsConfiguration extends AbstractAction
+class ProjectChangeShoppingListsConfigurationAction extends AbstractAction
 {
     public function fieldDefinitions()
     {
@@ -39,7 +39,7 @@ class ProjectChangeShoppingListsConfiguration extends AbstractAction
     /**
      * @param ShoppingListsConfiguration $shoppingListsConfiguration
      * @param Context|callable $context
-     * @return ProjectChangeShoppingListsConfiguration
+     * @return ProjectChangeShoppingListsConfigurationAction
      */
     public static function ofShoppingListsConfiguration(ShoppingListsConfiguration $shoppingListsConfiguration, $context = null)
     {

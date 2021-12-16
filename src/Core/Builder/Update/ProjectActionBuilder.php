@@ -12,7 +12,7 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfiguratio
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeProductSearchIndexingEnabledAction;
-use Commercetools\Core\Request\Project\Command\ProjectChangeShoppingListsConfiguration;
+use Commercetools\Core\Request\Project\Command\ProjectChangeShoppingListsConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetExternalOAuthAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 
@@ -110,12 +110,12 @@ class ProjectActionBuilder
 
     /**
      * @link https://docs.commercetools.com/http-api-projects-project.html#change-shopping-lists-configuration
-     * @param ProjectChangeShoppingListsConfiguration|callable $action
+     * @param ProjectChangeShoppingListsConfigurationAction|callable $action
      * @return $this
      */
     public function changeShoppingListsConfiguration($action = null)
     {
-        $this->addAction($this->resolveAction(ProjectChangeShoppingListsConfiguration::class, $action));
+        $this->addAction($this->resolveAction(ProjectChangeShoppingListsConfigurationAction::class, $action));
         return $this;
     }
 

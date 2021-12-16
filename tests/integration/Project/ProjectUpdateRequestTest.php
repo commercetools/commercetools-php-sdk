@@ -26,7 +26,7 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfiguratio
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeProductSearchIndexingEnabledAction;
-use Commercetools\Core\Request\Project\Command\ProjectChangeShoppingListsConfiguration;
+use Commercetools\Core\Request\Project\Command\ProjectChangeShoppingListsConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetExternalOAuthAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 
@@ -446,7 +446,7 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $request = RequestBuilder::of()->project()->update($project)
                     ->addAction(
-                        ProjectChangeShoppingListsConfiguration::ofShoppingListsConfiguration($shoppingListsConfiguration)
+                        ProjectChangeShoppingListsConfigurationAction::ofShoppingListsConfiguration($shoppingListsConfiguration)
                     );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
@@ -458,7 +458,7 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
                 $request = RequestBuilder::of()->project()->update($result)
                     ->addAction(
-                        ProjectChangeShoppingListsConfiguration::ofShoppingListsConfiguration($shoppingListsConfiguration)
+                        ProjectChangeShoppingListsConfigurationAction::ofShoppingListsConfiguration($shoppingListsConfiguration)
                     );
                 $response = $this->execute($client, $request);
                 $result = $request->mapFromResponse($response);
