@@ -32,8 +32,8 @@ use DateTime;
  * phpcs:disable
  * @method OrderReturnInfoSetMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
  * phpcs:enable
- * @method ReturnInfoCollection getReturnInfoSet()
- * @method OrderReturnInfoSetMessage setReturnInfoSet(ReturnInfoCollection $ReturnInfoSet = null)
+ * @method ReturnInfoCollection getReturnInfo()
+ * @method OrderReturnInfoSetMessage setReturnInfo(ReturnInfoCollection $returnInfo = null)
  */
 class OrderReturnInfoSetMessage extends Message
 {
