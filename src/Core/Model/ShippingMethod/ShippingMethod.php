@@ -38,6 +38,8 @@ use DateTime;
  * @method ShippingMethod setPredicate(string $predicate = null)
  * @method LocalizedString getLocalizedDescription()
  * @method ShippingMethod setLocalizedDescription(LocalizedString $localizedDescription = null)
+ * @method LocalizedString getLocalizedName()
+ * @method ShippingMethod setLocalizedName(LocalizedString $localizedName = null)
  * @method ShippingMethodReference getReference()
  */
 class ShippingMethod extends Resource
@@ -56,6 +58,7 @@ class ShippingMethod extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => 'string'],
+            'localizedName' => [static::TYPE => LocalizedString::class],
             'localizedDescription' => [static::TYPE => LocalizedString::class],
             'description' => [static::TYPE => 'string'],
             'taxCategory' => [static::TYPE => TaxCategoryReference::class],

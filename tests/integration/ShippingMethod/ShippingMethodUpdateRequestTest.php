@@ -40,6 +40,7 @@ use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneA
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetKeyAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetLocalizedDescriptionAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetLocalizedNameAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetPredicateAction;
 
 class ShippingMethodUpdateRequestTest extends ApiTestCase
@@ -568,6 +569,33 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
 
                 $this->assertInstanceOf(ShippingMethod::class, $result);
                 $this->assertSame($localizedDescription->en, $result->getLocalizedDescription()->en);
+                $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
+
+                return $result;
+            }
+        );
+    }
+
+
+    public function testSetLocalizedName()
+    {
+        $client = $this->getApiClient();
+
+        ShippingMethodFixture::withUpdateableShippingMethod(
+            $client,
+            function (ShippingMethod $shippingMethod) use ($client) {
+                $localizedName = LocalizedString::ofLangAndText('en', 'localized-name');
+
+                $request = RequestBuilder::of()->shippingMethods()->update($shippingMethod)
+                    ->addAction(
+                        ShippingMethodSetLocalizedNameAction::of()
+                            ->setLocalizedName($localizedName)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(ShippingMethod::class, $result);
+                $this->assertSame($localizedName->en, $result->getLocalizedName()->en);
                 $this->assertNotSame($shippingMethod->getVersion(), $result->getVersion());
 
                 return $result;
