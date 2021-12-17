@@ -638,8 +638,6 @@ class RamlModelTest extends AbstractModelTest
             'Extension\ExtensionAzureFunctionsAuthentication' => 'Extension\AzureFunctionsAuthentication',
             'Extension\ExtensionAuthorizationHeaderAuthentication' => 'Extension\AuthorizationHeaderAuthentication',
             'Extension\ExtensionTrigger' => 'Extension\Trigger',
-            //TODO to be removed after closing PR on the doc repo
-            'Project\ProjectChangeShoppingListsConfiguration' => 'Project\ProjectChangeShoppingListsConfigurationAction',
         ];
     }
 
