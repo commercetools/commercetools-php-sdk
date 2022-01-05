@@ -19,6 +19,7 @@ use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\ProductDiscount\ProductDiscount;
+use Commercetools\Core\Model\ProductSelection\ProductSelection;
 use Commercetools\Core\Model\ProductType\ProductType;
 use Commercetools\Core\Model\Review\Review;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
@@ -42,6 +43,7 @@ use Commercetools\Core\Request\Orders\OrderUpdateRequest;
 use Commercetools\Core\Request\Payments\PaymentUpdateRequest;
 use Commercetools\Core\Request\ProductDiscounts\ProductDiscountUpdateRequest;
 use Commercetools\Core\Request\Products\ProductUpdateRequest;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionUpdateRequest;
 use Commercetools\Core\Request\ProductTypes\ProductTypeUpdateRequest;
 use Commercetools\Core\Request\Reviews\ReviewUpdateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodUpdateRequest;
@@ -166,6 +168,10 @@ class GenericUpdateRequestTest extends RequestTestCase
                 StoreUpdateRequest::class,
                 Store::class,
             ],
+            ProductSelectionUpdateRequest::class => [
+                ProductSelectionUpdateRequest::class,
+                ProductSelection::class
+            ]
         ];
     }
 

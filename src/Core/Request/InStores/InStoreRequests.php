@@ -52,6 +52,14 @@ use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderQueryRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionByIdGetRequest;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionByKeyGetRequest;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionCreateRequest;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionDeleteByKeyRequest;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionDeleteRequest;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionQueryRequest;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionUpdateByKeyRequest;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionUpdateRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByCartIdGetRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListByIdGetRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListByKeyGetRequest;
@@ -121,6 +129,14 @@ class InStoreRequests
         MeShoppingListUpdateByKeyRequest::class => 1,
         MeShoppingListDeleteRequest::class => 1,
         MeShoppingListDeleteByKeyRequest::class => 1,
+        ProductSelectionByIdGetRequest::class => 1,
+        ProductSelectionByKeyGetRequest::class => 1,
+        ProductSelectionCreateRequest::class => 1,
+        ProductSelectionDeleteByKeyRequest::class => 1,
+        ProductSelectionDeleteRequest::class => 1,
+        ProductSelectionQueryRequest::class => 1,
+        ProductSelectionUpdateByKeyRequest::class => 1,
+        ProductSelectionUpdateRequest::class => 1,
     ];
 
     public function can($request)

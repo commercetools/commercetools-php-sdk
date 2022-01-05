@@ -160,6 +160,14 @@ class RequestBuilder
     }
 
     /**
+     * @return ProductSelectionRequestBuilder
+     */
+    public function productSelections()
+    {
+        return new ProductSelectionRequestBuilder();
+    }
+
+    /**
      * @return ProductTypeRequestBuilder
      */
     public function productTypes()

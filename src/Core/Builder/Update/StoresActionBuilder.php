@@ -5,6 +5,7 @@ namespace Commercetools\Core\Builder\Update;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Stores\Command\StoreAddDistributionChannelAction;
+use Commercetools\Core\Request\Stores\Command\StoreAddProductSelectionAction;
 use Commercetools\Core\Request\Stores\Command\StoreAddSupplyChannelAction;
 use Commercetools\Core\Request\Stores\Command\StoreRemoveDistributionChannelAction;
 use Commercetools\Core\Request\Stores\Command\StoreRemoveSupplyChannelAction;
@@ -25,6 +26,17 @@ class StoresActionBuilder
     public function addDistributionChannel($action = null)
     {
         $this->addAction($this->resolveAction(StoreAddDistributionChannelAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/stores#add-distribution-channel
+     * @param StoreAddProductSelectionAction|callable $action
+     * @return $this
+     */
+    public function addProductSelection($action = null)
+    {
+        $this->addAction($this->resolveAction(StoreAddProductSelectionAction::class, $action));
         return $this;
     }
 
