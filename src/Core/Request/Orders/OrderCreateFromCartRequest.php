@@ -44,6 +44,9 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
      * @deprecated use $cart instead
      */
     protected $cartId;
+    /**
+     * @var CartReference
+     */
     protected $cart;
     protected $version;
     protected $orderNumber;
@@ -95,7 +98,10 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
      */
     public function getCartId()
     {
-        return $this->cartId;
+        if ($this->cart == null) {
+            return null;
+        }
+        return $this->cart->getId();
     }
 
     /**
@@ -105,7 +111,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
      */
     public function setCartId($cartId)
     {
-        $this->cartId = $cartId;
+        $this->cart = CartReference::ofId($cartId);
 
         return $this;
     }
@@ -264,7 +270,6 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     public function httpRequest()
     {
         $payload = [
-            static::ID => $this->getCart()->getId(),
             static::CART => $this->getCart(),
             static::VERSION => $this->getVersion(),
         ];

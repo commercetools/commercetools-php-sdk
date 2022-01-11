@@ -80,8 +80,8 @@ class CustomerLoginRequest extends AbstractApiRequest
         $this->password = $password;
         if ($anonymousCart instanceof CartReference) {
             $this->anonymousCart = $anonymousCart;
-        } elseif ($anonymousCart != null) {
-            $this->anonymousCartId = CartReference::ofId($anonymousCart);
+        } elseif ($anonymousCart !== null) {
+            $this->anonymousCart = CartReference::ofId($anonymousCart);
         }
     }
 
@@ -129,7 +129,10 @@ class CustomerLoginRequest extends AbstractApiRequest
      */
     public function getAnonymousCartId()
     {
-        return $this->anonymousCartId;
+        if ($this->anonymousCart == null) {
+            return null;
+        }
+        return $this->anonymousCart->getId();
     }
 
     /**
@@ -139,7 +142,7 @@ class CustomerLoginRequest extends AbstractApiRequest
      */
     public function setAnonymousCartId($anonymousCartId)
     {
-        $this->anonymousCartId = $anonymousCartId;
+        $this->anonymousCart = CartReference::ofId($anonymousCartId);
 
         return $this;
     }
@@ -209,9 +212,6 @@ class CustomerLoginRequest extends AbstractApiRequest
      */
     public static function ofEmailAndPassword($email, $password, $anonymousCart = null, Context $context = null)
     {
-        if (!$anonymousCart instanceof CartReference & $anonymousCart != null) {
-            $anonymousCart = CartReference::ofId($anonymousCart);
-        }
         return new static($email, $password, $anonymousCart, $context);
     }
 
@@ -230,9 +230,6 @@ class CustomerLoginRequest extends AbstractApiRequest
         $anonymousCart = null,
         Context $context = null
     ) {
-        if (!$anonymousCart instanceof CartReference & $anonymousCart != null) {
-            $anonymousCart = CartReference::ofId($anonymousCart);
-        }
         $request = new static($email, $password, $anonymousCart, $context);
         $request->setUpdateProductData($updateProductData);
 
