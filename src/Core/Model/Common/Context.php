@@ -198,6 +198,7 @@ class Context implements \ArrayAccess
         return new static();
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * @inheritDoc
      */
@@ -206,6 +207,7 @@ class Context implements \ArrayAccess
         return isset($this->$offset);
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * @inheritDoc
      */
@@ -219,6 +221,7 @@ class Context implements \ArrayAccess
         return null;
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * @inheritDoc
      */
@@ -231,6 +234,7 @@ class Context implements \ArrayAccess
         }
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * @inheritDoc
      */

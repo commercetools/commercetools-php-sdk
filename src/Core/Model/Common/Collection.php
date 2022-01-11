@@ -225,6 +225,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         return $this;
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.1.0)<br/>
      * Count elements of an object
@@ -244,6 +245,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
     }
 
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Return the current element
@@ -258,6 +260,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         return null;
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Move forward to next element
@@ -269,6 +272,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         $this->pos++;
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Return the key of the current element
@@ -283,6 +287,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         return null;
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Checks if current position is valid
@@ -298,6 +303,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         return false;
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Rewind the Iterator to the first element
@@ -309,6 +315,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         $this->pos = 0;
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Whether a offset exists
@@ -326,6 +333,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         return isset($this->rawData[$offset]) || isset($this->typeData[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Offset to retrieve
@@ -340,6 +348,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         return $this->getAt($offset);
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Offset to set
@@ -357,6 +366,7 @@ class Collection extends AbstractJsonDeserializeObject implements \Iterator, \Js
         $this->setAt($offset, $value);
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Offset to unset

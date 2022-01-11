@@ -59,7 +59,7 @@ class CustomerLoginRequestTest extends RequestTestCase
         $httpRequest = $request->httpRequest();
 
         $this->assertJsonStringEqualsJsonString(
-            json_encode(['email' => 'email', 'password' => 'password', 'anonymousCartId' => 'cartId']),
+            json_encode(["email" => "email","password" => "password","anonymousCart" => ["typeId" => "cart","id" => "cartId"]]),
             (string)$httpRequest->getBody()
         );
     }

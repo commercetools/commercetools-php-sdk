@@ -6,29 +6,39 @@
 namespace Commercetools\Core\IntegrationTests\OrderEdit;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\IntegrationTests\Cart\CartFixture;
+use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
 use Commercetools\Core\IntegrationTests\Order\OrderUpdateRequestTest;
+use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Cart\Cart;
 use Commercetools\Core\Model\Cart\ExternalTaxAmountDraft;
 use Commercetools\Core\Model\Cart\ScoreShippingRateInput;
+use Commercetools\Core\Model\Channel\Channel;
+use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\Message\OrderLineItemDistributionChannelSetMessage;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\OrderEdit\OrderEdit;
 use Commercetools\Core\Model\OrderEdit\OrderEditApplied;
 use Commercetools\Core\Model\OrderEdit\OrderEditDraft;
 use Commercetools\Core\Model\OrderEdit\OrderEditPreviewSuccess;
+use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\ShippingMethod\ShippingRateDraft;
 use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeReference;
+use Commercetools\Core\Request\Carts\Command\CartAddLineItemAction;
+use Commercetools\Core\Request\Messages\MessageQueryRequest;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCommentAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCustomFieldAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetKeyAction;
 use Commercetools\Core\Request\OrderEdits\Command\OrderEditSetStagedActionsAction;
+use Commercetools\Core\Request\OrderEdits\OrderEditUpdateRequest;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddCustomLineItemAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddDiscountCodeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderAddItemShippingAddressAction;
@@ -66,6 +76,7 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetItem
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetItemShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemCustomTypeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemDistributionChannelAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemPriceAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemTaxAmountAction;
@@ -378,7 +389,9 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
             StagedOrderSetLineItemPriceAction::class => [function () {
                 return StagedOrderSetLineItemPriceAction::of()->setLineItemId($this->getProduct()->getId());
             }],
-
+            StagedOrderSetLineItemDistributionChannelAction::class => [function () {
+                return StagedOrderSetLineItemDistributionChannelAction::of()->setLineItemId($this->getProduct()->getId());
+            }],
             //custom line items
             StagedOrderAddCustomLineItemAction::class => [function () {
                 return StagedOrderAddCustomLineItemAction::of()
@@ -550,6 +563,66 @@ class OrderEditUpdateRequestTest extends OrderUpdateRequestTest
                 $this->assertInstanceOf(OrderEditApplied::class, $result->getResult());
 
                 return $result;
+            }
+        );
+    }
+
+    public function testSetLineItemDistributionChannel()
+    {
+        $client = $this->getApiClient();
+
+        ChannelFixture::withDraftChannel(
+            $client,
+            function (ChannelDraft $channelDraft) {
+                return $channelDraft->setRoles(['ProductDistribution']);
+            },
+            function (Channel $channel) use ($client) {
+                OrderEditFixture::withUpdateableOrderEdit(
+                    $client,
+                    function (OrderEdit $orderEdit, Order $order) use ($client, $channel) {
+                        $lineItemId = $order->getLineItems()->current()->getId();
+
+                        $request = RequestBuilder::of()->orderEdits()->update($orderEdit)->setActions([
+                            OrderEditSetStagedActionsAction::of()->setStagedActions(
+                                StagedOrderUpdateActionCollection::of()
+                                    ->add(StagedOrderSetLineItemDistributionChannelAction::of()
+                                        ->setLineItemId($lineItemId)->setDistributionChannel($channel->getReference()))
+                            )
+                        ]);
+                        $response = $client->execute($request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertNotSame($orderEdit->getVersion(), $result->getVersion());
+                        $this->assertInstanceOf(OrderEdit::class, $result);
+
+                        $request = RequestBuilder::of()->orderEdits()->apply($result, $order->getVersion());
+                        $response = $client->execute($request);
+                        $orderEditApplied = $request->mapFromResponse($response);
+
+                        // test for OrderLineItemDistributionChannelSetMessage
+                        $retries = 0;
+                        do {
+                            $retries++;
+                            sleep(1);
+                            $request = MessageQueryRequest::of()
+                                ->where('type = "OrderLineItemDistributionChannelSet"')
+                                ->where('resource(id = "' . $order->getId() . '")');
+                            $response = $this->execute($client, $request);
+                            $messageResult = $request->mapFromResponse($response);
+                        } while (is_null($orderEdit) && $retries <= 9);
+
+                        /**
+                         * @var OrderLineItemDistributionChannelSetMessage $message
+                         */
+                        $message = $messageResult->current();
+
+                        $this->assertInstanceOf(OrderLineItemDistributionChannelSetMessage::class, $message);
+                        $this->assertSame($order->getId(), $message->getResource()->getId());
+                        $this->assertSame($order->getLineItems()->current()->getId(), $message->getLineItemId());
+
+                        return $orderEditApplied;
+                    }
+                );
             }
         );
     }

@@ -136,6 +136,7 @@ class LocalizedString implements \JsonSerializable, JsonDeserializeInterface
         return $data;
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * @return array
      */

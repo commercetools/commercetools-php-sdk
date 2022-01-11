@@ -54,6 +54,7 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetItem
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetItemShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemCustomTypeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemDistributionChannelAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemPriceAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLineItemTaxAmountAction;
@@ -636,6 +637,17 @@ class StagedOrderActionBuilder
     public function setLineItemCustomType($action = null)
     {
         $this->addAction($this->resolveAction(StagedOrderSetLineItemCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetLineItemDistributionChannelAction|callable $action
+     * @return $this
+     */
+    public function setLineItemDistributionChannel($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetLineItemDistributionChannelAction::class, $action));
         return $this;
     }
 

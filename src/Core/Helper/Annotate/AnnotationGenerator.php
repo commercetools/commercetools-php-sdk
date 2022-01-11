@@ -92,7 +92,7 @@ class AnnotationGenerator
         $jsonObjects = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
@@ -112,7 +112,7 @@ class AnnotationGenerator
         $collectionObjects = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
@@ -132,7 +132,7 @@ class AnnotationGenerator
         $requestObjects = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
@@ -152,7 +152,7 @@ class AnnotationGenerator
         $requestObjects = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
@@ -164,10 +164,10 @@ class AnnotationGenerator
                 ) {
                     $namespaceParts = explode("\\", $class->getNamespaceName());
                     $domain = $namespaceParts[count($namespaceParts) - 1];
-                    if (strpos($class, 'ProductProjection') > 0) {
+                    if ($class != null && strpos($class, 'ProductProjection') > 0) {
                         $domain = 'ProductProjections';
                     }
-                    if (strpos($class, 'ProductsSuggest') > 0) {
+                    if ($class != null && strpos($class, 'ProductsSuggest') > 0) {
                         $domain = 'ProductProjections';
                     }
                     $requestObjects[$domain][] = $class->getName();
@@ -183,7 +183,7 @@ class AnnotationGenerator
         $actions = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
