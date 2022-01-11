@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Helper\Annotate;
 
 use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
@@ -607,8 +608,9 @@ EOF;
                     break;
                 case 'createFromCart':
                     $uses[] = 'use ' . Cart::class . ';';
+                    $uses[] = 'use ' . CartReference::class . ';';
                     $methodParams[] = [self::PARAM_TYPE => 'Cart', self::PARAM_NAME => '$cart'];
-                    $factoryCall = 'ofCartIdAndVersion($cart->getId(), $cart->getVersion());';
+                    $factoryCall = 'ofCartAndVersion(CartReference::ofId($cart->getId()), $cart->getVersion());';
                     break;
                 case 'emailToken':
                     $methodName = 'createEmailVerificationToken';
@@ -622,6 +624,7 @@ EOF;
                     $factoryCall = 'ofToken($tokenValue);';
                     break;
                 case 'login':
+                    $uses[] = 'use ' . CartReference::class . ';';
                     $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$email'];
                     $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$password'];
                     $methodParams[] = [
@@ -630,8 +633,8 @@ EOF;
                         self::PARAM_DEFAULT => 'false'
                     ];
                     $methodParams[] = [
-                        self::PARAM_DOC_TYPE => 'string',
-                        self::PARAM_NAME => '$anonymousCartId',
+                        self::PARAM_DOC_TYPE => 'CartReference|string',
+                        self::PARAM_NAME => '$anonymousCart',
                         self::PARAM_DEFAULT => 'null'
                     ];
                     $factoryCall = 'ofEmailPasswordAndUpdateProductData(
