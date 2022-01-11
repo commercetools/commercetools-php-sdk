@@ -139,7 +139,7 @@ class CustomerRequestBuilder
             $email,
             $password,
             $updateProductData,
-            $anonymousCartId
+            $anonymousCart
         );
         return $request;
     }

@@ -641,7 +641,7 @@ EOF;
             $email,
             $password,
             $updateProductData,
-            $anonymousCartId
+            $anonymousCart
         );';
                     break;
                 case 'passwordChange':
