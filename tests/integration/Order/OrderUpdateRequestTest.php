@@ -15,7 +15,6 @@ use Commercetools\Core\IntegrationTests\State\StateFixture;
 use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Cart\CartDraft;
-use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
 use Commercetools\Core\Model\Cart\ItemShippingTarget;
@@ -79,6 +78,8 @@ use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemShippingDeta
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomTypeAction;
+use Commercetools\Core\Request\Orders\Command\StagedOrderSetDeliveryAddressCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\StagedOrderSetDeliveryAddressCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetItemShippingAddressCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetItemShippingAddressCustomTypeAction;
@@ -143,7 +144,7 @@ class OrderUpdateRequestTest extends ApiTestCase
             $cart->getVersion()
         );
 
-        $orderRequest = OrderCreateFromCartRequest::ofCartAndVersion(CartReference::ofId($cart->getId()), $cart->getVersion());
+        $orderRequest = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
         if (!is_null($orderNumber)) {
             $orderRequest->setOrderNumber($orderNumber);
         }
