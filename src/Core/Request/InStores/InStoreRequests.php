@@ -7,10 +7,13 @@ namespace Commercetools\Core\Request\InStores;
 
 use Commercetools\Core\Request\Carts\CartByCustomerIdGetRequest;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
+use Commercetools\Core\Request\Carts\CartByKeyGetRequest;
 use Commercetools\Core\Request\Carts\CartCreateRequest;
+use Commercetools\Core\Request\Carts\CartDeleteByKeyRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartQueryRequest;
 use Commercetools\Core\Request\Carts\CartReplicateRequest;
+use Commercetools\Core\Request\Carts\CartUpdateByKeyRequest;
 use Commercetools\Core\Request\Carts\CartUpdateRequest;
 use Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
@@ -66,11 +69,14 @@ class InStoreRequests
 {
     private $requests = [
         CartByIdGetRequest::class => 1,
+        CartByKeyGetRequest::class => 1,
         CartByCustomerIdGetRequest::class => 1,
         CartQueryRequest::class => 1,
         CartCreateRequest::class => 1,
         CartUpdateRequest::class => 1,
+        CartUpdateByKeyRequest::class => 1,
         CartDeleteRequest::class => 1,
+        CartDeleteByKeyRequest::class => 1,
         CartReplicateRequest::class => 1,
         MeCartByIdRequest::class => 1,
         MeActiveCartRequest::class => 1,
