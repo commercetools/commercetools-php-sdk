@@ -476,7 +476,7 @@ class RamlModelTest extends AbstractModelTest
         $modelClasses = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getFileClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
@@ -638,8 +638,6 @@ class RamlModelTest extends AbstractModelTest
             'Extension\ExtensionAzureFunctionsAuthentication' => 'Extension\AzureFunctionsAuthentication',
             'Extension\ExtensionAuthorizationHeaderAuthentication' => 'Extension\AuthorizationHeaderAuthentication',
             'Extension\ExtensionTrigger' => 'Extension\Trigger',
-            //TODO to be removed after closing PR on the doc repo
-            'Project\ProjectChangeShoppingListsConfiguration' => 'Project\ProjectChangeShoppingListsConfigurationAction',
         ];
     }
 
