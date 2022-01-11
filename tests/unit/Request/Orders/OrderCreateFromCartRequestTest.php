@@ -6,7 +6,6 @@
 namespace Commercetools\Core\Request\Orders;
 
 use Commercetools\Core\Client\HttpMethod;
-use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\RequestTestCase;
@@ -22,13 +21,13 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
 
     public function testMapResult()
     {
-        $result = $this->mapResult(OrderCreateFromCartRequest::ofCartAndVersion(CartReference::ofId('12345'), 1));
+        $result = $this->mapResult(OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1));
         $this->assertInstanceOf(Order::class, $result);
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(OrderCreateFromCartRequest::ofCartAndVersion(CartReference::ofId('12345'), 1));
+        $result = $this->mapEmptyResult(OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1));
         $this->assertNull($result);
     }
 
@@ -38,7 +37,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
         $mockBuilder->disableOriginalConstructor();
         $guzzleResponse = $mockBuilder->getMock();
 
-        $request = OrderCreateFromCartRequest::ofCartAndVersion(CartReference::ofId('12345'), 1);
+        $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
         $response = $request->buildResponse($guzzleResponse);
 
         $this->assertInstanceOf(ResourceResponse::class, $response);
@@ -46,7 +45,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
 
     public function testHttpRequestMethod()
     {
-        $request = OrderCreateFromCartRequest::ofCartAndVersion(CartReference::ofId('12345'), 1);
+        $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
         $httpRequest = $request->httpRequest();
 
         $this->assertSame(HttpMethod::POST, $httpRequest->getMethod());
@@ -54,7 +53,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
 
     public function testHttpRequestPath()
     {
-        $request = OrderCreateFromCartRequest::ofCartAndVersion(CartReference::ofId('12345'), 1);
+        $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
         $httpRequest = $request->httpRequest();
 
         $this->assertSame('orders', (string)$httpRequest->getUri());
@@ -65,7 +64,7 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
         /**
          * @var OrderCreateFromCartRequest $request
          */
-        $request = OrderCreateFromCartRequest::ofCartAndVersion(CartReference::ofId('12345'), 1);
+        $request = OrderCreateFromCartRequest::ofCartIdAndVersion('12345', 1);
         $stateReference = StateReference::ofId('123');
         $request->setOrderNumber('12345678')
             ->setPaymentState('paid')
@@ -77,10 +76,6 @@ class OrderCreateFromCartRequestTest extends RequestTestCase
 
         $expectedResult = [
             'id' => '12345',
-            'cart' => [
-                'typeId' => 'cart',
-                'id' => '12345',
-            ],
             'version' => 1,
             'orderNumber' => '12345678',
             'paymentState' => 'paid',
