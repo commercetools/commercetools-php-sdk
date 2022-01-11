@@ -2,6 +2,7 @@
 // phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
+use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Request\Customers\CustomerByEmailTokenGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByIdGetRequest;
 use Commercetools\Core\Request\Customers\CustomerByKeyGetRequest;
@@ -129,7 +130,7 @@ class CustomerRequestBuilder
      * @param string $email
      * @param string $password
      * @param bool $updateProductData
-     * @param string $anonymousCartId
+     * @param CartReference|string $anonymousCartId
      * @return CustomerLoginRequest
      */
     public function login($email, $password, $updateProductData = false, $anonymousCartId = null)
