@@ -173,6 +173,7 @@ abstract class AbstractJsonDeserializeObject implements JsonDeserializeInterface
         return isset($this->rawData[$field])? $this->rawData[$field]: $default;
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.4.0)<br/>
      * Specify data which should be serialized to JSON

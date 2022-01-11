@@ -84,6 +84,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
     }
 
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Retrieve an external iterator
@@ -97,6 +98,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
         return new \ArrayIterator($this->results);
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Whether a offset exists
@@ -115,6 +117,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
         return isset($results[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Offset to retrieve
@@ -130,6 +133,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
         return $results[$offset];
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Offset to set
@@ -152,6 +156,7 @@ class PagedQueryResponse extends AbstractApiResponse implements \IteratorAggrega
         }
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * (PHP 5 &gt;= 5.0.0)<br/>
      * Offset to unset

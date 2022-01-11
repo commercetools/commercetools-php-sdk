@@ -56,6 +56,7 @@ class DateTimeDecorator implements \JsonSerializable
         return $dateTime;
     }
 
+    #[\ReturnTypeWillChange]
     /**
      * @return string
      */
