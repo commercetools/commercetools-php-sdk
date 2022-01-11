@@ -9,6 +9,7 @@ use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\Fixtures\FixtureException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\CartDiscount\CartDiscountFixture;
+use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
 use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
 use Commercetools\Core\IntegrationTests\CustomerGroup\CustomerGroupFixture;
 use Commercetools\Core\IntegrationTests\DiscountCode\DiscountCodeFixture;
@@ -43,6 +44,9 @@ use Commercetools\Core\Model\CartDiscount\LineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\MultiBuyCustomLineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\MultiBuyLineItemsTarget;
 use Commercetools\Core\Model\CartDiscount\RelativeCartDiscountValue;
+use Commercetools\Core\Model\Channel\Channel;
+use Commercetools\Core\Model\Channel\ChannelDraft;
+use Commercetools\Core\Model\Channel\ChannelRole;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\AddressCollection;
 use Commercetools\Core\Model\Common\LocalizedString;
@@ -109,8 +113,10 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomShippingMethodAction;
 use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificationAction;
 use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetKeyAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLineItemDistributionChannelAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxAmountAction;
@@ -602,6 +608,26 @@ class CartUpdateRequestTest extends ApiTestCase
         );
     }
 
+    public function testSetKey()
+    {
+        $client = $this->getApiClient();
+
+        CartFixture::withUpdateableCart(
+            $client,
+            function (Cart $cart) use ($client) {
+                $key = CartFixture::uniqueCartString();
+                $request = RequestBuilder::of()->carts()->update($cart)
+                    ->addAction(
+                        CartSetKeyAction::of()->setKey($key)
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($key, $result->getKey());
+            }
+        );
+    }
+
     public function testExternalLineItemPriceQuantityChange()
     {
         $client = $this->getApiClient();
@@ -926,6 +952,32 @@ class CartUpdateRequestTest extends ApiTestCase
                 $result = $request->mapFromResponse($response);
 
                 $this->assertSame($email, $result->getCustomerEmail());
+
+                return $result;
+            }
+        );
+    }
+
+    public function testCustomerEmailUpdateByKey()
+    {
+        $client = $this->getApiClient();
+        $key = CartFixture::uniqueCartString();
+
+        CartFixture::withUpdateableDraftCart(
+            $client,
+            function (CartDraft $cartDraft) use ($key) {
+                return $cartDraft->setKey($key);
+            },
+            function (Cart $cart) use ($client, $key) {
+                $email = 'test-' . CartFixture::uniqueCartString() . '@example.com';
+
+                $request = RequestBuilder::of()->carts()->updateByKey($cart)
+                    ->addAction(CartSetCustomerEmailAction::of()->setEmail($email));
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertSame($email, $result->getCustomerEmail());
+                $this->assertSame($key, $result->getKey());
 
                 return $result;
             }
@@ -3164,6 +3216,106 @@ class CartUpdateRequestTest extends ApiTestCase
                         $this->assertSame($cart->getId(), $result->getId());
 
                         return $result;
+                    }
+                );
+            }
+        );
+    }
+
+    public function testUpdateAndDeleteByKeyForCartInStore()
+    {
+        $client = $this->getApiClient();
+        $key = CartFixture::uniqueCartString();
+
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client, $key) {
+                CartFixture::withUpdateableDraftCart(
+                    $client,
+                    function (CartDraft $draft) use ($store, $key) {
+                        return $draft->setStore(StoreReference::ofKey($store->getKey()))->setKey($key);
+                    },
+                    function (Cart $cart) use ($client, $store, $key) {
+                        $this->assertSame($key, $cart->getKey());
+
+                        $email = 'test-' . CartFixture::uniqueCartString() . '@example.com';
+
+                        $request = RequestBuilder::of()->carts()->update($cart)
+                            ->addAction(CartSetCustomerEmailAction::of()->setEmail($email))
+                            ->inStore($store->getKey());
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Cart::class, $result);
+                        $this->assertSame($cart->getId(), $result->getId());
+                        $this->assertSame($email, $result->getCustomerEmail());
+                        $this->assertSame(
+                            'in-store/key=' . $store->getKey() . '/carts/' . $result->getId(),
+                            (string)$request->httpRequest()->getUri()
+                        );
+                        $this->assertSame($store->getKey(), $result->getStore()->getKey());
+
+                        $cartRequest = RequestBuilder::of()->carts()->deleteByKey($result);
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest($store->getKey(), $cartRequest);
+                        $response = $request->executeWithClient($this->getClient());
+                        $result = $request->mapResponse($response);
+
+                        $this->assertInstanceOf(Cart::class, $result);
+                        $this->assertSame($cart->getKey(), $result->getKey());
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
+
+    public function testCartSetLineItemDistributionChannel()
+    {
+        $client = $this->getApiClient();
+
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+                ChannelFixture::withDraftChannel(
+                    $client,
+                    function (ChannelDraft $draft) {
+                        return $draft->setRoles([ChannelRole::PRODUCT_DISTRIBUTION]);
+                    },
+                    function (Channel $channel) use ($client, $product, $variant) {
+                        CartFixture::withUpdateableCart(
+                            $client,
+                            function (Cart $cart) use ($client, $product, $channel, $variant) {
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                            $product->getId(),
+                                            $variant->getId(),
+                                            1
+                                        )
+                                    );
+                                $response = $this->execute($client, $request);
+                                $cart = $request->mapFromResponse($response);
+
+                                $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartSetLineItemDistributionChannelAction::ofItemLineIdAndDistributionChannel(
+                                            $cart->getLineItems()->current()->getId(),
+                                            $channel->getReference()
+                                        )
+                                    );
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
+
+                                $this->assertSame($channel->getReference()->getId(), $result->getLineItems()->current()->getDistributionChannel()->getId());
+
+                                return $result;
+                            }
+                        );
                     }
                 );
             }

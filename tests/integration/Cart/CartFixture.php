@@ -46,7 +46,8 @@ class CartFixture extends ResourceFixture
             ->setShippingAddress($customer->getDefaultShippingAddress())
             ->setBillingAddress($customer->getDefaultBillingAddress())
             ->setCustomerEmail($customer->getEmail())
-            ->setShippingMethod($shippingMethod->getReference());
+            ->setShippingMethod($shippingMethod->getReference())
+            ->setKey(self::uniqueCartString());
 
         return $draft;
     }

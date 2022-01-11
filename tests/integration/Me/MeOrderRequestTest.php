@@ -12,6 +12,7 @@ use Commercetools\Core\Client;
 use Commercetools\Core\Config;
 use Commercetools\Core\Error\ResourceNotFoundError;
 use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
 use Commercetools\Core\Model\Cart\MyCartDraft;
@@ -102,7 +103,7 @@ class MeOrderRequestTest extends ApiTestCase
             $cart->getVersion()
         );
 
-        $orderRequest = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
+        $orderRequest = OrderCreateFromCartRequest::ofCartAndVersion(CartReference::ofId($cart->getId()), $cart->getVersion());
         $response = $orderRequest->executeWithClient($this->getClient());
         $order = $orderRequest->mapResponse($response);
         $this->cleanupRequests[] = $this->deleteRequest = OrderDeleteRequest::ofIdAndVersion(

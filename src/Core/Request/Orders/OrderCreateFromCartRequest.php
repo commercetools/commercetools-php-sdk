@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Request\Orders;
 
+use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\State\StateReference;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
 use Commercetools\Core\Request\InStores\InStoreTrait;
@@ -31,6 +32,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     use InStoreTrait;
 
     const ID = 'id';
+    const CART = 'cart';
     const VERSION = 'version';
     const ORDER_NUMBER = 'orderNumber';
     const PAYMENT_STATE = 'paymentState';
@@ -38,7 +40,14 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     const STATE = 'state';
     const SHIPMENT_STATE = 'shipmentState';
 
+    /**
+     * @deprecated use $cart instead
+     */
     protected $cartId;
+    /**
+     * @var CartReference
+     */
+    protected $cart;
     protected $version;
     protected $orderNumber;
     protected $paymentState;
@@ -49,20 +58,60 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     protected $resultClass = Order::class;
 
     /**
+     * @param CartReference|string $cart
+     * @param int $version
+     * @param Context $context
+     */
+    public function __construct($cart, $version = null, Context $context = null)
+    {
+        parent::__construct(OrdersEndpoint::endpoint(), $context);
+
+        if ($cart instanceof CartReference) {
+            $this->setCart($cart)->setVersion($version);
+        } else {
+            $this->setCart(CartReference::ofId($cart))->setVersion($version);
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getCart()
+    {
+        return $this->cart;
+    }
+
+    /**
+     * @param CartReference $cart
+     * @return $this
+     */
+    public function setCart($cart)
+    {
+        $this->cart = $cart;
+
+        return $this;
+    }
+
+    /**
+     * @deprecated use getCart instead
      * @return string
      */
     public function getCartId()
     {
-        return $this->cartId;
+        if ($this->cart == null) {
+            return null;
+        }
+        return $this->cart->getId();
     }
 
     /**
+     * @deprecated use setCart instead
      * @param string $cartId
      * @return $this
      */
     public function setCartId($cartId)
     {
-        $this->cartId = $cartId;
+        $this->cart = CartReference::ofId($cartId);
 
         return $this;
     }
@@ -182,17 +231,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     }
 
     /**
-     * @param string $cartId
-     * @param int $version
-     * @param Context $context
-     */
-    public function __construct($cartId, $version, Context $context = null)
-    {
-        parent::__construct(OrdersEndpoint::endpoint(), $context);
-        $this->setCartId($cartId)->setVersion($version);
-    }
-
-    /**
+     * @deprecated use ofCartAndVersion instead
      * @param string $cartId
      * @param int $version
      * @param Context $context
@@ -201,6 +240,17 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     public static function ofCartIdAndVersion($cartId, $version, Context $context = null)
     {
         return new static($cartId, $version, $context);
+    }
+
+    /**
+     * @param CartReference|string $cart
+     * @param int $version
+     * @param Context $context
+     * @return static
+     */
+    public static function ofCartAndVersion($cart, $version, Context $context = null)
+    {
+        return new static($cart, $version, $context);
     }
 
     /**
@@ -220,7 +270,7 @@ class OrderCreateFromCartRequest extends AbstractApiRequest
     public function httpRequest()
     {
         $payload = [
-            static::ID => $this->getCartId(),
+            static::CART => $this->getCart(),
             static::VERSION => $this->getVersion(),
         ];
         if (!is_null($this->paymentState)) {

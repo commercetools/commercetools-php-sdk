@@ -44,8 +44,10 @@ use Commercetools\Core\Request\Carts\Command\CartSetCustomerIdAction;
 use Commercetools\Core\Request\Carts\Command\CartSetDeleteDaysAfterLastModificationAction;
 use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetItemShippingAddressCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetKeyAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomFieldAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLineItemDistributionChannelAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxAmountAction;
@@ -507,6 +509,17 @@ class CartsActionBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/api/projects/carts#set-key-
+     * @param CartSetKeyAction|callable $action
+     * @return $this
+     */
+    public function setKey($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetKeyAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-carts.html#set-lineitem-customfield
      * @param CartSetLineItemCustomFieldAction|callable $action
      * @return $this
@@ -525,6 +538,17 @@ class CartsActionBuilder
     public function setLineItemCustomType($action = null)
     {
         $this->addAction($this->resolveAction(CartSetLineItemCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetLineItemDistributionChannelAction|callable $action
+     * @return $this
+     */
+    public function setLineItemDistributionChannel($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetLineItemDistributionChannelAction::class, $action));
         return $this;
     }
 

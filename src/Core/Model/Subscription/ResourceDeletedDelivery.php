@@ -26,6 +26,8 @@ use Commercetools\Core\Model\Message\UserProvidedIdentifiers;
  * phpcs:disable
  * @method ResourceDeletedDelivery setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
  * phpcs:enable
+ * @method bool getDataErasure()
+ * @method ResourceDeletedDelivery setDataErasure(bool $dataErasure = null)
  */
 class ResourceDeletedDelivery extends Delivery
 {
@@ -34,6 +36,7 @@ class ResourceDeletedDelivery extends Delivery
         $definition = parent::fieldDefinitions();
         $definition['version'] = [static::TYPE => 'int'];
         $definition['modifiedAt'] = [static::TYPE => DateTime::class, static::DECORATOR => DateTimeDecorator::class ];
+        $definition['dataErasure'] = [static::TYPE => 'bool'];
 
         return $definition;
     }
