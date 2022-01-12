@@ -2,11 +2,11 @@
 // phpcs:disable Generic.Files.LineLength
 namespace Commercetools\Core\Builder\Request;
 
-use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
 use Commercetools\Core\Request\Orders\OrderByOrderNumberGetRequest;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
 use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Request\Orders\OrderDeleteByOrderNumberRequest;
 use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Request\Orders\OrderDeleteRequest;

@@ -42,6 +42,7 @@ use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelMeasurementsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelTrackingDataAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetReturnInfoAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
@@ -473,6 +474,17 @@ class OrdersActionBuilder
     public function setParcelTrackingData($action = null)
     {
         $this->addAction($this->resolveAction(OrderSetParcelTrackingDataAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-delivery-items
+     * @param OrderSetReturnInfoAction|callable $action
+     * @return $this
+     */
+    public function setReturnInfo($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetReturnInfoAction::class, $action));
         return $this;
     }
 

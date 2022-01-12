@@ -37,6 +37,8 @@ use Commercetools\Core\Model\Order\Parcel;
 use Commercetools\Core\Model\Order\ParcelCollection;
 use Commercetools\Core\Model\Order\ParcelMeasurements;
 use Commercetools\Core\Model\Order\PaymentState;
+use Commercetools\Core\Model\Order\ReturnInfo;
+use Commercetools\Core\Model\Order\ReturnInfoCollection;
 use Commercetools\Core\Model\Order\ReturnItem;
 use Commercetools\Core\Model\Order\ReturnItemCollection;
 use Commercetools\Core\Model\Order\ReturnPaymentState;
@@ -78,8 +80,6 @@ use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemShippingDeta
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomTypeAction;
-use Commercetools\Core\Request\Orders\Command\StagedOrderSetDeliveryAddressCustomFieldAction;
-use Commercetools\Core\Request\Orders\Command\StagedOrderSetDeliveryAddressCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetItemShippingAddressCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetItemShippingAddressCustomTypeAction;
@@ -89,6 +89,7 @@ use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelMeasurementsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelTrackingDataAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetReturnInfoAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
@@ -1630,6 +1631,87 @@ class OrderUpdateRequestTest extends ApiTestCase
                         return $result;
                     }
                 );
+            }
+        );
+    }
+
+    public function testSetReturnInfo()
+    {
+        $client = $this->getApiClient();
+
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $lineItem = $order->getLineItems()->current();
+
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetReturnInfoAction::of()->setItems(
+                            ReturnInfoCollection::of()->add(
+                                ReturnInfo::of()
+                                    ->setItems(ReturnItemCollection::of()->add(
+                                        ReturnItem::of()
+                                            ->setQuantity(1)
+                                            ->setLineItemId($lineItem->getId())
+                                            ->setShipmentState(ReturnShipmentState::RETURNED)
+                                    ))
+                                    ->setReturnTrackingId(OrderFixture::uniqueOrderString())
+                            )
+                        )
+                    );
+
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(
+                    ReturnShipmentState::RETURNED,
+                    $result->getReturnInfo()->current()->getItems()->current()->getShipmentState()
+                );
+                $returnItem = $result->getReturnInfo()->current()->getItems()->current();
+                $this->assertSame(
+                    $lineItem->getId(),
+                    $returnItem->getLineItemId()
+                );
+                $order = $result;
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetReturnShipmentStateAction::ofReturnItemIdAndShipmentState(
+                            $returnItem->getId(),
+                            ReturnShipmentState::BACK_IN_STOCK
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $returnItem = $result->getReturnInfo()->current()->getItems()->current();
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(
+                    ReturnShipmentState::BACK_IN_STOCK,
+                    $returnItem->getShipmentState()
+                );
+                $order = $result;
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetReturnPaymentStateAction::ofReturnItemIdAndPaymentState(
+                            $returnItem->getId(),
+                            ReturnPaymentState::REFUNDED
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $returnItem = $result->getReturnInfo()->current()->getItems()->current();
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(
+                    ReturnPaymentState::REFUNDED,
+                    $returnItem->getPaymentState()
+                );
+
+                return $result;
             }
         );
     }
