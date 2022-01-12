@@ -473,7 +473,6 @@ class ProjectUpdateRequestTest extends ApiTestCase
 
     public function testChangeProductSearchIndexingEnabled()
     {
-        $this->markTestSkipped("disabled");
         $client = $this->getApiClient();
 
         ProjectFixture::withProject(
