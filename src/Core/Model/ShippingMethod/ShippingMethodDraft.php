@@ -30,6 +30,8 @@ use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
  * @method ShippingMethodDraft setPredicate(string $predicate = null)
  * @method LocalizedString getLocalizedDescription()
  * @method ShippingMethodDraft setLocalizedDescription(LocalizedString $localizedDescription = null)
+ * @method LocalizedString getLocalizedName()
+ * @method ShippingMethodDraft setLocalizedName(LocalizedString $localizedName = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method ShippingMethodDraft setCustom(CustomFieldObjectDraft $custom = null)
  */
@@ -39,6 +41,7 @@ class ShippingMethodDraft extends JsonObject
     {
         return [
             'name' => [static::TYPE => 'string'],
+            'localizedName' => [static::TYPE => LocalizedString::class],
             'localizedDescription' => [static::TYPE => LocalizedString::class],
             'description' => [static::TYPE => 'string'],
             'taxCategory' => [static::TYPE => TaxCategoryReference::class],

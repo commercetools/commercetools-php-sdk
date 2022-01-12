@@ -11,6 +11,8 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeProductSearchIndexingEnabledAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeShoppingListsConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetExternalOAuthAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 
@@ -92,6 +94,28 @@ class ProjectActionBuilder
     public function changeName($action = null)
     {
         $this->addAction($this->resolveAction(ProjectChangeNameAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/project#change-product-search-indexing-enabled
+     * @param ProjectChangeProductSearchIndexingEnabledAction|callable $action
+     * @return $this
+     */
+    public function changeProductSearchIndexingEnabled($action = null)
+    {
+        $this->addAction($this->resolveAction(ProjectChangeProductSearchIndexingEnabledAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-project.html#change-shopping-lists-configuration
+     * @param ProjectChangeShoppingListsConfigurationAction|callable $action
+     * @return $this
+     */
+    public function changeShoppingListsConfiguration($action = null)
+    {
+        $this->addAction($this->resolveAction(ProjectChangeShoppingListsConfigurationAction::class, $action));
         return $this;
     }
 

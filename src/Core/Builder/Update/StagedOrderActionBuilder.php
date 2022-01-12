@@ -66,6 +66,7 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetOrde
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelItemsAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelMeasurementsAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelTrackingDataAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnInfoAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAction;
@@ -768,6 +769,17 @@ class StagedOrderActionBuilder
     public function setParcelTrackingData($action = null)
     {
         $this->addAction($this->resolveAction(StagedOrderSetParcelTrackingDataAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetReturnInfoAction|callable $action
+     * @return $this
+     */
+    public function setReturnInfo($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetReturnInfoAction::class, $action));
         return $this;
     }
 

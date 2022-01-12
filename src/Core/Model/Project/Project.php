@@ -14,6 +14,7 @@ use DateTime;
 /**
  * @package Commercetools\Core\Model\Project
  * @link https://docs.commercetools.com/http-api-projects-project.html#project
+ *
  * @method string getKey()
  * @method Project setKey(string $key = null)
  * @method string getName()
@@ -38,6 +39,10 @@ use DateTime;
  * @method Project setExternalOAuth(ExternalOAuth $externalOAuth = null)
  * @method CartsConfiguration getCarts()
  * @method Project setCarts(CartsConfiguration $carts = null)
+ * @method ShoppingListsConfiguration getShoppingLists()
+ * @method Project setShoppingLists(ShoppingListsConfiguration $shoppingLists = null)
+ * @method SearchIndexingConfiguration getSearchIndexing()
+ * @method Project setSearchIndexing(SearchIndexingConfiguration $searchIndexing = null)
  */
 class Project extends JsonObject
 {
@@ -61,7 +66,9 @@ class Project extends JsonObject
             'messages' => [static::TYPE => MessagesConfiguration::class],
             'shippingRateInputType' => [static::TYPE => ShippingRateInputType::class],
             'externalOAuth' => [static::TYPE => ExternalOAuth::class],
-            'carts' => [static::TYPE => CartsConfiguration::class]
+            'carts' => [static::TYPE => CartsConfiguration::class],
+            'shoppingLists' => [static::TYPE => ShoppingListsConfiguration::class],
+            'searchIndexing' => [static::TYPE => SearchIndexingConfiguration::class]
         ];
     }
 }
