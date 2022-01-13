@@ -638,6 +638,7 @@ class RamlModelTest extends AbstractModelTest
             'Extension\ExtensionAzureFunctionsAuthentication' => 'Extension\AzureFunctionsAuthentication',
             'Extension\ExtensionAuthorizationHeaderAuthentication' => 'Extension\AuthorizationHeaderAuthentication',
             'Extension\ExtensionTrigger' => 'Extension\Trigger',
+            'Message\ContainerAndKey' => 'Common\ContainerAndKey',
         ];
     }
 

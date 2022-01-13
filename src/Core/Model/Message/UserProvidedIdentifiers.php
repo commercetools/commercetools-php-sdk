@@ -5,6 +5,7 @@
 
 namespace Commercetools\Core\Model\Message;
 
+use Commercetools\Core\Model\Common\ContainerAndKey;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
 
@@ -23,6 +24,8 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method UserProvidedIdentifiers setSku(string $sku = null)
  * @method LocalizedString getSlug()
  * @method UserProvidedIdentifiers setSlug(LocalizedString $slug = null)
+ * @method ContainerAndKey getContainerAndKey()
+ * @method UserProvidedIdentifiers setContainerAndKey(ContainerAndKey $containerAndKey = null)
  */
 class UserProvidedIdentifiers extends JsonObject
 {
@@ -35,6 +38,7 @@ class UserProvidedIdentifiers extends JsonObject
             'customerNumber' => [self::TYPE => 'string'],
             'sku' => [self::TYPE => 'string'],
             'slug' => [self::TYPE => LocalizedString::class],
+            'containerAndKey' => [self::TYPE => ContainerAndKey::class]
         ];
     }
 }
