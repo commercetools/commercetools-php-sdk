@@ -3,6 +3,7 @@
 
 namespace Commercetools\Core\Model\Message;
 
+use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use DateTime;
 use Commercetools\Core\Model\Common\Reference;
@@ -50,6 +51,7 @@ class InventoryEntryQuantitySetMessage extends Message
         $definitions['newQuantityOnStock'] = [static::TYPE => 'int'];
         $definitions['oldAvailableQuantity'] = [static::TYPE => 'int'];
         $definitions['newAvailableQuantity'] = [static::TYPE => 'int'];
+        $definitions['supplyChannel'] = [static::TYPE =>  ChannelReference::class];
 
         return $definitions;
     }
