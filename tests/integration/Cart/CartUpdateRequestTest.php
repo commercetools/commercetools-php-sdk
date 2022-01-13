@@ -119,6 +119,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemDistributionChannelAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemShippingDetailsAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLineItemSupplyChannelAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTotalPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLocaleAction;
@@ -3312,6 +3313,58 @@ class CartUpdateRequestTest extends ApiTestCase
                                 $result = $request->mapFromResponse($response);
 
                                 $this->assertSame($channel->getReference()->getId(), $result->getLineItems()->current()->getDistributionChannel()->getId());
+
+                                return $result;
+                            }
+                        );
+                    }
+                );
+            }
+        );
+    }
+
+    public function testCartSetLineItemSupplyChannel()
+    {
+        $client = $this->getApiClient();
+
+        ProductFixture::withPublishedProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $variant = $product->getMasterData()->getCurrent()->getMasterVariant();
+
+                ChannelFixture::withDraftChannel(
+                    $client,
+                    function (ChannelDraft $draft) {
+                        return $draft->setRoles([ChannelRole::INVENTORY_SUPPLY]);
+                    },
+                    function (Channel $channel) use ($client, $product, $variant) {
+                        CartFixture::withUpdateableCart(
+                            $client,
+                            function (Cart $cart) use ($client, $product, $channel, $variant) {
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartAddLineItemAction::ofProductIdVariantIdAndQuantity(
+                                            $product->getId(),
+                                            $variant->getId(),
+                                            1
+                                        )
+                                    );
+                                $response = $this->execute($client, $request);
+                                $cart = $request->mapFromResponse($response);
+
+                                $this->assertSame($product->getId(), $cart->getLineItems()->current()->getProductId());
+
+                                $request = RequestBuilder::of()->carts()->update($cart)
+                                    ->addAction(
+                                        CartSetLineItemSupplyChannelAction::ofItemLineIdAndSupplyChannel(
+                                            $cart->getLineItems()->current()->getId(),
+                                            $channel->getReference()
+                                        )
+                                    );
+                                $response = $this->execute($client, $request);
+                                $result = $request->mapFromResponse($response);
+
+                                $this->assertSame($channel->getReference()->getId(), $result->getLineItems()->current()->getSupplyChannel()->getId());
 
                                 return $result;
                             }

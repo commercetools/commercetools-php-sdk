@@ -50,6 +50,7 @@ use Commercetools\Core\Request\Carts\Command\CartSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemDistributionChannelAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemPriceAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemShippingDetailsAction;
+use Commercetools\Core\Request\Carts\Command\CartSetLineItemSupplyChannelAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxAmountAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTaxRateAction;
 use Commercetools\Core\Request\Carts\Command\CartSetLineItemTotalPriceAction;
@@ -571,6 +572,17 @@ class CartsActionBuilder
     public function setLineItemShippingDetails($action = null)
     {
         $this->addAction($this->resolveAction(CartSetLineItemShippingDetailsAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param CartSetLineItemSupplyChannelAction|callable $action
+     * @return $this
+     */
+    public function setLineItemSupplyChannel($action = null)
+    {
+        $this->addAction($this->resolveAction(CartSetLineItemSupplyChannelAction::class, $action));
         return $this;
     }
 
