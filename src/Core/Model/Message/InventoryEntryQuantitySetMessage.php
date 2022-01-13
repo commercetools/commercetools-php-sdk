@@ -39,6 +39,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method InventoryEntryQuantitySetMessage setOldAvailableQuantity(int $oldAvailableQuantity = null)
  * @method int getNewAvailableQuantity()
  * @method InventoryEntryQuantitySetMessage setNewAvailableQuantity(int $newAvailableQuantity = null)
+ * @method ChannelReference getSupplyChannel()
+ * @method InventoryEntryQuantitySetMessage setSupplyChannel(ChannelReference $supplyChannel = null)
  */
 class InventoryEntryQuantitySetMessage extends Message
 {
