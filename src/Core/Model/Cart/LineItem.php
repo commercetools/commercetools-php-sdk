@@ -62,6 +62,8 @@ use DateTime;
  * @method LineItem setAddedAt(DateTime $addedAt = null)
  * @method DateTime getLastModifiedAt()
  * @method LineItem setLastModifiedAt(DateTime $lastModifiedAt = null)
+ * @method string getProductKey()
+ * @method LineItem setProductKey(string $productKey = null)
  */
 class LineItem extends JsonObject
 {
@@ -77,6 +79,7 @@ class LineItem extends JsonObject
         return [
             'id' => [static::TYPE => 'string'],
             'productId' => [static::TYPE => 'string'],
+            'productKey' => [static::TYPE => 'string'],
             'name' => [static::TYPE => LocalizedString::class],
             'productSlug' => [static::TYPE => LocalizedString::class],
             'variant' => [static::TYPE => ProductVariant::class],
