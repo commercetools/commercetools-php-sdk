@@ -1687,8 +1687,7 @@ class CartUpdateRequestTest extends ApiTestCase
 
                                 $request = RequestBuilder::of()->carts()->update($cart)
                                     ->addAction(
-                                        CartSetLineItemCustomFieldAction::ofName('testField')
-                                            ->setLineItemId($cart->getLineItems()->current()->getId())
+                                        CartSetLineItemCustomFieldAction::ofLineItemIdAndName($cart->getLineItems()->current()->getId(), 'testField')
                                             ->setValue($value)
                                     );
                                 $response = $this->execute($client, $request);

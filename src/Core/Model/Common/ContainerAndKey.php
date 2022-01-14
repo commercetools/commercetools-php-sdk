@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Commercetools\Core\Model\Common;
 
 /**

@@ -7,6 +7,7 @@
 namespace Commercetools\Core\IntegrationTests\Payment;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Helper\Uuid;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\Customer\CustomerFixture;
 use Commercetools\Core\IntegrationTests\State\StateFixture;
@@ -14,6 +15,8 @@ use Commercetools\Core\IntegrationTests\Type\TypeFixture;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
 use Commercetools\Core\Model\Customer\Customer;
+use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
+use Commercetools\Core\Model\CustomField\FieldContainer;
 use Commercetools\Core\Model\Payment\Payment;
 use Commercetools\Core\Model\Payment\PaymentDraft;
 use Commercetools\Core\Model\Payment\Transaction;
@@ -43,6 +46,8 @@ use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoMethodAction
 use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoNameAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceCodeAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceTextAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetTransactionCustomFieldAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetTransactionCustomTypeAction;
 use Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction;
 use Commercetools\Core\Request\Payments\PaymentUpdateRequest;
 
@@ -675,6 +680,84 @@ class PaymentUpdateRequestTest extends ApiTestCase
                         $this->assertInstanceOf(Payment::class, $result);
                         $this->assertSame($value, $result->getCustom()->getFields()->getTestField());
                         $this->assertNotSame($payment->getVersion(), $result->getVersion());
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
+
+
+    public function testPaymentTransactionCustomField()
+    {
+        $client = $this->getApiClient();
+
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey('key-' . TypeFixture::uniqueTypeString())
+                    ->setResourceTypeIds(['payment', 'transaction']);
+            },
+            function (Type $type) use ($client) {
+                PaymentFixture::withUpdateablePayment(
+                    $client,
+                    function (Payment $payment) use ($client, $type) {
+                        $id = Uuid::uuidv4();
+                        $transaction = Transaction::of()
+                            ->setId($id)
+                            ->setType(Transaction::AUTHORIZATION)
+                            ->setAmount(Money::ofCurrencyAndAmount('EUR', 100))
+                            ->setCustom(
+                                CustomFieldObjectDraft::ofTypeKey($type->getKey())
+                                    ->setFields(FieldContainer::of()->set('testField', 'value'))
+                            )
+                            ->setInteractionId($id)
+                            ->setState(TransactionState::SUCCESS);
+
+                        $request = RequestBuilder::of()->payments()->update($payment)
+                            ->addAction(
+                                PaymentAddTransactionAction::of()->setTransaction($transaction)
+                            );
+                        $response = $this->execute($client, $request);
+                        $paymentWithTransaction = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Payment::class, $paymentWithTransaction);
+                        $this->assertSame(
+                            $transaction->getInteractionId(),
+                            $paymentWithTransaction->getTransactions()->current()->getInteractionId()
+                        );
+                        $this->assertNotSame($payment->getVersion(), $paymentWithTransaction->getVersion());
+
+                        $request = RequestBuilder::of()->payments()->update($paymentWithTransaction)
+                            ->addAction(
+                                PaymentSetTransactionCustomTypeAction::ofTypeKey($type->getKey())
+                                    ->setTransactionId($paymentWithTransaction->getTransactions()->current()->getId())
+                            );
+                        $response = $this->execute($client, $request);
+                        $resultTransactionCustomType = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Payment::class, $resultTransactionCustomType);
+                        $this->assertSame(
+                            $transaction->getInteractionId(),
+                            $resultTransactionCustomType->getTransactions()->current()->getInteractionId()
+                        );
+
+                        $name = 'testField';
+
+                        $request = RequestBuilder::of()->payments()->update($resultTransactionCustomType)
+                            ->addAction(
+                                PaymentSetTransactionCustomFieldAction::ofTransactionIdAndName($resultTransactionCustomType->getTransactions()->current()->getId(), $name)
+                                ->setValue('testValue')
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Payment::class, $result);
+                        $this->assertSame(
+                            $transaction->getInteractionId(),
+                            $result->getTransactions()->current()->getInteractionId()
+                        );
 
                         return $result;
                     }

@@ -152,6 +152,8 @@ use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoMethodAction
 use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoNameAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceCodeAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceTextAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetTransactionCustomFieldAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetTransactionCustomTypeAction;
 use Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeIsActiveAction;
 use Commercetools\Core\Request\ProductDiscounts\Command\ProductDiscountChangeNameAction;
@@ -1404,6 +1406,14 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
                 StoreSetNameAction::class,
                 'ofName',
                 [$this->getInstance(LocalizedString::class)]
+            ],
+            [
+                PaymentSetTransactionCustomFieldAction::class,
+                'of',
+            ],
+            [
+                PaymentSetTransactionCustomTypeAction::class,
+                'of',
             ],
         ];
 

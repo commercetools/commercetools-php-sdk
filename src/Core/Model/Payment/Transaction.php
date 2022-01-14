@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Payment;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Money;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\State\StateReference;
 use DateTime;
 
@@ -26,6 +27,8 @@ use DateTime;
  * @method Transaction setId(string $id = null)
  * @method string getState()
  * @method Transaction setState(string $state = null)
+ * @method CustomFieldObject getCustom()
+ * @method Transaction setCustom(CustomFieldObject $custom = null)
  */
 class Transaction extends JsonObject
 {
@@ -47,6 +50,7 @@ class Transaction extends JsonObject
             'type' => [static::TYPE => 'string'],
             'amount' => [static::TYPE => Money::class],
             'interactionId' => [static::TYPE => 'string'],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }
