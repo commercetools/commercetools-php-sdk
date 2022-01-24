@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Order;
 
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use DateTime;
 
 /**
@@ -33,6 +34,8 @@ use DateTime;
  * @method ReturnItem setType(string $type = null)
  * @method string getCustomLineItemId()
  * @method ReturnItem setCustomLineItemId(string $customLineItemId = null)
+ * @method CustomFieldObject getCustom()
+ * @method ReturnItem setCustom(CustomFieldObject $custom = null)
  */
 class ReturnItem extends JsonObject
 {
@@ -50,6 +53,7 @@ class ReturnItem extends JsonObject
             'comment' => [static::TYPE => 'string'],
             'shipmentState' => [static::TYPE => 'string'],
             'paymentState' => [static::TYPE => 'string'],
+            'custom' => [static::TYPE => CustomFieldObject::class],
             'lastModifiedAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class

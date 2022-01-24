@@ -67,6 +67,8 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParc
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelMeasurementsAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelTrackingDataAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnInfoAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnItemCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnItemCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAction;
@@ -780,6 +782,28 @@ class StagedOrderActionBuilder
     public function setReturnInfo($action = null)
     {
         $this->addAction($this->resolveAction(StagedOrderSetReturnInfoAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetReturnItemCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setReturnItemCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetReturnItemCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetReturnItemCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setReturnItemCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetReturnItemCustomTypeAction::class, $action));
         return $this;
     }
 

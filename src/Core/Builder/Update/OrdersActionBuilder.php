@@ -43,6 +43,8 @@ use Commercetools\Core\Request\Orders\Command\OrderSetParcelItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelMeasurementsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelTrackingDataAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnInfoAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetReturnItemCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetReturnItemCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
@@ -485,6 +487,28 @@ class OrdersActionBuilder
     public function setReturnInfo($action = null)
     {
         $this->addAction($this->resolveAction(OrderSetReturnInfoAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetReturnItemCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setReturnItemCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetReturnItemCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetReturnItemCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setReturnItemCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetReturnItemCustomTypeAction::class, $action));
         return $this;
     }
 
