@@ -63,6 +63,8 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLine
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLocaleAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetOrderNumberAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetOrderTotalTaxAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelItemsAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelMeasurementsAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelTrackingDataAction;
@@ -738,6 +740,28 @@ class StagedOrderActionBuilder
     public function setOrderTotalTax($action = null)
     {
         $this->addAction($this->resolveAction(StagedOrderSetOrderTotalTaxAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetParcelCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setParcelCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetParcelCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetParcelCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setParcelCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetParcelCustomTypeAction::class, $action));
         return $this;
     }
 

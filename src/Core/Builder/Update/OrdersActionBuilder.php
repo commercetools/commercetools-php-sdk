@@ -39,6 +39,8 @@ use Commercetools\Core\Request\Orders\Command\OrderSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLocaleAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetParcelCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetParcelCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelMeasurementsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelTrackingDataAction;
@@ -443,6 +445,28 @@ class OrdersActionBuilder
     public function setOrderNumber($action = null)
     {
         $this->addAction($this->resolveAction(OrderSetOrderNumberAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetParcelCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setParcelCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetParcelCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetParcelCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setParcelCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetParcelCustomTypeAction::class, $action));
         return $this;
     }
 
