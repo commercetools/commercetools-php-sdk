@@ -3,7 +3,6 @@
 namespace Commercetools\Core\IntegrationTests\Product;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
-use Commercetools\Core\Error\NotFoundException;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
@@ -13,11 +12,15 @@ class ProductHeadRequestTest extends ApiTestCase
     public function testProductsExist()
     {
         $client = $this->getApiClient();
+        ProductFixture::withProduct(
+            $client,
+            function (Product $product) use ($client) {
+                $request = RequestBuilder::of()->products()->head();
+                $response = $this->execute($client, $request);
 
-        $request = RequestBuilder::of()->products()->head();
-        $response = $this->execute($client, $request);
-
-        $this->assertSame(200, $response->getStatusCode());
+                $this->assertSame(200, $response->getStatusCode());
+            }
+        );
     }
 
     public function testProductByIdExists()
@@ -35,7 +38,7 @@ class ProductHeadRequestTest extends ApiTestCase
         );
     }
 
-    public function testProductByIdNotExists()
+    public function testProductByIdDoesNotExists()
     {
         $this->expectExceptionCode(404);
         $client = $this->getApiClient();
@@ -62,7 +65,7 @@ class ProductHeadRequestTest extends ApiTestCase
         );
     }
 
-    public function testProductByKeyNotExists()
+    public function testProductByKeyDoesNotExists()
     {
         $this->expectExceptionCode(404);
         $client = $this->getApiClient();
@@ -87,7 +90,7 @@ class ProductHeadRequestTest extends ApiTestCase
         );
     }
 
-    public function testProductByQueryPredicateNotExists()
+    public function testProductByQueryPredicateDoesNotExists()
     {
         $this->expectExceptionCode(404);
         $client = $this->getApiClient();
