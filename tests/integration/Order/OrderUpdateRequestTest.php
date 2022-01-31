@@ -1875,7 +1875,6 @@ class OrderUpdateRequestTest extends ApiTestCase
                         $field = 'testField';
                         $newValue = 'new value';
 
-
                         $parcelId = $orderWithParcel->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getId();
 
                         $request = RequestBuilder::of()->orders()->update($orderWithParcel)

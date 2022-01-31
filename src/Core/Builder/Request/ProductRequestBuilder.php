@@ -3,12 +3,15 @@
 namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Products\ProductByIdGetRequest;
+use Commercetools\Core\Request\Products\ProductByIdHeadRequest;
 use Commercetools\Core\Request\Products\ProductByKeyGetRequest;
+use Commercetools\Core\Request\Products\ProductByKeyHeadRequest;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Request\Products\ProductDeleteByKeyRequest;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Request\Products\ProductDeleteRequest;
+use Commercetools\Core\Request\Products\ProductHeadRequest;
 use Commercetools\Core\Request\Products\ProductImageUploadRequest;
 use Psr\Http\Message\UploadedFileInterface;
 use Commercetools\Core\Request\Products\ProductQueryRequest;
@@ -30,6 +33,17 @@ class ProductRequestBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/api/projects/products#by-id
+     * @param string $id
+     * @return ProductByIdHeadRequest
+     */
+    public function getByIdHead($id)
+    {
+        $request = ProductByIdHeadRequest::ofId($id);
+        return $request;
+    }
+
+    /**
      *
      * @param string $key
      * @return ProductByKeyGetRequest
@@ -37,6 +51,17 @@ class ProductRequestBuilder
     public function getByKey($key)
     {
         $request = ProductByKeyGetRequest::ofKey($key);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/products#by-key
+     * @param string $key
+     * @return ProductByKeyHeadRequest
+     */
+    public function getByKeyHead($key)
+    {
+        $request = ProductByKeyHeadRequest::ofKey($key);
         return $request;
     }
 
@@ -70,6 +95,17 @@ class ProductRequestBuilder
     public function delete(Product $product)
     {
         $request = ProductDeleteRequest::ofIdAndVersion($product->getId(), $product->getVersion());
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/products#by-query-predicate
+     *
+     * @return ProductHeadRequest
+     */
+    public function head()
+    {
+        $request = ProductHeadRequest::of();
         return $request;
     }
 

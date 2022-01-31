@@ -14,4 +14,5 @@ class HttpMethod
     const GET = 'GET';
     const POST = 'POST';
     const DELETE = 'DELETE';
+    const HEAD = 'HEAD';
 }

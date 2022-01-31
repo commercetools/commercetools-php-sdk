@@ -829,6 +829,12 @@ EOF;
                     $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$' . $param];
                     $factoryCall = 'of' . ucfirst($param) . '($' . $param . ');';
                     break;
+                case preg_match('/^by([a-zA-Z]+)Head$/', $methodName, $matches) === 1:
+                    $param = lcfirst($matches[1]);
+                    $methodName = 'getBy' . ucfirst($param) . 'Head';
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$' . $param];
+                    $factoryCall = 'of' . ucfirst($param) . '($' . $param . ');';
+                    break;
                 default:
                     $factoryCall = 'of();';
             }
