@@ -24,7 +24,7 @@ jobs:
         run: ./install-apigen.sh && php apigen.phar generate --debug --config build/apigen.neon
 
       - name: Install SSH Client 🔑
-        uses: webfactory/ssh-agent@v0.5.3
+        uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
