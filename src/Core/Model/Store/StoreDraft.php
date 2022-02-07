@@ -31,6 +31,8 @@ use Commercetools\Core\Model\CustomField\CustomFieldObjectDraft;
  * @method StoreDraft setSupplyChannels(array $supplyChannels = null)
  * @method CustomFieldObjectDraft getCustom()
  * @method StoreDraft setCustom(CustomFieldObjectDraft $custom = null)
+ * @method array getProductSelections()
+ * @method StoreDraft setProductSelections(array $productSelections = null)
  */
 class StoreDraft extends JsonObject
 {
@@ -42,6 +44,7 @@ class StoreDraft extends JsonObject
             'languages' => [static::TYPE => 'array'],
             'distributionChannels' => [static::TYPE => 'array'],
             'supplyChannels' => [static::TYPE => 'array'],
+            'productSelections' => [static::TYPE => 'array'],
             'custom' => [static::TYPE => CustomFieldObjectDraft::class],
         ];
     }

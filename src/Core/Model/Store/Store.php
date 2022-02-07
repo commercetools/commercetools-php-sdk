@@ -38,6 +38,8 @@ use DateTime;
  * @method Store setSupplyChannels(array $supplyChannels = null)
  * @method CustomFieldObject getCustom()
  * @method Store setCustom(CustomFieldObject $custom = null)
+ * @method array getProductSelections()
+ * @method Store setProductSelections(array $productSelections = null)
  * @method StoreReference getReference()
  */
 class Store extends Resource
@@ -60,6 +62,7 @@ class Store extends Resource
             'languages' => [static::TYPE => 'array'],
             'distributionChannels' => [static::TYPE => 'array'],
             'supplyChannels' => [static::TYPE => 'array'],
+            'productSelections' => [static::TYPE => 'array'],
             'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }

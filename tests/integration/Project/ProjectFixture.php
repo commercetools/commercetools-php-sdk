@@ -62,7 +62,7 @@ class ProjectFixture extends ResourceFixture
         }
 
         if ($project->getSearchIndexing() === null) {
-            $request->addAction(ProjectChangeProductSearchIndexingEnabledAction::ofEnabled(false));
+            $request->addAction(ProjectChangeProductSearchIndexingEnabledAction::ofEnabled(true));
         }
 
         if ($request->hasActions()) {

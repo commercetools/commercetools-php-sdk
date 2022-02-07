@@ -40,6 +40,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method StoreCreatedMessage setSupplyChannels(array $supplyChannels = null)
  * @method CustomFieldObject getCustom()
  * @method StoreCreatedMessage setCustom(CustomFieldObject $custom = null)
+ * @method array getProductSelections()
+ * @method StoreCreatedMessage setProductSelections(array $productSelections = null)
  */
 class StoreCreatedMessage extends Message
 {
@@ -54,6 +56,7 @@ class StoreCreatedMessage extends Message
                 'languages' => [static::TYPE => 'array'],
                 'distributionChannels' => [static::TYPE => 'array'],
                 'supplyChannels' => [static::TYPE => 'array'],
+                'productSelections' => [static::TYPE => 'array'],
                 'custom' => [static::TYPE => CustomFieldObject::class],
             ]
         );

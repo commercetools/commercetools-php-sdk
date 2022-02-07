@@ -125,6 +125,14 @@ class ActionBuilder
     }
 
     /**
+     * @return ProductSelectionsActionBuilder
+     */
+    public function productSelections()
+    {
+        return new ProductSelectionsActionBuilder();
+    }
+
+    /**
      * @return ProductTypesActionBuilder
      */
     public function productTypes()
