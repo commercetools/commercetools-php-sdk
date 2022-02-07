@@ -33,7 +33,7 @@ class GenericActionBuilderTest extends TestCase
         $actions = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 

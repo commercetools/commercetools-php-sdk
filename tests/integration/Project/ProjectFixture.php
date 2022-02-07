@@ -14,6 +14,7 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeCountryTaxRateFallba
 use Commercetools\Core\Request\Project\Command\ProjectChangeCurrenciesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeProductSearchIndexingEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetShippingRateInputTypeAction;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\Request\Project\ProjectUpdateRequest;
@@ -58,6 +59,10 @@ class ProjectFixture extends ResourceFixture
         }
         if ($project->getCarts() != null && $project->getCarts()->getCountryTaxRateFallbackEnabled() == true) {
             $request->addAction(ProjectChangeCountryTaxRateFallbackEnabledAction::ofCountryTaxRateFallbackEnabled(false));
+        }
+
+        if ($project->getSearchIndexing() === null) {
+            $request->addAction(ProjectChangeProductSearchIndexingEnabledAction::ofEnabled(true));
         }
 
         if ($request->hasActions()) {

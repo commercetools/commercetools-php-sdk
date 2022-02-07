@@ -36,6 +36,7 @@ use Commercetools\Core\Model\Store\StoreDraft;
 use Commercetools\Core\Request\AbstractDeleteRequest;
 use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Middleware;
+use GuzzleHttp\RetryMiddleware;
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
 use Monolog\Handler\ErrorLogHandler;
@@ -233,24 +234,27 @@ class ApiTestCase extends TestCase
                 'verify' => $this->getVerifySSL(),
                 'timeout' => '15',
                 'middlewares' => [
-                    'retry' => Middleware::retry(function ($retries, RequestInterface $request, ResponseInterface $response = null, $error = null) use ($maxRetries) {
-                        if ($response instanceof ResponseInterface && $response->getStatusCode() < 500) {
+                    'retry' => Middleware::retry(
+                        function ($retries, RequestInterface $request, ResponseInterface $response = null, $error = null) use ($maxRetries) {
+                            if ($response instanceof ResponseInterface && $response->getStatusCode() < 500) {
+                                return false;
+                            }
+                            if ($retries > $maxRetries) {
+                                return false;
+                            }
+                            if ($error instanceof ServiceUnavailableException) {
+                                return true;
+                            }
+                            if ($error instanceof ServerException && $error->getCode() == 503) {
+                                return true;
+                            }
+                            if ($response instanceof ResponseInterface && $response->getStatusCode() == 503) {
+                                return true;
+                            }
                             return false;
-                        }
-                        if ($retries > $maxRetries) {
-                            return false;
-                        }
-                        if ($error instanceof ServiceUnavailableException) {
-                            return true;
-                        }
-                        if ($error instanceof ServerException && $error->getCode() == 503) {
-                            return true;
-                        }
-                        if ($response instanceof ResponseInterface && $response->getStatusCode() == 503) {
-                            return true;
-                        }
-                        return false;
-                    })
+                        },
+                        [RetryMiddleware::class, 'exponentialDelay']
+                    )
                 ]
             ];
             $enableProfiler = getenv('PHP_SDK_PROFILE');
@@ -678,17 +682,19 @@ class ApiTestCase extends TestCase
     protected function exceptionEventually(callable $eventuallyFunction, $maxRetries = 30)
     {
         $retries = 0;
+        $e = null;
         do {
             $retries++;
             try {
                 $eventuallyFunction();
-            } catch (\Exception $e) {
                 sleep(1);
+            } catch (\Exception $exception) {
+                $e = $exception;
             }
         } while ($e == null && $retries <= $maxRetries);
 
         if (is_null($e)) {
-            throw new EventuallyException("Timeout eventually block", $e->getCode(), $e);
+            throw new EventuallyException("Timeout eventually block");
         }
         throw $e;
     }

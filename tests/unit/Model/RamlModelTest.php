@@ -243,6 +243,9 @@ class RamlModelTest extends AbstractModelTest
             case 'Inventory':
                 $model = str_replace('InventoryEntry', 'Inventory', $model);
                 break;
+            case 'Me':
+                $model = str_replace('Me', 'My', $model);
+                break;
             case 'OrderEdit':
                 $domain .= 's';
                 if (strpos($model, 'StagedOrder') === 0) {
@@ -473,7 +476,7 @@ class RamlModelTest extends AbstractModelTest
         $modelClasses = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getFileClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
@@ -635,6 +638,7 @@ class RamlModelTest extends AbstractModelTest
             'Extension\ExtensionAzureFunctionsAuthentication' => 'Extension\AzureFunctionsAuthentication',
             'Extension\ExtensionAuthorizationHeaderAuthentication' => 'Extension\AuthorizationHeaderAuthentication',
             'Extension\ExtensionTrigger' => 'Extension\Trigger',
+            'Message\ContainerAndKey' => 'Common\ContainerAndKey',
         ];
     }
 

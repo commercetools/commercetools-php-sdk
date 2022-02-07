@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\ShippingMethod;
 
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\TaxCategory\TaxCategoryReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use DateTime;
@@ -38,6 +39,10 @@ use DateTime;
  * @method ShippingMethod setPredicate(string $predicate = null)
  * @method LocalizedString getLocalizedDescription()
  * @method ShippingMethod setLocalizedDescription(LocalizedString $localizedDescription = null)
+ * @method LocalizedString getLocalizedName()
+ * @method ShippingMethod setLocalizedName(LocalizedString $localizedName = null)
+ * @method CustomFieldObject getCustom()
+ * @method ShippingMethod setCustom(CustomFieldObject $custom = null)
  * @method ShippingMethodReference getReference()
  */
 class ShippingMethod extends Resource
@@ -56,6 +61,7 @@ class ShippingMethod extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => 'string'],
+            'localizedName' => [static::TYPE => LocalizedString::class],
             'localizedDescription' => [static::TYPE => LocalizedString::class],
             'description' => [static::TYPE => 'string'],
             'taxCategory' => [static::TYPE => TaxCategoryReference::class],
@@ -63,6 +69,7 @@ class ShippingMethod extends Resource
             'isDefault' => [static::TYPE => 'bool'],
             'key' => [static::TYPE => 'string'],
             'predicate' => [static::TYPE => 'string'],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }

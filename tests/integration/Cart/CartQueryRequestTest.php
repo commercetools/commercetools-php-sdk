@@ -35,6 +35,23 @@ class CartQueryRequestTest extends ApiTestCase
         );
     }
 
+    public function testGetByKey()
+    {
+        $client = $this->getApiClient();
+
+        CartFixture::withCustomerCart(
+            $client,
+            function (Cart $cart) use ($client) {
+                $request = RequestBuilder::of()->carts()->getByKey($cart->getKey());
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertInstanceOf(Cart::class, $result);
+                $this->assertSame($cart->getKey(), $result->getKey());
+            }
+        );
+    }
+
     public function testQuery()
     {
         $client = $this->getApiClient();
@@ -104,6 +121,39 @@ class CartQueryRequestTest extends ApiTestCase
         );
     }
 
+    public function testGetByKeyInStore()
+    {
+        $client = $this->getApiClient();
+
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client) {
+                CartFixture::withDraftCustomerCart(
+                    $client,
+                    function (CartDraft $cartDraft) use ($store) {
+                        return $cartDraft->setStore(StoreReference::ofKey($store->getKey()));
+                    },
+                    function (Cart $cart) use ($client, $store) {
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->carts()->getByKey($cart->getKey())
+                        );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Cart::class, $result);
+                        $this->assertSame($cart->getCountry(), $result->getCountry());
+                        $this->assertSame(
+                            'in-store/key=' . $store->getKey() . '/carts/key='. $result->getKey(),
+                            (string)$request->httpRequest()->getUri()
+                        );
+                        $this->assertSame($store->getKey(), $result->getStore()->getKey());
+                    }
+                );
+            }
+        );
+    }
+
     public function testQueryInStore()
     {
         $client = $this->getApiClient();
@@ -156,6 +206,31 @@ class CartQueryRequestTest extends ApiTestCase
                         $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
                             $store->getKey(),
                             RequestBuilder::of()->carts()->getById($cart->getId())
+                        );
+                        $response = $this->execute($client, $request);
+                        $request->mapFromResponse($response);
+                    }
+                );
+            }
+        );
+    }
+
+    public function testGetByKeyNotInStore()
+    {
+        $this->expectException(FixtureException::class);
+        $this->expectExceptionCode(404);
+
+        $client = $this->getApiClient();
+
+        StoreFixture::withStore(
+            $client,
+            function (Store $store) use ($client) {
+                CartFixture::withCustomerCart(
+                    $client,
+                    function (Cart $cart) use ($client, $store) {
+                        $request = InStoreRequestDecorator::ofStoreKeyAndRequest(
+                            $store->getKey(),
+                            RequestBuilder::of()->carts()->getByKey($cart->getKey())
                         );
                         $response = $this->execute($client, $request);
                         $request->mapFromResponse($response);

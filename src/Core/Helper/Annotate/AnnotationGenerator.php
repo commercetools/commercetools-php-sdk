@@ -6,6 +6,7 @@
 namespace Commercetools\Core\Helper\Annotate;
 
 use Commercetools\Core\Model\Cart\Cart;
+use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Common\Collection;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\LocalizedString;
@@ -92,7 +93,7 @@ class AnnotationGenerator
         $jsonObjects = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
@@ -112,7 +113,7 @@ class AnnotationGenerator
         $collectionObjects = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
@@ -132,7 +133,7 @@ class AnnotationGenerator
         $requestObjects = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
@@ -152,7 +153,7 @@ class AnnotationGenerator
         $requestObjects = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
@@ -164,10 +165,10 @@ class AnnotationGenerator
                 ) {
                     $namespaceParts = explode("\\", $class->getNamespaceName());
                     $domain = $namespaceParts[count($namespaceParts) - 1];
-                    if (strpos($class, 'ProductProjection') > 0) {
+                    if ($class != null && strpos($class, 'ProductProjection') > 0) {
                         $domain = 'ProductProjections';
                     }
-                    if (strpos($class, 'ProductsSuggest') > 0) {
+                    if ($class != null && strpos($class, 'ProductsSuggest') > 0) {
                         $domain = 'ProductProjections';
                     }
                     $requestObjects[$domain][] = $class->getName();
@@ -183,7 +184,7 @@ class AnnotationGenerator
         $actions = [];
         foreach ($phpFiles as $phpFile) {
             $class = $this->getClassName($phpFile->getRealPath());
-            if (strpos($class, 'Core\\Helper') > 0) {
+            if ($class != null && strpos($class, 'Core\\Helper') > 0) {
                 continue;
             }
 
@@ -607,8 +608,9 @@ EOF;
                     break;
                 case 'createFromCart':
                     $uses[] = 'use ' . Cart::class . ';';
+                    $uses[] = 'use ' . CartReference::class . ';';
                     $methodParams[] = [self::PARAM_TYPE => 'Cart', self::PARAM_NAME => '$cart'];
-                    $factoryCall = 'ofCartIdAndVersion($cart->getId(), $cart->getVersion());';
+                    $factoryCall = 'ofCartAndVersion(CartReference::ofId($cart->getId()), $cart->getVersion());';
                     break;
                 case 'emailToken':
                     $methodName = 'createEmailVerificationToken';
@@ -622,6 +624,7 @@ EOF;
                     $factoryCall = 'ofToken($tokenValue);';
                     break;
                 case 'login':
+                    $uses[] = 'use ' . CartReference::class . ';';
                     $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$email'];
                     $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$password'];
                     $methodParams[] = [
@@ -630,15 +633,15 @@ EOF;
                         self::PARAM_DEFAULT => 'false'
                     ];
                     $methodParams[] = [
-                        self::PARAM_DOC_TYPE => 'string',
-                        self::PARAM_NAME => '$anonymousCartId',
+                        self::PARAM_DOC_TYPE => 'CartReference|string',
+                        self::PARAM_NAME => '$anonymousCart',
                         self::PARAM_DEFAULT => 'null'
                     ];
                     $factoryCall = 'ofEmailPasswordAndUpdateProductData(
             $email,
             $password,
             $updateProductData,
-            $anonymousCartId
+            $anonymousCart
         );';
                     break;
                 case 'passwordChange':
@@ -823,6 +826,12 @@ EOF;
                     if ($param == 'emailToken') {
                         $param = 'token';
                     }
+                    $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$' . $param];
+                    $factoryCall = 'of' . ucfirst($param) . '($' . $param . ');';
+                    break;
+                case preg_match('/^by([a-zA-Z]+)Head$/', $methodName, $matches) === 1:
+                    $param = lcfirst($matches[1]);
+                    $methodName = 'getBy' . ucfirst($param) . 'Head';
                     $methodParams[] = [self::PARAM_DOC_TYPE => 'string', self::PARAM_NAME => '$' . $param];
                     $factoryCall = 'of' . ucfirst($param) . '($' . $param . ');';
                     break;

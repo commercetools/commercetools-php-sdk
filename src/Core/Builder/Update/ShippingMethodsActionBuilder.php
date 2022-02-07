@@ -11,9 +11,12 @@ use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeNameA
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodChangeTaxCategoryAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveShippingRateAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodRemoveZoneAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetCustomFieldAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetCustomTypeAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetDescriptionAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetKeyAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetLocalizedDescriptionAction;
+use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetLocalizedNameAction;
 use Commercetools\Core\Request\ShippingMethods\Command\ShippingMethodSetPredicateAction;
 
 class ShippingMethodsActionBuilder
@@ -98,6 +101,28 @@ class ShippingMethodsActionBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/api/projects/shippingMethods#set-customfield
+     * @param ShippingMethodSetCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(ShippingMethodSetCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/shippingMethods#set-customtype
+     * @param ShippingMethodSetCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(ShippingMethodSetCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-shippingMethods.html#set-description
      * @param ShippingMethodSetDescriptionAction|callable $action
      * @return $this
@@ -127,6 +152,17 @@ class ShippingMethodsActionBuilder
     public function setLocalizedDescription($action = null)
     {
         $this->addAction($this->resolveAction(ShippingMethodSetLocalizedDescriptionAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/shippingMethods#set-localized-name
+     * @param ShippingMethodSetLocalizedNameAction|callable $action
+     * @return $this
+     */
+    public function setLocalizedName($action = null)
+    {
+        $this->addAction($this->resolveAction(ShippingMethodSetLocalizedNameAction::class, $action));
         return $this;
     }
 

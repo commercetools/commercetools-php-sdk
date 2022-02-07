@@ -1,5 +1,13 @@
 # <img src="build/theme/resources/CT_cube_200px.png" width="40" align="center"></img> commercetools PHP SDK
 
+:warning: **This commercetools PHP SDK is in its Active Support mode currently, and is planned to be deprecated, please note the following dates.
+
+| Active Support        | Maintenance Support   | End of Life           |
+| --------------------- | --------------------- | --------------------- |
+| `28th February, 2022` | `31st August 2022.` | `1st September 2022.`   |
+
+We recommend to use our [PHP SDK V2](https://docs.commercetools.com/sdk/php-sdk#php-sdk-v2).
+
 [![Build Status](https://img.shields.io/travis/com/commercetools/commercetools-php-sdk/master.svg?style=flat-square)](https://travis-ci.com/commercetools/commercetools-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/commercetools/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/commercetools/commercetools-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/commercetools/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/commercetools/commercetools-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk)
 
 The PHP SDK allows developers to build applications on the commercetools platform (technically speaking against our REST API) using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API.
@@ -250,6 +258,64 @@ $middlewares = [
     ...
 ]
 $config = Config::of()->setClientOptions(['middlewares' => $middlewares])
+```
+
+#### Timeouts
+
+The clients are configured to timeout by default after 60 seconds. This can be changed by setting the client options in the Config instance
+
+```php
+$config = Config::of()->setClientOptions([
+    'defaults' => [
+        'timeout' => 10
+    ]
+])
+```
+
+Another option is to specify the timeout per request
+
+```php
+$request = ProductProjectionSearchRequest::of();
+$response = $client->execute($request, null, ['timeout' => 10]);
+```
+
+#### Retrying
+
+As a request can error in multiple ways it's possible to add a retry middleware to the client config. E.g.: Retrying in case of service unavailable errors
+
+```php
+$config = Config::of()->setClientOptions([
+    'defaults' => [
+        'timeout' => 10
+    ]
+])
+$maxRetries = 3;
+$clientOptions = [
+    'middlewares' => [
+        'retry' => Middleware::retry(
+            function ($retries, RequestInterface $request, ResponseInterface $response = null, $error = null) use ($maxRetries) {
+                if ($response instanceof ResponseInterface && $response->getStatusCode() < 500) {
+                    return false;
+                }
+                if ($retries > $maxRetries) {
+                    return false;
+                }
+                if ($error instanceof ServiceUnavailableException) {
+                    return true;
+                }
+                if ($error instanceof ServerException && $error->getCode() == 503) {
+                    return true;
+                }
+                if ($response instanceof ResponseInterface && $response->getStatusCode() == 503) {
+                    return true;
+                }
+                return false;
+            },
+            [RetryMiddleware::class, 'exponentialDelay']
+        )
+    ]
+];
+$config->setClientOptions($clientOptions);
 ```
 
 ### Using the phar distribution

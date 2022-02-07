@@ -14,6 +14,7 @@ use Commercetools\Core\Request\Customers\CustomerDeleteRequest;
 use Commercetools\Core\Request\Customers\CustomerEmailConfirmRequest;
 use Commercetools\Core\Request\Customers\CustomerEmailTokenRequest;
 use Commercetools\Core\Request\Customers\CustomerLoginRequest;
+use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Request\Customers\CustomerPasswordChangeRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordResetRequest;
 use Commercetools\Core\Request\Customers\CustomerPasswordTokenRequest;
@@ -129,16 +130,16 @@ class CustomerRequestBuilder
      * @param string $email
      * @param string $password
      * @param bool $updateProductData
-     * @param string $anonymousCartId
+     * @param CartReference|string $anonymousCart
      * @return CustomerLoginRequest
      */
-    public function login($email, $password, $updateProductData = false, $anonymousCartId = null)
+    public function login($email, $password, $updateProductData = false, $anonymousCart = null)
     {
         $request = CustomerLoginRequest::ofEmailPasswordAndUpdateProductData(
             $email,
             $password,
             $updateProductData,
-            $anonymousCartId
+            $anonymousCart
         );
         return $request;
     }

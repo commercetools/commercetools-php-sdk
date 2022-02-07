@@ -3,6 +3,7 @@
 
 namespace Commercetools\Core\Model\Message;
 
+use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use DateTime;
 use Commercetools\Core\Model\Common\Reference;
@@ -38,6 +39,8 @@ use Commercetools\Core\Model\Common\Reference;
  * @method InventoryEntryQuantitySetMessage setOldAvailableQuantity(int $oldAvailableQuantity = null)
  * @method int getNewAvailableQuantity()
  * @method InventoryEntryQuantitySetMessage setNewAvailableQuantity(int $newAvailableQuantity = null)
+ * @method ChannelReference getSupplyChannel()
+ * @method InventoryEntryQuantitySetMessage setSupplyChannel(ChannelReference $supplyChannel = null)
  */
 class InventoryEntryQuantitySetMessage extends Message
 {
@@ -50,6 +53,7 @@ class InventoryEntryQuantitySetMessage extends Message
         $definitions['newQuantityOnStock'] = [static::TYPE => 'int'];
         $definitions['oldAvailableQuantity'] = [static::TYPE => 'int'];
         $definitions['newAvailableQuantity'] = [static::TYPE => 'int'];
+        $definitions['supplyChannel'] = [static::TYPE =>  ChannelReference::class];
 
         return $definitions;
     }

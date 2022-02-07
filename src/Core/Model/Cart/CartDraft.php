@@ -64,6 +64,10 @@ use Commercetools\Core\Model\TaxCategory\ExternalTaxRateDraft;
  * @method CartDraft setItemShippingAddresses(AddressCollection $itemShippingAddresses = null)
  * @method StoreReference getStore()
  * @method CartDraft setStore(StoreReference $store = null)
+ * @method array getDiscountCodes()
+ * @method CartDraft setDiscountCodes(array $discountCodes = null)
+ * @method string getKey()
+ * @method CartDraft setKey(string $key = null)
  */
 class CartDraft extends JsonObject
 {
@@ -73,6 +77,7 @@ class CartDraft extends JsonObject
     {
         return [
             'currency' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string'],
             'customerId' => [static::TYPE => 'string'],
             'customerEmail' => [static::TYPE => 'string'],
             'country' => [static::TYPE => 'string'],
@@ -95,6 +100,7 @@ class CartDraft extends JsonObject
             'shippingRateInput' => [static::TYPE => ShippingRateInputDraft::class],
             'itemShippingAddresses' => [static::TYPE => AddressCollection::class],
             'store' => [static::TYPE => StoreReference::class],
+            'discountCodes' => [static::TYPE => 'array'],
         ];
     }
 

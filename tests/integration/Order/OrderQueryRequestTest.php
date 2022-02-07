@@ -8,6 +8,7 @@ namespace Commercetools\Core\IntegrationTests\Order;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\Model\Cart\CartDraft;
+use Commercetools\Core\Model\Cart\CartReference;
 use Commercetools\Core\Model\Cart\LineItemDraft;
 use Commercetools\Core\Model\Cart\LineItemDraftCollection;
 use Commercetools\Core\Model\Customer\Customer;
@@ -55,7 +56,7 @@ class OrderQueryRequestTest extends ApiTestCase
         $response = $request->executeWithClient($this->getClient());
         $cart = $request->mapResponse($response);
 
-        $orderRequest = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
+        $orderRequest = OrderCreateFromCartRequest::ofCartAndVersion(CartReference::ofId($cart->getId()), $cart->getVersion());
         $response = $orderRequest->executeWithClient($this->getClient());
         $order = $orderRequest->mapResponse($response);
         $this->cleanupRequests[] = $this->deleteRequest = OrderDeleteRequest::ofIdAndVersion(

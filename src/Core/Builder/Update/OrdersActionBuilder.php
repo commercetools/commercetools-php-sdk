@@ -39,9 +39,14 @@ use Commercetools\Core\Request\Orders\Command\OrderSetLineItemCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLocaleAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetParcelCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetParcelCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelMeasurementsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelTrackingDataAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetReturnInfoAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetReturnItemCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetReturnItemCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
@@ -444,6 +449,28 @@ class OrdersActionBuilder
     }
 
     /**
+     *
+     * @param OrderSetParcelCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setParcelCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetParcelCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetParcelCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setParcelCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetParcelCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
      * @link https://docs.commercetools.com/http-api-projects-orders.html#set-parcel-items
      * @param OrderSetParcelItemsAction|callable $action
      * @return $this
@@ -473,6 +500,39 @@ class OrdersActionBuilder
     public function setParcelTrackingData($action = null)
     {
         $this->addAction($this->resolveAction(OrderSetParcelTrackingDataAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-orders.html#set-delivery-items
+     * @param OrderSetReturnInfoAction|callable $action
+     * @return $this
+     */
+    public function setReturnInfo($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetReturnInfoAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetReturnItemCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setReturnItemCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetReturnItemCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetReturnItemCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setReturnItemCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetReturnItemCustomTypeAction::class, $action));
         return $this;
     }
 

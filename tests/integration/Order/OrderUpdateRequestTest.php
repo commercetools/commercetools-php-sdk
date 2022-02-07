@@ -37,6 +37,8 @@ use Commercetools\Core\Model\Order\Parcel;
 use Commercetools\Core\Model\Order\ParcelCollection;
 use Commercetools\Core\Model\Order\ParcelMeasurements;
 use Commercetools\Core\Model\Order\PaymentState;
+use Commercetools\Core\Model\Order\ReturnInfo;
+use Commercetools\Core\Model\Order\ReturnInfoCollection;
 use Commercetools\Core\Model\Order\ReturnItem;
 use Commercetools\Core\Model\Order\ReturnItemCollection;
 use Commercetools\Core\Model\Order\ReturnPaymentState;
@@ -78,17 +80,20 @@ use Commercetools\Core\Request\Orders\Command\OrderSetCustomLineItemShippingDeta
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomTypeAction;
-use Commercetools\Core\Request\Orders\Command\StagedOrderSetDeliveryAddressCustomFieldAction;
-use Commercetools\Core\Request\Orders\Command\StagedOrderSetDeliveryAddressCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetItemShippingAddressCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetItemShippingAddressCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLineItemShippingDetailsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetLocaleAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetOrderNumberAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetParcelCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetParcelCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelMeasurementsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetParcelTrackingDataAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetReturnInfoAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetReturnItemCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetReturnItemCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetShippingAddress;
@@ -1626,6 +1631,280 @@ class OrderUpdateRequestTest extends ApiTestCase
 
                         $this->assertInstanceOf(Order::class, $result);
                         $this->assertSame($newValue2, $result->getShippingInfo()->getDeliveries()->current()->getAddress()->getCustom()->getFields()->getTestField());
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
+
+    public function testSetReturnInfo()
+    {
+        $client = $this->getApiClient();
+
+        OrderFixture::withUpdateableOrder(
+            $client,
+            function (Order $order) use ($client) {
+                $lineItem = $order->getLineItems()->current();
+
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetReturnInfoAction::of()->setItems(
+                            ReturnInfoCollection::of()->add(
+                                ReturnInfo::of()
+                                    ->setItems(ReturnItemCollection::of()->add(
+                                        ReturnItem::of()
+                                            ->setQuantity(1)
+                                            ->setLineItemId($lineItem->getId())
+                                            ->setShipmentState(ReturnShipmentState::RETURNED)
+                                    ))
+                                    ->setReturnTrackingId(OrderFixture::uniqueOrderString())
+                            )
+                        )
+                    );
+
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(
+                    ReturnShipmentState::RETURNED,
+                    $result->getReturnInfo()->current()->getItems()->current()->getShipmentState()
+                );
+                $returnItem = $result->getReturnInfo()->current()->getItems()->current();
+                $this->assertSame(
+                    $lineItem->getId(),
+                    $returnItem->getLineItemId()
+                );
+                $order = $result;
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetReturnShipmentStateAction::ofReturnItemIdAndShipmentState(
+                            $returnItem->getId(),
+                            ReturnShipmentState::BACK_IN_STOCK
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $returnItem = $result->getReturnInfo()->current()->getItems()->current();
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(
+                    ReturnShipmentState::BACK_IN_STOCK,
+                    $returnItem->getShipmentState()
+                );
+                $order = $result;
+                $request = RequestBuilder::of()->orders()->update($order)
+                    ->addAction(
+                        OrderSetReturnPaymentStateAction::ofReturnItemIdAndPaymentState(
+                            $returnItem->getId(),
+                            ReturnPaymentState::REFUNDED
+                        )
+                    );
+                $response = $this->execute($client, $request);
+                $result = $request->mapFromResponse($response);
+
+                $returnItem = $result->getReturnInfo()->current()->getItems()->current();
+                $this->assertNotSame($order->getVersion(), $result->getVersion());
+                $this->assertInstanceOf(Order::class, $result);
+                $this->assertSame(
+                    ReturnPaymentState::REFUNDED,
+                    $returnItem->getPaymentState()
+                );
+
+                return $result;
+            }
+        );
+    }
+
+    public function testSetReturnItemCustom()
+    {
+        $client = $this->getApiClient();
+
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey(TypeFixture::uniqueTypeString())
+                    ->setResourceTypeIds(['order', 'order-return-item']);
+            },
+            function (Type $type) use ($client) {
+                OrderFixture::withUpdateableOrder(
+                    $client,
+                    function (Order $order) use ($client, $type) {
+                        $this->assertInstanceOf(Order::class, $order);
+                        $lineItemId = $order->getLineItems()->current()->getId();
+
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(
+                                OrderAddReturnInfoAction::of()->setItems(
+                                    ReturnItemCollection::of()->add(
+                                        ReturnItem::of()
+                                            ->setQuantity(1)
+                                            ->setLineItemId($lineItemId)
+                                            ->setShipmentState(ReturnShipmentState::RETURNED)
+                                    )
+                                )
+                            );
+                        $response = $this->execute($client, $request);
+                        $orderWithReturnedItem = $request->mapFromResponse($response);
+
+                        $this->assertNotSame($order->getVersion(), $orderWithReturnedItem->getVersion());
+                        $this->assertInstanceOf(Order::class, $orderWithReturnedItem);
+                        $this->assertSame(
+                            ReturnShipmentState::RETURNED,
+                            $orderWithReturnedItem->getReturnInfo()->current()->getItems()->current()->getShipmentState()
+                        );
+
+                        $field = 'testField';
+                        $newValue = 'new value';
+
+                        $itemReturnedId = $orderWithReturnedItem->getReturnInfo()->current()->getItems()->current()->getId();
+
+                        $request = RequestBuilder::of()->orders()->update($orderWithReturnedItem)
+                            ->addAction(
+                                OrderSetReturnItemCustomTypeAction::ofTypeKey($type->getKey())
+                                    ->setReturnItemId($itemReturnedId)
+                                    ->setFields(FieldContainer::of()
+                                        ->set($field, $newValue))
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Order::class, $result);
+                        $this->assertSame($newValue, $result->getReturnInfo()->current()->getItems()->current()->getCustom()->getFields()->getTestField());
+                        $this->assertSame($itemReturnedId, $result->getReturnInfo()->current()->getItems()->current()->getId());
+
+                        $newValue2 = 'new value 2';
+
+                        $request = RequestBuilder::of()->orders()->update($result)
+                            ->addAction(
+                                OrderSetReturnItemCustomFieldAction::ofName($field)
+                                    ->setReturnItemId($itemReturnedId)
+                                    ->setValue('' . $newValue2 . '')
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Order::class, $result);
+                        $this->assertSame($newValue2, $result->getReturnInfo()->current()->getItems()->current()->getCustom()->getFields()->getTestField());
+                        $this->assertSame($itemReturnedId, $result->getReturnInfo()->current()->getItems()->current()->getId());
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
+
+
+    public function testSetParcelCustom()
+    {
+        $client = $this->getApiClient();
+
+        TypeFixture::withDraftType(
+            $client,
+            function (TypeDraft $typeDraft) {
+                return $typeDraft->setKey(TypeFixture::uniqueTypeString())
+                    ->setResourceTypeIds(['order', 'order-parcel']);
+            },
+            function (Type $type) use ($client) {
+                OrderFixture::withUpdateableOrder(
+                    $client,
+                    function (Order $order) use ($client, $type) {
+                        $this->assertInstanceOf(Order::class, $order);
+                        $lineItem = $order->getLineItems()->current();
+
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(
+                                OrderAddDeliveryAction::ofDeliveryItems(
+                                    DeliveryItemCollection::of()->add(
+                                        DeliveryItem::of()->setId($lineItem->getId())->setQuantity(1)
+                                    )
+                                )->setAddress(Address::of()->setCountry('DE'))
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertNotSame($order->getVersion(), $result->getVersion());
+                        $this->assertInstanceOf(Order::class, $result);
+
+                        $shippingInfo = $result->getShippingInfo();
+                        $this->assertInstanceOf(ShippingInfo::class, $shippingInfo);
+
+                        $delivery = $shippingInfo->getDeliveries()->current();
+                        $this->assertSame($lineItem->getId(), $delivery->getItems()->current()->getId());
+                        $order = $result;
+
+                        $request = RequestBuilder::of()->orders()->update($order)
+                            ->addAction(
+                                OrderAddParcelToDeliveryAction::ofDeliveryId($delivery->getId())
+                                    ->setMeasurements(
+                                        ParcelMeasurements::of()
+                                            ->setHeightInMillimeter(100)
+                                            ->setLengthInMillimeter(100)
+                                            ->setWidthInMillimeter(100)
+                                            ->setWeightInGram(100)
+                                    )
+                                    ->setTrackingData(
+                                        TrackingData::of()
+                                            ->setTrackingId('123456')
+                                            ->setCarrier('DHL')
+                                            ->setProvider('Schenker')
+                                            ->setProviderTransaction('abcdef')
+                                            ->setIsReturn(false)
+                                    )
+                                    ->setItems(
+                                        DeliveryItemCollection::of()->add(
+                                            DeliveryItem::of()->setId($lineItem->getId())->setQuantity(3)
+                                        )
+                                    )
+                            );
+                        $response = $this->execute($client, $request);
+                        $orderWithParcel = $request->mapFromResponse($response);
+
+                        $this->assertNotSame($order->getVersion(), $orderWithParcel->getVersion());
+                        $this->assertInstanceOf(Order::class, $orderWithParcel);
+                        $delivery = $orderWithParcel->getShippingInfo()->getDeliveries()->current();
+                        $this->assertSame('DE', $delivery->getAddress()->getCountry());
+                        $this->assertSame(100, $delivery->getParcels()->current()->getMeasurements()->getHeightInMillimeter());
+                        $this->assertSame('DHL', $delivery->getParcels()->current()->getTrackingData()->getCarrier());
+
+                        $field = 'testField';
+                        $newValue = 'new value';
+
+                        $parcelId = $orderWithParcel->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getId();
+
+                        $request = RequestBuilder::of()->orders()->update($orderWithParcel)
+                            ->addAction(
+                                OrderSetParcelCustomTypeAction::ofTypeKey($type->getKey())
+                                    ->setParcelId($parcelId)
+                                    ->setFields(FieldContainer::of()
+                                        ->set($field, $newValue))
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Order::class, $result);
+                        $this->assertSame($newValue, $result->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getCustom()->getFields()->getTestField());
+                        $this->assertSame($parcelId, $result->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getId());
+
+                        $newValue2 = 'new value 2';
+
+                        $request = RequestBuilder::of()->orders()->update($result)
+                            ->addAction(
+                                OrderSetParcelCustomFieldAction::ofName($field)
+                                    ->setParcelId($parcelId)
+                                    ->setValue('' . $newValue2 . '')
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(Order::class, $result);
+                        $this->assertSame($newValue2, $result->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getCustom()->getFields()->getTestField());
+                        $this->assertSame($parcelId, $result->getShippingInfo()->getDeliveries()->current()->getParcels()->current()->getId());
 
                         return $result;
                     }
