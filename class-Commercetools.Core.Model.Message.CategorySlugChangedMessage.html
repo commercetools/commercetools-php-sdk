@@ -392,8 +392,14 @@
 								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Me.html">
-							Me						</a>
+							Me<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Me.Command.html">
+							Command						</a>
 							</li>
+								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Messages.html">
 							Messages						</a>
@@ -591,9 +597,11 @@
 				<li><a href="class-Commercetools.Core.Model.Message.CustomerCompanyNameSetMessage.html">CustomerCompanyNameSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.CustomerCreatedMessage.html">CustomerCreatedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.CustomerDateOfBirthSetMessage.html">CustomerDateOfBirthSetMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.CustomerDeletedMessage.html">CustomerDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.CustomerEmailChangedMessage.html">CustomerEmailChangedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.CustomerEmailVerifiedMessage.html">CustomerEmailVerifiedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.CustomerGroupSetMessage.html">CustomerGroupSetMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.CustomerPasswordUpdatedMessage.html">CustomerPasswordUpdatedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.CustomLineItemStateTransitionMessage.html">CustomLineItemStateTransitionMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.DeliveryAddedMessage.html">DeliveryAddedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.DeliveryAddressSetMessage.html">DeliveryAddressSetMessage</a></li>
@@ -615,7 +623,9 @@
 				<li><a href="class-Commercetools.Core.Model.Message.OrderDeletedMessage.html">OrderDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderEditAppliedMessage.html">OrderEditAppliedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderImportedMessage.html">OrderImportedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.OrderLineItemDistributionChannelSetMessage.html">OrderLineItemDistributionChannelSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderPaymentChangedMessage.html">OrderPaymentChangedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.OrderReturnInfoSetMessage.html">OrderReturnInfoSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderShippingAddressSetMessage.html">OrderShippingAddressSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderStateChangedMessage.html">OrderStateChangedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html">OrderStateTransitionMessage</a></li>
@@ -646,11 +656,14 @@
 				<li><a href="class-Commercetools.Core.Model.Message.ProductSlugChangedMessage.html">ProductSlugChangedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductStateTransitionMessage.html">ProductStateTransitionMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductUnpublishedMessage.html">ProductUnpublishedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.ProductVariantAddedMessage.html">ProductVariantAddedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductVariantDeletedMessage.html">ProductVariantDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewCreatedMessage.html">ReviewCreatedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewRatingSetMessage.html">ReviewRatingSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewStateTransitionMessage.html">ReviewStateTransitionMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.StateTransitionMessage.html">StateTransitionMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.StoreCreatedMessage.html">StoreCreatedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.StoreDeletedMessage.html">StoreDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.UserProvidedIdentifiers.html">UserProvidedIdentifiers</a></li>
 			</ul>
 
@@ -733,7 +746,7 @@
 
 				<b>API documentation:</b>
 				<b><a href="https://docs.commercetools.com/http-api-projects-messages.html#categoryslugchanged-message" target="api-doc">https://docs.commercetools.com/http-api-projects-messages.html#categoryslugchanged-message</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Message.CategorySlugChangedMessage.html#14-51" title="Go to source code">Core/Model/Message/CategorySlugChangedMessage.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Message.CategorySlugChangedMessage.html#14-54" title="Go to source code">Core/Model/Message/CategorySlugChangedMessage.php</a>
 		<br>
 	</div>
 
@@ -1523,6 +1536,77 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getOldSlug" id="m_getOldSlug">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Common.LocalizedString.html">Commercetools\Core\Model\Common\LocalizedString</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getOldSlug">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Message.CategorySlugChangedMessage.html#39" title="Go to source code">getOldSlug</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Common.LocalizedString.html">Commercetools\Core\Model\Common\LocalizedString</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setOldSlug" id="m_setOldSlug">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Message.CategorySlugChangedMessage.html">Commercetools\Core\Model\Message\CategorySlugChangedMessage</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setOldSlug">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Message.CategorySlugChangedMessage.html#40" title="Go to source code">setOldSlug</a>( <span><code><a href="class-Commercetools.Core.Model.Common.LocalizedString.html">Commercetools\Core\Model\Common\LocalizedString</a></code> <var>$oldSlug</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$oldSlug</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Message.CategorySlugChangedMessage.html">Commercetools\Core\Model\Message\CategorySlugChangedMessage</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 			</table>
 		</div>
 
@@ -1568,6 +1652,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?d87ce1214c0cb147e1bc172c43b4565d99939e17"></script>
-<script src="elementlist.js?0007c0cb8d5b366892435c4dc8ddb8e7331b22b6"></script>
+<script src="elementlist.js?497f96f932e82f46e7685bfba96762df9bbe1833"></script>
 </body>
 </html>

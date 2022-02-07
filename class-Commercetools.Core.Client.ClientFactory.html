@@ -392,8 +392,14 @@
 								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Me.html">
-							Me						</a>
+							Me<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Me.Command.html">
+							Command						</a>
 							</li>
+								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Messages.html">
 							Messages						</a>
@@ -734,8 +740,60 @@ by setting client options.</p>
     <span class="php-keyword1">return</span> <span class="php-var">$request</span>; }),
     ...
 ]
-<span class="php-var">$config</span> = Config::of()-&gt;setClientOptions([<span class="php-quote">'middlewares'</span> =&gt; <span class="php-var">$middlewares</span>])</pre><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.ClientFactory.html#34-607" title="Go to source code">Core/Client/ClientFactory.php</a>
+<span class="php-var">$config</span> = Config::of()-&gt;setClientOptions([<span class="php-quote">'middlewares'</span> =&gt; <span class="php-var">$middlewares</span>])</pre>
+
+<h3>Timeouts</h3>
+
+<p>The clients are configured to timeout by default after 60 seconds. This can be changed by setting the client options in the Config instance</p>
+
+<pre><span class="php-var">$config</span> = Config::of()-&gt;setClientOptions([
+    <span class="php-quote">'defaults'</span> =&gt; [
+        <span class="php-quote">'timeout'</span> =&gt; <span class="php-num">10</span>
+    ]
+])</pre>
+
+<p>Another option is to specify the timeout per request</p>
+
+<pre><span class="php-var">$request</span> = ProductProjectionSearchRequest::of();
+<span class="php-var">$response</span> = <span class="php-var">$client</span>-&gt;execute(<span class="php-var">$request</span>, <span class="php-keyword1">null</span>, [<span class="php-quote">'timeout'</span> =&gt; <span class="php-num">10</span>]);</pre>
+
+<h3>Retrying</h3>
+
+<p>As a request can error in multiple ways it's possible to add a retry middleware to the client config. E.g.: Retrying in case of service unavailable errors</p>
+
+<pre><span class="php-var">$config</span> = Config::of()-&gt;setClientOptions([
+    <span class="php-quote">'defaults'</span> =&gt; [
+        <span class="php-quote">'timeout'</span> =&gt; <span class="php-num">10</span>
+    ]
+])
+<span class="php-var">$maxRetries</span> = <span class="php-num">3</span>;
+<span class="php-var">$clientOptions</span> = [
+    <span class="php-quote">'middlewares'</span> =&gt; [
+        <span class="php-quote">'retry'</span> =&gt; Middleware::retry(
+            <span class="php-keyword1">function</span> (<span class="php-var">$retries</span>, RequestInterface <span class="php-var">$request</span>, ResponseInterface <span class="php-var">$response</span> = <span class="php-keyword1">null</span>, <span class="php-var">$error</span> = <span class="php-keyword1">null</span>) <span class="php-keyword1">use</span> (<span class="php-var">$maxRetries</span>) {
+                <span class="php-keyword1">if</span> (<span class="php-var">$response</span> <span class="php-keyword1">instanceof</span> ResponseInterface &amp;&amp; <span class="php-var">$response</span>-&gt;getStatusCode() &lt; <span class="php-num">500</span>) {
+                    <span class="php-keyword1">return</span> <span class="php-keyword1">false</span>;
+                }
+                <span class="php-keyword1">if</span> (<span class="php-var">$retries</span> &gt; <span class="php-var">$maxRetries</span>) {
+                    <span class="php-keyword1">return</span> <span class="php-keyword1">false</span>;
+                }
+                <span class="php-keyword1">if</span> (<span class="php-var">$error</span> <span class="php-keyword1">instanceof</span> ServiceUnavailableException) {
+                    <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
+                }
+                <span class="php-keyword1">if</span> (<span class="php-var">$error</span> <span class="php-keyword1">instanceof</span> ServerException &amp;&amp; <span class="php-var">$error</span>-&gt;getCode() == <span class="php-num">503</span>) {
+                    <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
+                }
+                <span class="php-keyword1">if</span> (<span class="php-var">$response</span> <span class="php-keyword1">instanceof</span> ResponseInterface &amp;&amp; <span class="php-var">$response</span>-&gt;getStatusCode() == <span class="php-num">503</span>) {
+                    <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
+                }
+                <span class="php-keyword1">return</span> <span class="php-keyword1">false</span>;
+            },
+            [RetryMiddleware::<span class="php-keyword1">class</span>, <span class="php-quote">'exponentialDelay'</span>]
+        )
+    ]
+];
+<span class="php-var">$config</span>-&gt;setClientOptions(<span class="php-var">$clientOptions</span>);</pre><br>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Client.ClientFactory.html#34-664" title="Go to source code">Core/Client/ClientFactory.php</a>
 		<br>
 	</div>
 
@@ -755,7 +813,7 @@ by setting client options.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#175-184" title="Go to source code">__construct</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#232-241" title="Go to source code">__construct</a>( )</code>
 
 			<div class="description short">
 				<p>ClientFactory constructor.</p>
@@ -788,7 +846,7 @@ by setting client options.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createCustomClient">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#186-245" title="Go to source code">createCustomClient</a>( <span>string <var>$clientClass</var></span>, <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code>|array <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code> <var>$cacheAdapterFactory</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#243-302" title="Go to source code">createCustomClient</a>( <span>string <var>$clientClass</var></span>, <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code>|array <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code> <var>$cacheAdapterFactory</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -838,7 +896,7 @@ by setting client options.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createClient">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#247-273" title="Go to source code">createClient</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code>|array <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code> <var>$cacheAdapterFactory</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#304-330" title="Go to source code">createClient</a>( <span><code><a href="class-Commercetools.Core.Config.html">Commercetools\Core\Config</a></code>|array <var>$config</var></span>, <span>Psr\Log\LoggerInterface <var>$logger</var> = <span class="php-keyword1">null</span></span>, <span>Psr\Cache\CacheItemPoolInterface|Psr\SimpleCache\CacheInterface <var>$cache</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Client.OAuth.TokenProvider.html">Commercetools\Core\Client\OAuth\TokenProvider</a></code> <var>$provider</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Cache.CacheAdapterFactory.html">Commercetools\Core\Cache\CacheAdapterFactory</a></code> <var>$cacheAdapterFactory</var> = <span class="php-keyword1">null</span></span>, <span><code><a href="class-Commercetools.Core.Model.Common.Context.html">Commercetools\Core\Model\Common\Context</a></code> <var>$context</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -886,7 +944,7 @@ by setting client options.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createAuthClient">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#275-294" title="Go to source code">createAuthClient</a>( <span>array <var>$options</var> = []</span>, <span><code><a href="class-Commercetools.Core.Helper.CorrelationIdProvider.html">Commercetools\Core\Helper\CorrelationIdProvider</a></code> <var>$correlationIdProvider</var> = <span class="php-keyword1">null</span> </span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#332-351" title="Go to source code">createAuthClient</a>( <span>array <var>$options</var> = []</span>, <span><code><a href="class-Commercetools.Core.Helper.CorrelationIdProvider.html">Commercetools\Core\Helper\CorrelationIdProvider</a></code> <var>$correlationIdProvider</var> = <span class="php-keyword1">null</span> </span> )</code>
 
 			<div class="description short">
 				
@@ -915,7 +973,7 @@ by setting client options.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_reauthenticate">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#439-478" title="Go to source code">reauthenticate</a>( <span><code><a href="class-Commercetools.Core.Client.OAuth.OAuth2Handler.html">Commercetools\Core\Client\OAuth\OAuth2Handler</a></code> <var>$oauthHandler</var></span>, <span>integer <var>$maxRetries</var> = <span class="php-num">1</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#496-535" title="Go to source code">reauthenticate</a>( <span><code><a href="class-Commercetools.Core.Client.OAuth.OAuth2Handler.html">Commercetools\Core\Client\OAuth\OAuth2Handler</a></code> <var>$oauthHandler</var></span>, <span>integer <var>$maxRetries</var> = <span class="php-num">1</span></span> )</code>
 
 			<div class="description short">
 				<p>Middleware that reauthenticates on invalid token error</p>
@@ -955,7 +1013,7 @@ by setting client options.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_httpErrors">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#480-504" title="Go to source code">httpErrors</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#537-561" title="Go to source code">httpErrors</a>( )</code>
 
 			<div class="description short">
 				<p>Middleware that throws exceptions for 4xx or 5xx responses when the
@@ -990,7 +1048,7 @@ by setting client options.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_of">#</a>
-			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#600-606" title="Go to source code">of</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Client.ClientFactory.html#657-663" title="Go to source code">of</a>( )</code>
 
 			<div class="description short">
 				
@@ -1033,6 +1091,6 @@ by setting client options.</p>
 	</div>
 </div>
 <script src="resources/combined.js?d87ce1214c0cb147e1bc172c43b4565d99939e17"></script>
-<script src="elementlist.js?0007c0cb8d5b366892435c4dc8ddb8e7331b22b6"></script>
+<script src="elementlist.js?497f96f932e82f46e7685bfba96762df9bbe1833"></script>
 </body>
 </html>

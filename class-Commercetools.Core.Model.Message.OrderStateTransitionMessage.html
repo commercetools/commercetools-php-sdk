@@ -392,8 +392,14 @@
 								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Me.html">
-							Me						</a>
+							Me<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.Me.Command.html">
+							Command						</a>
 							</li>
+								</ul></li>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Messages.html">
 							Messages						</a>
@@ -591,9 +597,11 @@
 				<li><a href="class-Commercetools.Core.Model.Message.CustomerCompanyNameSetMessage.html">CustomerCompanyNameSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.CustomerCreatedMessage.html">CustomerCreatedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.CustomerDateOfBirthSetMessage.html">CustomerDateOfBirthSetMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.CustomerDeletedMessage.html">CustomerDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.CustomerEmailChangedMessage.html">CustomerEmailChangedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.CustomerEmailVerifiedMessage.html">CustomerEmailVerifiedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.CustomerGroupSetMessage.html">CustomerGroupSetMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.CustomerPasswordUpdatedMessage.html">CustomerPasswordUpdatedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.CustomLineItemStateTransitionMessage.html">CustomLineItemStateTransitionMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.DeliveryAddedMessage.html">DeliveryAddedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.DeliveryAddressSetMessage.html">DeliveryAddressSetMessage</a></li>
@@ -615,7 +623,9 @@
 				<li><a href="class-Commercetools.Core.Model.Message.OrderDeletedMessage.html">OrderDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderEditAppliedMessage.html">OrderEditAppliedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderImportedMessage.html">OrderImportedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.OrderLineItemDistributionChannelSetMessage.html">OrderLineItemDistributionChannelSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderPaymentChangedMessage.html">OrderPaymentChangedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.OrderReturnInfoSetMessage.html">OrderReturnInfoSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderShippingAddressSetMessage.html">OrderShippingAddressSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.OrderStateChangedMessage.html">OrderStateChangedMessage</a></li>
 				<li class="active"><a href="class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html">OrderStateTransitionMessage</a></li>
@@ -646,11 +656,14 @@
 				<li><a href="class-Commercetools.Core.Model.Message.ProductSlugChangedMessage.html">ProductSlugChangedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductStateTransitionMessage.html">ProductStateTransitionMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductUnpublishedMessage.html">ProductUnpublishedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.ProductVariantAddedMessage.html">ProductVariantAddedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ProductVariantDeletedMessage.html">ProductVariantDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewCreatedMessage.html">ReviewCreatedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewRatingSetMessage.html">ReviewRatingSetMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.ReviewStateTransitionMessage.html">ReviewStateTransitionMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.StateTransitionMessage.html">StateTransitionMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.StoreCreatedMessage.html">StoreCreatedMessage</a></li>
+				<li><a href="class-Commercetools.Core.Model.Message.StoreDeletedMessage.html">StoreDeletedMessage</a></li>
 				<li><a href="class-Commercetools.Core.Model.Message.UserProvidedIdentifiers.html">UserProvidedIdentifiers</a></li>
 			</ul>
 
@@ -740,7 +753,7 @@
 
 				<b>API documentation:</b>
 				<b><a href="https://docs.commercetools.com/http-api-projects-messages.html#orderstatetransition-message" target="api-doc">https://docs.commercetools.com/http-api-projects-messages.html#orderstatetransition-message</a></b><br>
-			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#13-44" title="Go to source code">Core/Model/Message/OrderStateTransitionMessage.php</a>
+			<b>Located at</b> <a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#13-46" title="Go to source code">Core/Model/Message/OrderStateTransitionMessage.php</a>
 		<br>
 	</div>
 
@@ -1317,6 +1330,77 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getOldState" id="m_getOldState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.State.StateReference.html">Commercetools\Core\Model\State\StateReference</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_getOldState">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#30" title="Go to source code">getOldState</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.State.StateReference.html">Commercetools\Core\Model\State\StateReference</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setOldState" id="m_setOldState">
+
+			<td class="attributes"><code>
+				 public 
+				<code><a href="class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html">Commercetools\Core\Model\Message\OrderStateTransitionMessage</a></code>
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#m_setOldState">#</a>
+			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#31" title="Go to source code">setOldState</a>( <span><code><a href="class-Commercetools.Core.Model.State.StateReference.html">Commercetools\Core\Model\State\StateReference</a></code> <var>$state</var> = <span class="php-keyword1">null</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$state</var></dt>
+						<dd></dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						<code><a href="class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html">Commercetools\Core\Model\Message\OrderStateTransitionMessage</a></code>
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="getVersion" id="m_getVersion">
 
 			<td class="attributes"><code>
@@ -1328,7 +1412,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getVersion">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#30" title="Go to source code">getVersion</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#32" title="Go to source code">getVersion</a>( )</code>
 
 			<div class="description short">
 				
@@ -1361,7 +1445,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setVersion">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#31" title="Go to source code">setVersion</a>( <span>integer <var>$version</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#33" title="Go to source code">setVersion</a>( <span>integer <var>$version</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1399,7 +1483,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getLastModifiedAt">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#32" title="Go to source code">getLastModifiedAt</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#34" title="Go to source code">getLastModifiedAt</a>( )</code>
 
 			<div class="description short">
 				
@@ -1432,7 +1516,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setLastModifiedAt">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#33" title="Go to source code">setLastModifiedAt</a>( <span>DateTime <var>$lastModifiedAt</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#35" title="Go to source code">setLastModifiedAt</a>( <span>DateTime <var>$lastModifiedAt</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1470,7 +1554,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getForce">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#34" title="Go to source code">getForce</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#36" title="Go to source code">getForce</a>( )</code>
 
 			<div class="description short">
 				
@@ -1503,7 +1587,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setForce">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#35" title="Go to source code">setForce</a>( <span>boolean <var>$force</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#37" title="Go to source code">setForce</a>( <span>boolean <var>$force</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				
@@ -1541,7 +1625,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_getResourceUserProvidedIdentifiers">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#36-37" title="Go to source code">getResourceUserProvidedIdentifiers</a>( )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#38-39" title="Go to source code">getResourceUserProvidedIdentifiers</a>( )</code>
 
 			<div class="description short">
 				<p>phpcs:disable</p>
@@ -1574,7 +1658,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#m_setResourceUserProvidedIdentifiers">#</a>
-			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#38-39" title="Go to source code">setResourceUserProvidedIdentifiers</a>( <span><code><a href="class-Commercetools.Core.Model.Message.UserProvidedIdentifiers.html">Commercetools\Core\Model\Message\UserProvidedIdentifiers</a></code> <var>$resourceUserProvidedIdentifiers</var> = <span class="php-keyword1">null</span></span> )</code>
+			<code><a href="source-class-Commercetools.Core.Model.Message.OrderStateTransitionMessage.html#40-41" title="Go to source code">setResourceUserProvidedIdentifiers</a>( <span><code><a href="class-Commercetools.Core.Model.Message.UserProvidedIdentifiers.html">Commercetools\Core\Model\Message\UserProvidedIdentifiers</a></code> <var>$resourceUserProvidedIdentifiers</var> = <span class="php-keyword1">null</span></span> )</code>
 
 			<div class="description short">
 				<p>phpcs:enable</p>
@@ -1646,6 +1730,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?d87ce1214c0cb147e1bc172c43b4565d99939e17"></script>
-<script src="elementlist.js?0007c0cb8d5b366892435c4dc8ddb8e7331b22b6"></script>
+<script src="elementlist.js?497f96f932e82f46e7685bfba96762df9bbe1833"></script>
 </body>
 </html>
