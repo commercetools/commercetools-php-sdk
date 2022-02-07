@@ -7,6 +7,7 @@ namespace Commercetools\Core\Model\Order;
 
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use DateTime;
 
 /**
@@ -22,6 +23,8 @@ use DateTime;
  * @method Parcel setTrackingData(TrackingData $trackingData = null)
  * @method DeliveryItemCollection getItems()
  * @method Parcel setItems(DeliveryItemCollection $items = null)
+ * @method CustomFieldObject getCustom()
+ * @method Parcel setCustom(CustomFieldObject $custom = null)
  */
 class Parcel extends JsonObject
 {
@@ -36,6 +39,7 @@ class Parcel extends JsonObject
             'measurements' => [static::TYPE => ParcelMeasurements::class],
             'trackingData' => [static::TYPE => TrackingData::class],
             'items' => [static::TYPE => DeliveryItemCollection::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }

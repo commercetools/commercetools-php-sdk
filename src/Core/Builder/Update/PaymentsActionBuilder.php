@@ -25,6 +25,8 @@ use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoMethodAction
 use Commercetools\Core\Request\Payments\Command\PaymentSetMethodInfoNameAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceCodeAction;
 use Commercetools\Core\Request\Payments\Command\PaymentSetStatusInterfaceTextAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetTransactionCustomFieldAction;
+use Commercetools\Core\Request\Payments\Command\PaymentSetTransactionCustomTypeAction;
 use Commercetools\Core\Request\Payments\Command\PaymentTransitionStateAction;
 
 class PaymentsActionBuilder
@@ -259,6 +261,28 @@ class PaymentsActionBuilder
     public function setStatusInterfaceText($action = null)
     {
         $this->addAction($this->resolveAction(PaymentSetStatusInterfaceTextAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param PaymentSetTransactionCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setTransactionCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(PaymentSetTransactionCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param PaymentSetTransactionCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setTransactionCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(PaymentSetTransactionCustomTypeAction::class, $action));
         return $this;
     }
 

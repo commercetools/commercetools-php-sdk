@@ -63,10 +63,14 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLine
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetLocaleAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetOrderNumberAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetOrderTotalTaxAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelItemsAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelMeasurementsAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetParcelTrackingDataAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnInfoAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnItemCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnItemCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnPaymentStateAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetReturnShipmentStateAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetShippingAddressAction;
@@ -741,6 +745,28 @@ class StagedOrderActionBuilder
 
     /**
      *
+     * @param StagedOrderSetParcelCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setParcelCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetParcelCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetParcelCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setParcelCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetParcelCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
      * @param StagedOrderSetParcelItemsAction|callable $action
      * @return $this
      */
@@ -780,6 +806,28 @@ class StagedOrderActionBuilder
     public function setReturnInfo($action = null)
     {
         $this->addAction($this->resolveAction(StagedOrderSetReturnInfoAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetReturnItemCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setReturnItemCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetReturnItemCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetReturnItemCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setReturnItemCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetReturnItemCustomTypeAction::class, $action));
         return $this;
     }
 
