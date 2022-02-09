@@ -3,6 +3,7 @@
 namespace Commercetools\Core\Request\ProductSelections;
 
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\ProductSelection\ProductSelectionAssignment;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Model\ProductSelection\ProductSelectionCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
@@ -16,14 +17,14 @@ use Commercetools\Core\Model\MapperInterface;
  */
 class ProductSelectionAssignmentsQueryRequest extends AbstractQueryRequest
 {
-    protected $resultClass = ProductSelectionCollection::class;
+    protected $resultClass = ProductSelectionAssignment::class;
 
     /**
      * @param Context $context
      */
     public function __construct(Context $context = null)
     {
-        parent::__construct('product-selection-assignments', $context);
+        parent::__construct(ProductSelectionAssignmentsEndpoint::endpoint(), $context);
     }
 
     /**

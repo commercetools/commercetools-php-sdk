@@ -10,17 +10,11 @@ use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductReference;
 use Commercetools\Core\Model\ProductSelection\AssignedProductReference;
 use Commercetools\Core\Model\ProductSelection\ProductSelection;
-use Commercetools\Core\Model\ProductSelection\ProductSelectionDraft;
-use Commercetools\Core\Request\Products\ProductByIdGetRequest;
-use Commercetools\Core\Request\Products\ProductByIdProductSelectionsGetRequest;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionAddProductAction;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionChangeNameAction;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionRemoveProductAction;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionSetKeyAction;
-use Commercetools\Core\Request\ProductSelections\ProductSelectionAssignmentsQueryRequest;
 use Commercetools\Core\Request\ProductSelections\ProductSelectionByIdProductsGetRequest;
-use Commercetools\Core\Response\AbstractApiResponse;
-use Commercetools\Core\Response\PagedQueryResponse;
 
 class ProductSelectionUpdateRequestTest extends ApiTestCase
 {

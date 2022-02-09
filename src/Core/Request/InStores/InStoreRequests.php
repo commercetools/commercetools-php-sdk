@@ -131,7 +131,6 @@ class InStoreRequests
         MeShoppingListUpdateByKeyRequest::class => 1,
         MeShoppingListDeleteRequest::class => 1,
         MeShoppingListDeleteByKeyRequest::class => 1,
-        ProductProjectionQueryRequest::class => 1,
         ProductProjectionByKeyGetRequest::class => 1,
         ProductProjectionByIdGetRequest::class => 1,
         ProductSelectionAssignmentsQueryRequest::class => 1,
