@@ -1,3 +1,33 @@
+# [2.17.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.16.0...v2.17.0) (2022-02-07)
+
+
+### Features
+
+* **Cart:** add key in Cart ([d3f24c4](https://github.com/commercetools/commercetools-php-sdk/commit/d3f24c4b419d363fbcea10cb7f44903025d1c5c9))
+* **Cart:** add new field productkey ([ccd77b8](https://github.com/commercetools/commercetools-php-sdk/commit/ccd77b88d03f77e117521db6f9ce8ee78c740cfb))
+* **Cart:** add test for replicate cart in store ([ec6390d](https://github.com/commercetools/commercetools-php-sdk/commit/ec6390d3235ebf8df9a7b57fd8e80638918e59c5))
+* **Cart:** introduce more small features ([ba45fc5](https://github.com/commercetools/commercetools-php-sdk/commit/ba45fc54d3df1e5e39f296ff37866663d02442bc))
+* **Cart:** support new update action setLineItemSupplyChannel ([87887cb](https://github.com/commercetools/commercetools-php-sdk/commit/87887cb1e05bdc769ae1a652f7d014ee479b98ea))
+* **Customer:** add anonymousCart field ([4c45b41](https://github.com/commercetools/commercetools-php-sdk/commit/4c45b419573de216e34cb11b251364224b1d8f9c))
+* **Delivery:** add field param ([c7ad278](https://github.com/commercetools/commercetools-php-sdk/commit/c7ad278fc2dba0ac513fdbcc3a6166ef86463c85))
+* **Error:** add querytimeout error ([ec13853](https://github.com/commercetools/commercetools-php-sdk/commit/ec1385355be85bd9901215bd0515d9de04d70f87))
+* **Error:** add querytimeout error ([153cc0b](https://github.com/commercetools/commercetools-php-sdk/commit/153cc0bdd3eee9d0adff330aeefb176f4a6c0e7d))
+* **Head:** support Head method for products ([6a02a6b](https://github.com/commercetools/commercetools-php-sdk/commit/6a02a6be34237f46dd2424750f6e08941fd1e06e))
+* **Message:** add field in InventoryEntryQuantitySetMessage ([7008f32](https://github.com/commercetools/commercetools-php-sdk/commit/7008f32ae9b83c8c50b2378a59a3d68ff3f9d873))
+* **Message:** add new class as useProvidedIdentifiers for ContainerAndKey ([3d332fd](https://github.com/commercetools/commercetools-php-sdk/commit/3d332fd5dff35396920a67a7f6c3fb8ea5a76cb9))
+* **Message:** add new message for products ([1e6e5ad](https://github.com/commercetools/commercetools-php-sdk/commit/1e6e5add27a4018b7469e586c518cba21f627680))
+* **Message:** support oldState to OrderStateTransitionMessage and support store messages ([b56c7ed](https://github.com/commercetools/commercetools-php-sdk/commit/b56c7ed830661a7d6b81818f55926d8100576013))
+* **Order:** support new update actions setReturnItemCustom as for order as for order edit ([d2e3879](https://github.com/commercetools/commercetools-php-sdk/commit/d2e38793890fc018908280c2d63537b50bfdbca9))
+* **Order:** support setReturnInfoAction and related message ([b34aa6b](https://github.com/commercetools/commercetools-php-sdk/commit/b34aa6bfef43a311d64419b015b6d5ff54764941))
+* **Order:** support update actions for Order and Order Edit to SetParcelCustom ([0124793](https://github.com/commercetools/commercetools-php-sdk/commit/0124793e950f793346bcdca7b238d2ca63c555c6))
+* **Project:** add new actions and add customer message ([e97e521](https://github.com/commercetools/commercetools-php-sdk/commit/e97e521be1d8739f0291f5246441f02fe4f68fe4))
+* **Project:** fix failed test ([b8357d0](https://github.com/commercetools/commercetools-php-sdk/commit/b8357d02643e980ddab735eb0bb2050b1117e408))
+* **ShipingMethod:** add custom field and related action in shipping method ([5a9a3f9](https://github.com/commercetools/commercetools-php-sdk/commit/5a9a3f972781f25a744b599462834cc83ef603b8))
+* **ShippingMethod:** support localizedName and related action ([50dbb24](https://github.com/commercetools/commercetools-php-sdk/commit/50dbb24e08d2553fbd09b73065e36c89b5c4ddd8))
+* **UserAgent:** modify user agent ([aa7f055](https://github.com/commercetools/commercetools-php-sdk/commit/aa7f05537bfecd792d2feeb6cbb41d06991c010f))
+
+
+
 # [2.16.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.15.0...v2.16.0) (2021-08-02)
 
 

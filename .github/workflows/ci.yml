@@ -221,7 +221,7 @@ jobs:
       - name: Install box
         env:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: phive install humbug/box@^3.11.1 --force-accept-unsigned
+        run: phive install humbug/box@~3.14.1 --force-accept-unsigned
 
       - name: Compile phar
         run: tools/box compile
