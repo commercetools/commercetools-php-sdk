@@ -1,8 +1,7 @@
 name: Build and deploy docs
 on:
   push:
-    branches:
-      - master
+    tags: 'v*'
   workflow_dispatch:
 jobs:
   build-and-deploy:
