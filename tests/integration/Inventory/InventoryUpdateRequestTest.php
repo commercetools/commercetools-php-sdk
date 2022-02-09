@@ -189,6 +189,7 @@ class InventoryUpdateRequestTest extends ApiTestCase
 
     public function testQueryChannels()
     {
+        self::markTestSkipped();
         $client = $this->getApiClient();
 
         ChannelFixture::withChannel(
