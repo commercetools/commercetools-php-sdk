@@ -18,6 +18,7 @@ use Commercetools\Core\Model\MapperInterface;
 class ProductSelectionByIdProductsGetRequest extends AbstractQueryRequest
 {
     protected $resultClass = ProductSelection::class;
+
     /**
      * @var string
      */
@@ -30,6 +31,7 @@ class ProductSelectionByIdProductsGetRequest extends AbstractQueryRequest
     {
         return $this->id;
     }
+
     /**
      * @param string $id
      * @param Context $context

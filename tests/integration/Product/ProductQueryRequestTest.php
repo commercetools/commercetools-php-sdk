@@ -7,6 +7,7 @@ namespace Commercetools\Core\IntegrationTests\Product;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
+use Commercetools\Core\IntegrationTests\ProductSelection\ProductSelectionFixture;
 use Commercetools\Core\IntegrationTests\Store\StoreFixture;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Money;
@@ -15,10 +16,17 @@ use Commercetools\Core\Model\Common\PriceDraftCollection;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Model\Product\ProductProjection;
+use Commercetools\Core\Model\Product\ProductReference;
 use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraftCollection;
+use Commercetools\Core\Model\ProductSelection\AssignedProductSelection;
+use Commercetools\Core\Model\ProductSelection\ProductSelection;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreDraft;
+use Commercetools\Core\Request\Products\ProductByIdProductSelectionsGetRequest;
+use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionAddProductAction;
+use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionRemoveProductAction;
+use Commercetools\Core\Response\PagedQueryResponse;
 
 class ProductQueryRequestTest extends ApiTestCase
 {
@@ -430,6 +438,51 @@ class ProductQueryRequestTest extends ApiTestCase
                         $this->assertInstanceOf(ProductProjection::class, $result);
                         $this->assertNotEquals(current($store->getLanguages()), $keyNameResult);
                         $this->assertSame($product->getId(), $result->getId());
+                    }
+                );
+            }
+        );
+    }
+
+    public function testQueryProductFromProductSelection()
+    {
+        $client = $this->getApiClient();
+
+        ProductFixture::withProduct(
+            $client,
+            function (Product $product) use ($client) {
+                ProductSelectionFixture::withUpdateableProductSelection(
+                    $client,
+                    function (ProductSelection $productSelection) use ($client, $product) {
+                        $productReference = ProductReference::ofId($product->getId());
+
+                        $request = RequestBuilder::of()->productSelections()->update($productSelection)
+                            ->addAction(
+                                ProductSelectionAddProductAction::ofProduct($productReference)
+                            );
+                        $response = $this->execute($client, $request);
+                        $productSelectionResult = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ProductSelection::class, $productSelectionResult);
+
+                        $request = ProductByIdProductSelectionsGetRequest::ofId($product->getId());
+                        $response = $this->execute($client, $request);
+                        $pagedQueryResponse = new PagedQueryResponse($response, $request);
+
+                        /** @var AssignedProductSelection $assignedProductSelection */
+                        $assignedProductSelection = $pagedQueryResponse->getResults();
+                        $this->assertSame($productSelection->getId(), $pagedQueryResponse->getResults()[0]['productSelection']['id']);
+
+                        $request = RequestBuilder::of()->productSelections()->update($productSelectionResult)
+                            ->addAction(
+                                ProductSelectionRemoveProductAction::ofProduct($productReference)
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ProductSelection::class, $result);
+
+                        return $result;
                     }
                 );
             }

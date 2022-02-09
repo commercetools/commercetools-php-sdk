@@ -1,22 +1,22 @@
 <?php
 
-namespace Commercetools\Core\Request\ProductSelections;
+namespace Commercetools\Core\Request\Products;
 
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Model\ProductSelection\ProductSelection;
+use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
 /**
- * @package Commercetools\Core\Request\ProductSelections
- * @link https://docs.commercetools.com/api/projects/product-selections#by-key
- * @method ProductSelection mapResponse(ApiResponseInterface $response)
- * @method ProductSelection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+ * @package Commercetools\Core\Request\Products
+ * @link https://docs.commercetools.com/api/projects/products#query-product-selections-for-a-product-by-key
+ * @method Product mapResponse(ApiResponseInterface $response)
+ * @method Product mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
-class ProductSelectionByKeyProductsGetRequest extends AbstractQueryRequest
+class ProductByKeyProductSelectionsGetRequest extends AbstractQueryRequest
 {
-    protected $resultClass = ProductSelection::class;
+    protected $resultClass = Product::class;
 
     /**
      * @var string
@@ -37,7 +37,7 @@ class ProductSelectionByKeyProductsGetRequest extends AbstractQueryRequest
      */
     public function __construct($key, Context $context = null)
     {
-        parent::__construct(ProductSelectionsEndpoint::endpoint(), $context);
+        parent::__construct(ProductsEndpoint::endpoint(), $context);
         $this->key = $key;
     }
 
@@ -51,12 +51,13 @@ class ProductSelectionByKeyProductsGetRequest extends AbstractQueryRequest
         return new static($key, $context);
     }
 
+
     /**
      * @return string
      * @internal
      */
     protected function getPath()
     {
-        return (string)$this->getEndpoint() . '/key=' . $this->getKey() . '/products' . $this->getParamString();
+        return (string)$this->getEndpoint() . '/key=' . $this->getKey() . '/product-selections' . $this->getParamString();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Commercetools\Core\Model\ProductSelection;
 
-use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Product\ProductReference;
 
 /**
@@ -11,7 +11,7 @@ use Commercetools\Core\Model\Product\ProductReference;
  * @method ProductReference getProduct()
  * @method AssignedProductReference setProduct(ProductReference $product = null)
  */
-class AssignedProductReference extends Resource
+class AssignedProductReference extends JsonObject
 {
     public function fieldDefinitions()
     {

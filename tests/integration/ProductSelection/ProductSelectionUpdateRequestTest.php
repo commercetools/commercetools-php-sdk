@@ -8,11 +8,19 @@ use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductReference;
+use Commercetools\Core\Model\ProductSelection\AssignedProductReference;
 use Commercetools\Core\Model\ProductSelection\ProductSelection;
+use Commercetools\Core\Model\ProductSelection\ProductSelectionDraft;
+use Commercetools\Core\Request\Products\ProductByIdGetRequest;
+use Commercetools\Core\Request\Products\ProductByIdProductSelectionsGetRequest;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionAddProductAction;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionChangeNameAction;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionRemoveProductAction;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionSetKeyAction;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionAssignmentsQueryRequest;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionByIdProductsGetRequest;
+use Commercetools\Core\Response\AbstractApiResponse;
+use Commercetools\Core\Response\PagedQueryResponse;
 
 class ProductSelectionUpdateRequestTest extends ApiTestCase
 {
@@ -88,6 +96,51 @@ class ProductSelectionUpdateRequestTest extends ApiTestCase
                         $productSelectionResult = $request->mapFromResponse($response);
 
                         $this->assertInstanceOf(ProductSelection::class, $productSelectionResult);
+
+                        $request = RequestBuilder::of()->productSelections()->update($productSelectionResult)
+                            ->addAction(
+                                ProductSelectionRemoveProductAction::ofProduct($productReference)
+                            );
+                        $response = $this->execute($client, $request);
+                        $result = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ProductSelection::class, $result);
+
+                        return $result;
+                    }
+                );
+            }
+        );
+    }
+
+    public function testQueryProductFromProductSelection()
+    {
+        $client = $this->getApiClient();
+
+        ProductFixture::withProduct(
+            $client,
+            function (Product $product) use ($client) {
+                ProductSelectionFixture::withUpdateableProductSelection(
+                    $client,
+                    function (ProductSelection $productSelection) use ($client, $product) {
+                        $productReference = ProductReference::ofId($product->getId());
+
+                        $request = RequestBuilder::of()->productSelections()->update($productSelection)
+                            ->addAction(
+                                ProductSelectionAddProductAction::ofProduct($productReference)
+                            );
+                        $response = $this->execute($client, $request);
+                        $productSelectionResult = $request->mapFromResponse($response);
+
+                        $this->assertInstanceOf(ProductSelection::class, $productSelectionResult);
+
+                        $request = ProductSelectionByIdProductsGetRequest::ofId($productSelection->getId());
+                        $response = $this->execute($client, $request);
+                        $pagedQueryResponse = new PagedQueryResponse($response, $request);
+
+                        /** @var AssignedProductReference $assignedProductReference */
+                        $assignedProductReference = $pagedQueryResponse->getResults();
+                        $this->assertSame($product->getId(), $pagedQueryResponse->getResults()[0]['product']['id']);
 
                         $request = RequestBuilder::of()->productSelections()->update($productSelectionResult)
                             ->addAction(
