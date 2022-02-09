@@ -3,7 +3,7 @@
 namespace Commercetools\Core\Request\ProductSelections;
 
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Model\ProductSelection\ProductSelection;
+use Commercetools\Core\Model\ProductSelection\AssignedProductReference;
 use Commercetools\Core\Request\AbstractQueryRequest;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
@@ -11,12 +11,12 @@ use Commercetools\Core\Model\MapperInterface;
 /**
  * @package Commercetools\Core\Request\ProductSelections
  * @link https://docs.commercetools.com/api/projects/product-selections#by-key
- * @method ProductSelection mapResponse(ApiResponseInterface $response)
- * @method ProductSelection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+ * @method AssignedProductReference mapResponse(ApiResponseInterface $response)
+ * @method AssignedProductReference mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductSelectionByKeyProductsGetRequest extends AbstractQueryRequest
 {
-    protected $resultClass = ProductSelection::class;
+    protected $resultClass = AssignedProductReference::class;
 
     /**
      * @var string

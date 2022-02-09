@@ -1,7 +1,8 @@
 <?php
 
-namespace Commercetools\Core\Request\ProductSelection;
+namespace Commercetools\Core\Request\ProductSelections;
 
+use Commercetools\Core\Model\ProductSelection\AssignedProductReference;
 use Commercetools\Core\Model\ProductSelection\ProductSelection;
 use Commercetools\Core\Request\ProductSelections\ProductSelectionByKeyProductsGetRequest;
 use Commercetools\Core\RequestTestCase;
@@ -22,14 +23,14 @@ class ProductSelectionByKeyProductsGetRequestTest extends RequestTestCase
             ]
         ];
         $result = $this->mapQueryResult(ProductSelectionByKeyProductsGetRequest::ofKey('key'), [], $data);
-        $this->assertInstanceOf(ProductSelection::class, $result);
+        $this->assertInstanceOf(AssignedProductReference::class, $result);
         $this->assertCount(3, $result->toArray());
     }
 
     public function testMapEmptyResult()
     {
         $result = $this->mapEmptyResult(ProductSelectionByKeyProductsGetRequest::ofKey('key'));
-        $this->assertInstanceOf(ProductSelection::class, $result);
+        $this->assertInstanceOf(AssignedProductReference::class, $result);
     }
 
     public function testHttpRequestPath()

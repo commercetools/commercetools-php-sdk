@@ -136,11 +136,10 @@ class ProductSelectionUpdateRequestTest extends ApiTestCase
 
                         $request = ProductSelectionByIdProductsGetRequest::ofId($productSelection->getId());
                         $response = $this->execute($client, $request);
-                        $pagedQueryResponse = new PagedQueryResponse($response, $request);
+                        $productSelectionQueryResult = $request->mapFromResponse($response);
 
-                        /** @var AssignedProductReference $assignedProductReference */
-                        $assignedProductReference = $pagedQueryResponse->getResults();
-                        $this->assertSame($product->getId(), $pagedQueryResponse->getResults()[0]['product']['id']);
+                        $this->assertInstanceOf(AssignedProductReference::class, $productSelectionQueryResult);
+                        $this->assertSame($product->getId(), current($productSelectionQueryResult)[0]['product']['id']);
 
                         $request = RequestBuilder::of()->productSelections()->update($productSelectionResult)
                             ->addAction(

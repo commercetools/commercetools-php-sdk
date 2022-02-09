@@ -1,6 +1,6 @@
 <?php
 
-namespace Commercetools\Core\Request\ProductSelection;
+namespace Commercetools\Core\Request\ProductSelections;
 
 use Commercetools\Core\Model\ProductSelection\ProductSelectionCollection;
 use Commercetools\Core\Request\ProductSelections\ProductSelectionQueryRequest;

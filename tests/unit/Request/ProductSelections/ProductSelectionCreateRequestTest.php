@@ -1,6 +1,6 @@
 <?php
 
-namespace Commercetools\Core\Request\ProductSelection;
+namespace Commercetools\Core\Request\ProductSelections;
 
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\ProductSelection\ProductSelection;

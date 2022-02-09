@@ -1,16 +1,16 @@
 <?php
 
-namespace Commercetools\Core\Request\ProductSelection;
+namespace Commercetools\Core\Request\Products;
 
-use Commercetools\Core\Model\ProductSelection\ProductSelection;
+use Commercetools\Core\Model\ProductSelection\AssignedProductReference;
+use Commercetools\Core\Model\ProductSelection\AssignedProductSelection;
 use Commercetools\Core\Request\ProductSelections\ProductSelectionByIdProductsGetRequest;
 use Commercetools\Core\RequestTestCase;
 use Commercetools\Core\Response\PagedQueryResponse;
-use Commercetools\Core\Response\ResourceResponse;
 
-class ProductSelectionByIdProductsGetRequestTest extends RequestTestCase
+class ProductByIdProductSelectionsGetRequestTest extends RequestTestCase
 {
-    const PRODUCT_SELECTION_BY_ID_PRODUCTS_GET_REQUEST = ProductSelectionByIdProductsGetRequest::class;
+    const PRODUCT_BY_ID_PRODUCT_SELECTIONS_GET_REQUEST = ProductByIdProductSelectionsGetRequest::class;
 
     public function testMapResult()
     {
@@ -21,23 +21,23 @@ class ProductSelectionByIdProductsGetRequestTest extends RequestTestCase
                 ['id' => 'id'],
             ]
         ];
-        $result = $this->mapQueryResult(ProductSelectionByIdProductsGetRequest::ofId('id'), [], $data);
-        $this->assertInstanceOf(ProductSelection::class, $result);
+        $result = $this->mapQueryResult(ProductByIdProductSelectionsGetRequest::ofId('id'), [], $data);
+        $this->assertInstanceOf(AssignedProductSelection::class, $result);
         $this->assertCount(3, $result->toArray());
     }
 
     public function testMapEmptyResult()
     {
-        $result = $this->mapEmptyResult(ProductSelectionByIdProductsGetRequest::ofId('id'));
-        $this->assertInstanceOf(ProductSelection::class, $result);
+        $result = $this->mapEmptyResult(ProductByIdProductSelectionsGetRequest::ofId('id'));
+        $this->assertInstanceOf(AssignedProductSelection::class, $result);
     }
 
     public function testHttpRequestPath()
     {
-        $request = ProductSelectionByIdProductsGetRequest::ofId('id');
+        $request = ProductByIdProductSelectionsGetRequest::ofId('id');
         $httpRequest = $request->httpRequest();
 
-        $this->assertSame('product-selections/id/products', (string)$httpRequest->getUri());
+        $this->assertSame('products/id/product-selections', (string)$httpRequest->getUri());
     }
 
     public function testBuildResponse()
@@ -46,7 +46,7 @@ class ProductSelectionByIdProductsGetRequestTest extends RequestTestCase
         $mockBuilder->disableOriginalConstructor();
         $guzzleResponse = $mockBuilder->getMock();
 
-        $request = ProductSelectionByIdProductsGetRequest::ofId('id');
+        $request = ProductByIdProductSelectionsGetRequest::ofId('id');
         $response = $request->buildResponse($guzzleResponse);
 
         $this->assertInstanceOf(PagedQueryResponse::class, $response);

@@ -21,6 +21,7 @@ use Commercetools\Core\Model\Product\ProductVariantDraft;
 use Commercetools\Core\Model\Product\ProductVariantDraftCollection;
 use Commercetools\Core\Model\ProductSelection\AssignedProductSelection;
 use Commercetools\Core\Model\ProductSelection\ProductSelection;
+use Commercetools\Core\Model\ProductSelection\ProductSelectionReference;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreDraft;
 use Commercetools\Core\Request\Products\ProductByIdProductSelectionsGetRequest;
@@ -467,11 +468,13 @@ class ProductQueryRequestTest extends ApiTestCase
 
                         $request = ProductByIdProductSelectionsGetRequest::ofId($product->getId());
                         $response = $this->execute($client, $request);
-                        $pagedQueryResponse = new PagedQueryResponse($response, $request);
+                        $productQueryResult = $request->mapFromResponse($response);
 
-                        /** @var AssignedProductSelection $assignedProductSelection */
-                        $assignedProductSelection = $pagedQueryResponse->getResults();
-                        $this->assertSame($productSelection->getId(), $pagedQueryResponse->getResults()[0]['productSelection']['id']);
+                        $assignedProductSelection = AssignedProductSelection::of()->setProductSelection(ProductSelectionReference::ofId($productSelection->getId()));
+
+                        $this->assertInstanceOf(AssignedProductSelection::class, $productQueryResult);
+                        $this->assertSame($productSelection->getId(), current($productQueryResult)[0]['productSelection']['id']);
+                        $this->assertSame($assignedProductSelection->getProductSelection()->getId(), current($productQueryResult)[0]['productSelection']['id']);
 
                         $request = RequestBuilder::of()->productSelections()->update($productSelectionResult)
                             ->addAction(
