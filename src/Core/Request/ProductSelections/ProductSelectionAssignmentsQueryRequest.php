@@ -5,15 +5,14 @@ namespace Commercetools\Core\Request\ProductSelections;
 use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\ProductSelection\ProductSelectionAssignment;
 use Commercetools\Core\Request\AbstractQueryRequest;
-use Commercetools\Core\Model\ProductSelection\ProductSelectionCollection;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Model\MapperInterface;
 
 /**
  * @package Commercetools\Core\Request\ProductSelections
  * @link https://docs.commercetools.com/api/projects/product-selections#query-products-available-in-a-store-through-active-product-selections
- * @method ProductSelectionCollection mapResponse(ApiResponseInterface $response)
- * @method ProductSelectionCollection mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
+ * @method ProductSelectionAssignment mapResponse(ApiResponseInterface $response)
+ * @method ProductSelectionAssignment mapFromResponse(ApiResponseInterface $response, MapperInterface $mapper = null)
  */
 class ProductSelectionAssignmentsQueryRequest extends AbstractQueryRequest
 {

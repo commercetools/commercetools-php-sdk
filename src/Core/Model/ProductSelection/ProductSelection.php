@@ -30,8 +30,8 @@ use DateTime;
  * @method ProductSelection setName(LocalizedString $name = null)
  * @method int getProductCount()
  * @method ProductSelection setProductCount(int $productCount = null)
- * @method ProductSelectionTypeEnum getType()
- * @method ProductSelection setType(ProductSelectionTypeEnum $type = null)
+ * @method ProductSelectionType getType()
+ * @method ProductSelection setType(ProductSelectionType $type = null)
  * @method ProductSelectionReference getReference()
  */
 class ProductSelection extends Resource
@@ -54,7 +54,7 @@ class ProductSelection extends Resource
             'createdBy' => [static::TYPE => CreatedBy::class],
             'name' => [static::TYPE => LocalizedString::class],
             'productCount' => [static::TYPE => 'int'],
-            'type' => [static::TYPE => ProductSelectionTypeEnum::class]
+            'type' => [static::TYPE => ProductSelectionType::class]
         ];
     }
 }

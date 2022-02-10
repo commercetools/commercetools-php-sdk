@@ -4,7 +4,7 @@ namespace Commercetools\Core\Model\Message;
 
 use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\Reference;
-use Commercetools\Core\Model\ProductSelection\ProductSelectionType;
+use Commercetools\Core\Model\ProductSelection\IndividualProductSelectionType;
 use DateTime;
 
 /**
@@ -30,8 +30,8 @@ use DateTime;
  * phpcs:disable
  * @method ProductSelectionCreatedMessage setResourceUserProvidedIdentifiers(UserProvidedIdentifiers $resourceUserProvidedIdentifiers = null)
  * phpcs:enable
- * @method ProductSelectionType getProductSelection()
- * @method ProductSelectionCreatedMessage setProductSelection(ProductSelectionType $productSelection = null)
+ * @method IndividualProductSelectionType getProductSelection()
+ * @method ProductSelectionCreatedMessage setProductSelection(IndividualProductSelectionType $productSelection = null)
  */
 class ProductSelectionCreatedMessage extends Message
 {
@@ -40,7 +40,7 @@ class ProductSelectionCreatedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['productSelection'] = [static::TYPE => ProductSelectionType::class];
+        $definitions['productSelection'] = [static::TYPE => IndividualProductSelectionType::class];
 
         return $definitions;
     }

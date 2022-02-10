@@ -10,7 +10,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
  * @method LocalizedString getName()
  * @method IndividualProductSelectionType setName(LocalizedString $name = null)
  */
-class IndividualProductSelectionType extends ProductSelectionTypeEnum
+class IndividualProductSelectionType extends ProductSelectionType
 {
     public function fieldDefinitions()
     {

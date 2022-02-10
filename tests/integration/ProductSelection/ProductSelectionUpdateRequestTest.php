@@ -6,10 +6,12 @@ use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Message\ProductSelectionCreatedMessage;
 use Commercetools\Core\Model\Product\Product;
 use Commercetools\Core\Model\Product\ProductReference;
 use Commercetools\Core\Model\ProductSelection\AssignedProductReference;
 use Commercetools\Core\Model\ProductSelection\ProductSelection;
+use Commercetools\Core\Request\Messages\MessageQueryRequest;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionAddProductAction;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionChangeNameAction;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionRemoveProductAction;
@@ -18,6 +20,36 @@ use Commercetools\Core\Request\ProductSelections\ProductSelectionByIdProductsGet
 
 class ProductSelectionUpdateRequestTest extends ApiTestCase
 {
+    public function testCreateProductSelection()
+    {
+        $client = $this->getApiClient();
+
+        ProductSelectionFixture::withProductSelection(
+            $client,
+            function (ProductSelection $productSelection) use ($client) {
+                $this->assertNotEmpty($productSelection);
+                $retries = 0;
+                do {
+                    $retries++;
+                    sleep(1);
+                    $request = MessageQueryRequest::of()
+                        ->where('type = "ProductSelectionCreated"')
+                        ->where('resource(id = "' . $productSelection->getId() . '")');
+                    $response = $this->execute($client, $request);
+                    $result = $request->mapFromResponse($response);
+                } while (is_null($result) && $retries <= 9);
+
+                /**
+                 * @var ProductSelectionCreatedMessage $message
+                 */
+                $message = $result->current();
+
+                $this->assertInstanceOf(ProductSelectionCreatedMessage::class, $message);
+                $this->assertSame($productSelection->getId(), $message->getResource()->getId());
+            }
+        );
+    }
+
     public function testChangeName()
     {
         $client = $this->getApiClient();

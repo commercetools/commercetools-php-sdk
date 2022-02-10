@@ -14,7 +14,7 @@ use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\ProductSelection\ProductSelection;
 use Commercetools\Core\Model\ProductSelection\ProductSelectionDraft;
 use Commercetools\Core\Model\ProductSelection\ProductSelectionReference;
-use Commercetools\Core\Model\ProductSelection\ProductSelectionTypeEnum;
+use Commercetools\Core\Model\ProductSelection\ProductSelectionType;
 use Commercetools\Core\Model\Store\ProductSelectionSettingDraft;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreDraft;
