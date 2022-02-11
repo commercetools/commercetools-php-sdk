@@ -36,13 +36,12 @@ class StoreRemoveProductSelectionAction extends AbstractAction
     }
 
     /**
-     * @param ProductSelectionReference $supplyProductSelection
+     * @param ProductSelectionReference $productSelection
      * @param Context|callable $context
      * @return StoreRemoveProductSelectionAction
      */
-    public static function ofProductSelection(ProductSelectionReference $supplyProductSelection, $context = null)
+    public static function ofProductSelection(ProductSelectionReference $productSelection, $context = null)
     {
-        StoreRemoveProductSelectionAction::class;
-        return static::of($context)->setProductSelection($supplyProductSelection);
+        return static::of($context)->setProductSelection($productSelection);
     }
 }

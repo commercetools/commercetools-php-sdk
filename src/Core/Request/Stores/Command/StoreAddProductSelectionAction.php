@@ -3,7 +3,7 @@
 namespace Commercetools\Core\Request\Stores\Command;
 
 use Commercetools\Core\Model\Common\Context;
-use Commercetools\Core\Model\Store\ProductSelectionSettingDraft;
+use Commercetools\Core\Model\Store\ProductSelectionSetting;
 use Commercetools\Core\Request\AbstractAction;
 
 /**
@@ -11,8 +11,8 @@ use Commercetools\Core\Request\AbstractAction;
  *
  * @method string getAction()
  * @method StoreAddProductSelectionAction setAction(string $action = null)
- * @method ProductSelectionSettingDraft getProductSelection()
- * @method StoreAddProductSelectionAction setProductSelection(ProductSelectionSettingDraft $productSelection = null)
+ * @method ProductSelectionSetting getProductSelection()
+ * @method StoreAddProductSelectionAction setProductSelection(ProductSelectionSetting $productSelection = null)
  */
 class StoreAddProductSelectionAction extends AbstractAction
 {
@@ -20,7 +20,7 @@ class StoreAddProductSelectionAction extends AbstractAction
     {
         return [
             'action' => [static::TYPE => 'string'],
-            'productSelection' => [static::TYPE => ProductSelectionSettingDraft::class],
+            'productSelection' => [static::TYPE => ProductSelectionSetting::class],
         ];
     }
 
@@ -35,12 +35,12 @@ class StoreAddProductSelectionAction extends AbstractAction
     }
 
     /**
-     * @param ProductSelectionSettingDraft $productSelectionSettingDraft
+     * @param ProductSelectionSetting $productSelectionSetting
      * @param Context|callable $context
      * @return StoreAddProductSelectionAction
      */
-    public static function ofProductSelection(ProductSelectionSettingDraft $productSelectionSettingDraft, $context = null)
+    public static function ofProductSelection(ProductSelectionSetting $productSelectionSetting, $context = null)
     {
-        return static::of($context)->setProductSelection($productSelectionSettingDraft);
+        return static::of($context)->setProductSelection($productSelectionSetting);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Commercetools\Core\Model\Store;
 
+use Commercetools\Core\Model\Common\Context;
 use Commercetools\Core\Model\Common\Resource;
 use Commercetools\Core\Model\ProductSelection\ProductSelectionReference;
 
@@ -21,5 +22,26 @@ class ProductSelectionSetting extends Resource
             'productSelection' => [static::TYPE => ProductSelectionReference::class],
             'active' => [static::TYPE => 'bool'],
         ];
+    }
+
+    /**
+     * @param ProductSelectionReference $productSelection
+     * @param bool $active
+     * @param Context|callable $context
+     * @return ProductSelectionSetting
+     */
+    public static function ofProductSelectionAndActive(ProductSelectionReference $productSelection, $active = null, $context = null)
+    {
+        return static::of($context)->setProductSelection($productSelection)->setActive($active);
+    }
+
+    /**
+     * @param ProductSelectionReference $productSelection
+     * @param Context|callable $context
+     * @return ProductSelectionSetting
+     */
+    public static function ofProductSelection(ProductSelectionReference $productSelection, $context = null)
+    {
+        return static::of($context)->setProductSelection($productSelection);
     }
 }

@@ -5,19 +5,22 @@ namespace Commercetools\Core\IntegrationTests\Store;
 use Commercetools\Core\Builder\Request\RequestBuilder;
 use Commercetools\Core\IntegrationTests\ApiTestCase;
 use Commercetools\Core\IntegrationTests\Channel\ChannelFixture;
+use Commercetools\Core\IntegrationTests\Product\ProductFixture;
 use Commercetools\Core\IntegrationTests\ProductSelection\ProductSelectionFixture;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Channel\ChannelDraft;
 use Commercetools\Core\Model\Channel\ChannelReference;
 use Commercetools\Core\Model\Channel\ChannelRole;
 use Commercetools\Core\Model\Common\LocalizedString;
+use Commercetools\Core\Model\Product\Product;
+use Commercetools\Core\Model\Product\ProductReference;
 use Commercetools\Core\Model\ProductSelection\ProductSelection;
-use Commercetools\Core\Model\ProductSelection\ProductSelectionDraft;
 use Commercetools\Core\Model\ProductSelection\ProductSelectionReference;
-use Commercetools\Core\Model\ProductSelection\ProductSelectionType;
-use Commercetools\Core\Model\Store\ProductSelectionSettingDraft;
+use Commercetools\Core\Model\Store\ProductSelectionSetting;
 use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreDraft;
+use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionAddProductAction;
+use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionRemoveProductAction;
 use Commercetools\Core\Request\Stores\Command\StoreAddDistributionChannelAction;
 use Commercetools\Core\Request\Stores\Command\StoreAddProductSelectionAction;
 use Commercetools\Core\Request\Stores\Command\StoreAddSupplyChannelAction;
@@ -351,8 +354,8 @@ class StoreUpdateRequestTest extends ApiTestCase
                     $client,
                     function (Store $store) use ($client, $productSelection) {
                         $productSelectionReference = ProductSelectionReference::ofId($productSelection->getId());
-                        $productSelectionSettingDraft = ProductSelectionSettingDraft::of()->setProductSelection($productSelectionReference);
-                        $productSelection = [0 => $productSelectionSettingDraft];
+                        $productSelectionSetting = ProductSelectionSetting::ofProductSelection($productSelectionReference);
+                        $productSelection = [0 => $productSelectionSetting];
 
                         $request = RequestBuilder::of()->stores()->update($store)
                             ->addAction(StoreSetProductSelectionsAction::ofProductSelections($productSelection));
@@ -363,72 +366,6 @@ class StoreUpdateRequestTest extends ApiTestCase
                         $this->assertSame($store->getId(), $result->getId());
                         $this->assertSame($productSelectionReference->getId(), current($result)['productSelections'][0]['productSelection']['id']);
                         $this->assertNotSame($store->getVersion(), $result->getVersion());
-
-                        return $result;
-                    }
-                );
-            }
-        );
-    }
-
-    public function testAddProductSelection()
-    {
-        $client = $this->getApiClient();
-
-        ProductSelectionFixture::withProductSelection(
-            $client,
-            function (ProductSelection $productSelection) use ($client) {
-                StoreFixture::withUpdateableStore(
-                    $client,
-                    function (Store $store) use ($client, $productSelection) {
-                        $productSelectionReference = ProductSelectionReference::ofId($productSelection->getId());
-                        $productSelectionSettingDraft = ProductSelectionSettingDraft::of()->setProductSelection($productSelectionReference)->setActive(true);
-
-                        $request = RequestBuilder::of()->stores()->update($store)
-                            ->addAction(StoreAddProductSelectionAction::ofProductSelection($productSelectionSettingDraft));
-                        $response = $this->execute($client, $request);
-                        $result = $request->mapFromResponse($response);
-
-                        $this->assertInstanceOf(Store::class, $result);
-                        $this->assertSame($store->getId(), $result->getId());
-                        $this->assertSame($productSelectionReference->getId(), current($result)['productSelections'][0]['productSelection']['id']);
-                        $this->assertNotSame($store->getVersion(), $result->getVersion());
-
-                        return $result;
-                    }
-                );
-            }
-        );
-    }
-
-    public function testRemoveProductSelection()
-    {
-        $client = $this->getApiClient();
-
-        ProductSelectionFixture::withProductSelection(
-            $client,
-            function (ProductSelection $productSelection) use ($client) {
-                $productSelectionReference = ProductSelectionReference::ofId($productSelection->getId());
-                $productSelectionSettingDraft = ProductSelectionSettingDraft::of()->setProductSelection($productSelectionReference)->setActive(true);
-                StoreFixture::withUpdateableDraftStore(
-                    $client,
-                    function (StoreDraft $storeDraft) use ($productSelectionSettingDraft) {
-                        $storeDraft->setKey("removeProductSelectionStore")
-                            ->setName(LocalizedString::ofLangAndText('en', "removeProductSelectionStore"))
-                            ->setProductSelections($productSelectionSettingDraft);
-
-                        return $storeDraft;
-                    },
-                    function (Store $store) use ($client, $productSelectionReference) {
-                        $request = RequestBuilder::of()->stores()->update($store)
-                            ->addAction(StoreRemoveProductSelectionAction::ofProductSelection($productSelectionReference));
-                        $response = $this->execute($client, $request);
-                        $result = $request->mapFromResponse($response);
-
-                        $this->assertInstanceOf(Store::class, $result);
-                        $this->assertSame($store->getId(), $result->getId());
-                        $this->assertNotSame($store->getVersion(), $result->getVersion());
-                        $this->assertEmpty($result->getProductSelections());
 
                         return $result;
                     }
