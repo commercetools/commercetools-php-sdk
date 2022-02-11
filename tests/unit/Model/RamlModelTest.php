@@ -641,6 +641,9 @@ class RamlModelTest extends AbstractModelTest
             'Message\ContainerAndKey' => 'Common\ContainerAndKey',
             'Subscription\MessageDeliveryPayload' => 'Subscription\MessageDelivery',
             'Subscription\DeliveryPayload' => 'Subscription\Delivery',
+            'Subscription\ResourceUpdatedDeliveryPayload' => 'Subscription\ResourceUpdatedDelivery',
+            'Subscription\ResourceCreatedDeliveryPayload' => 'Subscription\ResourceCreatedDelivery',
+            'Subscription\ResourceDeletedDeliveryPayload' => 'Subscription\ResourceDeletedDelivery',
         ];
     }
 
