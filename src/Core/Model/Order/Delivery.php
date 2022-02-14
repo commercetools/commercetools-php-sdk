@@ -8,6 +8,7 @@ namespace Commercetools\Core\Model\Order;
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\JsonObject;
 use Commercetools\Core\Model\Common\DateTimeDecorator;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use DateTime;
 
 /**
@@ -23,6 +24,8 @@ use DateTime;
  * @method Delivery setParcels(ParcelCollection $parcels = null)
  * @method Address getAddress()
  * @method Delivery setAddress(Address $address = null)
+ * @method CustomFieldObject getCustom()
+ * @method Delivery setCustom(CustomFieldObject $custom = null)
  */
 class Delivery extends JsonObject
 {
@@ -36,7 +39,8 @@ class Delivery extends JsonObject
             ],
             'items' => [static::TYPE => DeliveryItemCollection::class],
             'parcels' => [static::TYPE => ParcelCollection::class],
-            'address' => [static::TYPE => Address::class]
+            'address' => [static::TYPE => Address::class],
+            'custom' => [static::TYPE => CustomFieldObject::class],
         ];
     }
 }

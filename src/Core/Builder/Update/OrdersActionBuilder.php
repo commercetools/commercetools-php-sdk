@@ -31,6 +31,8 @@ use Commercetools\Core\Request\Orders\Command\OrderSetCustomerIdAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryAddressCustomTypeAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryCustomFieldAction;
+use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryCustomTypeAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetDeliveryItemsAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetItemShippingAddressCustomFieldAction;
 use Commercetools\Core\Request\Orders\Command\OrderSetItemShippingAddressCustomTypeAction;
@@ -357,6 +359,28 @@ class OrdersActionBuilder
     public function setDeliveryAddressCustomType($action = null)
     {
         $this->addAction($this->resolveAction(OrderSetDeliveryAddressCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetDeliveryCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setDeliveryCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetDeliveryCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param OrderSetDeliveryCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setDeliveryCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(OrderSetDeliveryCustomTypeAction::class, $action));
         return $this;
     }
 

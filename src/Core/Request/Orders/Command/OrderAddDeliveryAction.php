@@ -7,6 +7,7 @@ namespace Commercetools\Core\Request\Orders\Command;
 
 use Commercetools\Core\Model\Common\Address;
 use Commercetools\Core\Model\Common\Context;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use Commercetools\Core\Model\Order\DeliveryItemCollection;
 use Commercetools\Core\Model\Order\ParcelCollection;
 use Commercetools\Core\Model\Order\ParcelMeasurements;
@@ -24,6 +25,8 @@ use Commercetools\Core\Request\AbstractAction;
  * @method OrderAddDeliveryAction setParcels(ParcelCollection $parcels = null)
  * @method Address getAddress()
  * @method OrderAddDeliveryAction setAddress(Address $address = null)
+ * @method CustomFieldObject getCustom()
+ * @method OrderAddDeliveryAction setCustom(CustomFieldObject $custom = null)
  */
 class OrderAddDeliveryAction extends AbstractAction
 {
@@ -34,6 +37,7 @@ class OrderAddDeliveryAction extends AbstractAction
             'items' => [static::TYPE => DeliveryItemCollection::class],
             'parcels' => [static::TYPE => ParcelCollection::class],
             'address' => [static::TYPE => Address::class],
+            'custom' => [static::TYPE =>CustomFieldObject::class],
         ];
     }
 
