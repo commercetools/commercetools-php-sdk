@@ -1,3 +1,16 @@
+# [2.18.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.17.0...v2.18.0) (2022-02-23)
+
+
+### Bug Fixes
+
+* **Models** added optional flag to field definitions of all models
+
+
+### Features
+
+* **Order:** add update actions to set the delivery in the custom fields for order and order edit ([083b4d8](https://github.com/commercetools/commercetools-php-sdk/commit/083b4d8877a49fecffe6171779068be36c176bf1))
+* **ProductSelection:** new feature about product selection ([1d7b7f5](https://github.com/commercetools/commercetools-php-sdk/commit/1d7b7f5134c9037d585efc079c868bce8956abcc))
+
 ## [2.17.1-beta.1](https://github.com/commercetools/commercetools-php-sdk/compare/v2.17.0...v2.17.1-beta.1) (2022-02-23)
 
 ### Bug Fixes
