@@ -8,6 +8,7 @@ namespace Commercetools\Core\Request\InStores;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\Carts\CartByIdGetRequest;
 use Commercetools\Core\Request\Orders\OrderByIdGetRequest;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionAssignmentsQueryRequest;
 use Commercetools\Core\Request\Project\ProjectGetRequest;
 use Commercetools\Core\RequestTestCase;
 
@@ -31,6 +32,15 @@ class InStoreRequestDecoratorTest extends RequestTestCase
 
         $decoratedRequest = $inStoreRequest->httpRequest();
         $this->assertSame('in-store/key=store-key/orders/order-id', (string)$decoratedRequest->getUri());
+    }
+
+    public function testHttpRequestWithProductSelectionAssignment()
+    {
+        $request = ProductSelectionAssignmentsQueryRequest::of();
+        $inStoreRequest = InStoreRequestDecorator::ofStoreKeyAndRequest('store-key', $request);
+
+        $decoratedRequest = $inStoreRequest->httpRequest();
+        $this->assertSame('in-store/key=store-key/product-selection-assignments', (string)$decoratedRequest->getUri());
     }
 
     public function testInvalidRequest()

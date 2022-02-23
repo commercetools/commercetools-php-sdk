@@ -5,12 +5,15 @@ namespace Commercetools\Core\Builder\Update;
 use Commercetools\Core\Error\InvalidArgumentException;
 use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Stores\Command\StoreAddDistributionChannelAction;
+use Commercetools\Core\Request\Stores\Command\StoreAddProductSelectionAction;
 use Commercetools\Core\Request\Stores\Command\StoreAddSupplyChannelAction;
 use Commercetools\Core\Request\Stores\Command\StoreRemoveDistributionChannelAction;
+use Commercetools\Core\Request\Stores\Command\StoreRemoveProductSelectionAction;
 use Commercetools\Core\Request\Stores\Command\StoreRemoveSupplyChannelAction;
 use Commercetools\Core\Request\Stores\Command\StoreSetDistributionChannelsAction;
 use Commercetools\Core\Request\Stores\Command\StoreSetLanguagesAction;
 use Commercetools\Core\Request\Stores\Command\StoreSetNameAction;
+use Commercetools\Core\Request\Stores\Command\StoreSetProductSelectionsAction;
 use Commercetools\Core\Request\Stores\Command\StoreSetSupplyChannelsAction;
 
 class StoresActionBuilder
@@ -25,6 +28,17 @@ class StoresActionBuilder
     public function addDistributionChannel($action = null)
     {
         $this->addAction($this->resolveAction(StoreAddDistributionChannelAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StoreAddProductSelectionAction|callable $action
+     * @return $this
+     */
+    public function addProductSelection($action = null)
+    {
+        $this->addAction($this->resolveAction(StoreAddProductSelectionAction::class, $action));
         return $this;
     }
 
@@ -47,6 +61,17 @@ class StoresActionBuilder
     public function removeDistributionChannel($action = null)
     {
         $this->addAction($this->resolveAction(StoreRemoveDistributionChannelAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/stores#remove-product-selection
+     * @param StoreRemoveProductSelectionAction|callable $action
+     * @return $this
+     */
+    public function removeProductSelection($action = null)
+    {
+        $this->addAction($this->resolveAction(StoreRemoveProductSelectionAction::class, $action));
         return $this;
     }
 
@@ -91,6 +116,17 @@ class StoresActionBuilder
     public function setName($action = null)
     {
         $this->addAction($this->resolveAction(StoreSetNameAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/stores#set-product-selections
+     * @param StoreSetProductSelectionsAction|callable $action
+     * @return $this
+     */
+    public function setProductSelections($action = null)
+    {
+        $this->addAction($this->resolveAction(StoreSetProductSelectionsAction::class, $action));
         return $this;
     }
 

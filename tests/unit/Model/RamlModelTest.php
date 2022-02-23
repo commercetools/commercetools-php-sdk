@@ -639,6 +639,11 @@ class RamlModelTest extends AbstractModelTest
             'Extension\ExtensionAuthorizationHeaderAuthentication' => 'Extension\AuthorizationHeaderAuthentication',
             'Extension\ExtensionTrigger' => 'Extension\Trigger',
             'Message\ContainerAndKey' => 'Common\ContainerAndKey',
+            'Subscription\MessageDeliveryPayload' => 'Subscription\MessageDelivery',
+            'Subscription\DeliveryPayload' => 'Subscription\Delivery',
+            'Subscription\ResourceUpdatedDeliveryPayload' => 'Subscription\ResourceUpdatedDelivery',
+            'Subscription\ResourceCreatedDeliveryPayload' => 'Subscription\ResourceCreatedDelivery',
+            'Subscription\ResourceDeletedDeliveryPayload' => 'Subscription\ResourceDeletedDelivery',
         ];
     }
 

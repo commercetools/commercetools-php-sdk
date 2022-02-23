@@ -49,6 +49,8 @@ use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetCust
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetDeliveryAddressAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetDeliveryAddressCustomFieldAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetDeliveryAddressCustomTypeAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetDeliveryCustomFieldAction;
+use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetDeliveryCustomTypeAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetDeliveryItemsAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetItemShippingAddressCustomFieldAction;
 use Commercetools\Core\Request\OrderEdits\StagedOrder\Command\StagedOrderSetItemShippingAddressCustomTypeAction;
@@ -586,6 +588,28 @@ class StagedOrderActionBuilder
     public function setDeliveryAddressCustomType($action = null)
     {
         $this->addAction($this->resolveAction(StagedOrderSetDeliveryAddressCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetDeliveryCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setDeliveryCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetDeliveryCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StagedOrderSetDeliveryCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setDeliveryCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(StagedOrderSetDeliveryCustomTypeAction::class, $action));
         return $this;
     }
 

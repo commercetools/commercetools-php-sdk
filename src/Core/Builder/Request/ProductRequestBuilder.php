@@ -4,8 +4,10 @@ namespace Commercetools\Core\Builder\Request;
 
 use Commercetools\Core\Request\Products\ProductByIdGetRequest;
 use Commercetools\Core\Request\Products\ProductByIdHeadRequest;
+use Commercetools\Core\Request\Products\ProductByIdProductSelectionsGetRequest;
 use Commercetools\Core\Request\Products\ProductByKeyGetRequest;
 use Commercetools\Core\Request\Products\ProductByKeyHeadRequest;
+use Commercetools\Core\Request\Products\ProductByKeyProductSelectionsGetRequest;
 use Commercetools\Core\Request\Products\ProductCreateRequest;
 use Commercetools\Core\Model\Product\ProductDraft;
 use Commercetools\Core\Request\Products\ProductDeleteByKeyRequest;
@@ -44,6 +46,17 @@ class ProductRequestBuilder
     }
 
     /**
+     * @link https://docs.commercetools.com/api/projects/products#query-product-selections-for-a-product-by-id
+     * @param string $idProductSelections
+     * @return ProductByIdProductSelectionsGetRequest
+     */
+    public function getByIdProductSelections($idProductSelections)
+    {
+        $request = ProductByIdProductSelectionsGetRequest::ofIdProductSelections($idProductSelections);
+        return $request;
+    }
+
+    /**
      *
      * @param string $key
      * @return ProductByKeyGetRequest
@@ -62,6 +75,17 @@ class ProductRequestBuilder
     public function getByKeyHead($key)
     {
         $request = ProductByKeyHeadRequest::ofKey($key);
+        return $request;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/products#query-product-selections-for-a-product-by-key
+     * @param string $keyProductSelections
+     * @return ProductByKeyProductSelectionsGetRequest
+     */
+    public function getByKeyProductSelections($keyProductSelections)
+    {
+        $request = ProductByKeyProductSelectionsGetRequest::ofKeyProductSelections($keyProductSelections);
         return $request;
     }
 

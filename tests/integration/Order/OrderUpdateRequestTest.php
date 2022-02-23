@@ -1799,7 +1799,6 @@ class OrderUpdateRequestTest extends ApiTestCase
         );
     }
 
-
     public function testSetParcelCustom()
     {
         $client = $this->getApiClient();

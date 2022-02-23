@@ -55,6 +55,10 @@ use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 use Commercetools\Core\Request\Orders\OrderQueryRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateByOrderNumberRequest;
 use Commercetools\Core\Request\Orders\OrderUpdateRequest;
+use Commercetools\Core\Request\Products\ProductProjectionByIdGetRequest;
+use Commercetools\Core\Request\Products\ProductProjectionByKeyGetRequest;
+use Commercetools\Core\Request\Products\ProductProjectionQueryRequest;
+use Commercetools\Core\Request\ProductSelections\ProductSelectionAssignmentsQueryRequest;
 use Commercetools\Core\Request\ShippingMethods\ShippingMethodByCartIdGetRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListByIdGetRequest;
 use Commercetools\Core\Request\ShoppingLists\ShoppingListByKeyGetRequest;
@@ -127,6 +131,9 @@ class InStoreRequests
         MeShoppingListUpdateByKeyRequest::class => 1,
         MeShoppingListDeleteRequest::class => 1,
         MeShoppingListDeleteByKeyRequest::class => 1,
+        ProductProjectionByKeyGetRequest::class => 1,
+        ProductProjectionByIdGetRequest::class => 1,
+        ProductSelectionAssignmentsQueryRequest::class => 1,
     ];
 
     public function can($request)

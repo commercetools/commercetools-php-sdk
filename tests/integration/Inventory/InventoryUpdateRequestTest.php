@@ -29,6 +29,8 @@ use Commercetools\Core\Request\Inventory\Command\InventorySetExpectedDeliveryAct
 use Commercetools\Core\Request\Inventory\Command\InventorySetRestockableInDaysAction;
 use Commercetools\Core\Request\Inventory\Command\InventorySetSupplyChannelAction;
 use Commercetools\Core\Request\Messages\MessageQueryRequest;
+use Commercetools\Core\Request\Project\Command\ProjectChangeProductSearchIndexingEnabledAction;
+use Commercetools\Core\Request\Project\ProjectUpdateRequest;
 
 class InventoryUpdateRequestTest extends ApiTestCase
 {
