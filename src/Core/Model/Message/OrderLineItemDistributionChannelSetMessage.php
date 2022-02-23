@@ -45,7 +45,7 @@ class OrderLineItemDistributionChannelSetMessage extends Message
     {
         $definitions = parent::fieldDefinitions();
         $definitions['lineItemId'] = [static::TYPE => 'string'];
-        $definitions['distributionChannel'] = [static::TYPE => ChannelReference::class];
+        $definitions['distributionChannel'] = [static::TYPE => ChannelReference::class, static::OPTIONAL => true];
 
         return $definitions;
     }

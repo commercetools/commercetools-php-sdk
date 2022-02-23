@@ -60,7 +60,7 @@ class ShoppingList extends Resource
     {
         return [
             'id' => [static::TYPE => 'string'],
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'version' => [static::TYPE => 'int'],
             'createdAt' => [
                 static::TYPE => DateTime::class,
@@ -70,18 +70,18 @@ class ShoppingList extends Resource
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'slug' => [static::TYPE => LocalizedString::class],
+            'slug' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
-            'customer' => [static::TYPE => CustomerReference::class],
-            'lineItems' => [static::TYPE => LineItemCollection::class],
-            'textLineItems' => [static::TYPE => TextLineItemCollection::class],
-            'custom' => [static::TYPE => CustomFieldObject::class],
-            'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
-            'anonymousId' => [static::TYPE => 'string'],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
-            'store' => [static::TYPE => StoreReference::class],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'customer' => [static::TYPE => CustomerReference::class, static::OPTIONAL => true],
+            'lineItems' => [static::TYPE => LineItemCollection::class, static::OPTIONAL => true],
+            'textLineItems' => [static::TYPE => TextLineItemCollection::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'anonymousId' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
+            'store' => [static::TYPE => StoreReference::class, static::OPTIONAL => true],
         ];
     }
 }

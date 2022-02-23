@@ -25,10 +25,10 @@ class ZoneDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'name' => [static::TYPE => 'string'],
-            'description' => [static::TYPE => 'string'],
-            'locations' => [static::TYPE => LocationCollection::class],
+            'description' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'locations' => [static::TYPE => LocationCollection::class, static::OPTIONAL => true],
         ];
     }
 

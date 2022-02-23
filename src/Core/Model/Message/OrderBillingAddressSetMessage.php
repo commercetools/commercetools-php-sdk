@@ -44,7 +44,7 @@ class OrderBillingAddressSetMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['address'] = [static::TYPE => Address::class];
+        $definitions['address'] = [static::TYPE => Address::class, static::OPTIONAL => true];
 
         return $definitions;
     }

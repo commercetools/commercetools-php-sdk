@@ -62,14 +62,14 @@ class State extends Resource
             ],
             'key' => [static::TYPE => 'string'],
             'type' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
+            'name' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'initial' => [static::TYPE => 'bool'],
             'builtIn' => [static::TYPE => 'bool'],
-            'roles' => [static::TYPE => 'array'],
-            'transitions' => [static::TYPE => StateReferenceCollection::class],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'roles' => [static::TYPE => 'array', static::OPTIONAL => true],
+            'transitions' => [static::TYPE => StateReferenceCollection::class, static::OPTIONAL => true],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

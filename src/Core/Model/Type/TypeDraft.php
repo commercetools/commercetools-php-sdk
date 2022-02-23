@@ -29,9 +29,9 @@ class TypeDraft extends JsonObject
         return [
             'key' => [static::TYPE => 'string'],
             'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'resourceTypeIds' => [static::TYPE => 'array'],
-            'fieldDefinitions' => [static::TYPE => FieldDefinitionCollection::class],
+            'fieldDefinitions' => [static::TYPE => FieldDefinitionCollection::class, static::OPTIONAL => true],
         ];
     }
 

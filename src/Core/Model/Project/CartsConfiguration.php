@@ -16,7 +16,7 @@ class CartsConfiguration extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'countryTaxRateFallbackEnabled' => [static::TYPE => 'bool'],
+            'countryTaxRateFallbackEnabled' => [static::TYPE => 'bool', static::OPTIONAL => true],
         ];
     }
 }

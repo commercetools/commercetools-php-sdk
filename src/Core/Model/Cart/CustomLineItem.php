@@ -51,18 +51,18 @@ class CustomLineItem extends JsonObject
             'id' => [static::TYPE => 'string'],
             'name' => [static::TYPE => LocalizedString::class],
             'money' => [static::TYPE => Money::class],
-            'taxedPrice' => [static::TYPE => TaxedItemPrice::class],
+            'taxedPrice' => [static::TYPE => TaxedItemPrice::class, static::OPTIONAL => true],
             'slug' => [static::TYPE => 'string'],
             'quantity' => [static::TYPE => 'int'],
             'state' => [static::TYPE => ItemState::class],
-            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
-            'taxRate' => [static::TYPE => TaxRate::class],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class, static::OPTIONAL => true],
+            'taxRate' => [static::TYPE => TaxRate::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
             'totalPrice' => [static::TYPE => Money::class],
             'discountedPricePerQuantity' => [
                 static::TYPE => DiscountedPricePerQuantityCollection::class
             ],
-            'shippingDetails' => [static::TYPE => ItemShippingDetails::class],
+            'shippingDetails' => [static::TYPE => ItemShippingDetails::class, static::OPTIONAL => true],
         ];
     }
 

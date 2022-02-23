@@ -52,12 +52,12 @@ class StoreCreatedMessage extends Message
         return array_merge(
             parent::fieldDefinitions(),
             [
-                'name' => [static::TYPE => 'string'],
+                'name' => [static::TYPE => 'string', static::OPTIONAL => true],
                 'languages' => [static::TYPE => 'array'],
                 'distributionChannels' => [static::TYPE => 'array'],
                 'supplyChannels' => [static::TYPE => 'array'],
                 'productSelections' => [static::TYPE => 'array'],
-                'custom' => [static::TYPE => CustomFieldObject::class],
+                'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
             ]
         );
     }

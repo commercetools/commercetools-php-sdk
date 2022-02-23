@@ -44,7 +44,8 @@ class ShippingInfo extends ShippingInfoImportDraft
     public function fieldDefinitions()
     {
         $fields = parent::fieldDefinitions();
-        $fields['taxedPrice'] = [static::TYPE => TaxedItemPrice::class];
+        $fields['shippingMethodState'] = [static::TYPE => 'string'];
+        $fields['taxedPrice'] = [static::TYPE => TaxedItemPrice::class, static::OPTIONAL => true];
 
         return $fields;
     }

@@ -36,12 +36,12 @@ class ChannelDraft extends JsonObject
     {
         return [
             'key' => [static::TYPE => 'string'],
-            'roles' => [static::TYPE => 'array'],
-            'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
-            'address' => [static::TYPE => Address::class],
-            'geoLocation' => [static::TYPE => GeoLocation::class],
+            'roles' => [static::TYPE => 'array', static::OPTIONAL => true],
+            'name' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
+            'address' => [static::TYPE => Address::class, static::OPTIONAL => true],
+            'geoLocation' => [static::TYPE => GeoLocation::class, static::OPTIONAL => true],
         ];
     }
 

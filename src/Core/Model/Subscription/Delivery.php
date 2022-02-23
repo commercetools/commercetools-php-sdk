@@ -35,7 +35,7 @@ class Delivery extends JsonObject
             'projectKey' => [static::TYPE => 'string'],
             static::NOTIFICATION_TYPE => [static::TYPE => 'string'],
             'resource' => [static::TYPE => Reference::class],
-            'resourceUserProvidedIdentifiers' => [static::TYPE => UserProvidedIdentifiers::class],
+            'resourceUserProvidedIdentifiers' => [static::TYPE => UserProvidedIdentifiers::class, static::OPTIONAL => true],
         ];
     }
 

@@ -29,7 +29,7 @@ class CartClassification extends ShippingRatePriceTier
             'type' => [static::TYPE => 'string'],
             'value' => [static::TYPE => 'string'],
             'price' => [static::TYPE => Money::class],
-            'isMatching' => [static::TYPE => 'bool']
+            'isMatching' => [static::TYPE => 'bool', static::OPTIONAL => true]
         ];
     }
 }

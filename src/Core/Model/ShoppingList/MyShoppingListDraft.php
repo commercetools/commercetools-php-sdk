@@ -34,12 +34,12 @@ class MyShoppingListDraft extends Resource
     {
         return [
             'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
-            'lineItems' => [static::TYPE => LineItemDraftCollection::class],
-            'textLineItems' => [static::TYPE => TextLineItemDraftCollection::class],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
-            'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
-            'store' => [static::TYPE => StoreReference::class],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'lineItems' => [static::TYPE => LineItemDraftCollection::class, static::OPTIONAL => true],
+            'textLineItems' => [static::TYPE => TextLineItemDraftCollection::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'store' => [static::TYPE => StoreReference::class, static::OPTIONAL => true],
         ];
     }
 

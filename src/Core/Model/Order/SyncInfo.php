@@ -26,7 +26,7 @@ class SyncInfo extends JsonObject
     {
         return [
             'channel' => [static::TYPE => ChannelReference::class],
-            'externalId' => [static::TYPE => 'string'],
+            'externalId' => [static::TYPE => 'string', static::OPTIONAL => true],
             'syncedAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class

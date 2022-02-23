@@ -20,6 +20,14 @@ use Commercetools\Core\Model\Common\ResourceIdentifier;
  */
 class CustomFieldObjectDraft extends CustomFieldObject
 {
+    public function fieldDefinitions()
+    {
+        return [
+            'type' => [static::TYPE => TypeReference::class],
+            'fields' => [static::TYPE => FieldContainer::class, static::OPTIONAL => true]
+        ];
+    }
+
     /**
      * @param string $typeKey
      * @param Context|callable $context

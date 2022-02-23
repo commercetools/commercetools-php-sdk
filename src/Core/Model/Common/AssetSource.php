@@ -23,9 +23,9 @@ class AssetSource extends JsonObject
     {
         return [
             'uri' => [static::TYPE => 'string'],
-            'key' => [static::TYPE => 'string'],
-            'dimensions' => [static::TYPE => AssetDimension::class],
-            'contentType' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', self::OPTIONAL => true],
+            'dimensions' => [static::TYPE => AssetDimension::class, self::OPTIONAL => true],
+            'contentType' => [static::TYPE => 'string', self::OPTIONAL => true],
         ];
     }
 }

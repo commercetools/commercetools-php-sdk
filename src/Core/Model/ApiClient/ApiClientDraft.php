@@ -24,7 +24,7 @@ class ApiClientDraft extends JsonObject
         return [
             'name' => [static::TYPE => 'string'],
             'scope' => [static::TYPE => 'string'],
-            'deleteDaysAfterCreation' => [static::TYPE => 'int'],
+            'deleteDaysAfterCreation' => [static::TYPE => 'int', self::OPTIONAL => true],
         ];
     }
 

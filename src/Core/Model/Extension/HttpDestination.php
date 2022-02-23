@@ -23,7 +23,7 @@ class HttpDestination extends Destination
         return [
             'type' => [static::TYPE => 'string'],
             'url' => [static::TYPE => 'string'],
-            'authentication' => [static::TYPE => HttpDestinationAuthentication::class]
+            'authentication' => [static::TYPE => HttpDestinationAuthentication::class, static::OPTIONAL => true]
         ];
     }
 }

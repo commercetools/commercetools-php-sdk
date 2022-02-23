@@ -34,13 +34,13 @@ class TextLineItem extends JsonObject
         return [
             'id' => [static::TYPE => 'string'],
             'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'quantity' => [static::TYPE => 'int'],
             'addedAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
         ];
     }
 }

@@ -32,15 +32,16 @@ class LineItemDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'productId' => [static::TYPE => 'string'],
-            'variantId' => [static::TYPE => 'int'],
-            'quantity' => [static::TYPE => 'int'],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'productId' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'variantId' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'quantity' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
             'addedAt' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'sku' => [static::TYPE => 'string'],
+            'sku' => [static::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 

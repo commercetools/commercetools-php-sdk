@@ -50,10 +50,10 @@ class OrderCustomerSetMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['customer'] = [static::TYPE => CustomerReference::class];
-        $definitions['customerGroup'] = [static::TYPE => CustomerGroupReference::class];
-        $definitions['oldCustomer'] = [static::TYPE => CustomerReference::class];
-        $definitions['oldCustomerGroup'] = [static::TYPE => CustomerGroupReference::class];
+        $definitions['customer'] = [static::TYPE => CustomerReference::class, static::OPTIONAL => true];
+        $definitions['customerGroup'] = [static::TYPE => CustomerGroupReference::class, static::OPTIONAL => true];
+        $definitions['oldCustomer'] = [static::TYPE => CustomerReference::class, static::OPTIONAL => true];
+        $definitions['oldCustomerGroup'] = [static::TYPE => CustomerGroupReference::class, static::OPTIONAL => true];
 
         return $definitions;
     }

@@ -40,12 +40,12 @@ class StoreDraft extends JsonObject
     {
         return [
             'key' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => LocalizedString::class],
-            'languages' => [static::TYPE => 'array'],
-            'distributionChannels' => [static::TYPE => 'array'],
-            'supplyChannels' => [static::TYPE => 'array'],
-            'productSelections' => [static::TYPE => 'array'],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'name' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'languages' => [static::TYPE => 'array', static::OPTIONAL => true],
+            'distributionChannels' => [static::TYPE => 'array', static::OPTIONAL => true],
+            'supplyChannels' => [static::TYPE => 'array', static::OPTIONAL => true],
+            'productSelections' => [static::TYPE => 'array', static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
         ];
     }
 

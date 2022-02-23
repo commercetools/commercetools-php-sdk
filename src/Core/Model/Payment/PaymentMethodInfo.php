@@ -23,9 +23,9 @@ class PaymentMethodInfo extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'paymentInterface' => [static::TYPE => 'string'],
-            'method' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => LocalizedString::class],
+            'paymentInterface' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'method' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'name' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
         ];
     }
 }

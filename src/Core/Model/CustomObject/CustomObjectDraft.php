@@ -25,7 +25,7 @@ class CustomObjectDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'version' => [static::TYPE => 'int'],
+            'version' => [static::TYPE => 'int', static::OPTIONAL => true],
             'container' => [static::TYPE => 'string'],
             'key' => [static::TYPE => 'string'],
             'value' => [],

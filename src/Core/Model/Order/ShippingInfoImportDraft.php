@@ -47,12 +47,12 @@ class ShippingInfoImportDraft extends JsonObject
             'shippingMethodName' => [static::TYPE => 'string'],
             'price' => [static::TYPE => Money::class],
             'shippingRate' => [static::TYPE => ShippingRate::class],
-            'taxRate' => [static::TYPE => TaxRate::class],
-            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
-            'shippingMethod' => [static::TYPE => ShippingMethodReference::class],
-            'deliveries' => [static::TYPE => DeliveryCollection::class],
-            'discountedPrice' => [static::TYPE => DiscountedLineItemPrice::class],
-            'shippingMethodState' => [static::TYPE => 'string'],
+            'taxRate' => [static::TYPE => TaxRate::class, static::OPTIONAL => true],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class, static::OPTIONAL => true],
+            'shippingMethod' => [static::TYPE => ShippingMethodReference::class, static::OPTIONAL => true],
+            'deliveries' => [static::TYPE => DeliveryCollection::class, static::OPTIONAL => true],
+            'discountedPrice' => [static::TYPE => DiscountedLineItemPrice::class, static::OPTIONAL => true],
+            'shippingMethodState' => [static::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 

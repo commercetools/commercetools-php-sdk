@@ -62,13 +62,13 @@ class Subscription extends Resource
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'destination' => [static::TYPE => Destination::class],
             'messages' => [static::TYPE => MessageSubscriptionCollection::class],
             'changes' => [static::TYPE => ChangeSubscriptionCollection::class],
             'status' => [static::TYPE => 'string'],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

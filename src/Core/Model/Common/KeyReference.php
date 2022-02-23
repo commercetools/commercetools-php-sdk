@@ -41,6 +41,15 @@ class KeyReference extends ResourceIdentifier
 {
     const TYPE_CLASS = JsonObject::class;
 
+    public function fieldDefinitions()
+    {
+        return [
+            static::TYPE_ID => [self::TYPE => 'string'],
+            static::ID => [self::TYPE => 'string', static::OPTIONAL => true],
+            static::KEY => [self::TYPE => 'string']
+        ];
+    }
+
     /**
      * @param array $data
      * @param Context|callable $context

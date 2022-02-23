@@ -73,29 +73,31 @@ class DiscountCode extends Resource
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
+            'name' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'code' => [static::TYPE => 'string'],
             'cartDiscounts' => [
                 static::TYPE => CartDiscountReferenceCollection::class
             ],
-            'cartPredicate' => [],
+            'cartPredicate' => [static::OPTIONAL => true],
             'isActive' => [static::TYPE => 'bool'],
             'references' => [static::TYPE => ReferenceCollection::class],
-            'maxApplications' => [static::TYPE => 'int'],
-            'maxApplicationsPerCustomer' => [static::TYPE => 'int'],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'maxApplications' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'maxApplicationsPerCustomer' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
             'groups' => [static::TYPE => 'array'],
             'validFrom' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'validUntil' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

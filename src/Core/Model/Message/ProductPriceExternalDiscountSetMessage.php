@@ -57,10 +57,10 @@ class ProductPriceExternalDiscountSetMessage extends Message
     {
         $definitions = parent::fieldDefinitions();
         $definitions['variantId'] = [static::TYPE => 'int'];
-        $definitions['variantKey'] = [static::TYPE => 'string'];
-        $definitions['sku'] = [static::TYPE => 'string'];
+        $definitions['variantKey'] = [static::TYPE => 'string', static::OPTIONAL => true];
+        $definitions['sku'] = [static::TYPE => 'string', static::OPTIONAL => true];
         $definitions['priceId'] = [static::TYPE => 'string'];
-        $definitions['discounted'] = [static::TYPE => DiscountedPrice::class];
+        $definitions['discounted'] = [static::TYPE => DiscountedPrice::class, static::OPTIONAL => true];
         $definitions['staged'] = [static::TYPE => 'bool'];
 
         return $definitions;

@@ -36,10 +36,10 @@ class Parcel extends JsonObject
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'measurements' => [static::TYPE => ParcelMeasurements::class],
-            'trackingData' => [static::TYPE => TrackingData::class],
-            'items' => [static::TYPE => DeliveryItemCollection::class],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'measurements' => [static::TYPE => ParcelMeasurements::class, static::OPTIONAL => true],
+            'trackingData' => [static::TYPE => TrackingData::class, static::OPTIONAL => true],
+            'items' => [static::TYPE => DeliveryItemCollection::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
         ];
     }
 }

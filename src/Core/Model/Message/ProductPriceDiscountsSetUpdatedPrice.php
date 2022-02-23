@@ -29,10 +29,10 @@ class ProductPriceDiscountsSetUpdatedPrice extends JsonObject
     {
         return [
             'variantId' => [static::TYPE => 'int'],
-            'variantKey' => [static::TYPE => 'string'],
-            'sku' => [static::TYPE => 'string'],
+            'variantKey' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'sku' => [static::TYPE => 'string', static::OPTIONAL => true],
             'priceId' => [static::TYPE => 'string'],
-            'discounted' => [static::TYPE => DiscountedPrice::class],
+            'discounted' => [static::TYPE => DiscountedPrice::class, static::OPTIONAL => true],
             'staged' => [static::TYPE => 'bool'],
         ];
     }

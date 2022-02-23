@@ -57,20 +57,20 @@ class ProductDraft extends JsonObject
         return [
             'name' => [self::TYPE => LocalizedString::class],
             'slug' => [self::TYPE => LocalizedString::class],
-            'description' => [self::TYPE => LocalizedString::class],
+            'description' => [self::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'productType' => [self::TYPE => ProductTypeReference::class],
-            'categories' => [self::TYPE => CategoryReferenceCollection::class],
-            'masterVariant' => [self::TYPE => ProductVariantDraft::class],
-            'variants' => [self::TYPE => ProductVariantDraftCollection::class],
-            'metaTitle' => [self::TYPE => LocalizedString::class],
-            'metaDescription' => [self::TYPE => LocalizedString::class],
-            'metaKeywords' => [self::TYPE => LocalizedString::class],
-            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
-            'searchKeywords' => [static::TYPE => LocalizedSearchKeywords::class],
-            'state' => [static::TYPE => StateReference::class],
-            'publish' => [static::TYPE => 'bool'],
-            'key' => [static::TYPE => 'string'],
-            'categoryOrderHints' => [static::TYPE => 'array']
+            'categories' => [self::TYPE => CategoryReferenceCollection::class, static::OPTIONAL => true],
+            'masterVariant' => [self::TYPE => ProductVariantDraft::class, static::OPTIONAL => true],
+            'variants' => [self::TYPE => ProductVariantDraftCollection::class, static::OPTIONAL => true],
+            'metaTitle' => [self::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'metaDescription' => [self::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'metaKeywords' => [self::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class, static::OPTIONAL => true],
+            'searchKeywords' => [static::TYPE => LocalizedSearchKeywords::class, static::OPTIONAL => true],
+            'state' => [static::TYPE => StateReference::class, static::OPTIONAL => true],
+            'publish' => [static::TYPE => 'bool', static::OPTIONAL => true],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'categoryOrderHints' => [static::TYPE => 'array', static::OPTIONAL => true]
         ];
     }
 

@@ -48,10 +48,10 @@ class ReviewRatingSetMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['oldRating'] = [static::TYPE => 'float'];
-        $definitions['newRating'] = [static::TYPE => 'float'];
+        $definitions['oldRating'] = [static::TYPE => 'float', static::OPTIONAL => true];
+        $definitions['newRating'] = [static::TYPE => 'float', static::OPTIONAL => true];
         $definitions['includedInStatistics'] = [static::TYPE => 'bool'];
-        $definitions['target'] = [static::TYPE => Reference::class];
+        $definitions['target'] = [static::TYPE => Reference::class, static::OPTIONAL => true];
 
         return $definitions;
     }

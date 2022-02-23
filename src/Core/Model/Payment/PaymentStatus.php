@@ -23,9 +23,9 @@ class PaymentStatus extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'interfaceCode' => [static::TYPE => 'string'],
-            'interfaceText' => [static::TYPE => 'string'],
-            'state' => [static::TYPE => StateReference::class],
+            'interfaceCode' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'interfaceText' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'state' => [static::TYPE => StateReference::class, static::OPTIONAL => true],
         ];
     }
 }

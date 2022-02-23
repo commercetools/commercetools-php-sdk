@@ -22,7 +22,7 @@ class CustomerSigninResult extends JsonObject
     {
         return [
             'customer' => [static::TYPE => Customer::class],
-            'cart' => [static::TYPE => Cart::class]
+            'cart' => [static::TYPE => Cart::class, static::OPTIONAL => true]
         ];
     }
 }

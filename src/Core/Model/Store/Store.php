@@ -50,7 +50,7 @@ class Store extends Resource
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
             'key' => [static::TYPE => 'string'],
-            'name' => [static::TYPE => LocalizedString::class],
+            'name' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'createdAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
@@ -59,11 +59,11 @@ class Store extends Resource
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'languages' => [static::TYPE => 'array'],
+            'languages' => [static::TYPE => 'array', static::OPTIONAL => true],
             'distributionChannels' => [static::TYPE => 'array'],
-            'supplyChannels' => [static::TYPE => 'array'],
-            'productSelections' => [static::TYPE => 'array'],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'supplyChannels' => [static::TYPE => 'array', static::OPTIONAL => true],
+            'productSelections' => [static::TYPE => 'array', static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
         ];
     }
 }

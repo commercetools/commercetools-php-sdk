@@ -62,13 +62,13 @@ class Product extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'productType' => [static::TYPE => ProductTypeReference::class],
-            'taxCategory' => [self::TYPE => TaxCategoryReference::class],
+            'taxCategory' => [self::TYPE => TaxCategoryReference::class, static::OPTIONAL => true],
             'masterData' => [self::TYPE => ProductCatalogData::class],
-            'reviewRatingStatistics' => [static::TYPE => ReviewRatingStatistics::class],
-            'state' => [static::TYPE => StateReference::class],
-            'key' => [static::TYPE => 'string'],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'reviewRatingStatistics' => [static::TYPE => ReviewRatingStatistics::class, static::OPTIONAL => true],
+            'state' => [static::TYPE => StateReference::class, static::OPTIONAL => true],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

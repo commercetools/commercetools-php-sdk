@@ -53,11 +53,11 @@ class TaxCategory extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [self::TYPE => 'string'],
-            'description' => [self::TYPE => 'string'],
+            'description' => [self::TYPE => 'string', static::OPTIONAL => true],
             'rates' => [self::TYPE => TaxRateCollection::class],
-            'key' => [self::TYPE => 'string'],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'key' => [self::TYPE => 'string', static::OPTIONAL => true],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

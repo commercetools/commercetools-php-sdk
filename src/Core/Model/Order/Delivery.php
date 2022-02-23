@@ -39,8 +39,8 @@ class Delivery extends JsonObject
             ],
             'items' => [static::TYPE => DeliveryItemCollection::class],
             'parcels' => [static::TYPE => ParcelCollection::class],
-            'address' => [static::TYPE => Address::class],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'address' => [static::TYPE => Address::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
         ];
     }
 }

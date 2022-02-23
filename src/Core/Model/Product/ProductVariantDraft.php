@@ -35,12 +35,12 @@ class ProductVariantDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'sku' => [self::TYPE => 'string'],
-            'prices' => [self::TYPE => PriceDraftCollection::class],
-            'images' => [static::TYPE => ImageCollection::class],
-            'attributes' => [self::TYPE => AttributeCollection::class],
-            'assets' => [static::TYPE => AssetDraftCollection::class],
-            'key' => [static::TYPE => 'string'],
+            'sku' => [self::TYPE => 'string', static::OPTIONAL => true],
+            'prices' => [self::TYPE => PriceDraftCollection::class, static::OPTIONAL => true],
+            'images' => [static::TYPE => ImageCollection::class, static::OPTIONAL => true],
+            'attributes' => [self::TYPE => AttributeCollection::class, static::OPTIONAL => true],
+            'assets' => [static::TYPE => AssetDraftCollection::class, static::OPTIONAL => true],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 

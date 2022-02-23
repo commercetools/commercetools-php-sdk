@@ -26,9 +26,9 @@ class TaxCategoryDraft extends JsonObject
     {
         return [
             'name' => [static::TYPE => 'string'],
-            'description' => [static::TYPE => 'string'],
-            'rates' => [static::TYPE => TaxRateCollection::class],
-            'key' => [self::TYPE => 'string'],
+            'description' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'rates' => [static::TYPE => TaxRateCollection::class, static::OPTIONAL => true],
+            'key' => [self::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 

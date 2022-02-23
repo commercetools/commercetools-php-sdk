@@ -79,19 +79,19 @@ class LineItem extends JsonObject
         return [
             'id' => [static::TYPE => 'string'],
             'productId' => [static::TYPE => 'string'],
-            'productKey' => [static::TYPE => 'string'],
+            'productKey' => [static::TYPE => 'string', static::OPTIONAL => true],
             'name' => [static::TYPE => LocalizedString::class],
-            'productSlug' => [static::TYPE => LocalizedString::class],
+            'productSlug' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'variant' => [static::TYPE => ProductVariant::class],
             'price' => [static::TYPE => Price::class],
-            'taxedPrice' => [static::TYPE => TaxedItemPrice::class],
+            'taxedPrice' => [static::TYPE => TaxedItemPrice::class, static::OPTIONAL => true],
             'quantity' => [static::TYPE => 'int'],
-            'addedAt' => [static::TYPE => DateTime::class],
+            'addedAt' => [static::TYPE => DateTime::class, static::OPTIONAL => true],
             'state' => [static::TYPE => ItemStateCollection::class],
-            'taxRate' => [static::TYPE => TaxRate::class],
-            'supplyChannel' => [static::TYPE => ChannelReference::class],
-            'distributionChannel' => [static::TYPE => ChannelReference::class],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'taxRate' => [static::TYPE => TaxRate::class, static::OPTIONAL => true],
+            'supplyChannel' => [static::TYPE => ChannelReference::class, static::OPTIONAL => true],
+            'distributionChannel' => [static::TYPE => ChannelReference::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
             'totalPrice' => [static::TYPE => Money::class],
             'discountedPricePerQuantity' => [
                 static::TYPE => DiscountedPricePerQuantityCollection::class
@@ -99,8 +99,8 @@ class LineItem extends JsonObject
             'priceMode' => [static::TYPE => 'string'],
             'lineItemMode' => [static::TYPE => 'string'],
             'productType' => [static::TYPE => ProductTypeReference::class],
-            'shippingDetails' => [static::TYPE => ItemShippingDetails::class],
-            'lastModifiedAt' => [static::TYPE => DateTime::class],
+            'shippingDetails' => [static::TYPE => ItemShippingDetails::class, static::OPTIONAL => true],
+            'lastModifiedAt' => [static::TYPE => DateTime::class, static::OPTIONAL => true],
         ];
     }
 

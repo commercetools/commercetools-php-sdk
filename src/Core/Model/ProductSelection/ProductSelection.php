@@ -41,7 +41,7 @@ class ProductSelection extends Resource
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'createdAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
@@ -50,8 +50,8 @@ class ProductSelection extends Resource
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
-            'createdBy' => [static::TYPE => CreatedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
             'name' => [static::TYPE => LocalizedString::class],
             'productCount' => [static::TYPE => 'int'],
             'type' => [static::TYPE => ProductSelectionType::class]

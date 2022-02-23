@@ -22,12 +22,12 @@ class SearchIndexingConfigurationValues extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'status' => [static::TYPE => 'string'],
+            'status' => [static::TYPE => 'string', static::OPTIONAL => true],
             'lastModifiedAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

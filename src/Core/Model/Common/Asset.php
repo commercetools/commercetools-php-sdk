@@ -31,12 +31,12 @@ class Asset extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'string'],
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', self::OPTIONAL => true],
             'sources' => [static::TYPE => AssetSourceCollection::class],
             'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
-            'tags' => [static::TYPE => 'array'],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'description' => [static::TYPE => LocalizedString::class, self::OPTIONAL => true],
+            'tags' => [static::TYPE => 'array', self::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, self::OPTIONAL => true],
         ];
     }
 }

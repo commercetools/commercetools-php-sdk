@@ -15,4 +15,11 @@ namespace Commercetools\Core\Model\Message;
  */
 class MessagesConfiguration extends MessagesConfigurationDraft
 {
+    public function fieldDefinitions()
+    {
+        return [
+            'enabled' => [static::TYPE => 'bool'],
+            'deleteDaysAfterCreation' => [static::TYPE => 'int', static::OPTIONAL => true],
+        ];
+    }
 }

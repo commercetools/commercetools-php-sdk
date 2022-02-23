@@ -52,7 +52,7 @@ class ParcelTrackingDataUpdatedMessage extends Message
         $definitions = parent::fieldDefinitions();
         $definitions['deliveryId'] = [static::TYPE => 'string'];
         $definitions['parcelId'] = [static::TYPE => 'string'];
-        $definitions['trackingData'] = [static::TYPE => TrackingData::class];
+        $definitions['trackingData'] = [static::TYPE => TrackingData::class, static::OPTIONAL => true];
 
         return $definitions;
     }

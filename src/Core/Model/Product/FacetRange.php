@@ -44,7 +44,7 @@ class FacetRange extends JsonObject
             "min" => [static::TYPE => 'int'],
             "max" => [static::TYPE => 'int'],
             "mean" => [static::TYPE => 'int'],
-            'productCount' => [static::TYPE => 'int'],
+            'productCount' => [static::TYPE => 'int', static::OPTIONAL => true],
         ];
     }
 

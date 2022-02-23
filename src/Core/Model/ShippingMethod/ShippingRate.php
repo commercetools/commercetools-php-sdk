@@ -24,7 +24,8 @@ class ShippingRate extends ShippingRateDraft
     public function fieldDefinitions()
     {
         $fields = parent::fieldDefinitions();
-        $fields['isMatching'] = [static::TYPE => 'bool'];
+        $fields['tiers'] = [static::TYPE => ShippingRatePriceTierCollection::class];
+        $fields['isMatching'] = [static::TYPE => 'bool', static::OPTIONAL => true];
         return $fields;
     }
 }

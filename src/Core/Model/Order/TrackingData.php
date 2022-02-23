@@ -26,11 +26,11 @@ class TrackingData extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'trackingId' => [static::TYPE => 'string'],
-            'carrier' => [static::TYPE => 'string'],
-            'provider' => [static::TYPE => 'string'],
-            'providerTransaction' => [static::TYPE => 'string'],
-            'isReturn' => [static::TYPE => 'bool'],
+            'trackingId' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'carrier' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'provider' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'providerTransaction' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'isReturn' => [static::TYPE => 'bool', static::OPTIONAL => true],
         ];
     }
 }

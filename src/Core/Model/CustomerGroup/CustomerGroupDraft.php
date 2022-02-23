@@ -24,9 +24,9 @@ class CustomerGroupDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'groupName' => [static::TYPE => 'string'],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
         ];
     }
 

@@ -58,14 +58,14 @@ class OrderEdit extends Resource
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'resource' => [static::TYPE => OrderReference::class],
             'stagedActions' => [static::TYPE => StagedOrderUpdateActionCollection::class],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
             'result' => [static::TYPE => OrderEditResult::class],
-            'comment' => [static::TYPE => 'string'],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'comment' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

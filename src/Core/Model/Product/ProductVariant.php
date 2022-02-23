@@ -47,17 +47,17 @@ class ProductVariant extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'int'],
-            'sku' => [static::TYPE => 'string'],
-            'prices' => [static::TYPE => PriceCollection::class],
-            'price' => [static::TYPE => Price::class],
-            'attributes' => [static::TYPE => AttributeCollection::class],
-            'images' => [static::TYPE => ImageCollection::class],
-            'availability' => [static::TYPE => ProductVariantAvailability::class],
-            'isMatchingVariant' => [static::TYPE => 'bool'],
-            'scopedPrice' => [static::TYPE => ScopedPrice::class],
-            'scopedPriceDiscounted' => [static::TYPE => 'bool'],
-            'assets' => [static::TYPE => AssetCollection::class],
-            'key' => [static::TYPE => 'string'],
+            'sku' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'prices' => [static::TYPE => PriceCollection::class, static::OPTIONAL => true],
+            'price' => [static::TYPE => Price::class, static::OPTIONAL => true],
+            'attributes' => [static::TYPE => AttributeCollection::class, static::OPTIONAL => true],
+            'images' => [static::TYPE => ImageCollection::class, static::OPTIONAL => true],
+            'availability' => [static::TYPE => ProductVariantAvailability::class, static::OPTIONAL => true],
+            'isMatchingVariant' => [static::TYPE => 'bool', static::OPTIONAL => true],
+            'scopedPrice' => [static::TYPE => ScopedPrice::class, static::OPTIONAL => true],
+            'scopedPriceDiscounted' => [static::TYPE => 'bool', static::OPTIONAL => true],
+            'assets' => [static::TYPE => AssetCollection::class, static::OPTIONAL => true],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 }

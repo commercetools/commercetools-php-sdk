@@ -68,7 +68,7 @@ class Message extends Resource
             'resource' => [static::TYPE => Reference::class],
             'resourceVersion' => [static::TYPE => 'int'],
             'type' => [static::TYPE => 'string'],
-            'resourceUserProvidedIdentifiers' => [static::TYPE => UserProvidedIdentifiers::class],
+            'resourceUserProvidedIdentifiers' => [static::TYPE => UserProvidedIdentifiers::class, static::OPTIONAL => true],
         ];
     }
 

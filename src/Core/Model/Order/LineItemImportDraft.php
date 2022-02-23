@@ -48,17 +48,17 @@ class LineItemImportDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'productId' => [static::TYPE => 'string'],
+            'productId' => [static::TYPE => 'string', static::OPTIONAL => true],
             'name' => [static::TYPE => LocalizedString::class],
             'variant' => [static::TYPE => ProductVariantImportDraft::class],
             'price' => [static::TYPE => Price::class],
             'quantity' => [static::TYPE => 'int'],
-            'state' => [static::TYPE => ItemStateCollection::class],
-            'supplyChannel' => [static::TYPE => ChannelReference::class],
-            'distributionChannel' => [static::TYPE => ChannelReference::class],
-            'taxRate' => [static::TYPE => TaxRate::class],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
-            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
+            'state' => [static::TYPE => ItemStateCollection::class, static::OPTIONAL => true],
+            'supplyChannel' => [static::TYPE => ChannelReference::class, static::OPTIONAL => true],
+            'distributionChannel' => [static::TYPE => ChannelReference::class, static::OPTIONAL => true],
+            'taxRate' => [static::TYPE => TaxRate::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
+            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class, static::OPTIONAL => true],
         ];
     }
 

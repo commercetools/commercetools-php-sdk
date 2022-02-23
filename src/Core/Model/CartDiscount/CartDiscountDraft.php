@@ -62,24 +62,26 @@ class CartDiscountDraft extends JsonObject
     {
         return [
             static::NAME => [static::TYPE => LocalizedString::class],
-            static::DESCRIPTION => [static::TYPE => LocalizedString::class],
+            static::DESCRIPTION => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             static::VALUE => [static::TYPE => CartDiscountValue::class],
             static::CART_PREDICATE => [static::TYPE => 'string'],
-            static::TARGET => [static::TYPE => CartDiscountTarget::class],
+            static::TARGET => [static::TYPE => CartDiscountTarget::class, static::OPTIONAL => true],
             static::SORT_ORDER => [static::TYPE => 'string'],
-            static::IS_ACTIVE => [static::TYPE => 'bool'],
+            static::IS_ACTIVE => [static::TYPE => 'bool', static::OPTIONAL => true],
             static::VALID_FROM => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             static::VALID_UNTIL  => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            static::REQUIRES_DISCOUNT_CODE => [static::TYPE => 'bool'],
-            static::STACKING_MODE => [static::TYPE => 'string'],
-            static::CUSTOM => [static::TYPE => CustomFieldObjectDraft::class],
-            static::KEY => [static::TYPE => 'string'],
+            static::REQUIRES_DISCOUNT_CODE => [static::TYPE => 'bool', static::OPTIONAL => true],
+            static::STACKING_MODE => [static::TYPE => 'string', static::OPTIONAL => true],
+            static::CUSTOM => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
+            static::KEY => [static::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 

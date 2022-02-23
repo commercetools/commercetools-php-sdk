@@ -66,8 +66,8 @@ class ProductDiscount extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => LocalizedString::class],
-            'key' => [static::TYPE => 'string'],
-            'description' => [static::TYPE => LocalizedString::class],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'value' => [static::TYPE => ProductDiscountValue::class],
             'predicate' => [],
             'sortOrder' => [static::TYPE => 'string'],
@@ -75,14 +75,16 @@ class ProductDiscount extends Resource
             'references' => [static::TYPE => ReferenceCollection::class],
             'validFrom' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'validUntil' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

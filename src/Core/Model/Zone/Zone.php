@@ -37,7 +37,7 @@ class Zone extends Resource
         return [
             'id' => [static::TYPE => 'string'],
             'version' => [static::TYPE => 'int'],
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'createdAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
@@ -47,7 +47,7 @@ class Zone extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => 'string'],
-            'description' => [static::TYPE => 'string'],
+            'description' => [static::TYPE => 'string', static::OPTIONAL => true],
             'locations' => [static::TYPE => LocationCollection::class],
         ];
     }

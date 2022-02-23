@@ -27,9 +27,11 @@ class Reference extends KeyReference
 
     public function fieldDefinitions()
     {
-        $fieldDefinitions = parent::fieldDefinitions();
-        $fieldDefinitions[static::OBJ] = [static::TYPE => static::TYPE_CLASS];
-
-        return $fieldDefinitions;
+        return [
+            static::TYPE_ID => [self::TYPE => 'string'],
+            static::ID => [self::TYPE => 'string'],
+            static::KEY => [self::TYPE => 'string', static::OPTIONAL => true],
+            static::OBJ => [static::TYPE => static::TYPE_CLASS, static::OPTIONAL => true]
+        ];
     }
 }

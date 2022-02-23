@@ -35,13 +35,14 @@ class InventoryDraft extends JsonObject
         return [
             'sku' => [static::TYPE => 'string'],
             'quantityOnStock' => [static::TYPE => 'int'],
-            'restockableInDays' => [static::TYPE => 'int'],
+            'restockableInDays' => [static::TYPE => 'int', static::OPTIONAL => true],
             'expectedDelivery' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'supplyChannel' => [static::TYPE => ChannelReference::class],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'supplyChannel' => [static::TYPE => ChannelReference::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
         ];
     }
 

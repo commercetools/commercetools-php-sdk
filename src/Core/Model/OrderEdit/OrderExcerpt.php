@@ -25,7 +25,7 @@ class OrderExcerpt extends JsonObject
     {
         return [
             'totalPrice' => [static::TYPE => Money::class],
-            'taxedPrice' => [static::TYPE => TaxedPrice::class],
+            'taxedPrice' => [static::TYPE => TaxedPrice::class, static::OPTIONAL => true],
             'version' => [static::TYPE => 'int']
         ];
     }

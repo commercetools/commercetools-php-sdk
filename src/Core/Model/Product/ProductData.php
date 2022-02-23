@@ -43,13 +43,13 @@ class ProductData extends JsonObject
     {
         return [
             'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'slug' => [static::TYPE => LocalizedString::class],
             'categories' => [static::TYPE => CategoryReferenceCollection::class],
-            'categoryOrderHints' => [static::TYPE => 'array'],
-            'metaTitle' => [static::TYPE => LocalizedString::class],
-            'metaDescription' => [static::TYPE => LocalizedString::class],
-            'metaKeywords' => [static::TYPE => LocalizedString::class],
+            'categoryOrderHints' => [static::TYPE => 'array', static::OPTIONAL => true],
+            'metaTitle' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'metaDescription' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'metaKeywords' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'masterVariant' => [static::TYPE => ProductVariant::class],
             'variants' => [static::TYPE => ProductVariantCollection::class],
             'searchKeywords' => [static::TYPE => LocalizedSearchKeywords::class],

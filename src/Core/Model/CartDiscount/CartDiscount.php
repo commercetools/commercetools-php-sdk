@@ -78,27 +78,29 @@ class CartDiscount extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => LocalizedString::class],
-            'key' => [static::TYPE => 'string'],
-            'description' => [static::TYPE => LocalizedString::class],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'value' => [static::TYPE => CartDiscountValue::class],
             'cartPredicate' => [static::TYPE => 'string'],
-            'target' => [static::TYPE => CartDiscountTarget::class],
+            'target' => [static::TYPE => CartDiscountTarget::class, static::OPTIONAL => true],
             'sortOrder' => [static::TYPE => 'string'],
             'isActive' => [static::TYPE => 'bool'],
             'validFrom' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'validUntil' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'requiresDiscountCode' => [static::TYPE => 'bool'],
             'references' => [static::TYPE => ReferenceCollection::class],
             'stackingMode' => [static::TYPE => 'string'],
-            'custom' => [static::TYPE => CustomFieldObject::class],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

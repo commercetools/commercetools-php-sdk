@@ -28,10 +28,10 @@ class SubscriptionDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'destination' => [static::TYPE => Destination::class],
-            'messages' => [static::TYPE => MessageSubscriptionCollection::class],
-            'changes' => [static::TYPE => ChangeSubscriptionCollection::class],
+            'messages' => [static::TYPE => MessageSubscriptionCollection::class, static::OPTIONAL => true],
+            'changes' => [static::TYPE => ChangeSubscriptionCollection::class, static::OPTIONAL => true],
         ];
     }
 
