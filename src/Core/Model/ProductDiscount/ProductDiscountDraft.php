@@ -39,18 +39,20 @@ class ProductDiscountDraft extends JsonObject
     {
         return [
             'name' => [static::TYPE => LocalizedString::class],
-            'key' => [static::TYPE => 'string'],
-            'description' => [static::TYPE => LocalizedString::class],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'value' => [static::TYPE => ProductDiscountValue::class],
             'predicate' => [static::TYPE => 'string'],
             'sortOrder' => [static::TYPE => 'string'],
             'isActive' => [static::TYPE => 'bool'],
             'validFrom' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'validUntil' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
         ];

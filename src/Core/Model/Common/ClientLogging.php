@@ -23,10 +23,10 @@ class ClientLogging extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'clientId' => [static::TYPE => 'string'],
-            'externalUserId' => [static::TYPE => 'string'],
-            'customer' => [static::TYPE => CustomerReference::class],
-            'anonymousId' => [static::TYPE => 'string'],
+            'clientId' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'externalUserId' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'customer' => [static::TYPE => CustomerReference::class, static::OPTIONAL => true],
+            'anonymousId' => [static::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 }

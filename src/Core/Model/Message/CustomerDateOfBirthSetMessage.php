@@ -43,7 +43,7 @@ class CustomerDateOfBirthSetMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['dateOfBirth'] = [static::TYPE => DateTime::class, static::DECORATOR => DateDecorator::class];
+        $definitions['dateOfBirth'] = [static::TYPE => DateTime::class, static::DECORATOR => DateDecorator::class, static::OPTIONAL => true];
 
         return $definitions;
     }

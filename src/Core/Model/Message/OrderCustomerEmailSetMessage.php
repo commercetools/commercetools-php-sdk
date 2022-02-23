@@ -43,7 +43,7 @@ class OrderCustomerEmailSetMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['email'] = [static::TYPE => 'string'];
+        $definitions['email'] = [static::TYPE => 'string', static::OPTIONAL => true];
 
         return $definitions;
     }

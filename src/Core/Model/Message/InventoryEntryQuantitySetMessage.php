@@ -53,7 +53,7 @@ class InventoryEntryQuantitySetMessage extends Message
         $definitions['newQuantityOnStock'] = [static::TYPE => 'int'];
         $definitions['oldAvailableQuantity'] = [static::TYPE => 'int'];
         $definitions['newAvailableQuantity'] = [static::TYPE => 'int'];
-        $definitions['supplyChannel'] = [static::TYPE =>  ChannelReference::class];
+        $definitions['supplyChannel'] = [static::TYPE =>  ChannelReference::class, static::OPTIONAL => true];
 
         return $definitions;
     }

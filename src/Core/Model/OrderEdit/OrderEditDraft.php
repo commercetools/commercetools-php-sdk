@@ -32,12 +32,12 @@ class OrderEditDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'resource' => [static::TYPE => OrderReference::class],
-            'stagedActions' => [static::TYPE => StagedOrderUpdateActionCollection::class],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
-            'comment' => [static::TYPE => 'string'],
-            'dryRun' => [static::TYPE => 'bool'],
+            'stagedActions' => [static::TYPE => StagedOrderUpdateActionCollection::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
+            'comment' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'dryRun' => [static::TYPE => 'bool', static::OPTIONAL => true],
         ];
     }
 

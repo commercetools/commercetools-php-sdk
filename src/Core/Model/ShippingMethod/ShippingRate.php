@@ -16,15 +16,16 @@ use Commercetools\Core\Model\Common\Money;
  * @method ShippingRate setFreeAbove(Money $freeAbove = null)
  * @method bool getIsMatching()
  * @method ShippingRate setIsMatching(bool $isMatching = null)
- * @method ShippingRatePriceTierCollection getTiers()
- * @method ShippingRate setTiers(ShippingRatePriceTierCollection $tiers = null)
+ * @method Money getTiers()
+ * @method ShippingRate setTiers(Money $tiers = null)
  */
 class ShippingRate extends ShippingRateDraft
 {
     public function fieldDefinitions()
     {
         $fields = parent::fieldDefinitions();
-        $fields['isMatching'] = [static::TYPE => 'bool'];
+        $fields['tiers'] = [static::TYPE => Money::class];
+        $fields['isMatching'] = [static::TYPE => 'bool', static::OPTIONAL => true];
         return $fields;
     }
 }

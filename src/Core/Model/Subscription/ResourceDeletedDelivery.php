@@ -36,7 +36,7 @@ class ResourceDeletedDelivery extends Delivery
         $definition = parent::fieldDefinitions();
         $definition['version'] = [static::TYPE => 'int'];
         $definition['modifiedAt'] = [static::TYPE => DateTime::class, static::DECORATOR => DateTimeDecorator::class ];
-        $definition['dataErasure'] = [static::TYPE => 'bool'];
+        $definition['dataErasure'] = [static::TYPE => 'bool', static::OPTIONAL => true];
 
         return $definition;
     }

@@ -24,10 +24,10 @@ class ProductVariantAvailability extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'isOnStock' => [static::TYPE => 'bool'],
-            'restockableInDays' => [static::TYPE => 'int'],
-            'availableQuantity' => [static::TYPE => 'int'],
-            'channels' => [static::TYPE => ProductVariantAvailabilityCollection::class],
+            'isOnStock' => [static::TYPE => 'bool', static::OPTIONAL => true],
+            'restockableInDays' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'availableQuantity' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'channels' => [static::TYPE => ProductVariantAvailabilityCollection::class, static::OPTIONAL => true],
         ];
     }
 }

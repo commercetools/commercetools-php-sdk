@@ -43,25 +43,27 @@ class PaymentDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'key' => [static::TYPE => 'string'],
-            'customer' => [static::TYPE => CustomerReference::class],
-            'anonymousId' => [static::TYPE => 'string'],
-            'externalId' => [static::TYPE => 'string'],
-            'interfaceId' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'customer' => [static::TYPE => CustomerReference::class, static::OPTIONAL => true],
+            'anonymousId' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'externalId' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'interfaceId' => [static::TYPE => 'string', static::OPTIONAL => true],
             'amountPlanned' => [static::TYPE => Money::class],
-            'amountAuthorized' => [static::TYPE => Money::class],
+            'amountAuthorized' => [static::TYPE => Money::class, static::OPTIONAL => true],
             'authorizedUntil' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'amountPaid' => [static::TYPE => Money::class],
-            'amountRefunded' => [static::TYPE => Money::class],
-            'paymentMethodInfo' => [static::TYPE => PaymentMethodInfo::class],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
-            'paymentStatus' => [static::TYPE => PaymentStatus::class],
-            'transactions' => [static::TYPE => TransactionCollection::class],
+            'amountPaid' => [static::TYPE => Money::class, static::OPTIONAL => true],
+            'amountRefunded' => [static::TYPE => Money::class, static::OPTIONAL => true],
+            'paymentMethodInfo' => [static::TYPE => PaymentMethodInfo::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
+            'paymentStatus' => [static::TYPE => PaymentStatus::class, static::OPTIONAL => true],
+            'transactions' => [static::TYPE => TransactionCollection::class, static::OPTIONAL => true],
             'interfaceInteractions' => [
-                static::TYPE => CustomFieldObjectDraftCollection::class
+                static::TYPE => CustomFieldObjectDraftCollection::class,
+                static::OPTIONAL => true
             ],
         ];
     }

@@ -16,7 +16,7 @@ class SearchIndexingConfiguration extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'products' => [static::TYPE => SearchIndexingConfigurationValues::class]
+            'products' => [static::TYPE => SearchIndexingConfigurationValues::class, static::OPTIONAL => true]
         ];
     }
 }

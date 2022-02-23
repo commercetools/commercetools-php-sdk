@@ -40,7 +40,7 @@ class AttributeDefinition extends JsonObject
             'attributeConstraint' => [static::TYPE => 'string'],
             'inputHint' => [static::TYPE => 'string'],
             'isSearchable' => [static::TYPE => 'bool'],
-            'inputTip' => [static::TYPE => LocalizedString::class],
+            'inputTip' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
         ];
     }
 }

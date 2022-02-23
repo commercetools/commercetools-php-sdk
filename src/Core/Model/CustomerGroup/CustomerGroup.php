@@ -51,10 +51,10 @@ class CustomerGroup extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => 'string'],
-            'key' => [static::TYPE => 'string'],
-            'custom' => [static::TYPE => CustomFieldObject::class],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

@@ -23,7 +23,7 @@ class FacetTerm extends JsonObject
         return [
             'term' => [static::TYPE => 'string'],
             'count' => [static::TYPE => 'int'],
-            'productCount' => [static::TYPE => 'int'],
+            'productCount' => [static::TYPE => 'int', static::OPTIONAL => true],
         ];
     }
 }

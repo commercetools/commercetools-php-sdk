@@ -42,15 +42,16 @@ class Transaction extends JsonObject
     {
         return [
             'id' => [static::TYPE => 'string'],
-            'state' => [static::TYPE => 'string'],
+            'state' => [static::TYPE => 'string', static::OPTIONAL => true],
             'timestamp' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'type' => [static::TYPE => 'string'],
             'amount' => [static::TYPE => Money::class],
-            'interactionId' => [static::TYPE => 'string'],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'interactionId' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
         ];
     }
 }

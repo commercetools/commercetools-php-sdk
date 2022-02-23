@@ -46,18 +46,18 @@ class LineItemDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'productId' => [static::TYPE => 'string'],
-            'variantId' => [static::TYPE => 'int'],
-            'quantity' => [static::TYPE => 'int'],
-            'supplyChannel' => [static::TYPE => ChannelReference::class],
-            'distributionChannel' => [static::TYPE => ChannelReference::class],
-            'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
-            'externalPrice' => [static::TYPE => Money::class],
-            'externalTotalPrice' => [static::TYPE => ExternalLineItemTotalPrice::class],
-            'custom' => [static::TYPE => CustomFieldObject::class],
-            'sku' => [static::TYPE => 'string'],
-            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
-            'addedAt' => [static::TYPE => DateTime::class],
+            'productId' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'variantId' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'quantity' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'supplyChannel' => [static::TYPE => ChannelReference::class, static::OPTIONAL => true],
+            'distributionChannel' => [static::TYPE => ChannelReference::class, static::OPTIONAL => true],
+            'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class, static::OPTIONAL => true],
+            'externalPrice' => [static::TYPE => Money::class, static::OPTIONAL => true],
+            'externalTotalPrice' => [static::TYPE => ExternalLineItemTotalPrice::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
+            'sku' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class, static::OPTIONAL => true],
+            'addedAt' => [static::TYPE => DateTime::class, static::OPTIONAL => true],
         ];
     }
 

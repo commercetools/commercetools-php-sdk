@@ -50,10 +50,10 @@ class ReturnItem extends JsonObject
             'type' => [static::TYPE => 'string'],
             'lineItemId' => [static::TYPE => 'string'],
             'customLineItemId' => [static::TYPE => 'string'],
-            'comment' => [static::TYPE => 'string'],
+            'comment' => [static::TYPE => 'string', static::OPTIONAL => true],
             'shipmentState' => [static::TYPE => 'string'],
             'paymentState' => [static::TYPE => 'string'],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
             'lastModifiedAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class

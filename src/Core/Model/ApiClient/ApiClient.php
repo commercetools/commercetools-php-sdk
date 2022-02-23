@@ -37,15 +37,18 @@ class ApiClient extends JsonObject
             'scope' => [static::TYPE => 'string'],
             'createdAt' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'lastUsedAt' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateDecorator::class
             ],
-            'secret' => [static::TYPE => 'string'],
+            'secret' => [static::TYPE => 'string', static::OPTIONAL => true],
             'deleteAt' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
         ];

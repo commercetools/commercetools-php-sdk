@@ -46,10 +46,10 @@ class LineItem extends JsonObject
         return [
             'id' => [static::TYPE => 'string'],
             'productId' => [static::TYPE => 'string'],
-            'variantId' => [static::TYPE => 'int'],
+            'variantId' => [static::TYPE => 'int', static::OPTIONAL => true],
             'productType' => [static::TYPE => ProductTypeReference::class],
             'quantity' => [static::TYPE => 'int'],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
             'addedAt' => [
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
@@ -57,10 +57,11 @@ class LineItem extends JsonObject
             'name' => [static::TYPE => LocalizedString::class],
             'deactivatedAt' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'productSlug' => [static::TYPE => LocalizedString::class],
-            'variant' => [static::TYPE => ProductVariant::class],
+            'productSlug' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'variant' => [static::TYPE => ProductVariant::class, static::OPTIONAL => true],
         ];
     }
 }

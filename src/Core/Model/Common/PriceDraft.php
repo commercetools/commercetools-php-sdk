@@ -48,20 +48,22 @@ class PriceDraft extends JsonObject
     {
         return [
             static::VALUE => [self::TYPE => Money::class],
-            static::COUNTRY => [self::TYPE => 'string'],
-            static::CUSTOMER_GROUP => [self::TYPE => CustomerGroupReference::class],
-            static::CHANNEL => [self::TYPE => ChannelReference::class],
+            static::COUNTRY => [self::TYPE => 'string', static::OPTIONAL => true],
+            static::CUSTOMER_GROUP => [self::TYPE => CustomerGroupReference::class, static::OPTIONAL => true],
+            static::CHANNEL => [self::TYPE => ChannelReference::class, static::OPTIONAL => true],
             static::VALID_FROM => [
                 self::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 self::DECORATOR => DateTimeDecorator::class
             ],
             static::VALID_UNTIL => [
                 self::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 self::DECORATOR => DateTimeDecorator::class
             ],
-            static::CUSTOM => [static::TYPE => CustomFieldObject::class],
-            static::TIERS => [static::TYPE => PriceTierCollection::class],
-            static::DISCOUNTED => [static::TYPE => DiscountedPrice::class],
+            static::CUSTOM => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
+            static::TIERS => [static::TYPE => PriceTierCollection::class, static::OPTIONAL => true],
+            static::DISCOUNTED => [static::TYPE => DiscountedPrice::class, static::OPTIONAL => true],
         ];
     }
 

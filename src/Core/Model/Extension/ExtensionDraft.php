@@ -24,10 +24,10 @@ class ExtensionDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'destination' => [static::TYPE => Destination::class],
             'triggers' => [static::TYPE => TriggerCollection::class],
-            'timeoutInMs' => [static::TYPE => 'int'],
+            'timeoutInMs' => [static::TYPE => 'int', static::OPTIONAL => true],
         ];
     }
 

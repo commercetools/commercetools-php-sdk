@@ -56,21 +56,22 @@ class MyCustomerDraft extends JsonObject
         return [
             'email' => [static::TYPE => 'string'],
             'password' => [static::TYPE => 'string'],
-            'firstName' => [static::TYPE => 'string'],
-            'middleName' => [static::TYPE => 'string'],
-            'lastName' => [static::TYPE => 'string'],
-            'title' => [static::TYPE => 'string'],
+            'firstName' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'middleName' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'lastName' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'title' => [static::TYPE => 'string', static::OPTIONAL => true],
             'dateOfBirth' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateDecorator::class
             ],
-            'companyName' => [static::TYPE => 'string'],
-            'vatId' => [static::TYPE => 'string'],
-            'addresses' => [static::TYPE => AddressCollection::class],
-            'defaultShippingAddress' => [static::TYPE => 'int'],
-            'defaultBillingAddress' => [static::TYPE => 'int'],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
-            'locale' => [static::TYPE => 'string'],
+            'companyName' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'vatId' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'addresses' => [static::TYPE => AddressCollection::class, static::OPTIONAL => true],
+            'defaultShippingAddress' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'defaultBillingAddress' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
+            'locale' => [static::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 

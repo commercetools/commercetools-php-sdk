@@ -21,7 +21,7 @@ class Location extends JsonObject
     {
         return [
             'country' => [static::TYPE => 'string'],
-            'state' => [static::TYPE => 'string'],
+            'state' => [static::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 }

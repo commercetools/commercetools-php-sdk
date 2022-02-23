@@ -38,6 +38,7 @@ class CustomerToken extends JsonObject
             ],
             'lastModifiedAt' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'expiresAt' => [

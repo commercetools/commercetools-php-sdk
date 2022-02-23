@@ -30,13 +30,13 @@ class TaxRate extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'id' => [self::TYPE => 'string'],
+            'id' => [self::TYPE => 'string', static::OPTIONAL => true],
             'name' => [self::TYPE => 'string'],
             'amount' => [self::TYPE => 'float'],
             'includedInPrice' => [self::TYPE => 'bool'],
             'country' => [self::TYPE => 'string'],
-            'state' => [self::TYPE => 'string'],
-            'subRates' => [static::TYPE => SubRateCollection::class]
+            'state' => [self::TYPE => 'string', static::OPTIONAL => true],
+            'subRates' => [static::TYPE => SubRateCollection::class, static::OPTIONAL => true]
         ];
     }
 }

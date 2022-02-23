@@ -32,13 +32,13 @@ class UserProvidedIdentifiers extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'key' => [self::TYPE => 'string'],
-            'externalId' => [self::TYPE => 'string'],
-            'orderNumber' => [self::TYPE => 'string'],
-            'customerNumber' => [self::TYPE => 'string'],
-            'sku' => [self::TYPE => 'string'],
-            'slug' => [self::TYPE => LocalizedString::class],
-            'containerAndKey' => [self::TYPE => ContainerAndKey::class]
+            'key' => [self::TYPE => 'string', static::OPTIONAL => true],
+            'externalId' => [self::TYPE => 'string', static::OPTIONAL => true],
+            'orderNumber' => [self::TYPE => 'string', static::OPTIONAL => true],
+            'customerNumber' => [self::TYPE => 'string', static::OPTIONAL => true],
+            'sku' => [self::TYPE => 'string', static::OPTIONAL => true],
+            'slug' => [self::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'containerAndKey' => [self::TYPE => ContainerAndKey::class, static::OPTIONAL => true]
         ];
     }
 }

@@ -57,11 +57,11 @@ class Type extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
             'resourceTypeIds' => [static::TYPE => 'array'],
             'fieldDefinitions' => [static::TYPE => FieldDefinitionCollection::class],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

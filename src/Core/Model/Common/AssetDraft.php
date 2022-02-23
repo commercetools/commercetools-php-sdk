@@ -29,12 +29,12 @@ class AssetDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', self::OPTIONAL => true],
             'sources' => [static::TYPE => AssetSourceCollection::class],
             'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
-            'tags' => [static::TYPE => 'array'],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'description' => [static::TYPE => LocalizedString::class, self::OPTIONAL => true],
+            'tags' => [static::TYPE => 'array', self::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, self::OPTIONAL => true],
         ];
     }
 

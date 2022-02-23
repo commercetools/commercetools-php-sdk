@@ -61,14 +61,15 @@ class Project extends JsonObject
             ],
             'trialUntil' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'messages' => [static::TYPE => MessagesConfiguration::class],
-            'shippingRateInputType' => [static::TYPE => ShippingRateInputType::class],
-            'externalOAuth' => [static::TYPE => ExternalOAuth::class],
+            'shippingRateInputType' => [static::TYPE => ShippingRateInputType::class, static::OPTIONAL => true],
+            'externalOAuth' => [static::TYPE => ExternalOAuth::class, static::OPTIONAL => true],
             'carts' => [static::TYPE => CartsConfiguration::class],
-            'shoppingLists' => [static::TYPE => ShoppingListsConfiguration::class],
-            'searchIndexing' => [static::TYPE => SearchIndexingConfiguration::class]
+            'shoppingLists' => [static::TYPE => ShoppingListsConfiguration::class, static::OPTIONAL => true],
+            'searchIndexing' => [static::TYPE => SearchIndexingConfiguration::class, static::OPTIONAL => true]
         ];
     }
 }

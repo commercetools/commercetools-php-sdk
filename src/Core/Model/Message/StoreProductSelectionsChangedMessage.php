@@ -45,9 +45,9 @@ class StoreProductSelectionsChangedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['addedProductSelections'] = [static::TYPE => 'array'];
-        $definitions['removedProductSelections'] = [static::TYPE => 'array'];
-        $definitions['updatedProductSelections'] = [static::TYPE => 'array'];
+        $definitions['addedProductSelections'] = [static::TYPE => 'array', static::OPTIONAL => true];
+        $definitions['removedProductSelections'] = [static::TYPE => 'array', static::OPTIONAL => true];
+        $definitions['updatedProductSelections'] = [static::TYPE => 'array', static::OPTIONAL => true];
 
         return $definitions;
     }

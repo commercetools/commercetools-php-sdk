@@ -25,9 +25,10 @@ class ReturnInfo extends JsonObject
     {
         return [
             'items' => [static::TYPE => ReturnItemCollection::class],
-            'returnTrackingId' => [static::TYPE => 'string'],
+            'returnTrackingId' => [static::TYPE => 'string', static::OPTIONAL => true],
             'returnDate' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ]
         ];

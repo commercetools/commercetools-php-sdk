@@ -16,7 +16,7 @@ class ShoppingListsConfiguration extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int', static::OPTIONAL => true],
         ];
     }
 }

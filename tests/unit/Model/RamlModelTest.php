@@ -121,6 +121,68 @@ class RamlModelTest extends AbstractModelTest
 
     /**
      * @test
+     * @dataProvider modelFieldTypeProvider
+     * @param string $className
+     * @param array $validFields
+     */
+    public function modelRequiredField($className, array $validFields = [])
+    {
+        $t = new \ReflectionClass($className);
+        $wrongRequired = [];
+        foreach ($this->fieldDefinitions($className) as $fieldKey => $field) {
+            $expectedRequired = $validFields[$fieldKey]['required'];
+            if (!$expectedRequired) {
+                continue;
+            }
+            if (isset($field[JsonObject::OPTIONAL]) && $field[JsonObject::OPTIONAL] == true) {
+                $wrongRequired[] = $fieldKey;
+            }
+        }
+        $this->assertEmpty(
+            $wrongRequired,
+            sprintf(
+                'Failed asserting that \'%s\' %s at \'%s\' (%s:0)',
+                implode('\', \'', $wrongRequired),
+                count($wrongRequired) > 1 ? 'are required fields': 'is a required field',
+                $className,
+                $t->getFileName()
+            )
+        );
+    }
+
+    /**
+     * @test
+     * @dataProvider modelFieldTypeProvider
+     * @param string $className
+     * @param array $validFields
+     */
+    public function modelOptionalField($className, array $validFields = [])
+    {
+        $t = new \ReflectionClass($className);
+        $wrongOptional = [];
+        foreach ($this->fieldDefinitions($className) as $fieldKey => $field) {
+            $expectedRequired = $validFields[$fieldKey]['required'];
+            if ($expectedRequired) {
+                continue;
+            }
+            if (!isset($field[JsonObject::OPTIONAL]) || $field[JsonObject::OPTIONAL] == false) {
+                $wrongOptional[] = $fieldKey;
+            }
+        }
+        $this->assertEmpty(
+            $wrongOptional,
+            sprintf(
+                'Failed asserting that \'%s\' %s at \'%s\' (%s:0)',
+                implode('\', \'', $wrongOptional),
+                count($wrongOptional) > 1 ? 'are optional fields': 'is a optional field',
+                $className,
+                $t->getFileName()
+            )
+        );
+    }
+
+    /**
+     * @test
      * @dataProvider commandFieldProvider
      * @param string $className
      * @param array $validFields
@@ -309,6 +371,26 @@ class RamlModelTest extends AbstractModelTest
     {
         $modelClasses = $this->getModelClasses(static::MODEL_PATH);
         return $this->objectFieldTypeProvider($modelClasses);
+    }
+
+    public function modelRequiredFieldProvider()
+    {
+        $modelClasses = $this->getModelClasses(static::MODEL_PATH);
+
+        $return = [];
+        foreach ($this->objectFieldTypeProvider($modelClasses) as $fields) {
+            list($className, $validFields) = $fields;
+            $requiredFields = array_filter($validFields, function ($validField) {
+                return $validField['required'] == true;
+            });
+            foreach ($requiredFields as $fieldName => $field) {
+                $return[$className . ':' . $fieldName] = [
+                    $className,
+                    $field
+                ];
+            }
+        }
+        return $return;
     }
 
     public function commandFieldProvider()

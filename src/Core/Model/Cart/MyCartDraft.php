@@ -50,18 +50,18 @@ class MyCartDraft extends JsonObject
     {
         return [
             'currency' => [static::TYPE => 'string'],
-            'customerEmail' => [static::TYPE => 'string'],
-            'country' => [static::TYPE => 'string'],
-            'inventoryMode' => [static::TYPE => 'string'],
-            'lineItems' => [static::TYPE => MyLineItemDraftCollection::class],
-            'shippingAddress' => [static::TYPE => Address::class],
-            'billingAddress' => [static::TYPE => Address::class],
-            'shippingMethod' => [static::TYPE => ShippingMethodReference::class],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
-            'locale' => [static::TYPE => 'string'],
-            'deleteDaysAfterLastModification' => [static::TYPE => 'int'],
-            'taxMode' => [static::TYPE => 'string'],
-            'itemShippingAddresses' => [static::TYPE => AddressCollection::class],
+            'customerEmail' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'country' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'inventoryMode' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'lineItems' => [static::TYPE => MyLineItemDraftCollection::class, static::OPTIONAL => true],
+            'shippingAddress' => [static::TYPE => Address::class, static::OPTIONAL => true],
+            'billingAddress' => [static::TYPE => Address::class, static::OPTIONAL => true],
+            'shippingMethod' => [static::TYPE => ShippingMethodReference::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
+            'locale' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'deleteDaysAfterLastModification' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'taxMode' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'itemShippingAddresses' => [static::TYPE => AddressCollection::class, static::OPTIONAL => true],
         ];
     }
 

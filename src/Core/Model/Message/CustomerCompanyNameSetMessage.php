@@ -42,7 +42,7 @@ class CustomerCompanyNameSetMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['companyName'] = [static::TYPE => 'string'];
+        $definitions['companyName'] = [static::TYPE => 'string', static::OPTIONAL => true];
 
         return $definitions;
     }

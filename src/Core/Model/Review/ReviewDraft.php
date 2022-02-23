@@ -43,17 +43,17 @@ class ReviewDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'key' => [static::TYPE => 'string'],
-            'uniquenessValue' => [static::TYPE => 'string'],
-            'locale' => [static::TYPE => 'string'],
-            'authorName' => [static::TYPE => 'string'],
-            'title' => [static::TYPE => 'string'],
-            'text' => [static::TYPE => 'string'],
-            'target' => [static::TYPE => ResourceIdentifier::class],
-            'state' => [static::TYPE => StateReference::class],
-            'rating' => [static::TYPE => 'int'],
-            'customer' => [static::TYPE => CustomerReference::class],
-            'custom' => [static::TYPE => CustomFieldObject::class],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'uniquenessValue' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'locale' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'authorName' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'title' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'text' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'target' => [static::TYPE => ResourceIdentifier::class, static::OPTIONAL => true],
+            'state' => [static::TYPE => StateReference::class, static::OPTIONAL => true],
+            'rating' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'customer' => [static::TYPE => CustomerReference::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
         ];
     }
 

@@ -43,7 +43,7 @@ class CustomerGroupSetMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['customerGroup'] = [static::TYPE => CustomerGroupReference::class];
+        $definitions['customerGroup'] = [static::TYPE => CustomerGroupReference::class, static::OPTIONAL => true];
 
         return $definitions;
     }

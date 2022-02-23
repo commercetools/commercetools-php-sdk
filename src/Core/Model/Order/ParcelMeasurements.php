@@ -24,10 +24,10 @@ class ParcelMeasurements extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'heightInMillimeter' => [static::TYPE => 'int'],
-            'lengthInMillimeter' => [static::TYPE => 'int'],
-            'widthInMillimeter' => [static::TYPE => 'int'],
-            'weightInGram' => [static::TYPE => 'int'],
+            'heightInMillimeter' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'lengthInMillimeter' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'widthInMillimeter' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'weightInGram' => [static::TYPE => 'int', static::OPTIONAL => true],
         ];
     }
 }

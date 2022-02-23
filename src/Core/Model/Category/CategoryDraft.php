@@ -47,16 +47,16 @@ class CategoryDraft extends JsonObject
         return [
             'name' => [static::TYPE => LocalizedString::class],
             'slug' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
-            'parent' => [static::TYPE => CategoryReference::class],
-            'orderHint' => [static::TYPE => 'string'],
-            'externalId' => [static::TYPE => 'string'],
-            'metaDescription' => [static::TYPE => LocalizedString::class],
-            'metaTitle' => [static::TYPE => LocalizedString::class],
-            'metaKeywords' => [static::TYPE => LocalizedString::class],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
-            'assets' => [static::TYPE => AssetDraftCollection::class],
-            'key' => [static::TYPE => 'string'],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'parent' => [static::TYPE => CategoryReference::class, static::OPTIONAL => true],
+            'orderHint' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'externalId' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'metaDescription' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'metaTitle' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'metaKeywords' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
+            'assets' => [static::TYPE => AssetDraftCollection::class, static::OPTIONAL => true],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 

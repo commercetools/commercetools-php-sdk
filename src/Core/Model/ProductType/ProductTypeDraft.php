@@ -26,9 +26,9 @@ class ProductTypeDraft extends JsonObject
     {
         return [
             'name' => [static::TYPE => 'string'],
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'description' => [static::TYPE => 'string'],
-            'attributes' => [static::TYPE => AttributeDefinitionCollection::class],
+            'attributes' => [static::TYPE => AttributeDefinitionCollection::class, static::OPTIONAL => true],
         ];
     }
 

@@ -48,10 +48,10 @@ class CustomLineItemDraft extends JsonObject
             'money' => [static::TYPE => Money::class],
             'slug' => [static::TYPE => 'string'],
             'quantity' => [static::TYPE => 'int'],
-            'taxCategory' => [static::TYPE => TaxCategoryReference::class],
-            'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class],
-            'custom' => [static::TYPE => CustomFieldObject::class],
-            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
+            'taxCategory' => [static::TYPE => TaxCategoryReference::class, static::OPTIONAL => true],
+            'externalTaxRate' => [static::TYPE => ExternalTaxRateDraft::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
+            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class, static::OPTIONAL => true],
         ];
     }
 

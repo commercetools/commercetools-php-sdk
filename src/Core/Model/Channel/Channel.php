@@ -66,14 +66,14 @@ class Channel extends Resource
             ],
             'key' => [static::TYPE => 'string'],
             'roles' => [static::TYPE => 'array'],
-            'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
-            'reviewRatingStatistics' => [static::TYPE => ReviewRatingStatistics::class],
-            'custom' => [static::TYPE => CustomFieldObject::class],
-            'address' => [static::TYPE => Address::class],
-            'geoLocation' => [static::TYPE => GeoLocation::class],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'name' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'reviewRatingStatistics' => [static::TYPE => ReviewRatingStatistics::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
+            'address' => [static::TYPE => Address::class, static::OPTIONAL => true],
+            'geoLocation' => [static::TYPE => GeoLocation::class, static::OPTIONAL => true],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

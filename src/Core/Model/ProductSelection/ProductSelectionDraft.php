@@ -19,7 +19,7 @@ class ProductSelectionDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'name' => [static::TYPE => LocalizedString::class],
         ];
     }

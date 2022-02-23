@@ -30,9 +30,9 @@ class CartScore extends ShippingRatePriceTier
         return [
             'type' => [static::TYPE => 'string'],
             'score' => [static::TYPE => 'int'],
-            'price' => [static::TYPE => Money::class],
-            'priceFunction' => [static::TYPE => PriceFunction::class],
-            'isMatching' => [static::TYPE => 'bool']
+            'price' => [static::TYPE => Money::class, static::OPTIONAL => true],
+            'priceFunction' => [static::TYPE => PriceFunction::class, static::OPTIONAL => true],
+            'isMatching' => [static::TYPE => 'bool', static::OPTIONAL => true]
         ];
     }
 }

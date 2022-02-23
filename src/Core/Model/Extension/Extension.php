@@ -49,12 +49,12 @@ class Extension extends Resource
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'key' => [static::TYPE => 'string'],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
             'destination' => [static::TYPE => Destination::class],
             'triggers' => [static::TYPE => TriggerCollection::class],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
-            'timeoutInMs' => [static::TYPE => 'int'],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
+            'timeoutInMs' => [static::TYPE => 'int', static::OPTIONAL => true],
         ];
     }
 }

@@ -41,15 +41,15 @@ class ShippingMethodDraft extends JsonObject
     {
         return [
             'name' => [static::TYPE => 'string'],
-            'localizedName' => [static::TYPE => LocalizedString::class],
-            'localizedDescription' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => 'string'],
+            'localizedName' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'localizedDescription' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'description' => [static::TYPE => 'string', static::OPTIONAL => true],
             'taxCategory' => [static::TYPE => TaxCategoryReference::class],
             'zoneRates' => [static::TYPE => ZoneRateCollection::class],
             'isDefault' => [static::TYPE => 'bool'],
-            'key' => [static::TYPE => 'string'],
-            'predicate' => [static::TYPE => 'string'],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'key' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'predicate' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
         ];
     }
 

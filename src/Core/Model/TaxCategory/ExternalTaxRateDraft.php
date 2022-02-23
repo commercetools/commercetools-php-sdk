@@ -29,11 +29,11 @@ class ExternalTaxRateDraft extends JsonObject
     {
         return [
             'name' => [self::TYPE => 'string'],
-            'amount' => [self::TYPE => 'float'],
-            'includedInPrice' => [self::TYPE => 'bool'],
+            'amount' => [self::TYPE => 'float', static::OPTIONAL => true],
+            'includedInPrice' => [self::TYPE => 'bool', static::OPTIONAL => true],
             'country' => [self::TYPE => 'string'],
-            'state' => [self::TYPE => 'string'],
-            'subRates' => [static::TYPE => SubRateCollection::class]
+            'state' => [self::TYPE => 'string', static::OPTIONAL => true],
+            'subRates' => [static::TYPE => SubRateCollection::class, static::OPTIONAL => true]
         ];
     }
 

@@ -41,8 +41,8 @@ class GiftLineItemCartDiscountValue extends CartDiscountValue
             'type' => [static::TYPE => 'string'],
             'product' => [static::TYPE => ProductReference::class],
             'variantId' => [static::TYPE => 'int'],
-            'supplyChannel' => [static::TYPE => ChannelReference::class],
-            'distributionChannel' => [static::TYPE => ChannelReference::class],
+            'supplyChannel' => [static::TYPE => ChannelReference::class, static::OPTIONAL => true],
+            'distributionChannel' => [static::TYPE => ChannelReference::class, static::OPTIONAL => true],
         ];
     }
 

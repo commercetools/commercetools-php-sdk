@@ -32,13 +32,14 @@ class TextLineItemDraft extends JsonObject
     {
         return [
             'name' => [static::TYPE => LocalizedString::class],
-            'description' => [static::TYPE => LocalizedString::class],
-            'quantity' => [static::TYPE => 'int'],
+            'description' => [static::TYPE => LocalizedString::class, static::OPTIONAL => true],
+            'quantity' => [static::TYPE => 'int', static::OPTIONAL => true],
             'addedAt' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'custom' => [static::TYPE => CustomFieldObjectDraft::class],
+            'custom' => [static::TYPE => CustomFieldObjectDraft::class, static::OPTIONAL => true],
         ];
     }
 

@@ -28,7 +28,7 @@ class Image extends JsonObject
         return [
             'url' => [static::TYPE => 'string'],
             'dimensions' => [static::TYPE => ImageDimension::class],
-            'label' => [static::TYPE => 'string']
+            'label' => [static::TYPE => 'string', static::OPTIONAL => true]
         ];
     }
 

@@ -38,15 +38,15 @@ class MyLineItemDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'productId' => [static::TYPE => 'string'],
-            'variantId' => [static::TYPE => 'int'],
+            'productId' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'variantId' => [static::TYPE => 'int', static::OPTIONAL => true],
             'quantity' => [static::TYPE => 'int'],
-            'supplyChannel' => [static::TYPE => ChannelReference::class],
-            'distributionChannel' => [static::TYPE => ChannelReference::class],
-            'custom' => [static::TYPE => CustomFieldObject::class],
-            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class],
-            'sku' => [static::TYPE => 'string'],
-            'addedAt' => [static::TYPE => DateTime::class],
+            'supplyChannel' => [static::TYPE => ChannelReference::class, static::OPTIONAL => true],
+            'distributionChannel' => [static::TYPE => ChannelReference::class, static::OPTIONAL => true],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
+            'shippingDetails' => [static::TYPE => ItemShippingDetailsDraft::class, static::OPTIONAL => true],
+            'sku' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'addedAt' => [static::TYPE => DateTime::class, static::OPTIONAL => true],
         ];
     }
 

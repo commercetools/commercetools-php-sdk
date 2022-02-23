@@ -47,7 +47,7 @@ class DeliveryAddressSetMessage extends Message
     {
         $definitions = parent::fieldDefinitions();
         $definitions['deliveryId'] = [static::TYPE => 'string'];
-        $definitions['address'] = [static::TYPE => Address::class];
+        $definitions['address'] = [static::TYPE => Address::class, static::OPTIONAL => true];
 
         return $definitions;
     }

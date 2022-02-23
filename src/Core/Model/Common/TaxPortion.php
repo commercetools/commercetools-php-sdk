@@ -20,7 +20,7 @@ class TaxPortion extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'name' => [static::TYPE => 'string'],
+            'name' => [static::TYPE => 'string', static::OPTIONAL => true],
             'rate' => [static::TYPE => 'float'],
             'amount' => [static::TYPE => Money::class],
         ];

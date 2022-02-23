@@ -34,7 +34,7 @@ class MultiBuyLineItemsTarget extends CartDiscountTarget
             'predicate' => [static::TYPE => 'string'],
             'triggerQuantity' => [static::TYPE => 'int'],
             'discountedQuantity' => [static::TYPE => 'int'],
-            'maxOccurrence' => [static::TYPE => 'int'],
+            'maxOccurrence' => [static::TYPE => 'int', static::OPTIONAL => true],
             'selectionMode' => [static::TYPE => 'string'],
         ];
     }

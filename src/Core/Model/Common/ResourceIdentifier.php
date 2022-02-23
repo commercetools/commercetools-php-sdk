@@ -24,9 +24,9 @@ class ResourceIdentifier extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            static::TYPE_ID => [self::TYPE => 'string'],
-            static::ID => [self::TYPE => 'string'],
-            static::KEY => [self::TYPE => 'string']
+            static::TYPE_ID => [self::TYPE => 'string', static::OPTIONAL => true],
+            static::ID => [self::TYPE => 'string', static::OPTIONAL => true],
+            static::KEY => [self::TYPE => 'string', static::OPTIONAL => true]
         ];
     }
 

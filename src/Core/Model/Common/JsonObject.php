@@ -192,7 +192,7 @@ class JsonObject extends AbstractJsonDeserializeObject implements \JsonSerializa
 
     public function isOptional($field)
     {
-        return $this->fieldDefinitionValue($field, static::OPTIONAL, true);
+        return $this->fieldDefinitionValue($field, static::OPTIONAL, false);
     }
 
     protected function decorateField($field, $value)

@@ -31,7 +31,7 @@ class FieldDefinition extends JsonObject
             'name' => [static::TYPE => 'string'],
             'label' => [static::TYPE => LocalizedString::class],
             'required' => [static::TYPE => 'bool'],
-            'inputHint' => [static::TYPE => 'string'],
+            'inputHint' => [static::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 }

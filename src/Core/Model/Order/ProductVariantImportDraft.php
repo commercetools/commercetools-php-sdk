@@ -30,11 +30,11 @@ class ProductVariantImportDraft extends JsonObject
     public function fieldDefinitions()
     {
         return [
-            'id' => [static::TYPE => 'int'],
-            'sku' => [static::TYPE => 'string'],
-            'prices' => [static::TYPE => PriceCollection::class],
-            'attributes' => [static::TYPE => AttributeCollection::class],
-            'images' => [static::TYPE => ImageCollection::class],
+            'id' => [static::TYPE => 'int', static::OPTIONAL => true],
+            'sku' => [static::TYPE => 'string', static::OPTIONAL => true],
+            'prices' => [static::TYPE => PriceCollection::class, static::OPTIONAL => true],
+            'attributes' => [static::TYPE => AttributeCollection::class, static::OPTIONAL => true],
+            'images' => [static::TYPE => ImageCollection::class, static::OPTIONAL => true],
         ];
     }
 

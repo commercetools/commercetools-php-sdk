@@ -52,7 +52,7 @@ class ParcelMeasurementsUpdatedMessage extends Message
         $definitions = parent::fieldDefinitions();
         $definitions['deliveryId'] = [static::TYPE => 'string'];
         $definitions['parcelId'] = [static::TYPE => 'string'];
-        $definitions['measurements'] = [static::TYPE => ParcelMeasurements::class];
+        $definitions['measurements'] = [static::TYPE => ParcelMeasurements::class, static::OPTIONAL => true];
 
         return $definitions;
     }

@@ -25,8 +25,8 @@ class ShippingRateDraft extends JsonObject
     {
         return [
             'price' => [static::TYPE => Money::class],
-            'freeAbove' => [static::TYPE => Money::class],
-            'tiers' => [static::TYPE => ShippingRatePriceTierCollection::class]
+            'freeAbove' => [static::TYPE => Money::class, static::OPTIONAL => true],
+            'tiers' => [static::TYPE => ShippingRatePriceTierCollection::class, static::OPTIONAL => true]
         ];
     }
 

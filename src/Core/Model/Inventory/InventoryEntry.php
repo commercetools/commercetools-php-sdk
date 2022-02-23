@@ -59,17 +59,18 @@ class InventoryEntry extends Resource
                 static::DECORATOR => DateTimeDecorator::class
             ],
             'sku' => [static::TYPE => 'string'],
-            'supplyChannel' => [static::TYPE => ChannelReference::class],
+            'supplyChannel' => [static::TYPE => ChannelReference::class, static::OPTIONAL => true],
             'quantityOnStock' => [static::TYPE => 'int'],
             'availableQuantity' => [static::TYPE => 'int'],
-            'restockableInDays' => [static::TYPE => 'int'],
+            'restockableInDays' => [static::TYPE => 'int', static::OPTIONAL => true],
             'expectedDelivery' => [
                 static::TYPE => DateTime::class,
+                static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'custom' => [static::TYPE => CustomFieldObject::class],
-            'createdBy' => [static::TYPE => CreatedBy::class],
-            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
+            'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
+            'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
     }
 }

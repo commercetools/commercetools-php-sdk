@@ -29,7 +29,7 @@ class CartValue extends ShippingRatePriceTier
             'type' => [static::TYPE => 'string'],
             'minimumCentAmount' => [static::TYPE => 'int'],
             'price' => [static::TYPE => Money::class],
-            'isMatching' => [static::TYPE => 'bool']
+            'isMatching' => [static::TYPE => 'bool', static::OPTIONAL => true]
         ];
     }
 }

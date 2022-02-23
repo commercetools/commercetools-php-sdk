@@ -47,7 +47,7 @@ class ProductSlugChangedMessage extends Message
     {
         $definitions = parent::fieldDefinitions();
         $definitions['slug'] = [static::TYPE => LocalizedString::class];
-        $definitions['oldSlug'] = [static::TYPE => LocalizedString::class];
+        $definitions['oldSlug'] = [static::TYPE => LocalizedString::class, static::OPTIONAL => true];
 
         return $definitions;
     }

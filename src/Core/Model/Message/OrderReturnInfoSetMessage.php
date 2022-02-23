@@ -42,7 +42,7 @@ class OrderReturnInfoSetMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['returnInfo'] = [static::TYPE => ReturnInfoCollection::class];
+        $definitions['returnInfo'] = [static::TYPE => ReturnInfoCollection::class, static::OPTIONAL => true];
 
         return $definitions;
     }
