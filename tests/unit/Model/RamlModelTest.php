@@ -67,6 +67,9 @@ class RamlModelTest extends AbstractModelTest
         $t = new \ReflectionClass($className);
         $wrongTypes = [];
         foreach ($this->fieldDefinitions($className) as $fieldKey => $field) {
+            if (!isset($validFields[$fieldKey]['type'])) {
+                continue;
+            }
             $expectedFieldType = $validFields[$fieldKey]['type'];
             if ($validFields[$fieldKey]['type'] === 'number' && isset($validFields[$fieldKey]['format'])) {
                 $expectedFieldType = $validFields[$fieldKey]['format'];
