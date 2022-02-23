@@ -1,3 +1,9 @@
+## [2.17.1-beta.1](https://github.com/commercetools/commercetools-php-sdk/compare/v2.17.0...v2.17.1-beta.1) (2022-02-23)
+
+### Bug Fixes
+
+* **JsonObject** fields are marked optional by default
+
 # [2.17.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.16.0...v2.17.0) (2022-02-07)
 
 
