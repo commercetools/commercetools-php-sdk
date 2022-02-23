@@ -35,7 +35,7 @@ class JsonObjectTest extends \PHPUnit\Framework\TestCase
             ->will(
                 $this->returnValue(
                     [
-                        'key' => [JsonObject::TYPE => 'string'],
+                        'key' => [JsonObject::TYPE => 'string', JsonObject::OPTIONAL => false],
                         'dummy' => [JsonObject::TYPE => 'string'],
                         'true' => [JsonObject::TYPE => 'bool'],
                         'false' => [JsonObject::TYPE => 'bool'],
@@ -243,7 +243,7 @@ class JsonObjectTest extends \PHPUnit\Framework\TestCase
                 $this->returnValue('12345')
             );
 
-        $this->assertFalse($obj->isOptional('implicit'));
+        $this->assertTrue($obj->isOptional('implicit'));
         $this->assertTrue($obj->isOptional('optional'));
         $this->assertFalse($obj->isOptional('required'));
     }
