@@ -203,7 +203,7 @@ jobs:
       - name: Install PHP with extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 7.3
+          php-version: 7.4
           extensions: json, mbstring, intl, apcu
           tools: composer, phive
           ini-values: assert.exception=1, zend.assertions=1, apc.enabled=1, apc.enable_cli=1
@@ -221,7 +221,7 @@ jobs:
       - name: Install box
         env:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: phive install humbug/box@~3.14.1 --force-accept-unsigned
+        run: phive install --force-accept-unsigned
 
       - name: Compile phar
         run: tools/box compile
