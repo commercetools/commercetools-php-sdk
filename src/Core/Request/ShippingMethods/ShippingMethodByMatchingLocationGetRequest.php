@@ -12,6 +12,7 @@ use Commercetools\Core\Model\ShippingMethod\ShippingMethod;
 use Commercetools\Core\Model\ShippingMethod\ShippingMethodCollection;
 use Commercetools\Core\Request\AbstractApiRequest;
 use Commercetools\Core\Request\ExpandTrait;
+use Commercetools\Core\Request\SortTrait;
 use Commercetools\Core\Response\ApiResponseInterface;
 use Commercetools\Core\Response\PagedQueryResponse;
 use Psr\Http\Message\ResponseInterface;
@@ -25,6 +26,7 @@ use Psr\Http\Message\ResponseInterface;
 class ShippingMethodByMatchingLocationGetRequest extends AbstractApiRequest
 {
     use ExpandTrait;
+    use SortTrait;
 
     protected $resultClass = ShippingMethodCollection::class;
 

@@ -16,6 +16,10 @@ use Commercetools\Core\Model\Common\JsonObject;
  * @method ApiClientDraft setScope(string $scope = null)
  * @method int getDeleteDaysAfterCreation()
  * @method ApiClientDraft setDeleteDaysAfterCreation(int $deleteDaysAfterCreation = null)
+ * @method int getAccessTokenValiditySeconds()
+ * @method ApiClientDraft setAccessTokenValiditySeconds(int $accessTokenValiditySeconds = null)
+ * @method int getRefreshTokenValiditySeconds()
+ * @method ApiClientDraft setRefreshTokenValiditySeconds(int $refreshTokenValiditySeconds = null)
  */
 class ApiClientDraft extends JsonObject
 {
