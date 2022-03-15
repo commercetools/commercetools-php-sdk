@@ -51,6 +51,8 @@ class ApiClient extends JsonObject
                 static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
+            'accessTokenValiditySeconds' => [static::TYPE => 'int', self::OPTIONAL => true],
+            'refreshTokenValiditySeconds' => [static::TYPE => 'int', self::OPTIONAL => true],
         ];
     }
 }

@@ -25,6 +25,8 @@ class ApiClientDraft extends JsonObject
             'name' => [static::TYPE => 'string'],
             'scope' => [static::TYPE => 'string'],
             'deleteDaysAfterCreation' => [static::TYPE => 'int', self::OPTIONAL => true],
+            'accessTokenValiditySeconds' => [static::TYPE => 'int', self::OPTIONAL => true],
+            'refreshTokenValiditySeconds' => [static::TYPE => 'int', self::OPTIONAL => true],
         ];
     }
 
