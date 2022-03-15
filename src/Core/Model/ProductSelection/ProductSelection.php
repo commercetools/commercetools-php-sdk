@@ -7,6 +7,7 @@ use Commercetools\Core\Model\Common\DateTimeDecorator;
 use Commercetools\Core\Model\Common\LastModifiedBy;
 use Commercetools\Core\Model\Common\LocalizedString;
 use Commercetools\Core\Model\Common\Resource;
+use Commercetools\Core\Model\CustomField\CustomFieldObject;
 use DateTime;
 
 /**
@@ -32,6 +33,8 @@ use DateTime;
  * @method ProductSelection setProductCount(int $productCount = null)
  * @method ProductSelectionType getType()
  * @method ProductSelection setType(ProductSelectionType $type = null)
+ * @method CustomFieldObject getCustom()
+ * @method ProductSelection setCustom(CustomFieldObject $custom = null)
  * @method ProductSelectionReference getReference()
  */
 class ProductSelection extends Resource
@@ -54,7 +57,8 @@ class ProductSelection extends Resource
             'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
             'name' => [static::TYPE => LocalizedString::class],
             'productCount' => [static::TYPE => 'int'],
-            'type' => [static::TYPE => ProductSelectionType::class]
+            'type' => [static::TYPE => ProductSelectionType::class],
+            'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
         ];
     }
 }
