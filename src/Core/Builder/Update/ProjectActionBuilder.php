@@ -11,6 +11,7 @@ use Commercetools\Core\Request\Project\Command\ProjectChangeLanguagesAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeMessagesEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeNameAction;
+use Commercetools\Core\Request\Project\Command\ProjectChangeOrderSearchStatusAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeProductSearchIndexingEnabledAction;
 use Commercetools\Core\Request\Project\Command\ProjectChangeShoppingListsConfigurationAction;
 use Commercetools\Core\Request\Project\Command\ProjectSetExternalOAuthAction;
@@ -94,6 +95,17 @@ class ProjectActionBuilder
     public function changeName($action = null)
     {
         $this->addAction($this->resolveAction(ProjectChangeNameAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/project#change-product-search-indexing-status
+     * @param ProjectChangeOrderSearchStatusAction|callable $action
+     * @return $this
+     */
+    public function changeOrderSearchStatus($action = null)
+    {
+        $this->addAction($this->resolveAction(ProjectChangeOrderSearchStatusAction::class, $action));
         return $this;
     }
 

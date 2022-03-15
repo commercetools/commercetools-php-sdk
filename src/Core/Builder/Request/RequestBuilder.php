@@ -128,6 +128,14 @@ class RequestBuilder
     }
 
     /**
+     * @return OrderSearchRequestBuilder
+     */
+    public function orderSearch()
+    {
+        return new OrderSearchRequestBuilder();
+    }
+
+    /**
      * @return OrderRequestBuilder
      */
     public function orders()

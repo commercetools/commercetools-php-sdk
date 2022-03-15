@@ -3,7 +3,9 @@
 namespace Commercetools\Core\Request;
 
 use Commercetools\Core\Builder\Request\RequestBuilder;
+use Commercetools\Core\Model\Order\Order;
 use Commercetools\Core\Model\Product\Product;
+use Commercetools\Core\Request\Orders\OrderSearchHeadRequest;
 use Commercetools\Core\Request\Products\ProductHeadRequest;
 use Commercetools\Core\RequestTestCase;
 
@@ -27,6 +29,10 @@ class GenericHeadRequestTest extends RequestTestCase
             ProductHeadRequest::class => [
                 ProductHeadRequest::class,
                 Product::class,
+            ],
+            OrderSearchHeadRequest::class => [
+                OrderSearchHeadRequest::class,
+                Order::class,
             ],
         ];
     }
