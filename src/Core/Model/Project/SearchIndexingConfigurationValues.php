@@ -25,7 +25,8 @@ class SearchIndexingConfigurationValues extends JsonObject
             'status' => [static::TYPE => 'string', static::OPTIONAL => true],
             'lastModifiedAt' => [
                 static::TYPE => DateTime::class,
-                static::DECORATOR => DateTimeDecorator::class
+                static::DECORATOR => DateTimeDecorator::class,
+                static::OPTIONAL => true
             ],
             'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
         ];
