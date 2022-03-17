@@ -26,6 +26,10 @@ use DateTime;
  * @method ApiClient setSecret(string $secret = null)
  * @method DateTimeDecorator getDeleteAt()
  * @method ApiClient setDeleteAt(DateTime $deleteAt = null)
+ * @method int getAccessTokenValiditySeconds()
+ * @method ApiClient setAccessTokenValiditySeconds(int $accessTokenValiditySeconds = null)
+ * @method int getRefreshTokenValiditySeconds()
+ * @method ApiClient setRefreshTokenValiditySeconds(int $refreshTokenValiditySeconds = null)
  */
 class ApiClient extends JsonObject
 {
@@ -51,6 +55,8 @@ class ApiClient extends JsonObject
                 static::OPTIONAL => true,
                 static::DECORATOR => DateTimeDecorator::class
             ],
+            'accessTokenValiditySeconds' => [static::TYPE => 'int', self::OPTIONAL => true],
+            'refreshTokenValiditySeconds' => [static::TYPE => 'int', self::OPTIONAL => true],
         ];
     }
 }

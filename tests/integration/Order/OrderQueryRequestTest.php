@@ -24,58 +24,6 @@ use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 
 class OrderQueryRequestTest extends ApiTestCase
 {
-//    todo cancel getCartDraft() and createOrder() after the OrderEdit migration
-    /**
-     * @return CartDraft
-     */
-    protected function getCartDraft()
-    {
-        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
-        /**
-         * @var Customer $customer
-         */
-        $customer = $this->getCustomer();
-        $draft->setCustomerId($customer->getId())
-            ->setShippingAddress($customer->getDefaultShippingAddress())
-            ->setBillingAddress($customer->getDefaultBillingAddress())
-            ->setCustomerEmail($customer->getEmail())
-            ->setLineItems(
-                LineItemDraftCollection::of()
-                    ->add(
-                        LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1)
-                    )
-            )
-            ->setShippingMethod($this->getShippingMethod()->getReference());
-
-        return $draft;
-    }
-
-    protected function createOrder(CartDraft $draft)
-    {
-        $request = CartCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-
-        $orderRequest = OrderCreateFromCartRequest::ofCartAndVersion(CartReference::ofId($cart->getId()), $cart->getVersion());
-        $response = $orderRequest->executeWithClient($this->getClient());
-        $order = $orderRequest->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = OrderDeleteRequest::ofIdAndVersion(
-            $order->getId(),
-            $order->getVersion()
-        );
-
-        $cartRequest = CartByIdGetRequest::ofId($cart->getId());
-        $response = $cartRequest->executeWithClient($this->getClient());
-        $cart = $cartRequest->mapResponse($response);
-
-        $this->cleanupRequests[] = CartDeleteRequest::ofIdAndVersion(
-            $cart->getId(),
-            $cart->getVersion()
-        );
-
-        return $order;
-    }
-
     public function testGetById()
     {
         $client = $this->getApiClient();

@@ -19,8 +19,6 @@ use Commercetools\Core\Model\Cart\CartState;
 use Commercetools\Core\Model\Cart\ItemShippingDetailsDraft;
 use Commercetools\Core\Model\Cart\ItemShippingTarget;
 use Commercetools\Core\Model\Cart\ItemShippingTargetCollection;
-use Commercetools\Core\Model\Cart\LineItemDraft;
-use Commercetools\Core\Model\Cart\LineItemDraftCollection;
 use Commercetools\Core\Model\Cart\ShippingInfo;
 use Commercetools\Core\Model\Channel\Channel;
 use Commercetools\Core\Model\Channel\ChannelDraft;
@@ -54,8 +52,6 @@ use Commercetools\Core\Model\Store\Store;
 use Commercetools\Core\Model\Store\StoreReference;
 use Commercetools\Core\Model\Type\Type;
 use Commercetools\Core\Model\Type\TypeDraft;
-use Commercetools\Core\Request\Carts\CartByIdGetRequest;
-use Commercetools\Core\Request\Carts\CartCreateRequest;
 use Commercetools\Core\Request\Carts\CartDeleteRequest;
 use Commercetools\Core\Request\Carts\CartReplicateRequest;
 use Commercetools\Core\Request\InStores\InStoreRequestDecorator;
@@ -103,83 +99,9 @@ use Commercetools\Core\Request\Orders\Command\OrderSetStoreAction;
 use Commercetools\Core\Request\Orders\Command\OrderUpdateItemShippingAddressAction;
 use Commercetools\Core\Request\Orders\Command\OrderUpdateSyncInfoAction;
 use Commercetools\Core\Request\Orders\OrderCreateFromCartRequest;
-use Commercetools\Core\Request\Orders\OrderDeleteRequest;
 
 class OrderUpdateRequestTest extends ApiTestCase
 {
-//    todo cancel getCartDraft() and createOrder() after the OrderEdit migration
-    /**
-     * @return CartDraft
-     */
-    protected function getCartDraft()
-    {
-        $draft = CartDraft::ofCurrency('EUR')->setCountry('DE');
-        /**
-         * @var Customer $customer
-         */
-        $customer = $this->getCustomer();
-        $draft->setCustomerId($customer->getId())
-            ->setShippingAddress($customer->getDefaultShippingAddress())
-            ->setBillingAddress($customer->getDefaultBillingAddress())
-            ->setCustomerEmail($customer->getEmail())
-            ->setLineItems(
-                LineItemDraftCollection::of()
-                    ->add(
-                        LineItemDraft::ofProductIdVariantIdAndQuantity($this->getProduct()->getId(), 1, 1)
-                    )
-            )
-            ->setShippingMethod($this->getShippingMethod()->getReference());
-
-        return $draft;
-    }
-
-    protected function createOrder(
-        CartDraft $draft,
-        $orderNumber = null,
-        $paymentState = null,
-        $orderState = null,
-        $state = null,
-        $shipmentState = null
-    ) {
-        $request = CartCreateRequest::ofDraft($draft);
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $this->cleanupRequests[] = $cartDeleteRequest = CartDeleteRequest::ofIdAndVersion(
-            $cart->getId(),
-            $cart->getVersion()
-        );
-
-        $orderRequest = OrderCreateFromCartRequest::ofCartIdAndVersion($cart->getId(), $cart->getVersion());
-        if (!is_null($orderNumber)) {
-            $orderRequest->setOrderNumber($orderNumber);
-        }
-        if (!is_null($paymentState)) {
-            $orderRequest->setPaymentState($paymentState);
-        }
-        if (!is_null($orderState)) {
-            $orderRequest->setOrderState($orderState);
-        }
-        if (!is_null($state)) {
-            $orderRequest->setState($state);
-        }
-        if (!is_null($shipmentState)) {
-            $orderRequest->setShipmentState($shipmentState);
-        }
-        $response = $orderRequest->executeWithClient($this->getClient());
-        $order = $orderRequest->mapResponse($response);
-        $this->cleanupRequests[] = $this->deleteRequest = OrderDeleteRequest::ofIdAndVersion(
-            $order->getId(),
-            $order->getVersion()
-        );
-
-        $request = CartByIdGetRequest::ofId($cart->getId());
-        $response = $request->executeWithClient($this->getClient());
-        $cart = $request->mapResponse($response);
-        $cartDeleteRequest->setVersion($cart->getVersion());
-
-        return $order;
-    }
-
     public function testOrderByOrderNumber()
     {
         $client = $this->getApiClient();

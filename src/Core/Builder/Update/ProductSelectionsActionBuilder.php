@@ -7,6 +7,8 @@ use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionAddProductAction;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionChangeNameAction;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionRemoveProductAction;
+use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionSetCustomFieldAction;
+use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionSetCustomTypeAction;
 use Commercetools\Core\Request\ProductSelections\Command\ProductSelectionSetKeyAction;
 
 class ProductSelectionsActionBuilder
@@ -43,6 +45,28 @@ class ProductSelectionsActionBuilder
     public function removeProduct($action = null)
     {
         $this->addAction($this->resolveAction(ProductSelectionRemoveProductAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-productselections.html#set-customfield
+     * @param ProductSelectionSetCustomFieldAction|callable $action
+     * @return $this
+     */
+    public function setCustomField($action = null)
+    {
+        $this->addAction($this->resolveAction(ProductSelectionSetCustomFieldAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/http-api-projects-productselections.html#set-custom-type
+     * @param ProductSelectionSetCustomTypeAction|callable $action
+     * @return $this
+     */
+    public function setCustomType($action = null)
+    {
+        $this->addAction($this->resolveAction(ProductSelectionSetCustomTypeAction::class, $action));
         return $this;
     }
 
