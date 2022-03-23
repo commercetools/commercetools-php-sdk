@@ -87,7 +87,7 @@ class CustomerDraft extends JsonObject
             'firstName' => [static::TYPE => 'string', static::OPTIONAL => true],
             'middleName' => [static::TYPE => 'string', static::OPTIONAL => true],
             'lastName' => [static::TYPE => 'string', static::OPTIONAL => true],
-            'password' => [static::TYPE => 'string'],
+            'password' => [static::TYPE => 'string', static::OPTIONAL => true],
             'anonymousCartId' => [static::TYPE => 'string', static::OPTIONAL => true],
             'externalId' => [static::TYPE => 'string', static::OPTIONAL => true],
             'dateOfBirth' => [

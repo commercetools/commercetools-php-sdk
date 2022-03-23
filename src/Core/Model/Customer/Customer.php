@@ -102,7 +102,7 @@ class Customer extends Resource
             'email' => [static::TYPE => 'string'],
             'firstName' => [static::TYPE => 'string', static::OPTIONAL => true],
             'lastName' => [static::TYPE => 'string', static::OPTIONAL => true],
-            'password' => [static::TYPE => 'string'],
+            'password' => [static::TYPE => 'string', static::OPTIONAL => true],
             'middleName' => [static::TYPE => 'string', static::OPTIONAL => true],
             'title' => [static::TYPE => 'string', static::OPTIONAL => true],
             'dateOfBirth' => [
