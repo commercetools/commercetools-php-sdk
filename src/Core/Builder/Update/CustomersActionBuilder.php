@@ -16,6 +16,7 @@ use Commercetools\Core\Request\Customers\Command\CustomerRemoveShippingAddressAc
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveStoreAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetAddressCustomFieldAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetAddressCustomTypeAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetAuthenticationModeAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomFieldAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomTypeAction;
@@ -168,6 +169,17 @@ class CustomersActionBuilder
     public function setAddressCustomType($action = null)
     {
         $this->addAction($this->resolveAction(CustomerSetAddressCustomTypeAction::class, $action));
+        return $this;
+    }
+
+    /**
+     * @link https://docs.commercetools.com/api/projects/customers#set-authenticationmode
+     * @param CustomerSetAuthenticationModeAction|callable $action
+     * @return $this
+     */
+    public function setAuthenticationMode($action = null)
+    {
+        $this->addAction($this->resolveAction(CustomerSetAuthenticationModeAction::class, $action));
         return $this;
     }
 
