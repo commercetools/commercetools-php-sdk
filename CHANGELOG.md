@@ -1,3 +1,21 @@
+# [2.19.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.18.0...v2.19.0) (2022-04-04)
+
+
+### Bug Fixes
+
+* **Customer:** made password field as optional field ([bf4d5a0](https://github.com/commercetools/commercetools-php-sdk/commit/bf4d5a0f57ecbba2a1268c452df11cf0606419d0))
+* **Project:** fix optional flag for SearchIndexingConfigurationValues ([710019e](https://github.com/commercetools/commercetools-php-sdk/commit/710019e5980c87a676ec501928a8f8712c698d3b))
+
+
+### Features
+
+* **ApiClient:** add property for token validity ([0b43652](https://github.com/commercetools/commercetools-php-sdk/commit/0b43652c07df82d0d71827ba5b655aab0d1a2038))
+* **ApiClient:** support shipping matching location adding sort ([d073700](https://github.com/commercetools/commercetools-php-sdk/commit/d07370061cd5fb54ded9cdc16175a11fd2204668))
+* **Order:** support order payment added message ([28e0f92](https://github.com/commercetools/commercetools-php-sdk/commit/28e0f9234767effebf6a1c73565082068681e62f))
+* **ProductSelection:** product selection extended with custom fields ([ff839ae](https://github.com/commercetools/commercetools-php-sdk/commit/ff839aeb96f27041e43b6b4d782cd70c93049137))
+* **Store:** add missing update action ([2283fca](https://github.com/commercetools/commercetools-php-sdk/commit/2283fca23bcaf64cd20510f908f07239b3eea0bc))
+
+
 # [2.18.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.17.0...v2.18.0) (2022-02-23)
 
 
