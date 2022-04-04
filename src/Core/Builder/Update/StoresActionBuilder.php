@@ -7,6 +7,7 @@ use Commercetools\Core\Request\AbstractAction;
 use Commercetools\Core\Request\Stores\Command\StoreAddDistributionChannelAction;
 use Commercetools\Core\Request\Stores\Command\StoreAddProductSelectionAction;
 use Commercetools\Core\Request\Stores\Command\StoreAddSupplyChannelAction;
+use Commercetools\Core\Request\Stores\Command\StoreChangeProductSelectionAction;
 use Commercetools\Core\Request\Stores\Command\StoreRemoveDistributionChannelAction;
 use Commercetools\Core\Request\Stores\Command\StoreRemoveProductSelectionAction;
 use Commercetools\Core\Request\Stores\Command\StoreRemoveSupplyChannelAction;
@@ -50,6 +51,17 @@ class StoresActionBuilder
     public function addSupplyChannel($action = null)
     {
         $this->addAction($this->resolveAction(StoreAddSupplyChannelAction::class, $action));
+        return $this;
+    }
+
+    /**
+     *
+     * @param StoreChangeProductSelectionAction|callable $action
+     * @return $this
+     */
+    public function changeProductSelection($action = null)
+    {
+        $this->addAction($this->resolveAction(StoreChangeProductSelectionAction::class, $action));
         return $this;
     }
 
