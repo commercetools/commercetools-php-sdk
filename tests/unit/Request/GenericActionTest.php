@@ -89,8 +89,8 @@ use Commercetools\Core\Request\CustomerGroups\Command\CustomerGroupChangeNameAct
 use Commercetools\Core\Request\Customers\Command\CustomerAddAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerChangeAddressAction;
 use Commercetools\Core\Request\Customers\Command\CustomerChangeEmailAction;
-use Commercetools\Core\Request\Customers\Command\CustomerChangeNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerRemoveAddressAction;
+use Commercetools\Core\Request\Customers\Command\CustomerSetAuthenticationModeAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCompanyNameAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerGroupAction;
 use Commercetools\Core\Request\Customers\Command\CustomerSetCustomerNumberAction;
@@ -178,7 +178,6 @@ use Commercetools\Core\Request\Products\Command\ProductSetAttributeAction;
 use Commercetools\Core\Request\Products\Command\ProductSetAttributeInAllVariantsAction;
 use Commercetools\Core\Request\Products\Command\ProductSetCategoryOrderHintAction;
 use Commercetools\Core\Request\Products\Command\ProductSetDescriptionAction;
-use Commercetools\Core\Request\Products\Command\ProductSetMetaAttributesAction;
 use Commercetools\Core\Request\Products\Command\ProductSetMetaDescriptionAction;
 use Commercetools\Core\Request\Products\Command\ProductSetMetaKeywordsAction;
 use Commercetools\Core\Request\Products\Command\ProductSetMetaTitleAction;
@@ -186,7 +185,6 @@ use Commercetools\Core\Request\Products\Command\ProductSetPriceCustomFieldAction
 use Commercetools\Core\Request\Products\Command\ProductSetPriceCustomTypeAction;
 use Commercetools\Core\Request\Products\Command\ProductSetPricesAction;
 use Commercetools\Core\Request\Products\Command\ProductSetSearchKeywordsAction;
-use Commercetools\Core\Request\Products\Command\ProductSetSkuNotStageableAction;
 use Commercetools\Core\Request\Products\Command\ProductSetTaxCategoryAction;
 use Commercetools\Core\Request\Products\Command\ProductTransitionStateAction;
 use Commercetools\Core\Request\Products\Command\ProductUnpublishAction;
@@ -668,6 +666,10 @@ class GenericActionTest extends \PHPUnit\Framework\TestCase
             ],
             [
                 CustomerSetVatIdAction::class,
+                'of',
+            ],
+            [
+                CustomerSetAuthenticationModeAction::class,
                 'of',
             ],
             [
