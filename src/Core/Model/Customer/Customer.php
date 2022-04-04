@@ -79,6 +79,8 @@ use DateTime;
  * @method Customer setLastModifiedBy(LastModifiedBy $lastModifiedBy = null)
  * @method StoreReferenceCollection getStores()
  * @method Customer setStores(StoreReferenceCollection $stores = null)
+ * @method string getAuthenticationMode()
+ * @method Customer setAuthenticationMode(string $authenticationMode = null)
  * @method CustomerReference getReference()
  */
 class Customer extends Resource
@@ -127,6 +129,7 @@ class Customer extends Resource
             'createdBy' => [static::TYPE => CreatedBy::class, static::OPTIONAL => true],
             'lastModifiedBy' => [static::TYPE => LastModifiedBy::class, static::OPTIONAL => true],
             'stores' => [static::TYPE => StoreReferenceCollection::class, static::OPTIONAL => true],
+            'authenticationMode' => [static::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 
