@@ -73,6 +73,8 @@ use Commercetools\Core\Model\Common\DateDecorator;
  * @method CustomerDraft setStores(StoreReferenceCollection $stores = null)
  * @method CartReference getAnonymousCart()
  * @method CustomerDraft setAnonymousCart(CartReference $anonymousCart = null)
+ * @method string getAuthenticationMode()
+ * @method CustomerDraft setAuthenticationMode(string $authenticationMode = null)
  */
 class CustomerDraft extends JsonObject
 {
@@ -111,6 +113,7 @@ class CustomerDraft extends JsonObject
             'anonymousId' => [static::TYPE => 'string', static::OPTIONAL => true],
             'stores' => [static::TYPE => StoreReferenceCollection::class, static::OPTIONAL => true],
             'anonymousCart' => [static::TYPE => CartReference::class, static::OPTIONAL => true],
+            'authenticationMode' => [static::TYPE => 'string', static::OPTIONAL => true],
         ];
     }
 
