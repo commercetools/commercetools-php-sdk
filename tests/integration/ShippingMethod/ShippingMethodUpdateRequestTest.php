@@ -405,6 +405,7 @@ class ShippingMethodUpdateRequestTest extends ApiTestCase
 
     public function testShippingMethodPriceTierScoreFunction()
     {
+        self::markTestSkipped();
         $client = $this->getApiClient();
 
         ProjectFixture::withSetupProject(
