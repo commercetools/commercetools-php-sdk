@@ -234,7 +234,7 @@ jobs:
       - name: Get release data
         id: retrieve_release
         env:
-          GITHUB_TOKEN: ${{ secrets.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh api repos/commercetools/commercetools-php-sdk/releases/tags/$SOURCE_TAG > release_data.json
           echo 'UPLOAD_URL='$(jq '.upload_url' release_data.json) >> $GITHUB_ENV
