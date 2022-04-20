@@ -226,6 +226,10 @@
 							ProductDiscount						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.ProductSelection.html">
+							ProductSelection						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.ProductType.html">
 							ProductType						</a>
 							</li>
@@ -461,6 +465,16 @@
 							<ul>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Products.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductSelections.html">
+							ProductSelections<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductSelections.Command.html">
 							Command						</a>
 							</li>
 								</ul></li>
@@ -747,32 +761,32 @@
 </span><span id="69" class="l">    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> fieldDefinitions()
 </span><span id="70" class="l">    {
 </span><span id="71" class="l">        <span class="php-keyword1">return</span> [
-</span><span id="72" class="l">            <span class="php-quote">'id'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="73" class="l">            <span class="php-quote">'key'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="74" class="l">            <span class="php-quote">'title'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="75" class="l">            <span class="php-quote">'salutation'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="76" class="l">            <span class="php-quote">'firstName'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="77" class="l">            <span class="php-quote">'lastName'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="78" class="l">            <span class="php-quote">'streetName'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="79" class="l">            <span class="php-quote">'streetNumber'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="80" class="l">            <span class="php-quote">'additionalStreetInfo'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="81" class="l">            <span class="php-quote">'postalCode'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="82" class="l">            <span class="php-quote">'city'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="83" class="l">            <span class="php-quote">'region'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="84" class="l">            <span class="php-quote">'state'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="72" class="l">            <span class="php-quote">'id'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="73" class="l">            <span class="php-quote">'key'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="74" class="l">            <span class="php-quote">'title'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="75" class="l">            <span class="php-quote">'salutation'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="76" class="l">            <span class="php-quote">'firstName'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="77" class="l">            <span class="php-quote">'lastName'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="78" class="l">            <span class="php-quote">'streetName'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="79" class="l">            <span class="php-quote">'streetNumber'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="80" class="l">            <span class="php-quote">'additionalStreetInfo'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="81" class="l">            <span class="php-quote">'postalCode'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="82" class="l">            <span class="php-quote">'city'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="83" class="l">            <span class="php-quote">'region'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="84" class="l">            <span class="php-quote">'state'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
 </span><span id="85" class="l">            <span class="php-quote">'country'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="86" class="l">            <span class="php-quote">'company'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="87" class="l">            <span class="php-quote">'department'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="88" class="l">            <span class="php-quote">'building'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="89" class="l">            <span class="php-quote">'apartment'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="90" class="l">            <span class="php-quote">'pOBox'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="91" class="l">            <span class="php-quote">'phone'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="92" class="l">            <span class="php-quote">'mobile'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="93" class="l">            <span class="php-quote">'email'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="94" class="l">            <span class="php-quote">'additionalAddressInfo'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="95" class="l">            <span class="php-quote">'fax'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="96" class="l">            <span class="php-quote">'externalId'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="97" class="l">            <span class="php-quote">'custom'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CustomFieldObject::<span class="php-keyword1">class</span>]
+</span><span id="86" class="l">            <span class="php-quote">'company'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="87" class="l">            <span class="php-quote">'department'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="88" class="l">            <span class="php-quote">'building'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="89" class="l">            <span class="php-quote">'apartment'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="90" class="l">            <span class="php-quote">'pOBox'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="91" class="l">            <span class="php-quote">'phone'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="92" class="l">            <span class="php-quote">'mobile'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="93" class="l">            <span class="php-quote">'email'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="94" class="l">            <span class="php-quote">'additionalAddressInfo'</span> =&gt; [self::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="95" class="l">            <span class="php-quote">'fax'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="96" class="l">            <span class="php-quote">'externalId'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="97" class="l">            <span class="php-quote">'custom'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CustomFieldObject::<span class="php-keyword1">class</span>, self::OPTIONAL =&gt; <span class="php-keyword1">true</span>]
 </span><span id="98" class="l">        ];
 </span><span id="99" class="l">    }
 </span><span id="100" class="l">}
@@ -785,6 +799,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?d87ce1214c0cb147e1bc172c43b4565d99939e17"></script>
-<script src="elementlist.js?497f96f932e82f46e7685bfba96762df9bbe1833"></script>
+<script src="elementlist.js?cbde98481933172b0d5b8bfa33153a529a638530"></script>
 </body>
 </html>

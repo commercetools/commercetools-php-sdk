@@ -226,6 +226,10 @@
 							ProductDiscount						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.ProductSelection.html">
+							ProductSelection						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.ProductType.html">
 							ProductType						</a>
 							</li>
@@ -465,6 +469,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductSelections.html">
+							ProductSelections<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductSelections.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.ProductTypes.html">
 							ProductTypes<span></span>
 						</a>
@@ -657,10 +671,10 @@
 </span><span id="28" class="l">    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> fieldDefinitions()
 </span><span id="29" class="l">    {
 </span><span id="30" class="l">        <span class="php-keyword1">return</span> [
-</span><span id="31" class="l">            <span class="php-quote">'key'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="31" class="l">            <span class="php-quote">'key'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
 </span><span id="32" class="l">            <span class="php-quote">'destination'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; Destination::<span class="php-keyword1">class</span>],
-</span><span id="33" class="l">            <span class="php-quote">'messages'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; MessageSubscriptionCollection::<span class="php-keyword1">class</span>],
-</span><span id="34" class="l">            <span class="php-quote">'changes'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; ChangeSubscriptionCollection::<span class="php-keyword1">class</span>],
+</span><span id="33" class="l">            <span class="php-quote">'messages'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; MessageSubscriptionCollection::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="34" class="l">            <span class="php-quote">'changes'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; ChangeSubscriptionCollection::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
 </span><span id="35" class="l">        ];
 </span><span id="36" class="l">    }
 </span><span id="37" class="l">
@@ -717,6 +731,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?d87ce1214c0cb147e1bc172c43b4565d99939e17"></script>
-<script src="elementlist.js?497f96f932e82f46e7685bfba96762df9bbe1833"></script>
+<script src="elementlist.js?cbde98481933172b0d5b8bfa33153a529a638530"></script>
 </body>
 </html>

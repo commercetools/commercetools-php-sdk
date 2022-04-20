@@ -226,6 +226,10 @@
 							ProductDiscount						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.ProductSelection.html">
+							ProductSelection						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.ProductType.html">
 							ProductType						</a>
 							</li>
@@ -465,6 +469,16 @@
 							</li>
 								</ul></li>
 					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductSelections.html">
+							ProductSelections<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductSelections.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
 						<a href="namespace-Commercetools.Core.Request.ProductTypes.html">
 							ProductTypes<span></span>
 						</a>
@@ -688,20 +702,20 @@
 </span><span id="76" class="l">                <span class="php-keyword1">static</span>::TYPE =&gt; DateTime::<span class="php-keyword1">class</span>,
 </span><span id="77" class="l">                <span class="php-keyword1">static</span>::DECORATOR =&gt; DateTimeDecorator::<span class="php-keyword1">class</span>
 </span><span id="78" class="l">            ],
-</span><span id="79" class="l">            <span class="php-quote">'key'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="80" class="l">            <span class="php-quote">'uniquenessValue'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="81" class="l">            <span class="php-quote">'locale'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="82" class="l">            <span class="php-quote">'authorName'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="83" class="l">            <span class="php-quote">'title'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="84" class="l">            <span class="php-quote">'text'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="85" class="l">            <span class="php-quote">'target'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; ResourceIdentifier::<span class="php-keyword1">class</span>],
-</span><span id="86" class="l">            <span class="php-quote">'rating'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'int'</span>],
-</span><span id="87" class="l">            <span class="php-quote">'state'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; StateReference::<span class="php-keyword1">class</span>],
+</span><span id="79" class="l">            <span class="php-quote">'key'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="80" class="l">            <span class="php-quote">'uniquenessValue'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="81" class="l">            <span class="php-quote">'locale'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="82" class="l">            <span class="php-quote">'authorName'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="83" class="l">            <span class="php-quote">'title'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="84" class="l">            <span class="php-quote">'text'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="85" class="l">            <span class="php-quote">'target'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; ResourceIdentifier::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="86" class="l">            <span class="php-quote">'rating'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'int'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="87" class="l">            <span class="php-quote">'state'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; StateReference::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
 </span><span id="88" class="l">            <span class="php-quote">'includedInStatistics'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'bool'</span>],
-</span><span id="89" class="l">            <span class="php-quote">'customer'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CustomerReference::<span class="php-keyword1">class</span>],
-</span><span id="90" class="l">            <span class="php-quote">'custom'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CustomFieldObject::<span class="php-keyword1">class</span>],
-</span><span id="91" class="l">            <span class="php-quote">'createdBy'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CreatedBy::<span class="php-keyword1">class</span>],
-</span><span id="92" class="l">            <span class="php-quote">'lastModifiedBy'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; LastModifiedBy::<span class="php-keyword1">class</span>],
+</span><span id="89" class="l">            <span class="php-quote">'customer'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CustomerReference::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="90" class="l">            <span class="php-quote">'custom'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CustomFieldObject::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="91" class="l">            <span class="php-quote">'createdBy'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CreatedBy::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="92" class="l">            <span class="php-quote">'lastModifiedBy'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; LastModifiedBy::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
 </span><span id="93" class="l">        ];
 </span><span id="94" class="l">    }
 </span><span id="95" class="l">
@@ -723,6 +737,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?d87ce1214c0cb147e1bc172c43b4565d99939e17"></script>
-<script src="elementlist.js?497f96f932e82f46e7685bfba96762df9bbe1833"></script>
+<script src="elementlist.js?cbde98481933172b0d5b8bfa33153a529a638530"></script>
 </body>
 </html>

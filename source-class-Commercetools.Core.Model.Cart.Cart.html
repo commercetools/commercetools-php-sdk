@@ -226,6 +226,10 @@
 							ProductDiscount						</a>
 							</li>
 					<li>
+						<a href="namespace-Commercetools.Core.Model.ProductSelection.html">
+							ProductSelection						</a>
+							</li>
+					<li>
 						<a href="namespace-Commercetools.Core.Model.ProductType.html">
 							ProductType						</a>
 							</li>
@@ -461,6 +465,16 @@
 							<ul>
 					<li>
 						<a href="namespace-Commercetools.Core.Request.Products.Command.html">
+							Command						</a>
+							</li>
+								</ul></li>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductSelections.html">
+							ProductSelections<span></span>
+						</a>
+							<ul>
+					<li>
+						<a href="namespace-Commercetools.Core.Request.ProductSelections.Command.html">
 							Command						</a>
 							</li>
 								</ul></li>
@@ -762,7 +776,7 @@
 </span><span id="115" class="l">    {
 </span><span id="116" class="l">        <span class="php-keyword1">return</span> [
 </span><span id="117" class="l">            <span class="php-quote">'id'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="118" class="l">            <span class="php-quote">'key'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="118" class="l">            <span class="php-quote">'key'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
 </span><span id="119" class="l">            <span class="php-quote">'version'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'int'</span>],
 </span><span id="120" class="l">            <span class="php-quote">'createdAt'</span> =&gt; [
 </span><span id="121" class="l">                <span class="php-keyword1">static</span>::TYPE =&gt; DateTime::<span class="php-keyword1">class</span>,
@@ -772,35 +786,35 @@
 </span><span id="125" class="l">                <span class="php-keyword1">static</span>::TYPE =&gt; DateTime::<span class="php-keyword1">class</span>,
 </span><span id="126" class="l">                <span class="php-keyword1">static</span>::DECORATOR =&gt; DateTimeDecorator::<span class="php-keyword1">class</span>
 </span><span id="127" class="l">            ],
-</span><span id="128" class="l">            <span class="php-quote">'customerId'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="129" class="l">            <span class="php-quote">'customerEmail'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="128" class="l">            <span class="php-quote">'customerId'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="129" class="l">            <span class="php-quote">'customerEmail'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
 </span><span id="130" class="l">            <span class="php-quote">'lineItems'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; LineItemCollection::<span class="php-keyword1">class</span>],
 </span><span id="131" class="l">            <span class="php-quote">'customLineItems'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CustomLineItemCollection::<span class="php-keyword1">class</span>],
 </span><span id="132" class="l">            <span class="php-quote">'totalPrice'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; Money::<span class="php-keyword1">class</span>],
-</span><span id="133" class="l">            <span class="php-quote">'taxedPrice'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; TaxedPrice::<span class="php-keyword1">class</span>],
+</span><span id="133" class="l">            <span class="php-quote">'taxedPrice'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; TaxedPrice::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
 </span><span id="134" class="l">            <span class="php-quote">'cartState'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="135" class="l">            <span class="php-quote">'shippingAddress'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; Address::<span class="php-keyword1">class</span>],
-</span><span id="136" class="l">            <span class="php-quote">'billingAddress'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; Address::<span class="php-keyword1">class</span>],
-</span><span id="137" class="l">            <span class="php-quote">'inventoryMode'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="138" class="l">            <span class="php-quote">'customerGroup'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CustomerGroupReference::<span class="php-keyword1">class</span>],
-</span><span id="139" class="l">            <span class="php-quote">'country'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="140" class="l">            <span class="php-quote">'shippingInfo'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; ShippingInfo::<span class="php-keyword1">class</span>],
-</span><span id="141" class="l">            <span class="php-quote">'discountCodes'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; DiscountCodeInfoCollection::<span class="php-keyword1">class</span>],
-</span><span id="142" class="l">            <span class="php-quote">'custom'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CustomFieldObject::<span class="php-keyword1">class</span>],
-</span><span id="143" class="l">            <span class="php-quote">'paymentInfo'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; PaymentInfo::<span class="php-keyword1">class</span>],
+</span><span id="135" class="l">            <span class="php-quote">'shippingAddress'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; Address::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="136" class="l">            <span class="php-quote">'billingAddress'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; Address::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="137" class="l">            <span class="php-quote">'inventoryMode'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="138" class="l">            <span class="php-quote">'customerGroup'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CustomerGroupReference::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="139" class="l">            <span class="php-quote">'country'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="140" class="l">            <span class="php-quote">'shippingInfo'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; ShippingInfo::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="141" class="l">            <span class="php-quote">'discountCodes'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; DiscountCodeInfoCollection::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="142" class="l">            <span class="php-quote">'custom'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CustomFieldObject::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="143" class="l">            <span class="php-quote">'paymentInfo'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; PaymentInfo::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
 </span><span id="144" class="l">            <span class="php-quote">'taxMode'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="145" class="l">            <span class="php-quote">'anonymousId'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="146" class="l">            <span class="php-quote">'locale'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
+</span><span id="145" class="l">            <span class="php-quote">'anonymousId'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="146" class="l">            <span class="php-quote">'locale'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
 </span><span id="147" class="l">            <span class="php-quote">'taxRoundingMode'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="148" class="l">            <span class="php-quote">'deleteDaysAfterLastModification'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'int'</span>],
+</span><span id="148" class="l">            <span class="php-quote">'deleteDaysAfterLastModification'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'int'</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
 </span><span id="149" class="l">            <span class="php-quote">'refusedGifts'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CartDiscountReferenceCollection::<span class="php-keyword1">class</span>],
 </span><span id="150" class="l">            <span class="php-quote">'origin'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
 </span><span id="151" class="l">            <span class="php-quote">'taxCalculationMode'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'string'</span>],
-</span><span id="152" class="l">            <span class="php-quote">'shippingRateInput'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; ShippingRateInput::<span class="php-keyword1">class</span>],
-</span><span id="153" class="l">            <span class="php-quote">'itemShippingAddresses'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; AddressCollection::<span class="php-keyword1">class</span>],
-</span><span id="154" class="l">            <span class="php-quote">'store'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; StoreReference::<span class="php-keyword1">class</span>],
-</span><span id="155" class="l">            <span class="php-quote">'createdBy'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CreatedBy::<span class="php-keyword1">class</span>],
-</span><span id="156" class="l">            <span class="php-quote">'lastModifiedBy'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; LastModifiedBy::<span class="php-keyword1">class</span>],
+</span><span id="152" class="l">            <span class="php-quote">'shippingRateInput'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; ShippingRateInput::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="153" class="l">            <span class="php-quote">'itemShippingAddresses'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; AddressCollection::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="154" class="l">            <span class="php-quote">'store'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; StoreReference::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="155" class="l">            <span class="php-quote">'createdBy'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; CreatedBy::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
+</span><span id="156" class="l">            <span class="php-quote">'lastModifiedBy'</span> =&gt; [<span class="php-keyword1">static</span>::TYPE =&gt; LastModifiedBy::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>],
 </span><span id="157" class="l">        ];
 </span><span id="158" class="l">    }
 </span><span id="159" class="l">
@@ -825,6 +839,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?d87ce1214c0cb147e1bc172c43b4565d99939e17"></script>
-<script src="elementlist.js?497f96f932e82f46e7685bfba96762df9bbe1833"></script>
+<script src="elementlist.js?cbde98481933172b0d5b8bfa33153a529a638530"></script>
 </body>
 </html>
