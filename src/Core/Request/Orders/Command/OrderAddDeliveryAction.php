@@ -62,7 +62,7 @@ class OrderAddDeliveryAction extends AbstractAction
     }
 
     /**
-     * @deprecated not supported by platform - will be removed in 3.0
+     * @deprecated not supported by Composable Commerce - will be removed in 3.0
      * @return null
      */
     public function getMeasurements()
@@ -71,7 +71,7 @@ class OrderAddDeliveryAction extends AbstractAction
     }
 
     /**
-     * @deprecated not supported by platform - will be removed in 3.0
+     * @deprecated not supported by Composable Commerce - will be removed in 3.0
      * @return OrderAddDeliveryAction
      */
     public function setMeasurements()
@@ -80,7 +80,7 @@ class OrderAddDeliveryAction extends AbstractAction
     }
 
     /**
-     * @deprecated not supported by platform - will be removed in 3.0
+     * @deprecated not supported by Composable Commerce - will be removed in 3.0
      * @return null
      */
     public function getTrackingData()
@@ -89,7 +89,7 @@ class OrderAddDeliveryAction extends AbstractAction
     }
 
     /**
-     * @deprecated not supported by platform - will be removed in 3.0
+     * @deprecated not supported by Composable Commerce - will be removed in 3.0
      * @return OrderAddDeliveryAction
      */
     public function setTrackingData()

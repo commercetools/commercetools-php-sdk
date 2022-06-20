@@ -32,10 +32,10 @@ use Psr\Log\LogLevel;
 use Psr\SimpleCache\CacheInterface;
 
 /**
- * The factory to create a Client for communicating with the commercetools platform
+ * The factory to create a Client for communicating with Composable Commerce
  *
  * @description
- * This factory will create a Guzzle HTTP Client preconfigured for talking to the commercetools platform
+ * This factory will create a Guzzle HTTP Client preconfigured for talking to Composable Commerce
  *
  * ## Instantiation
  *
@@ -137,7 +137,7 @@ use Psr\SimpleCache\CacheInterface;
  *
  * ## Middlewares
  *
- * Adding middlewares to the clients for platform as well for the authentication can be done using the config
+ * Adding middlewares to the clients for Composable Commerce as well for the authentication can be done using the config
  * by setting client options.
  *
  * ### Using a HandlerStack

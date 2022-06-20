@@ -28,7 +28,7 @@ use Commercetools\Core\Client\OAuth\Manager;
 use function GuzzleHttp\Psr7\stream_for;
 
 /**
- * The client for communicating with the commercetools platform
+ * The client for communicating with Composable Commerce
  *
  * @description
  * ## Instantiation

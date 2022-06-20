@@ -1,4 +1,4 @@
 parameters:
-  client_id: Your Commercetools client ID
-  client_secret: Your Commercetools client secret
-  project: Your Commercetools project key
+  client_id: Your Composable Commerce client ID
+  client_secret: Your Composable Commerce client secret
+  project: Your Composable Commerce project key

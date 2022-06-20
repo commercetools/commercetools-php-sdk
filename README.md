@@ -1,6 +1,6 @@
-# <img src="build/theme/resources/CT_cube_200px.png" width="40" align="center"></img> commercetools PHP SDK
+# <img src="build/theme/resources/CT_cube_200px.png" width="40" align="center"></img> Composable Commerce PHP SDK
 
-:warning: **This commercetools PHP SDK is in its Active Support mode currently, and is planned to be deprecated, please note the following dates.
+:warning: **This Composable Commerce PHP SDK is in its Active Support mode currently, and is planned to be deprecated, please note the following dates.
 
 | Active Support        | Maintenance Support   | End of Life           |
 | --------------------- | --------------------- | --------------------- |
@@ -10,7 +10,7 @@ We recommend to use our [PHP SDK V2](https://docs.commercetools.com/sdk/php-sdk#
 
 [![Build Status](https://img.shields.io/travis/com/commercetools/commercetools-php-sdk/master.svg?style=flat-square)](https://travis-ci.com/commercetools/commercetools-php-sdk) [![Scrutinizer](https://img.shields.io/scrutinizer/g/commercetools/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/commercetools/commercetools-php-sdk/) [![Scrutinizer](https://img.shields.io/scrutinizer/coverage/g/commercetools/commercetools-php-sdk.svg?style=flat-square)](https://scrutinizer-ci.com/g/commercetools/commercetools-php-sdk/) [![Packagist](https://img.shields.io/packagist/v/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk) [![Packagist](https://img.shields.io/packagist/dm/commercetools/php-sdk.svg?style=flat-square)](https://packagist.org/packages/commercetools/php-sdk)
 
-The PHP SDK allows developers to build applications on the commercetools platform (technically speaking against our REST API) using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API.
+The PHP SDK allows developers to build applications on Composable Commerce (technically speaking against our REST API) using PHP native interfaces, models and helpers instead of manually using the HTTP and JSON API.
 
 You gain lots of IDE Auto-Completion, type checks on a literal API, Warnings, Object Mapping, i18n support etc.. The Client manages the OAuth2 security tokens, provides caches and interfaces for concurrent and asynchronous API calls.
 
@@ -70,7 +70,7 @@ Please read the [Changelog](CHANGELOG.md) before updating in any case.
 
 ### Getting started
 
-To get up and running, create a free test project ([EU located](https://mc.commercetools.com/login/new) or [US located](https://mc.commercetools.co/login/new)) on the commercetools platform. To generate your API credentials go to [EU Merchant Center](https://mc.commercetools.com/) or [US Merchant Center](https://mc.commercetools.co/) (Menu "Settings"->"Developer Settings"->"API Clients"->"Create New Api Client").
+To get up and running, create a free test project ([EU located](https://mc.commercetools.com/login/new) or [US located](https://mc.commercetools.co/login/new)) on Composable Commerce. To generate your API credentials go to [EU Merchant Center](https://mc.commercetools.com/) or [US Merchant Center](https://mc.commercetools.co/) (Menu "Settings"->"Developer Settings"->"API Clients"->"Create New Api Client").
 You need to select the template for the "Admin client".
 
 ```php
@@ -234,7 +234,7 @@ $client = ClientFactory::of()->createClient($config, $logger, $cache);
 
 #### Middlewares
 
-Adding middlewares to the clients for platform as well for the authentication can be done using the config
+Adding middlewares to the clients for Composable Commerce as well for the authentication can be done using the config
 by setting client options.
 
 For using a custom HandlerStack
@@ -344,7 +344,7 @@ $response = $client->execute($request);
 $project = $request->mapFromResponse($response);
 var_dump($project->toArray());
 ```
- 
+
 ## Improve & Contribute to the SDK project
 
 ### Mac OS X preparations:
@@ -419,7 +419,7 @@ Now you can enable at Preferences > Editor > Inspections > PHP the "PHP code sni
 
 ### Running integration tests
 
-For running the integration tests you need an empty commercetools project and have to create an API client using the commercetools Merchant Center with the scopes:
+For running the integration tests you need an empty Project and have to create an API client using the commercetools Merchant Center with the scopes:
 ```
 manage_project
 view_orders

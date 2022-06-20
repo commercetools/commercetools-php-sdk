@@ -55,7 +55,7 @@ $products = $request->mapFromResponse($response);
 ?>
 <html>
 <head>
-    <title>Commercetools PHP SDK example</title>
+    <title>Composable Commerce PHP SDK example</title>
 </head>
 <body>
     <form method="POST" action=".">

@@ -38,7 +38,7 @@ class ProductSetTaxCategoryAction extends AbstractAction
     }
 
     /**
-     * @deprecated not supported by platform - will be removed in 3.0
+     * @deprecated not supported by Composable Commerce - will be removed in 3.0
      * @return null
      */
     public function getStaged()
@@ -47,7 +47,7 @@ class ProductSetTaxCategoryAction extends AbstractAction
     }
 
     /**
-     * @deprecated not supported by platform - will be removed in 3.0
+     * @deprecated not supported by Composable Commerce - will be removed in 3.0
      * @return ProductSetTaxCategoryAction
      */
     public function setStaged()
