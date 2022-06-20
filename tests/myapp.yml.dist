@@ -1,7 +1,7 @@
 parameters:
-  client_id: Your Commercetools client ID
-  client_secret: Your Commercetools client secret
-  project: Your Commercetools project key
+  client_id: Your Composable Commerce client ID
+  client_secret: Your Composable Commerce client secret
+  project: Your Project key
   oauth_url: https://auth.europe-west1.gcp.commercetools.com
   api_url: https://api.europe-west1.gcp.commercetools.com
   enableCorrelationId: 1
