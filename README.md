@@ -70,7 +70,7 @@ Please read the [Changelog](CHANGELOG.md) before updating in any case.
 
 ### Getting started
 
-To get up and running, create a free test project ([EU located](https://mc.commercetools.com/login/new) or [US located](https://mc.commercetools.co/login/new)) on Composable Commerce. To generate your API credentials go to [EU Merchant Center](https://mc.commercetools.com/) or [US Merchant Center](https://mc.commercetools.co/) (Menu "Settings"->"Developer Settings"->"API Clients"->"Create New Api Client").
+To get up and running, create a free test [Project](https://mc.commercetools.com/login/new) on Composable Commerce. You can create your first API Client in [The Merchant Center](https://mc.commercetools.com/) (Menu "Settings"->"Developer settings"->"Create new API client").
 You need to select the template for the "Admin client".
 
 ```php
