@@ -476,7 +476,7 @@
   - DoctrineCacheAdapter
   - NullCacheAdapter
   - PhpRedisCacheAdapter
-  
+
   Use an appropiate PSR-6 or PRS-16 cache adapter as a replacement. The SDK uses the [cache\apcu-adapter](https://packagist.org/packages/cache/apcu-adapter) as default or if available the [cache\filesystem-adapter](https://packagist.org/packages/cache/filesystem-adapter)
 * Deprecations have been removed
   - FileRequest
@@ -490,9 +490,8 @@
 
 ### DEPRECATION NOTE
 
-The class ```Commercetools\Commons\Helper\PriceFinder``` has been deprecated. Please use the 
-[price selection](http://docs.commercetools.com/http-api-projects-products.html#price-selection) functionality of
-the platform. E.g. ```ProductProjectionSearchRequest::of()->currency('EUR')->country('DE')```
+The class ```Commercetools\Commons\Helper\PriceFinder``` has been deprecated. Please use the
+[price selection](http://docs.commercetools.com/http-api-projects-products.html#price-selection) functionality of Composable Commerce. E.g. ```ProductProjectionSearchRequest::of()->currency('EUR')->country('DE')```
 
 
 <a name="2.0.0-RC1"></a>
@@ -543,7 +542,7 @@ the platform. E.g. ```ProductProjectionSearchRequest::of()->currency('EUR')->cou
   ```
   $request = ProductProjectionSearchRequest::of()->markMatchingVariants(true);
   ```
-  
+
 * PHP minimum version is now 5.6
 * Token caching is now using [PSR-6](https://packagist.org/providers/psr/cache-implementation) or [PSR-16](https://packagist.org/providers/psr/simple-cache-implementation) cache adapters only.
   Removed classes:
@@ -554,7 +553,7 @@ the platform. E.g. ```ProductProjectionSearchRequest::of()->currency('EUR')->cou
   - DoctrineCacheAdapter
   - NullCacheAdapter
   - PhpRedisCacheAdapter
-  
+
   Use an appropiate PSR-6 or PRS-16 cache adapter as a replacement. The SDK uses the [cache\apcu-adapter](https://packagist.org/packages/cache/apcu-adapter) as default or if available the [cache\filesystem-adapter](https://packagist.org/packages/cache/filesystem-adapter)
 * Deprecations have been removed
   - FileRequest
@@ -860,53 +859,53 @@ There had been no changes
 * Product: renamed the ProductSetSKUAction to ProductSetSKUNotStageableAction
 
   Before:
-  
+
   ```
   ProductSetSKUAction::ofVariantId()
   ```
 
   After:
-  
+
   ```
   ProductSetSKUNotStageableAction::ofVariantId() // old behavior action
   ProductSetSkuAction::ofVariantId() // stageable action
   ```
 * Product: fix type of price collections
-  
+
   Before:
-  
+
   ```
   ProductAddVariantAction::of()->setPrices(PriceCollection::of()->add(Price::of()))
   ```
 
   After:
-  
+
   ```
   ProductAddVariantAction::of()->setPrices(PriceDraftCollection::of()->add(PriceDraft::of()))
   ```
 * Customer: adjust customer email verification request to API changes
 
   Before:
-  
+
   ```
   CustomerEmailConfirmRequest::ofIdVersionAndToken($id, $version, $token)
   ```
 
   After:
-  
+
   ```
   CustomerEmailConfirmRequest::ofToken($token)
   ```
 * Customer: adjust customer password change request to API changes
 
   Before:
-  
+
   ```
   CustomerPasswordResetRequest::ofIdVersionTokenAndPassword($id, $version, $token, $newPassword)
   ```
 
   After:
-  
+
   ```
   CustomerPasswordResetRequest::ofTokenAndPassword($token, $newPassword)
   ```
@@ -960,9 +959,9 @@ Facet, Filter, FilterRange and FilterRangeCollection in namespace Commercetools\
 
 ### BREAKING CHANGES
 * Changed named constructors for type update actions
-  
+
   Before:
-  
+
   ```
   TypeAddLocalizedEnumValueAction::ofEnum(...)
   TypeAddEnumValueAction::ofEnum(...)
@@ -970,9 +969,9 @@ Facet, Filter, FilterRange and FilterRangeCollection in namespace Commercetools\
   TypeChangeLocalizedEnumValueOrderAction::ofEnums(...)
   TypeChangeLabelAction::ofLabel(...)
   ```
-  
+
   After:
-  
+
   ```
   TypeAddLocalizedEnumValueAction::ofNameAndEnum(...)
   TypeAddEnumValueAction::ofNameAndEnum(...)
