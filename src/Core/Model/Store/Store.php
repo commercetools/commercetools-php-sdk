@@ -59,10 +59,10 @@ class Store extends Resource
                 static::TYPE => DateTime::class,
                 static::DECORATOR => DateTimeDecorator::class
             ],
-            'languages' => [static::TYPE => 'array', static::OPTIONAL => true],
+            'languages' => [static::TYPE => 'array'],
             'distributionChannels' => [static::TYPE => 'array'],
-            'supplyChannels' => [static::TYPE => 'array', static::OPTIONAL => true],
-            'productSelections' => [static::TYPE => 'array', static::OPTIONAL => true],
+            'supplyChannels' => [static::TYPE => 'array'],
+            'productSelections' => [static::TYPE => 'array'],
             'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
         ];
     }
