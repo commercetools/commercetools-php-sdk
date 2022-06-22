@@ -162,7 +162,7 @@ class Order extends Resource
             'syncInfo' => [static::TYPE => SyncInfoCollection::class],
             'returnInfo' => [static::TYPE => ReturnInfoCollection::class, static::OPTIONAL => true],
             'discountCodes' => [static::TYPE => DiscountCodeInfoCollection::class, static::OPTIONAL => true],
-            'lastMessageSequenceNumber' => [static::TYPE => 'int'],
+            'lastMessageSequenceNumber' => [static::TYPE => 'int', static::OPTIONAL => true],
             'cart' => [static::TYPE => CartReference::class, static::OPTIONAL => true],
             'custom' => [static::TYPE => CustomFieldObject::class, static::OPTIONAL => true],
             'state' => [static::TYPE => StateReference::class, static::OPTIONAL => true],
