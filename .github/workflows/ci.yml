@@ -221,7 +221,7 @@ jobs:
       - name: Install box
         env:
           GITHUB_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: phive install --force-accept-unsigned
+        run: phive install --force-accept-unsigned --trust-gpg-keys
 
       - name: Compile phar
         run: tools/box compile
