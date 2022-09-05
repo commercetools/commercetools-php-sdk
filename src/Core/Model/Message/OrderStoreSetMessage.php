@@ -40,7 +40,7 @@ class OrderStoreSetMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['store'] = [static::TYPE => StoreReference::class];
+        $definitions['store'] = [static::TYPE => StoreReference::class, static::OPTIONAL => true];
 
         return $definitions;
     }

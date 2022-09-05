@@ -46,7 +46,7 @@ class ProductDeletedMessage extends Message
     {
         $definitions = parent::fieldDefinitions();
         $definitions['removedImageUrls'] = [static::TYPE => 'array'];
-        $definitions['currentProjection'] = [static::TYPE => ProductProjection::class];
+        $definitions['currentProjection'] = [static::TYPE => ProductProjection::class, static::OPTIONAL => true];
 
         return $definitions;
     }

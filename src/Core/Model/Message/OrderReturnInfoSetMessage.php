@@ -9,7 +9,7 @@ use DateTime;
 
 /**
  * @package Commercetools\Core\Model\Message
- * @link https://docs.commercetools.com/http-api-projects-messages.html#orderreturninfoset-message
+ * @link https://docs.commercetools.com/api/projects/messages#return-info-set
  * @method string getId()
  * @method OrderReturnInfoSetMessage setId(string $id = null)
  * @method DateTimeDecorator getCreatedAt()

@@ -1,3 +1,15 @@
+# [2.21.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.20.0...v2.21.0) (2022-07-04)
+
+### Features
+* **docs:** update naming to match new branding initiative
+
+
+# [2.20.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.19.0...v2.20.0) (2022-04-20)
+
+### Features
+* **Customer:** support authentication mode
+
+
 # [2.19.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.18.0...v2.19.0) (2022-04-04)
 
 

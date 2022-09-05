@@ -43,7 +43,7 @@ class PaymentStatusInterfaceCodeSetMessage extends Message
     {
         $definitions = parent::fieldDefinitions();
         $definitions['paymentId'] = [static::TYPE => 'string'];
-        $definitions['interfaceCode'] = [static::TYPE => 'string'];
+        $definitions['interfaceCode'] = [static::TYPE => 'string', static::OPTIONAL => true];
 
         return $definitions;
     }
