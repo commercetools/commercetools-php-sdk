@@ -696,6 +696,7 @@ class RamlModelTest extends AbstractModelTest
             'Message\MessageConfiguration' => 'Message\MessagesConfiguration',
             'Message\MessageConfigurationDraft' => 'Message\MessagesConfigurationDraft',
             'Message\OrderPaymentStateChangedMessage' => 'Message\OrderPaymentChangedMessage',
+            'Message\ReturnInfoSetMessage' => 'Message\OrderReturnInfoSetMessage',
             'Order\PaymentInfo' => 'Payment\PaymentInfo',
             'Cart\ExternalTaxRateDraft' => 'TaxCategory\ExternalTaxRateDraft',
             'Type\CustomFields' => 'CustomField\CustomFieldObject',
