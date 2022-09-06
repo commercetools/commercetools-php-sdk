@@ -46,7 +46,7 @@ class ProductVariantDeletedMessage extends Message
     {
         $definitions = parent::fieldDefinitions();
         $definitions['removedImageUrls'] = [static::TYPE => 'array'];
-        $definitions['variant'] = [static::TYPE => ProductVariant::class];
+        $definitions['variant'] = [static::TYPE => ProductVariant::class, static::OPTIONAL => true];
 
         return $definitions;
     }

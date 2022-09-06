@@ -53,7 +53,7 @@ class StoreCreatedMessage extends Message
             parent::fieldDefinitions(),
             [
                 'name' => [static::TYPE => 'string', static::OPTIONAL => true],
-                'languages' => [static::TYPE => 'array'],
+                'languages' => [static::TYPE => 'array', static::OPTIONAL => true],
                 'distributionChannels' => [static::TYPE => 'array'],
                 'supplyChannels' => [static::TYPE => 'array'],
                 'productSelections' => [static::TYPE => 'array'],

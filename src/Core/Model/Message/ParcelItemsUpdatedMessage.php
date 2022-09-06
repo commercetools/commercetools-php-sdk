@@ -49,7 +49,7 @@ class ParcelItemsUpdatedMessage extends Message
     public function fieldDefinitions()
     {
         $definitions = parent::fieldDefinitions();
-        $definitions['deliveryId'] = [static::TYPE => 'string', static::OPTIONAL => true];
+        $definitions['deliveryId'] = [static::TYPE => 'string'];
         $definitions['parcelId'] = [static::TYPE => 'string'];
         $definitions['items'] = [static::TYPE => DeliveryItemCollection::class];
 
