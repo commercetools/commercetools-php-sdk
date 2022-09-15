@@ -744,7 +744,7 @@
 </span><span id="40" class="l">    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> fieldDefinitions()
 </span><span id="41" class="l">    {
 </span><span id="42" class="l">        <span class="php-var">$definitions</span> = parent::fieldDefinitions();
-</span><span id="43" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'store'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; StoreReference::<span class="php-keyword1">class</span>];
+</span><span id="43" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'store'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; StoreReference::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>];
 </span><span id="44" class="l">
 </span><span id="45" class="l">        <span class="php-keyword1">return</span> <span class="php-var">$definitions</span>;
 </span><span id="46" class="l">    }

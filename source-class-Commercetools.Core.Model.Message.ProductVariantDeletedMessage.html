@@ -750,7 +750,7 @@
 </span><span id="46" class="l">    {
 </span><span id="47" class="l">        <span class="php-var">$definitions</span> = parent::fieldDefinitions();
 </span><span id="48" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'removedImageUrls'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'array'</span>];
-</span><span id="49" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'variant'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; ProductVariant::<span class="php-keyword1">class</span>];
+</span><span id="49" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'variant'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; ProductVariant::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>];
 </span><span id="50" class="l">
 </span><span id="51" class="l">        <span class="php-keyword1">return</span> <span class="php-var">$definitions</span>;
 </span><span id="52" class="l">    }

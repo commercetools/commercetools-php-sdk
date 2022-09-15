@@ -757,11 +757,11 @@
 </span><span id="53" class="l">    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> fieldDefinitions()
 </span><span id="54" class="l">    {
 </span><span id="55" class="l">        <span class="php-var">$definitions</span> = parent::fieldDefinitions();
-</span><span id="56" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'oldState'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; StateReference::<span class="php-keyword1">class</span>];
+</span><span id="56" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'oldState'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; StateReference::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>];
 </span><span id="57" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'newState'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; StateReference::<span class="php-keyword1">class</span>];
 </span><span id="58" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'oldIncludedInStatistics'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'bool'</span>];
 </span><span id="59" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'newIncludedInStatistics'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'bool'</span>];
-</span><span id="60" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'target'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; Reference::<span class="php-keyword1">class</span>];
+</span><span id="60" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'target'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; Reference::<span class="php-keyword1">class</span>, <span class="php-keyword1">static</span>::OPTIONAL =&gt; <span class="php-keyword1">true</span>];
 </span><span id="61" class="l">        <span class="php-var">$definitions</span>[<span class="php-quote">'force'</span>] = [<span class="php-keyword1">static</span>::TYPE =&gt; <span class="php-quote">'bool'</span>];
 </span><span id="62" class="l">
 </span><span id="63" class="l">        <span class="php-keyword1">return</span> <span class="php-var">$definitions</span>;
