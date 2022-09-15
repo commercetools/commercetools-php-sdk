@@ -1,3 +1,9 @@
+# [2.22.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.21.0...v2.22.0) (2022-09-15)
+
+### Features
+* **composer:** update announcement of deprecation
+
+
 # [2.21.0](https://github.com/commercetools/commercetools-php-sdk/compare/v2.20.0...v2.21.0) (2022-07-04)
 
 ### Features
