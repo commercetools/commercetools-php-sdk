@@ -46,7 +46,7 @@
     "phpspec/prophecy-phpunit": "^2.0",
     "symplify/easy-coding-standard": "10.0.2",
     "doctrine/cache": "^1.6 || ^2.0",
-    "monolog/monolog": "^1.12 || ^2.0",
+    "monolog/monolog": "^3.0",
     "symfony/yaml": "^4.0 || ^3.4.38 || ^5.0",
     "symfony/stopwatch": "^4.0 || ^3.4.38 || ^5.0",
     "cache/adapter-common": "^1.0",
