@@ -190,12 +190,11 @@ class Client extends AbstractHttpClient implements LoggerAwareInterface
      * @param LoggerInterface $logger
      * @return $this
      */
-    public function setLogger(LoggerInterface $logger = null)
+    public function setLogger(LoggerInterface $logger): void
     {
         if ($logger instanceof LoggerInterface) {
             $this->logger = $logger;
         }
-        return $this;
     }
 
     /**
